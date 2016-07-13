@@ -12,10 +12,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+#ifndef CONFIG_H
+#define CONFIG_H
+
 namespace Config {
 
 class Policy {
   // TODO(danielscottt)
-}
+};
 
-} // namespace Config
+class Config {
+};
+
+}; // namespace Config
+
+#endif

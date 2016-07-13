@@ -16,7 +16,7 @@ limitations under the License.
 
 #include "plugin.grpc.pb.h"
 
-#include "plugin.h"
+#include "snap/proxy/publisher_proxy.h"
 
 using grpc::Server;
 using grpc::ServerContext;
@@ -26,8 +26,9 @@ using rpc::Publisher;
 using rpc::MetricsArg;
 using rpc::ErrReply;
 
-using Plugin::Proxy;
+using namespace Plugin::Proxy;
 
 Status PublisherImpl::Publish(ServerContext* context, const MetricsArg* request,
                               ErrReply* response) {
+  return Status::OK;
 }

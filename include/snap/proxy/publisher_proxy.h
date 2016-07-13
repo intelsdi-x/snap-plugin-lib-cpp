@@ -12,11 +12,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+#ifndef PUBLISHER_PROXY_H
+#define PUBLISHER_PROXY_H
+
 #include <grpc++/grpc++.h>
 
 #include "plugin.grpc.pb.h"
 
-#include "plugin.h"
+#include "snap/proxy/plugin_proxy.h"
 
 using grpc::Server;
 using grpc::ServerContext;
@@ -29,12 +32,14 @@ using rpc::ErrReply;
 namespace Plugin {
 namespace Proxy {
 
-class PublisherImpl final : Publisher::Service, Plugin {
+class PublisherImpl final : Publisher::Service, PluginImpl {
 
   public:
     Status Publish(ServerContext* context, const MetricsArg* request,
                    ErrReply* response);
-}
+};
 
 } // Proxy
 } // Plugin
+
+#endif

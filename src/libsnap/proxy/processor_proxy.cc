@@ -16,7 +16,7 @@ limitations under the License.
 
 #include "plugin.grpc.pb.h"
 
-#include "plugin.h"
+#include "snap/proxy/processor_proxy.h"
 
 using grpc::Server;
 using grpc::ServerContext;
@@ -26,8 +26,9 @@ using rpc::Processor;
 using rpc::MetricsArg;
 using rpc::MetricsReply;
 
-using Plugin::Proxy;
+using namespace Plugin::Proxy;
 
 Status ProcessorImpl::Process(ServerContext* context, const MetricsArg* request,
                               MetricsReply* response) {
+  return Status::OK;
 }
