@@ -12,17 +12,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#include <snap/plugin>
-#include <snap/config>
+#include <snap/config.h>
+#include <snap/metric.h>
+#include <snap/plugin.h>
 
-using Plugin::Collector;
+using Plugin::CollectorInterface;
 
-using Config::Policy;
-using Config::Config;
-
-class Rando final : CollectorInterface {
+class Rando final : public CollectorInterface {
   public:
-    Policy getConfigPolicy();
-    std::vector<Metric> getMetricTypes(Config cfg);
-    std::vector<Metric> collectMetrics(std::vector<Metric> metrics);
-}
+    Config::Policy getConfigPolicy();
+    std::vector<Metric::Metric> getMetricTypes(Config::Config cfg);
+    std::vector<Metric::Metric> collectMetrics(std::vector<Metric::Metric> metrics);
+};

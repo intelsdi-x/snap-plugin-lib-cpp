@@ -38,23 +38,23 @@ class PluginInterface {
 class CollectorInterface : public PluginInterface {
 
   public:
-    virtual std::vector<class Metric::Metric> getMetricTypes(Config::Config
+    virtual std::vector<Metric::Metric> getMetricTypes(Config::Config
                                                              cfg) = 0;
 
-    virtual std::vector<class Metric::Metric>
-    collectMetrics(std::vector<class Metric::Metric> metrics) = 0;
+    virtual std::vector<Metric::Metric>
+    collectMetrics(std::vector<Metric::Metric> metrics) = 0;
 };
 
 class ProcessorInterface : public PluginInterface {
 
   public:
-    virtual std::vector<class Metric::Metric> process(std::vector<class Metric::Metric> metrics) = 0;
+    virtual std::vector<Metric::Metric> process(std::vector<Metric::Metric> metrics) = 0;
 };
 
 class PublisherInterface : public PluginInterface {
 
   public:
-    virtual void publish(std::vector<class Metric::Metric> metrics) = 0;
+    virtual void publish(std::vector<Metric::Metric> metrics) = 0;
 };
 
 void start(PluginInterface* plg, Type plType, std::string name,

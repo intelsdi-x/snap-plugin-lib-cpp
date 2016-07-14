@@ -25,5 +25,5 @@ using std::endl;
 
 void Plugin::start(PluginInterface* plg, Type plType, std::string name,
                    int version) {
-  cout << "starting plugin" << name << ":" << version << endl;
+  cout << "starting plugin " << name << ":" << version << endl;
 }

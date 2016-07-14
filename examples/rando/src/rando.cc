@@ -15,28 +15,30 @@ limitations under the License.
 #include <iostream>
 #include <vector>
 
-#include <snap/config>
-#include <snap/plugin>
-#include <snap/metric>
+#include <snap/config.h>
+#include <snap/plugin.h>
+#include <snap/metric.h>
 
 #include "rando.h"
 
-using Config::Config;
-using Config::Policy;
-using Metric::Metric;
-using Plugin::Type;
+using namespace Plugin;
 
-Policy Rando::getConfigPolicy() {
+Config::Policy Rando::getConfigPolicy() {
+  Config::Policy policy;
+  return policy;
 }
 
-std::vector<Metric> Rando::getMetricTypes(Config cfg) {
+std::vector<Metric::Metric> Rando::getMetricTypes(Config::Config cfg) {
+  std::vector<Metric::Metric> metrics;
+  return metrics;
 }
 
-std::vector<Metric> Rando::collectMetrics(std::vector<Metric> metrics) {
+std::vector<Metric::Metric> Rando::collectMetrics(std::vector<Metric::Metric> metrics) {
+  return metrics;
 }
 
 int main() {
   Rando plg = Rando();
-  Plugin::start(plg&, Type::collector, "rando", 1);
+  start(&plg, Type::collector, "rando", 1);
   std::cout << "well that compiled" << std::endl;
 }
