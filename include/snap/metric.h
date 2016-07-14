@@ -23,9 +23,6 @@ limitations under the License.
 namespace Metric {
 
 class Namespace : private std::vector<std::string> {
-  public:
-    Namespace();
-    ~Namespace();
 };
 
 // TODO (danielscottt): use a union for data here.
