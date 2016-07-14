@@ -12,11 +12,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+#ifndef METRIC_H
+#define METRIC_H
+
 #include <ctime>
 #include <map>
 #include <string>
+#include <vector>
 
 namespace Metric {
+
+class Namespace : private std::vector<std::string> {
+  public:
+    Namespace();
+    ~Namespace();
+};
 
 // TODO (danielscottt): use a union for data here.
 class Metric {
@@ -32,12 +42,8 @@ class Metric {
     std::map<std::string, std::string> tags;
     std::string description;
     std::string unit;
-}
+};
 
-class Namespace : private std::vector<std::string> {
-  public:
-    Namespace();
-    ~Namespace();
-}
+}; // namespace Metric
 
-} // namespace Metric
+#endif

@@ -16,7 +16,7 @@ limitations under the License.
 
 #include "plugin.grpc.pb.h"
 
-#include "plugin.h"
+#include "snap/proxy/collector_proxy.h"
 
 using grpc::Server;
 using grpc::ServerContext;
@@ -27,14 +27,16 @@ using rpc::GetMetricTypesArg;
 using rpc::MetricsArg;
 using rpc::MetricsReply;
 
-using Plugin::Proxy;
+using namespace Plugin::Proxy;
 
 Status CollectorImpl::CollectMetrics(ServerContext* context,
                                      const MetricsArg* request,
                                      MetricsReply* response) {
+  return Status::OK;
 }
 
 Status CollectorImpl::GetMetricTypes(ServerContext* context,
                                      const GetMetricTypesArg* request,
                                      MetricsReply* response) {
+  return Status::OK;
 }

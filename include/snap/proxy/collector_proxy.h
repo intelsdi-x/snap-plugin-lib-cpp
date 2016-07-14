@@ -12,11 +12,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+#ifndef COLLECTOR_PROXY_H
+#define COLLECTOR_PROXY_H
+
 #include <grpc++/grpc++.h>
 
 #include "plugin.grpc.pb.h"
 
-#include "plugin.h"
+#include "snap/proxy/plugin_proxy.h"
 
 using grpc::Server;
 using grpc::ServerContext;
@@ -39,7 +42,9 @@ class CollectorImpl final : Collector::Service, PluginImpl {
     Status GetMetricTypes(ServerContext* context,
                           const GetMetricTypesArg* request,
                           MetricsReply* response);
-}
+};
 
 } // Proxy
 } // Plugin
+
+#endif

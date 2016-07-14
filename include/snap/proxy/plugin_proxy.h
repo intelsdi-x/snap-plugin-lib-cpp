@@ -12,11 +12,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+#ifndef PLUGIN_PROXY_H
+#define PLUGIN_PROXY_H
+
 #include <grpc++/grpc++.h>
 
 #include "plugin.grpc.pb.h"
 
-#include "plugin.h"
+#include "snap/plugin.h"
 
 using grpc::Server;
 using grpc::ServerContext;
@@ -33,9 +36,6 @@ namespace Proxy {
 class PluginImpl {
 
   public:
-    Plugin();
-    ~Plugin();
-
     Status Ping(ServerContext* context, const Empty* request,
                 ErrReply* response);
 
@@ -45,12 +45,14 @@ class PluginImpl {
     Status GetConfigPolicy(ServerContext* context, const Empty* request,
                            GetConfigPolicyReply* response);
 
-    void start()
+    void start();
 
   protected:
-    ::Plugin::PluginInterface plugin;
+    ::Plugin::PluginInterface* plugin;
 
-}
+};
 
 } // Proxy
 } // Plugin
+
+#endif

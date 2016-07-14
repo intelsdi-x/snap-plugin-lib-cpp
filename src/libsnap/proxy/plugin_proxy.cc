@@ -16,7 +16,7 @@ limitations under the License.
 
 #include "plugin.grpc.pb.h"
 
-#include "plugin.h"
+#include "snap/proxy/plugin_proxy.h"
 
 using grpc::Server;
 using grpc::ServerContext;
@@ -27,18 +27,21 @@ using rpc::ErrReply;
 using rpc::KillArg;
 using rpc::GetConfigPolicyReply;
 
-using Plugin::Proxy;
+using namespace Plugin::Proxy;
 
 Status PluginImpl::Ping(ServerContext* context, const Empty* request,
                         ErrReply* response) {
+  return Status::OK;
 }
 
 Status PluginImpl::Kill(ServerContext* context, const KillArg* request,
                         ErrReply* response) {
+  return Status::OK;
 }
 
 Status PluginImpl::GetConfigPolicy(ServerContext* context, const Empty* request,
                                    GetConfigPolicyReply* response) {
+  return Status::OK;
 }
 
 void PluginImpl::start() {

@@ -12,14 +12,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+#include <iostream>
 #include <string>
 #include <vector>
 
-#include "plugin/config.h"
-#include "plugin/metric.h"
+#include "snap/config.h"
+#include "snap/metric.h"
+#include "snap/plugin.h"
 
-using Metric::Metric;
+using std::cout;
+using std::endl;
 
-public void Plugin::start(PluginInterface* plg, Type plType, std::string name,
-                          int version) {
+void Plugin::start(PluginInterface* plg, Type plType, std::string name,
+                   int version) {
+  cout << "starting plugin" << name << ":" << version << endl;
 }

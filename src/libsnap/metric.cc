@@ -14,7 +14,5 @@ limitations under the License.
 
 #include "snap/metric.h"
 
-using Metric::Metric;
-
-Metric::setData(int data) {
+void Metric::Metric::setData(int data) {
 }
