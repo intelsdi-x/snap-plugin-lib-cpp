@@ -21,7 +21,6 @@ After that:
  $ make
  $ [sudo] make install
  ```
-
 Once grpc++ is installed you need these two commands:
 ```sh
 $ protoc \
@@ -33,4 +32,14 @@ $ protoc \
   --cpp_out=`pwd` \
   --proto_path=${GOPATH}/src/github.com/intelsdi-x/snap/control/plugin/rpc \
   ${GOPATH}/src/github.com/intelsdi-x/snap/control/plugin/rpc/plugin.proto
+```
+Compiling and installing libsnap:
+```sh
+$ find src/libsnap -name "*.cc" | xargs -I{} clang++ --std=c++11 -Wall -fPIC -c -I include -I include/snap/rpc {} && clang++ -shared -lprotobuf -lgrpc++ -o libsnap.so *.o && rm *.o && sudo mv libsnap.so /usr/lib
+```
+
+To build libsnap, it must be linked against libprotobuf and libgrpc.  Then plugins are linked against libsnap 
+
+```sh
+$ clang++ --std=c++11 -I examples/rando/include -I include -l snap -o snap-collector-rando examples/rando/src/rando.cc
 ```
