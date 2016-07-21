@@ -54,7 +54,6 @@ class Metric;
 class MetricsArg;
 class MetricsReply;
 class NamespaceElement;
-class Rule;
 class StringPolicy;
 class StringRule;
 class Time;
@@ -845,185 +844,6 @@ class ConfigMap : public ::google::protobuf::Message /* @@protoc_insertion_point
 };
 // -------------------------------------------------------------------
 
-class Rule : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:rpc.Rule) */ {
- public:
-  Rule();
-  virtual ~Rule();
-
-  Rule(const Rule& from);
-
-  inline Rule& operator=(const Rule& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const Rule& default_instance();
-
-  void Swap(Rule* other);
-
-  // implements Message ----------------------------------------------
-
-  inline Rule* New() const { return New(NULL); }
-
-  Rule* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const Rule& from);
-  void MergeFrom(const Rule& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      bool deterministic, ::google::protobuf::uint8* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
-    return InternalSerializeWithCachedSizesToArray(false, output);
-  }
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(Rule* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional string rule_type = 1;
-  void clear_rule_type();
-  static const int kRuleTypeFieldNumber = 1;
-  const ::std::string& rule_type() const;
-  void set_rule_type(const ::std::string& value);
-  void set_rule_type(const char* value);
-  void set_rule_type(const char* value, size_t size);
-  ::std::string* mutable_rule_type();
-  ::std::string* release_rule_type();
-  void set_allocated_rule_type(::std::string* rule_type);
-
-  // optional string key = 2;
-  void clear_key();
-  static const int kKeyFieldNumber = 2;
-  const ::std::string& key() const;
-  void set_key(const ::std::string& value);
-  void set_key(const char* value);
-  void set_key(const char* value, size_t size);
-  ::std::string* mutable_key();
-  ::std::string* release_key();
-  void set_allocated_key(::std::string* key);
-
-  // optional bool required = 3;
-  void clear_required();
-  static const int kRequiredFieldNumber = 3;
-  bool required() const;
-  void set_required(bool value);
-
-  // optional string description = 4;
-  void clear_description();
-  static const int kDescriptionFieldNumber = 4;
-  const ::std::string& description() const;
-  void set_description(const ::std::string& value);
-  void set_description(const char* value);
-  void set_description(const char* value, size_t size);
-  ::std::string* mutable_description();
-  ::std::string* release_description();
-  void set_allocated_description(::std::string* description);
-
-  // optional bool bool_default = 5;
-  void clear_bool_default();
-  static const int kBoolDefaultFieldNumber = 5;
-  bool bool_default() const;
-  void set_bool_default(bool value);
-
-  // optional double float_default = 6;
-  void clear_float_default();
-  static const int kFloatDefaultFieldNumber = 6;
-  double float_default() const;
-  void set_float_default(double value);
-
-  // optional double float_minimum = 7;
-  void clear_float_minimum();
-  static const int kFloatMinimumFieldNumber = 7;
-  double float_minimum() const;
-  void set_float_minimum(double value);
-
-  // optional double float_maximum = 8;
-  void clear_float_maximum();
-  static const int kFloatMaximumFieldNumber = 8;
-  double float_maximum() const;
-  void set_float_maximum(double value);
-
-  // optional int64 int_default = 9;
-  void clear_int_default();
-  static const int kIntDefaultFieldNumber = 9;
-  ::google::protobuf::int64 int_default() const;
-  void set_int_default(::google::protobuf::int64 value);
-
-  // optional int64 int_minimum = 10;
-  void clear_int_minimum();
-  static const int kIntMinimumFieldNumber = 10;
-  ::google::protobuf::int64 int_minimum() const;
-  void set_int_minimum(::google::protobuf::int64 value);
-
-  // optional int64 int_maximum = 11;
-  void clear_int_maximum();
-  static const int kIntMaximumFieldNumber = 11;
-  ::google::protobuf::int64 int_maximum() const;
-  void set_int_maximum(::google::protobuf::int64 value);
-
-  // optional string string_default = 12;
-  void clear_string_default();
-  static const int kStringDefaultFieldNumber = 12;
-  const ::std::string& string_default() const;
-  void set_string_default(const ::std::string& value);
-  void set_string_default(const char* value);
-  void set_string_default(const char* value, size_t size);
-  ::std::string* mutable_string_default();
-  ::std::string* release_string_default();
-  void set_allocated_string_default(::std::string* string_default);
-
-  // @@protoc_insertion_point(class_scope:rpc.Rule)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  bool _is_default_instance_;
-  ::google::protobuf::internal::ArenaStringPtr rule_type_;
-  ::google::protobuf::internal::ArenaStringPtr key_;
-  ::google::protobuf::internal::ArenaStringPtr description_;
-  double float_default_;
-  double float_minimum_;
-  double float_maximum_;
-  ::google::protobuf::int64 int_default_;
-  ::google::protobuf::int64 int_minimum_;
-  ::google::protobuf::int64 int_maximum_;
-  ::google::protobuf::internal::ArenaStringPtr string_default_;
-  bool required_;
-  bool bool_default_;
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_plugin_2eproto();
-  friend void protobuf_AssignDesc_plugin_2eproto();
-  friend void protobuf_ShutdownFile_plugin_2eproto();
-
-  void InitAsDefaultInstance();
-  static Rule* default_instance_;
-};
-// -------------------------------------------------------------------
-
 class KillArg : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:rpc.KillArg) */ {
  public:
   KillArg();
@@ -1351,6 +1171,12 @@ class BoolRule : public ::google::protobuf::Message /* @@protoc_insertion_point(
   bool default_() const;
   void set_default_(bool value);
 
+  // optional bool has_default = 3;
+  void clear_has_default();
+  static const int kHasDefaultFieldNumber = 3;
+  bool has_default() const;
+  void set_has_default(bool value);
+
   // @@protoc_insertion_point(class_scope:rpc.BoolRule)
  private:
 
@@ -1358,6 +1184,7 @@ class BoolRule : public ::google::protobuf::Message /* @@protoc_insertion_point(
   bool _is_default_instance_;
   bool required_;
   bool default__;
+  bool has_default_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_plugin_2eproto();
   friend void protobuf_AssignDesc_plugin_2eproto();
@@ -1548,6 +1375,24 @@ class FloatRule : public ::google::protobuf::Message /* @@protoc_insertion_point
   double default_() const;
   void set_default_(double value);
 
+  // optional bool has_default = 5;
+  void clear_has_default();
+  static const int kHasDefaultFieldNumber = 5;
+  bool has_default() const;
+  void set_has_default(bool value);
+
+  // optional bool has_min = 6;
+  void clear_has_min();
+  static const int kHasMinFieldNumber = 6;
+  bool has_min() const;
+  void set_has_min(bool value);
+
+  // optional bool has_max = 7;
+  void clear_has_max();
+  static const int kHasMaxFieldNumber = 7;
+  bool has_max() const;
+  void set_has_max(bool value);
+
   // @@protoc_insertion_point(class_scope:rpc.FloatRule)
  private:
 
@@ -1557,6 +1402,9 @@ class FloatRule : public ::google::protobuf::Message /* @@protoc_insertion_point
   double maximum_;
   double default__;
   bool required_;
+  bool has_default_;
+  bool has_min_;
+  bool has_max_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_plugin_2eproto();
   friend void protobuf_AssignDesc_plugin_2eproto();
@@ -1747,6 +1595,24 @@ class IntegerRule : public ::google::protobuf::Message /* @@protoc_insertion_poi
   ::google::protobuf::int64 default_() const;
   void set_default_(::google::protobuf::int64 value);
 
+  // optional bool has_default = 5;
+  void clear_has_default();
+  static const int kHasDefaultFieldNumber = 5;
+  bool has_default() const;
+  void set_has_default(bool value);
+
+  // optional bool has_min = 6;
+  void clear_has_min();
+  static const int kHasMinFieldNumber = 6;
+  bool has_min() const;
+  void set_has_min(bool value);
+
+  // optional bool has_max = 7;
+  void clear_has_max();
+  static const int kHasMaxFieldNumber = 7;
+  bool has_max() const;
+  void set_has_max(bool value);
+
   // @@protoc_insertion_point(class_scope:rpc.IntegerRule)
  private:
 
@@ -1756,6 +1622,9 @@ class IntegerRule : public ::google::protobuf::Message /* @@protoc_insertion_poi
   ::google::protobuf::int64 maximum_;
   ::google::protobuf::int64 default__;
   bool required_;
+  bool has_default_;
+  bool has_min_;
+  bool has_max_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_plugin_2eproto();
   friend void protobuf_AssignDesc_plugin_2eproto();
@@ -1939,6 +1808,12 @@ class StringRule : public ::google::protobuf::Message /* @@protoc_insertion_poin
   ::std::string* release_default_();
   void set_allocated_default_(::std::string* default_);
 
+  // optional bool has_default = 3;
+  void clear_has_default();
+  static const int kHasDefaultFieldNumber = 3;
+  bool has_default() const;
+  void set_has_default(bool value);
+
   // @@protoc_insertion_point(class_scope:rpc.StringRule)
  private:
 
@@ -1946,6 +1821,7 @@ class StringRule : public ::google::protobuf::Message /* @@protoc_insertion_poin
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr default__;
   bool required_;
+  bool has_default_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_plugin_2eproto();
   friend void protobuf_AssignDesc_plugin_2eproto();
@@ -3180,298 +3056,6 @@ ConfigMap::mutable_boolmap() {
 
 // -------------------------------------------------------------------
 
-// Rule
-
-// optional string rule_type = 1;
-inline void Rule::clear_rule_type() {
-  rule_type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& Rule::rule_type() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.rule_type)
-  return rule_type_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void Rule::set_rule_type(const ::std::string& value) {
-  
-  rule_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:rpc.Rule.rule_type)
-}
-inline void Rule::set_rule_type(const char* value) {
-  
-  rule_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:rpc.Rule.rule_type)
-}
-inline void Rule::set_rule_type(const char* value, size_t size) {
-  
-  rule_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:rpc.Rule.rule_type)
-}
-inline ::std::string* Rule::mutable_rule_type() {
-  
-  // @@protoc_insertion_point(field_mutable:rpc.Rule.rule_type)
-  return rule_type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* Rule::release_rule_type() {
-  // @@protoc_insertion_point(field_release:rpc.Rule.rule_type)
-  
-  return rule_type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void Rule::set_allocated_rule_type(::std::string* rule_type) {
-  if (rule_type != NULL) {
-    
-  } else {
-    
-  }
-  rule_type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), rule_type);
-  // @@protoc_insertion_point(field_set_allocated:rpc.Rule.rule_type)
-}
-
-// optional string key = 2;
-inline void Rule::clear_key() {
-  key_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& Rule::key() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.key)
-  return key_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void Rule::set_key(const ::std::string& value) {
-  
-  key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:rpc.Rule.key)
-}
-inline void Rule::set_key(const char* value) {
-  
-  key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:rpc.Rule.key)
-}
-inline void Rule::set_key(const char* value, size_t size) {
-  
-  key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:rpc.Rule.key)
-}
-inline ::std::string* Rule::mutable_key() {
-  
-  // @@protoc_insertion_point(field_mutable:rpc.Rule.key)
-  return key_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* Rule::release_key() {
-  // @@protoc_insertion_point(field_release:rpc.Rule.key)
-  
-  return key_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void Rule::set_allocated_key(::std::string* key) {
-  if (key != NULL) {
-    
-  } else {
-    
-  }
-  key_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), key);
-  // @@protoc_insertion_point(field_set_allocated:rpc.Rule.key)
-}
-
-// optional bool required = 3;
-inline void Rule::clear_required() {
-  required_ = false;
-}
-inline bool Rule::required() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.required)
-  return required_;
-}
-inline void Rule::set_required(bool value) {
-  
-  required_ = value;
-  // @@protoc_insertion_point(field_set:rpc.Rule.required)
-}
-
-// optional string description = 4;
-inline void Rule::clear_description() {
-  description_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& Rule::description() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.description)
-  return description_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void Rule::set_description(const ::std::string& value) {
-  
-  description_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:rpc.Rule.description)
-}
-inline void Rule::set_description(const char* value) {
-  
-  description_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:rpc.Rule.description)
-}
-inline void Rule::set_description(const char* value, size_t size) {
-  
-  description_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:rpc.Rule.description)
-}
-inline ::std::string* Rule::mutable_description() {
-  
-  // @@protoc_insertion_point(field_mutable:rpc.Rule.description)
-  return description_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* Rule::release_description() {
-  // @@protoc_insertion_point(field_release:rpc.Rule.description)
-  
-  return description_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void Rule::set_allocated_description(::std::string* description) {
-  if (description != NULL) {
-    
-  } else {
-    
-  }
-  description_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), description);
-  // @@protoc_insertion_point(field_set_allocated:rpc.Rule.description)
-}
-
-// optional bool bool_default = 5;
-inline void Rule::clear_bool_default() {
-  bool_default_ = false;
-}
-inline bool Rule::bool_default() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.bool_default)
-  return bool_default_;
-}
-inline void Rule::set_bool_default(bool value) {
-  
-  bool_default_ = value;
-  // @@protoc_insertion_point(field_set:rpc.Rule.bool_default)
-}
-
-// optional double float_default = 6;
-inline void Rule::clear_float_default() {
-  float_default_ = 0;
-}
-inline double Rule::float_default() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.float_default)
-  return float_default_;
-}
-inline void Rule::set_float_default(double value) {
-  
-  float_default_ = value;
-  // @@protoc_insertion_point(field_set:rpc.Rule.float_default)
-}
-
-// optional double float_minimum = 7;
-inline void Rule::clear_float_minimum() {
-  float_minimum_ = 0;
-}
-inline double Rule::float_minimum() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.float_minimum)
-  return float_minimum_;
-}
-inline void Rule::set_float_minimum(double value) {
-  
-  float_minimum_ = value;
-  // @@protoc_insertion_point(field_set:rpc.Rule.float_minimum)
-}
-
-// optional double float_maximum = 8;
-inline void Rule::clear_float_maximum() {
-  float_maximum_ = 0;
-}
-inline double Rule::float_maximum() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.float_maximum)
-  return float_maximum_;
-}
-inline void Rule::set_float_maximum(double value) {
-  
-  float_maximum_ = value;
-  // @@protoc_insertion_point(field_set:rpc.Rule.float_maximum)
-}
-
-// optional int64 int_default = 9;
-inline void Rule::clear_int_default() {
-  int_default_ = GOOGLE_LONGLONG(0);
-}
-inline ::google::protobuf::int64 Rule::int_default() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.int_default)
-  return int_default_;
-}
-inline void Rule::set_int_default(::google::protobuf::int64 value) {
-  
-  int_default_ = value;
-  // @@protoc_insertion_point(field_set:rpc.Rule.int_default)
-}
-
-// optional int64 int_minimum = 10;
-inline void Rule::clear_int_minimum() {
-  int_minimum_ = GOOGLE_LONGLONG(0);
-}
-inline ::google::protobuf::int64 Rule::int_minimum() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.int_minimum)
-  return int_minimum_;
-}
-inline void Rule::set_int_minimum(::google::protobuf::int64 value) {
-  
-  int_minimum_ = value;
-  // @@protoc_insertion_point(field_set:rpc.Rule.int_minimum)
-}
-
-// optional int64 int_maximum = 11;
-inline void Rule::clear_int_maximum() {
-  int_maximum_ = GOOGLE_LONGLONG(0);
-}
-inline ::google::protobuf::int64 Rule::int_maximum() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.int_maximum)
-  return int_maximum_;
-}
-inline void Rule::set_int_maximum(::google::protobuf::int64 value) {
-  
-  int_maximum_ = value;
-  // @@protoc_insertion_point(field_set:rpc.Rule.int_maximum)
-}
-
-// optional string string_default = 12;
-inline void Rule::clear_string_default() {
-  string_default_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& Rule::string_default() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.string_default)
-  return string_default_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void Rule::set_string_default(const ::std::string& value) {
-  
-  string_default_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:rpc.Rule.string_default)
-}
-inline void Rule::set_string_default(const char* value) {
-  
-  string_default_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:rpc.Rule.string_default)
-}
-inline void Rule::set_string_default(const char* value, size_t size) {
-  
-  string_default_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:rpc.Rule.string_default)
-}
-inline ::std::string* Rule::mutable_string_default() {
-  
-  // @@protoc_insertion_point(field_mutable:rpc.Rule.string_default)
-  return string_default_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* Rule::release_string_default() {
-  // @@protoc_insertion_point(field_release:rpc.Rule.string_default)
-  
-  return string_default_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void Rule::set_allocated_string_default(::std::string* string_default) {
-  if (string_default != NULL) {
-    
-  } else {
-    
-  }
-  string_default_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), string_default);
-  // @@protoc_insertion_point(field_set_allocated:rpc.Rule.string_default)
-}
-
-// -------------------------------------------------------------------
-
 // KillArg
 
 // optional string Reason = 1;
@@ -3670,6 +3254,20 @@ inline void BoolRule::set_default_(bool value) {
   // @@protoc_insertion_point(field_set:rpc.BoolRule.default)
 }
 
+// optional bool has_default = 3;
+inline void BoolRule::clear_has_default() {
+  has_default_ = false;
+}
+inline bool BoolRule::has_default() const {
+  // @@protoc_insertion_point(field_get:rpc.BoolRule.has_default)
+  return has_default_;
+}
+inline void BoolRule::set_has_default(bool value) {
+  
+  has_default_ = value;
+  // @@protoc_insertion_point(field_set:rpc.BoolRule.has_default)
+}
+
 // -------------------------------------------------------------------
 
 // BoolPolicy
@@ -3750,6 +3348,48 @@ inline void FloatRule::set_default_(double value) {
   
   default__ = value;
   // @@protoc_insertion_point(field_set:rpc.FloatRule.default)
+}
+
+// optional bool has_default = 5;
+inline void FloatRule::clear_has_default() {
+  has_default_ = false;
+}
+inline bool FloatRule::has_default() const {
+  // @@protoc_insertion_point(field_get:rpc.FloatRule.has_default)
+  return has_default_;
+}
+inline void FloatRule::set_has_default(bool value) {
+  
+  has_default_ = value;
+  // @@protoc_insertion_point(field_set:rpc.FloatRule.has_default)
+}
+
+// optional bool has_min = 6;
+inline void FloatRule::clear_has_min() {
+  has_min_ = false;
+}
+inline bool FloatRule::has_min() const {
+  // @@protoc_insertion_point(field_get:rpc.FloatRule.has_min)
+  return has_min_;
+}
+inline void FloatRule::set_has_min(bool value) {
+  
+  has_min_ = value;
+  // @@protoc_insertion_point(field_set:rpc.FloatRule.has_min)
+}
+
+// optional bool has_max = 7;
+inline void FloatRule::clear_has_max() {
+  has_max_ = false;
+}
+inline bool FloatRule::has_max() const {
+  // @@protoc_insertion_point(field_get:rpc.FloatRule.has_max)
+  return has_max_;
+}
+inline void FloatRule::set_has_max(bool value) {
+  
+  has_max_ = value;
+  // @@protoc_insertion_point(field_set:rpc.FloatRule.has_max)
 }
 
 // -------------------------------------------------------------------
@@ -3834,6 +3474,48 @@ inline void IntegerRule::set_default_(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:rpc.IntegerRule.default)
 }
 
+// optional bool has_default = 5;
+inline void IntegerRule::clear_has_default() {
+  has_default_ = false;
+}
+inline bool IntegerRule::has_default() const {
+  // @@protoc_insertion_point(field_get:rpc.IntegerRule.has_default)
+  return has_default_;
+}
+inline void IntegerRule::set_has_default(bool value) {
+  
+  has_default_ = value;
+  // @@protoc_insertion_point(field_set:rpc.IntegerRule.has_default)
+}
+
+// optional bool has_min = 6;
+inline void IntegerRule::clear_has_min() {
+  has_min_ = false;
+}
+inline bool IntegerRule::has_min() const {
+  // @@protoc_insertion_point(field_get:rpc.IntegerRule.has_min)
+  return has_min_;
+}
+inline void IntegerRule::set_has_min(bool value) {
+  
+  has_min_ = value;
+  // @@protoc_insertion_point(field_set:rpc.IntegerRule.has_min)
+}
+
+// optional bool has_max = 7;
+inline void IntegerRule::clear_has_max() {
+  has_max_ = false;
+}
+inline bool IntegerRule::has_max() const {
+  // @@protoc_insertion_point(field_get:rpc.IntegerRule.has_max)
+  return has_max_;
+}
+inline void IntegerRule::set_has_max(bool value) {
+  
+  has_max_ = value;
+  // @@protoc_insertion_point(field_set:rpc.IntegerRule.has_max)
+}
+
 // -------------------------------------------------------------------
 
 // IntegerPolicy
@@ -3916,6 +3598,20 @@ inline void StringRule::set_allocated_default_(::std::string* default_) {
   }
   default__.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), default_);
   // @@protoc_insertion_point(field_set_allocated:rpc.StringRule.default)
+}
+
+// optional bool has_default = 3;
+inline void StringRule::clear_has_default() {
+  has_default_ = false;
+}
+inline bool StringRule::has_default() const {
+  // @@protoc_insertion_point(field_get:rpc.StringRule.has_default)
+  return has_default_;
+}
+inline void StringRule::set_has_default(bool value) {
+  
+  has_default_ = value;
+  // @@protoc_insertion_point(field_set:rpc.StringRule.has_default)
 }
 
 // -------------------------------------------------------------------
@@ -4095,8 +3791,6 @@ inline void GetMetricTypesArg::set_allocated_config(::rpc::ConfigMap* config) {
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -11,19 +11,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+#pragma once
 
-#ifndef CONFIG_H
-#define CONFIG_H
+namespace Plugin {
 
-namespace Config {
-
-class Policy {
+class ConfigPolicy {
   // TODO(danielscottt)
 };
 
 class Config {
 };
 
-}; // namespace Config
-
-#endif
+};  // namespace Plugin

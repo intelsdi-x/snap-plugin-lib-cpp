@@ -11,48 +11,35 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-
-#ifndef PLUGIN_PROXY_H
-#define PLUGIN_PROXY_H
+#pragma once
 
 #include <grpc++/grpc++.h>
 
-#include "plugin.grpc.pb.h"
+#include "snap/rpc/plugin.pb.h"
 
 #include "snap/plugin.h"
-
-using grpc::Server;
-using grpc::ServerContext;
-using grpc::Status;
-
-using rpc::Empty;
-using rpc::ErrReply;
-using rpc::KillArg;
-using rpc::GetConfigPolicyReply;
 
 namespace Plugin {
 namespace Proxy {
 
-class PluginImpl {
+class PluginImpl final {
+ public:
+  explicit PluginImpl(Plugin::PluginInterface* plugin);
 
-  public:
-    Status Ping(ServerContext* context, const Empty* request,
-                ErrReply* response);
+  grpc::Status Ping(grpc::ServerContext* context, const rpc::Empty* req,
+                    rpc::ErrReply* resp);
 
-    Status Kill(ServerContext* context, const KillArg* request,
-                ErrReply* response);
 
-    Status GetConfigPolicy(ServerContext* context, const Empty* request,
-                           GetConfigPolicyReply* response);
+  grpc::Status Kill(grpc::ServerContext* context, const rpc::KillArg* req,
+                    rpc::ErrReply* response);
 
-    void start();
+  grpc::Status GetConfigPolicy(grpc::ServerContext* context,
+                               const rpc::Empty* req,
+                               rpc::GetConfigPolicyReply* resp);
 
-  protected:
-    ::Plugin::PluginInterface* plugin;
-
+ private:
+  Plugin::PluginInterface* plugin;
 };
 
-} // Proxy
-} // Plugin
-
-#endif
+}  // namespace Proxy
+}  // namespace Plugin

@@ -11,12 +11,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+#include "snap/proxy/processor_proxy.h"
 
 #include <grpc++/grpc++.h>
 
-#include "plugin.grpc.pb.h"
-
-#include "snap/proxy/processor_proxy.h"
+#include "snap/rpc/plugin.pb.h"
 
 using grpc::Server;
 using grpc::ServerContext;
@@ -26,9 +25,9 @@ using rpc::Processor;
 using rpc::MetricsArg;
 using rpc::MetricsReply;
 
-using namespace Plugin::Proxy;
+using Plugin::Proxy::ProcessorImpl;
 
-Status ProcessorImpl::Process(ServerContext* context, const MetricsArg* request,
-                              MetricsReply* response) {
+Status ProcessorImpl::Process(ServerContext* context, const MetricsArg* req,
+                              MetricsReply* resp) {
   return Status::OK;
 }
