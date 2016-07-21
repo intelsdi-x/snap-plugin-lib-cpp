@@ -11,16 +11,17 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+#pragma once
+
+#include <vector>
 
 #include <snap/config.h>
 #include <snap/metric.h>
 #include <snap/plugin.h>
 
-using Plugin::CollectorInterface;
-
-class Rando final : public CollectorInterface {
-  public:
-    Config::Policy getConfigPolicy();
-    std::vector<Metric::Metric> getMetricTypes(Config::Config cfg);
-    std::vector<Metric::Metric> collectMetrics(std::vector<Metric::Metric> metrics);
+class Rando final : public Plugin::CollectorInterface {
+ public:
+  Plugin::ConfigPolicy get_config_policy();
+  std::vector<Plugin::Metric> get_metric_types(Plugin::Config cfg);
+  void collect_metrics(std::vector<Plugin::Metric>* metrics);
 };
