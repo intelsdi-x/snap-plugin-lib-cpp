@@ -11,30 +11,24 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+#pragma once
 
 #include <grpc++/grpc++.h>
 
-#include "plugin.grpc.pb.h"
+#include "snap/rpc/plugin.grpc.pb.h"
+#include "snap/rpc/plugin.pb.h"
 
 #include "snap/proxy/plugin_proxy.h"
-
-using grpc::Server;
-using grpc::ServerContext;
-using grpc::Status;
-
-using rpc::Processor;
-using rpc::MetricsArg;
-using rpc::MetricsReply;
 
 namespace Plugin {
 namespace Proxy {
 
-class ProcessorImpl final : Processor::Service, PluginImpl {
-
-  public:
-    Status Process(ServerContext* context, const MetricsArg* request,
-                   MetricsReply* response);
+class ProcessorImpl final : rpc::Processor::Service {
+ public:
+  grpc::Status Process(grpc::ServerContext* context,
+                       const rpc::MetricsArg* req,
+                       rpc::MetricsReply* resp);
 };
 
-} // Proxy
-} // Plugin
+}   // namespace Proxy
+}   // namespace Plugin

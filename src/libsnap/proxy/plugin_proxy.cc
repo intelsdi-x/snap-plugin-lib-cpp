@@ -11,12 +11,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+#include "snap/proxy/plugin_proxy.h"
 
 #include <grpc++/grpc++.h>
 
-#include "plugin.grpc.pb.h"
-
-#include "snap/proxy/plugin_proxy.h"
+#include "snap/rpc/plugin.pb.h"
 
 using grpc::Server;
 using grpc::ServerContext;
@@ -27,22 +26,22 @@ using rpc::ErrReply;
 using rpc::KillArg;
 using rpc::GetConfigPolicyReply;
 
-using namespace Plugin::Proxy;
+using Plugin::Proxy::PluginImpl;
 
-Status PluginImpl::Ping(ServerContext* context, const Empty* request,
-                        ErrReply* response) {
+PluginImpl::PluginImpl(Plugin::PluginInterface* plugin) : plugin(plugin) {}
+
+Status PluginImpl::Ping(ServerContext* context, const Empty* req,
+                        ErrReply* resp) {
   return Status::OK;
 }
 
-Status PluginImpl::Kill(ServerContext* context, const KillArg* request,
-                        ErrReply* response) {
+Status PluginImpl::Kill(ServerContext* context, const KillArg* req,
+                        ErrReply* resp) {
   return Status::OK;
 }
 
-Status PluginImpl::GetConfigPolicy(ServerContext* context, const Empty* request,
-                                   GetConfigPolicyReply* response) {
+Status PluginImpl::GetConfigPolicy(ServerContext* context, const Empty* req,
+                                   GetConfigPolicyReply* resp) {
+  plugin->get_config_policy();
   return Status::OK;
-}
-
-void PluginImpl::start() {
 }

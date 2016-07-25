@@ -11,10 +11,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+#pragma once
 
-#ifndef PLUGIN_H
-#define PLUGIN_H
-
+#include <chrono>
 #include <string>
 #include <vector>
 
@@ -23,44 +22,120 @@ limitations under the License.
 
 namespace Plugin {
 
+/**
+ * Type is the plugin type
+ */
 enum Type {
-  collector,
-  processor,
-  publisher
+  Collector,
+  Processor,
+  Publisher
 };
 
+/**
+ * RpcType is the rpc protocol the plugin should use.
+ * Only GRPC is supported for C++.
+ */
+enum RpcType {
+  GRPC = 2,
+};
+
+/**
+ * Strategy is the routing and caching strategy this plugin requires.
+ * A routing and caching Strategy is the method which snapd uses to cache 
+ * metrics, and select the correct running instance of a plugin.
+ */
+enum Strategy {
+  /**
+   * LRU: Least Recently Used.
+   * The default strategy.
+   */
+  LRU,
+
+  /**
+   * Sticky: Sticky Running plugins have a 1:1 relationship to Tasks.
+   */
+  Sticky,
+
+  /** ConfigBased: Bases routing decisions on the incoming config.
+   * The config based strategy hashes the incoming config data and
+   * uses it as a key to select a running plugin.  It can be useful for plugins
+   * which maintain a connection to a database, for instance.
+   */
+  ConfigBased
+};
+
+/**
+ * Meta is the metadata about the plugin.
+ */
+struct Meta final {
+ public:
+  Meta(Type type, std::string name, int version);
+
+  Type type;
+  std::string name;
+  int version;
+
+  // These members all have defaults.
+  RpcType rpc_type;  // = RpcType::GRPC;
+  int concurrency_count;  // = 5;
+  bool exclusive;  // = false;
+  bool unsecure;  // = false;
+  std::chrono::milliseconds cache_ttl;  // = std::chrono::milliseconds(500);
+  Strategy strategy; // = Strategy::LRU;
+};
+
+/**
+ * PluginInterface is the interface implemented by ALL plugins.
+ * Every plugin must implement get_config_policy.
+ */
 class PluginInterface {
-
-  public:
-    virtual Config::Policy getConfigPolicy() = 0;
+ public:
+  virtual ~PluginInterface() {}
+  virtual ConfigPolicy get_config_policy() = 0;
 };
 
+/**
+ * The interface for a collector plugin.
+ * A Collector is the source.
+ * It is responsible for collecting metrics in the snap pipeline.
+ */
 class CollectorInterface : public PluginInterface {
+ public:
+   virtual ~CollectorInterface() {}
+  /*
+   * get_metric_types should report all the metrics this plugin can collect.
+   */
+  virtual std::vector<Metric> get_metric_types(Config cfg) = 0;
 
-  public:
-    virtual std::vector<Metric::Metric> getMetricTypes(Config::Config
-                                                             cfg) = 0;
-
-    virtual std::vector<Metric::Metric>
-    collectMetrics(std::vector<Metric::Metric> metrics) = 0;
+  /*
+   * collect_metrics is given a list of metrics to collect.
+   * It should collect and annotate each metric with the apropos context.
+   */
+  virtual void collect_metrics(std::vector<Metric>* metrics) = 0;
 };
 
+/**
+ * The interface for a Processor plugin.
+ * A Processor is an intermediary in the pipeline. It may decorate, filter, or
+ * derive as data passes through Snap's pipeline.
+ */
 class ProcessorInterface : public PluginInterface {
-
-  public:
-    virtual std::vector<Metric::Metric> process(std::vector<Metric::Metric> metrics) = 0;
+ public:
+  virtual ~ProcessorInterface() {}
+  virtual void process(std::vector<Metric>* metrics) = 0;
 };
 
+/**
+ * The interface for a Publisher plugin.
+ * A Publisher is the sink.
+ * It sinks data into some external system.
+ */
 class PublisherInterface : public PluginInterface {
-
-  public:
-    virtual void publish(std::vector<Metric::Metric> metrics) = 0;
+ public:
+  virtual ~PublisherInterface() {}
+  virtual void publish(std::vector<Metric>* metrics) = 0;
 };
 
-void start(PluginInterface* plg, Type plType, std::string name,
-           int version);
+void start_collector(CollectorInterface* plg, const Meta& meta);
 
-
-}; // namespace Plugin
-
-#endif
+};  // namespace Plugin

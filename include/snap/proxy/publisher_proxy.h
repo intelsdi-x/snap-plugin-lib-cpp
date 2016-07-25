@@ -11,35 +11,24 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-
-#ifndef PUBLISHER_PROXY_H
-#define PUBLISHER_PROXY_H
+#pragma once
 
 #include <grpc++/grpc++.h>
 
-#include "plugin.grpc.pb.h"
+#include "snap/rpc/plugin.pb.h"
+#include "snap/rpc/plugin.grpc.pb.h"
 
 #include "snap/proxy/plugin_proxy.h"
-
-using grpc::Server;
-using grpc::ServerContext;
-using grpc::Status;
-
-using rpc::Publisher;
-using rpc::MetricsArg;
-using rpc::ErrReply;
 
 namespace Plugin {
 namespace Proxy {
 
-class PublisherImpl final : Publisher::Service, PluginImpl {
-
-  public:
-    Status Publish(ServerContext* context, const MetricsArg* request,
-                   ErrReply* response);
+class PublisherImpl final : rpc::Publisher::Service {
+ public:
+  grpc::Status Publish(grpc::ServerContext* context,
+                       const rpc::MetricsArg* req,
+                       rpc::ErrReply* resp);
 };
 
-} // Proxy
-} // Plugin
-
-#endif
+}  // namespace Proxy
+}  // namespace Plugin

@@ -52,9 +52,6 @@ const ::google::protobuf::Descriptor* ConfigMap_IntMapEntry_descriptor_ = NULL;
 const ::google::protobuf::Descriptor* ConfigMap_StringMapEntry_descriptor_ = NULL;
 const ::google::protobuf::Descriptor* ConfigMap_FloatMapEntry_descriptor_ = NULL;
 const ::google::protobuf::Descriptor* ConfigMap_BoolMapEntry_descriptor_ = NULL;
-const ::google::protobuf::Descriptor* Rule_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  Rule_reflection_ = NULL;
 const ::google::protobuf::Descriptor* KillArg_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   KillArg_reflection_ = NULL;
@@ -228,33 +225,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
   ConfigMap_StringMapEntry_descriptor_ = ConfigMap_descriptor_->nested_type(1);
   ConfigMap_FloatMapEntry_descriptor_ = ConfigMap_descriptor_->nested_type(2);
   ConfigMap_BoolMapEntry_descriptor_ = ConfigMap_descriptor_->nested_type(3);
-  Rule_descriptor_ = file->message_type(6);
-  static const int Rule_offsets_[12] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Rule, rule_type_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Rule, key_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Rule, required_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Rule, description_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Rule, bool_default_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Rule, float_default_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Rule, float_minimum_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Rule, float_maximum_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Rule, int_default_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Rule, int_minimum_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Rule, int_maximum_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Rule, string_default_),
-  };
-  Rule_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      Rule_descriptor_,
-      Rule::default_instance_,
-      Rule_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(Rule),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Rule, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Rule, _is_default_instance_));
-  KillArg_descriptor_ = file->message_type(7);
+  KillArg_descriptor_ = file->message_type(6);
   static const int KillArg_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(KillArg, reason_),
   };
@@ -269,7 +240,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(KillArg),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(KillArg, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(KillArg, _is_default_instance_));
-  GetConfigPolicyReply_descriptor_ = file->message_type(8);
+  GetConfigPolicyReply_descriptor_ = file->message_type(7);
   static const int GetConfigPolicyReply_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GetConfigPolicyReply, error_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GetConfigPolicyReply, bool_policy_),
@@ -292,10 +263,11 @@ void protobuf_AssignDesc_plugin_2eproto() {
   GetConfigPolicyReply_FloatPolicyEntry_descriptor_ = GetConfigPolicyReply_descriptor_->nested_type(1);
   GetConfigPolicyReply_IntegerPolicyEntry_descriptor_ = GetConfigPolicyReply_descriptor_->nested_type(2);
   GetConfigPolicyReply_StringPolicyEntry_descriptor_ = GetConfigPolicyReply_descriptor_->nested_type(3);
-  BoolRule_descriptor_ = file->message_type(9);
-  static const int BoolRule_offsets_[2] = {
+  BoolRule_descriptor_ = file->message_type(8);
+  static const int BoolRule_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolRule, required_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolRule, default__),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolRule, has_default_),
   };
   BoolRule_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -308,7 +280,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(BoolRule),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolRule, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolRule, _is_default_instance_));
-  BoolPolicy_descriptor_ = file->message_type(10);
+  BoolPolicy_descriptor_ = file->message_type(9);
   static const int BoolPolicy_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolPolicy, rules_),
   };
@@ -324,12 +296,15 @@ void protobuf_AssignDesc_plugin_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolPolicy, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolPolicy, _is_default_instance_));
   BoolPolicy_RulesEntry_descriptor_ = BoolPolicy_descriptor_->nested_type(0);
-  FloatRule_descriptor_ = file->message_type(11);
-  static const int FloatRule_offsets_[4] = {
+  FloatRule_descriptor_ = file->message_type(10);
+  static const int FloatRule_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatRule, required_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatRule, minimum_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatRule, maximum_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatRule, default__),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatRule, has_default_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatRule, has_min_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatRule, has_max_),
   };
   FloatRule_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -342,7 +317,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(FloatRule),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatRule, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatRule, _is_default_instance_));
-  FloatPolicy_descriptor_ = file->message_type(12);
+  FloatPolicy_descriptor_ = file->message_type(11);
   static const int FloatPolicy_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatPolicy, rules_),
   };
@@ -358,12 +333,15 @@ void protobuf_AssignDesc_plugin_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatPolicy, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatPolicy, _is_default_instance_));
   FloatPolicy_RulesEntry_descriptor_ = FloatPolicy_descriptor_->nested_type(0);
-  IntegerRule_descriptor_ = file->message_type(13);
-  static const int IntegerRule_offsets_[4] = {
+  IntegerRule_descriptor_ = file->message_type(12);
+  static const int IntegerRule_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerRule, required_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerRule, minimum_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerRule, maximum_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerRule, default__),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerRule, has_default_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerRule, has_min_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerRule, has_max_),
   };
   IntegerRule_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -376,7 +354,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(IntegerRule),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerRule, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerRule, _is_default_instance_));
-  IntegerPolicy_descriptor_ = file->message_type(14);
+  IntegerPolicy_descriptor_ = file->message_type(13);
   static const int IntegerPolicy_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerPolicy, rules_),
   };
@@ -392,10 +370,11 @@ void protobuf_AssignDesc_plugin_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerPolicy, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerPolicy, _is_default_instance_));
   IntegerPolicy_RulesEntry_descriptor_ = IntegerPolicy_descriptor_->nested_type(0);
-  StringRule_descriptor_ = file->message_type(15);
-  static const int StringRule_offsets_[2] = {
+  StringRule_descriptor_ = file->message_type(14);
+  static const int StringRule_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringRule, required_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringRule, default__),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringRule, has_default_),
   };
   StringRule_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -408,7 +387,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(StringRule),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringRule, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringRule, _is_default_instance_));
-  StringPolicy_descriptor_ = file->message_type(16);
+  StringPolicy_descriptor_ = file->message_type(15);
   static const int StringPolicy_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringPolicy, rules_),
   };
@@ -424,7 +403,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringPolicy, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringPolicy, _is_default_instance_));
   StringPolicy_RulesEntry_descriptor_ = StringPolicy_descriptor_->nested_type(0);
-  MetricsArg_descriptor_ = file->message_type(17);
+  MetricsArg_descriptor_ = file->message_type(16);
   static const int MetricsArg_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsArg, metrics_),
   };
@@ -439,7 +418,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(MetricsArg),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsArg, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsArg, _is_default_instance_));
-  MetricsReply_descriptor_ = file->message_type(18);
+  MetricsReply_descriptor_ = file->message_type(17);
   static const int MetricsReply_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsReply, metrics_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsReply, error_),
@@ -455,7 +434,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(MetricsReply),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsReply, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsReply, _is_default_instance_));
-  GetMetricTypesArg_descriptor_ = file->message_type(19);
+  GetMetricTypesArg_descriptor_ = file->message_type(18);
   static const int GetMetricTypesArg_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GetMetricTypesArg, config_),
   };
@@ -539,8 +518,6 @@ void protobuf_RegisterTypes(const ::std::string&) {
             ::google::protobuf::internal::WireFormatLite::TYPE_BOOL,
             0>::CreateDefaultInstance(
                 ConfigMap_BoolMapEntry_descriptor_));
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      Rule_descriptor_, &Rule::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       KillArg_descriptor_, &KillArg::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -657,8 +634,6 @@ void protobuf_ShutdownFile_plugin_2eproto() {
   delete Metric_reflection_;
   delete ConfigMap::default_instance_;
   delete ConfigMap_reflection_;
-  delete Rule::default_instance_;
-  delete Rule_reflection_;
   delete KillArg::default_instance_;
   delete KillArg_reflection_;
   delete GetConfigPolicyReply::default_instance_;
@@ -718,69 +693,66 @@ void protobuf_AddDesc_plugin_2eproto() {
     "8\001\0320\n\016StringMapEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005val"
     "ue\030\002 \001(\t:\0028\001\032/\n\rFloatMapEntry\022\013\n\003key\030\001 \001"
     "(\t\022\r\n\005value\030\002 \001(\001:\0028\001\032.\n\014BoolMapEntry\022\013\n"
-    "\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\010:\0028\001\"\377\001\n\004Rule\022\021"
-    "\n\trule_type\030\001 \001(\t\022\013\n\003key\030\002 \001(\t\022\020\n\010requir"
-    "ed\030\003 \001(\010\022\023\n\013description\030\004 \001(\t\022\024\n\014bool_de"
-    "fault\030\005 \001(\010\022\025\n\rfloat_default\030\006 \001(\001\022\025\n\rfl"
-    "oat_minimum\030\007 \001(\001\022\025\n\rfloat_maximum\030\010 \001(\001"
-    "\022\023\n\013int_default\030\t \001(\003\022\023\n\013int_minimum\030\n \001"
-    "(\003\022\023\n\013int_maximum\030\013 \001(\003\022\026\n\016string_defaul"
-    "t\030\014 \001(\t\"\031\n\007KillArg\022\016\n\006Reason\030\001 \001(\t\"\315\004\n\024G"
-    "etConfigPolicyReply\022\r\n\005error\030\001 \001(\t\022>\n\013bo"
-    "ol_policy\030\002 \003(\0132).rpc.GetConfigPolicyRep"
-    "ly.BoolPolicyEntry\022@\n\014float_policy\030\003 \003(\013"
-    "2*.rpc.GetConfigPolicyReply.FloatPolicyE"
-    "ntry\022D\n\016integer_policy\030\004 \003(\0132,.rpc.GetCo"
-    "nfigPolicyReply.IntegerPolicyEntry\022B\n\rst"
-    "ring_policy\030\005 \003(\0132+.rpc.GetConfigPolicyR"
-    "eply.StringPolicyEntry\032B\n\017BoolPolicyEntr"
-    "y\022\013\n\003key\030\001 \001(\t\022\036\n\005value\030\002 \001(\0132\017.rpc.Bool"
-    "Policy:\0028\001\032D\n\020FloatPolicyEntry\022\013\n\003key\030\001 "
-    "\001(\t\022\037\n\005value\030\002 \001(\0132\020.rpc.FloatPolicy:\0028\001"
-    "\032H\n\022IntegerPolicyEntry\022\013\n\003key\030\001 \001(\t\022!\n\005v"
-    "alue\030\002 \001(\0132\022.rpc.IntegerPolicy:\0028\001\032F\n\021St"
-    "ringPolicyEntry\022\013\n\003key\030\001 \001(\t\022 \n\005value\030\002 "
-    "\001(\0132\021.rpc.StringPolicy:\0028\001\"-\n\010BoolRule\022\020"
-    "\n\010required\030\001 \001(\010\022\017\n\007default\030\002 \001(\010\"t\n\nBoo"
-    "lPolicy\022)\n\005rules\030\001 \003(\0132\032.rpc.BoolPolicy."
-    "RulesEntry\032;\n\nRulesEntry\022\013\n\003key\030\001 \001(\t\022\034\n"
-    "\005value\030\002 \001(\0132\r.rpc.BoolRule:\0028\001\"P\n\tFloat"
-    "Rule\022\020\n\010required\030\001 \001(\010\022\017\n\007minimum\030\002 \001(\001\022"
-    "\017\n\007maximum\030\003 \001(\001\022\017\n\007default\030\004 \001(\001\"w\n\013Flo"
-    "atPolicy\022*\n\005rules\030\001 \003(\0132\033.rpc.FloatPolic"
-    "y.RulesEntry\032<\n\nRulesEntry\022\013\n\003key\030\001 \001(\t\022"
-    "\035\n\005value\030\002 \001(\0132\016.rpc.FloatRule:\0028\001\"R\n\013In"
-    "tegerRule\022\020\n\010required\030\001 \001(\010\022\017\n\007minimum\030\002"
-    " \001(\003\022\017\n\007maximum\030\003 \001(\003\022\017\n\007default\030\004 \001(\003\"}"
-    "\n\rIntegerPolicy\022,\n\005rules\030\001 \003(\0132\035.rpc.Int"
-    "egerPolicy.RulesEntry\032>\n\nRulesEntry\022\013\n\003k"
-    "ey\030\001 \001(\t\022\037\n\005value\030\002 \001(\0132\020.rpc.IntegerRul"
-    "e:\0028\001\"/\n\nStringRule\022\020\n\010required\030\001 \001(\010\022\017\n"
-    "\007default\030\002 \001(\t\"z\n\014StringPolicy\022+\n\005rules\030"
-    "\001 \003(\0132\034.rpc.StringPolicy.RulesEntry\032=\n\nR"
-    "ulesEntry\022\013\n\003key\030\001 \001(\t\022\036\n\005value\030\002 \001(\0132\017."
-    "rpc.StringRule:\0028\001\"*\n\nMetricsArg\022\034\n\007metr"
-    "ics\030\001 \003(\0132\013.rpc.Metric\";\n\014MetricsReply\022\034"
-    "\n\007metrics\030\001 \003(\0132\013.rpc.Metric\022\r\n\005error\030\002 "
-    "\001(\t\"3\n\021GetMetricTypesArg\022\036\n\006config\030\001 \001(\013"
-    "2\016.rpc.ConfigMap2\212\002\n\tCollector\0226\n\016Collec"
-    "tMetrics\022\017.rpc.MetricsArg\032\021.rpc.MetricsR"
-    "eply\"\000\022=\n\016GetMetricTypes\022\026.rpc.GetMetric"
-    "TypesArg\032\021.rpc.MetricsReply\"\000\022#\n\004Ping\022\n."
-    "rpc.Empty\032\r.rpc.ErrReply\"\000\022%\n\004Kill\022\014.rpc"
-    ".KillArg\032\r.rpc.ErrReply\"\000\022:\n\017GetConfigPo"
-    "licy\022\n.rpc.Empty\032\031.rpc.GetConfigPolicyRe"
-    "ply\"\0002\304\001\n\tProcessor\022/\n\007Process\022\017.rpc.Met"
-    "ricsArg\032\021.rpc.MetricsReply\"\000\022#\n\004Ping\022\n.r"
-    "pc.Empty\032\r.rpc.ErrReply\"\000\022%\n\004Kill\022\014.rpc."
-    "KillArg\032\r.rpc.ErrReply\"\000\022:\n\017GetConfigPol"
-    "icy\022\n.rpc.Empty\032\031.rpc.GetConfigPolicyRep"
-    "ly\"\0002\300\001\n\tPublisher\022+\n\007Publish\022\017.rpc.Metr"
-    "icsArg\032\r.rpc.ErrReply\"\000\022#\n\004Ping\022\n.rpc.Em"
-    "pty\032\r.rpc.ErrReply\"\000\022%\n\004Kill\022\014.rpc.KillA"
-    "rg\032\r.rpc.ErrReply\"\000\022:\n\017GetConfigPolicy\022\n"
-    ".rpc.Empty\032\031.rpc.GetConfigPolicyReply\"\000b"
-    "\006proto3", 3447);
+    "\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\010:\0028\001\"\031\n\007KillArg"
+    "\022\016\n\006Reason\030\001 \001(\t\"\315\004\n\024GetConfigPolicyRepl"
+    "y\022\r\n\005error\030\001 \001(\t\022>\n\013bool_policy\030\002 \003(\0132)."
+    "rpc.GetConfigPolicyReply.BoolPolicyEntry"
+    "\022@\n\014float_policy\030\003 \003(\0132*.rpc.GetConfigPo"
+    "licyReply.FloatPolicyEntry\022D\n\016integer_po"
+    "licy\030\004 \003(\0132,.rpc.GetConfigPolicyReply.In"
+    "tegerPolicyEntry\022B\n\rstring_policy\030\005 \003(\0132"
+    "+.rpc.GetConfigPolicyReply.StringPolicyE"
+    "ntry\032B\n\017BoolPolicyEntry\022\013\n\003key\030\001 \001(\t\022\036\n\005"
+    "value\030\002 \001(\0132\017.rpc.BoolPolicy:\0028\001\032D\n\020Floa"
+    "tPolicyEntry\022\013\n\003key\030\001 \001(\t\022\037\n\005value\030\002 \001(\013"
+    "2\020.rpc.FloatPolicy:\0028\001\032H\n\022IntegerPolicyE"
+    "ntry\022\013\n\003key\030\001 \001(\t\022!\n\005value\030\002 \001(\0132\022.rpc.I"
+    "ntegerPolicy:\0028\001\032F\n\021StringPolicyEntry\022\013\n"
+    "\003key\030\001 \001(\t\022 \n\005value\030\002 \001(\0132\021.rpc.StringPo"
+    "licy:\0028\001\"B\n\010BoolRule\022\020\n\010required\030\001 \001(\010\022\017"
+    "\n\007default\030\002 \001(\010\022\023\n\013has_default\030\003 \001(\010\"t\n\n"
+    "BoolPolicy\022)\n\005rules\030\001 \003(\0132\032.rpc.BoolPoli"
+    "cy.RulesEntry\032;\n\nRulesEntry\022\013\n\003key\030\001 \001(\t"
+    "\022\034\n\005value\030\002 \001(\0132\r.rpc.BoolRule:\0028\001\"\207\001\n\tF"
+    "loatRule\022\020\n\010required\030\001 \001(\010\022\017\n\007minimum\030\002 "
+    "\001(\001\022\017\n\007maximum\030\003 \001(\001\022\017\n\007default\030\004 \001(\001\022\023\n"
+    "\013has_default\030\005 \001(\010\022\017\n\007has_min\030\006 \001(\010\022\017\n\007h"
+    "as_max\030\007 \001(\010\"w\n\013FloatPolicy\022*\n\005rules\030\001 \003"
+    "(\0132\033.rpc.FloatPolicy.RulesEntry\032<\n\nRules"
+    "Entry\022\013\n\003key\030\001 \001(\t\022\035\n\005value\030\002 \001(\0132\016.rpc."
+    "FloatRule:\0028\001\"\211\001\n\013IntegerRule\022\020\n\010require"
+    "d\030\001 \001(\010\022\017\n\007minimum\030\002 \001(\003\022\017\n\007maximum\030\003 \001("
+    "\003\022\017\n\007default\030\004 \001(\003\022\023\n\013has_default\030\005 \001(\010\022"
+    "\017\n\007has_min\030\006 \001(\010\022\017\n\007has_max\030\007 \001(\010\"}\n\rInt"
+    "egerPolicy\022,\n\005rules\030\001 \003(\0132\035.rpc.IntegerP"
+    "olicy.RulesEntry\032>\n\nRulesEntry\022\013\n\003key\030\001 "
+    "\001(\t\022\037\n\005value\030\002 \001(\0132\020.rpc.IntegerRule:\0028\001"
+    "\"D\n\nStringRule\022\020\n\010required\030\001 \001(\010\022\017\n\007defa"
+    "ult\030\002 \001(\t\022\023\n\013has_default\030\003 \001(\010\"z\n\014String"
+    "Policy\022+\n\005rules\030\001 \003(\0132\034.rpc.StringPolicy"
+    ".RulesEntry\032=\n\nRulesEntry\022\013\n\003key\030\001 \001(\t\022\036"
+    "\n\005value\030\002 \001(\0132\017.rpc.StringRule:\0028\001\"*\n\nMe"
+    "tricsArg\022\034\n\007metrics\030\001 \003(\0132\013.rpc.Metric\";"
+    "\n\014MetricsReply\022\034\n\007metrics\030\001 \003(\0132\013.rpc.Me"
+    "tric\022\r\n\005error\030\002 \001(\t\"3\n\021GetMetricTypesArg"
+    "\022\036\n\006config\030\001 \001(\0132\016.rpc.ConfigMap2\212\002\n\tCol"
+    "lector\0226\n\016CollectMetrics\022\017.rpc.MetricsAr"
+    "g\032\021.rpc.MetricsReply\"\000\022=\n\016GetMetricTypes"
+    "\022\026.rpc.GetMetricTypesArg\032\021.rpc.MetricsRe"
+    "ply\"\000\022#\n\004Ping\022\n.rpc.Empty\032\r.rpc.ErrReply"
+    "\"\000\022%\n\004Kill\022\014.rpc.KillArg\032\r.rpc.ErrReply\""
+    "\000\022:\n\017GetConfigPolicy\022\n.rpc.Empty\032\031.rpc.G"
+    "etConfigPolicyReply\"\0002\304\001\n\tProcessor\022/\n\007P"
+    "rocess\022\017.rpc.MetricsArg\032\021.rpc.MetricsRep"
+    "ly\"\000\022#\n\004Ping\022\n.rpc.Empty\032\r.rpc.ErrReply\""
+    "\000\022%\n\004Kill\022\014.rpc.KillArg\032\r.rpc.ErrReply\"\000"
+    "\022:\n\017GetConfigPolicy\022\n.rpc.Empty\032\031.rpc.Ge"
+    "tConfigPolicyReply\"\0002\300\001\n\tPublisher\022+\n\007Pu"
+    "blish\022\017.rpc.MetricsArg\032\r.rpc.ErrReply\"\000\022"
+    "#\n\004Ping\022\n.rpc.Empty\032\r.rpc.ErrReply\"\000\022%\n\004"
+    "Kill\022\014.rpc.KillArg\032\r.rpc.ErrReply\"\000\022:\n\017G"
+    "etConfigPolicy\022\n.rpc.Empty\032\031.rpc.GetConf"
+    "igPolicyReply\"\000b\006proto3", 3343);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "plugin.proto", &protobuf_RegisterTypes);
   Empty::default_instance_ = new Empty();
@@ -790,7 +762,6 @@ void protobuf_AddDesc_plugin_2eproto() {
   Metric::default_instance_ = new Metric();
   Metric_default_oneof_instance_ = new MetricOneofInstance();
   ConfigMap::default_instance_ = new ConfigMap();
-  Rule::default_instance_ = new Rule();
   KillArg::default_instance_ = new KillArg();
   GetConfigPolicyReply::default_instance_ = new GetConfigPolicyReply();
   BoolRule::default_instance_ = new BoolRule();
@@ -810,7 +781,6 @@ void protobuf_AddDesc_plugin_2eproto() {
   NamespaceElement::default_instance_->InitAsDefaultInstance();
   Metric::default_instance_->InitAsDefaultInstance();
   ConfigMap::default_instance_->InitAsDefaultInstance();
-  Rule::default_instance_->InitAsDefaultInstance();
   KillArg::default_instance_->InitAsDefaultInstance();
   GetConfigPolicyReply::default_instance_->InitAsDefaultInstance();
   BoolRule::default_instance_->InitAsDefaultInstance();
@@ -4111,1009 +4081,6 @@ ConfigMap::mutable_boolmap() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int Rule::kRuleTypeFieldNumber;
-const int Rule::kKeyFieldNumber;
-const int Rule::kRequiredFieldNumber;
-const int Rule::kDescriptionFieldNumber;
-const int Rule::kBoolDefaultFieldNumber;
-const int Rule::kFloatDefaultFieldNumber;
-const int Rule::kFloatMinimumFieldNumber;
-const int Rule::kFloatMaximumFieldNumber;
-const int Rule::kIntDefaultFieldNumber;
-const int Rule::kIntMinimumFieldNumber;
-const int Rule::kIntMaximumFieldNumber;
-const int Rule::kStringDefaultFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-Rule::Rule()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:rpc.Rule)
-}
-
-void Rule::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-}
-
-Rule::Rule(const Rule& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:rpc.Rule)
-}
-
-void Rule::SharedCtor() {
-    _is_default_instance_ = false;
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  rule_type_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  key_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  required_ = false;
-  description_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  bool_default_ = false;
-  float_default_ = 0;
-  float_minimum_ = 0;
-  float_maximum_ = 0;
-  int_default_ = GOOGLE_LONGLONG(0);
-  int_minimum_ = GOOGLE_LONGLONG(0);
-  int_maximum_ = GOOGLE_LONGLONG(0);
-  string_default_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-Rule::~Rule() {
-  // @@protoc_insertion_point(destructor:rpc.Rule)
-  SharedDtor();
-}
-
-void Rule::SharedDtor() {
-  rule_type_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  key_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  description_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  string_default_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (this != default_instance_) {
-  }
-}
-
-void Rule::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* Rule::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return Rule_descriptor_;
-}
-
-const Rule& Rule::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_plugin_2eproto();
-  return *default_instance_;
-}
-
-Rule* Rule::default_instance_ = NULL;
-
-Rule* Rule::New(::google::protobuf::Arena* arena) const {
-  Rule* n = new Rule;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void Rule::Clear() {
-// @@protoc_insertion_point(message_clear_start:rpc.Rule)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(Rule, f) \
-  _Pragma("clang diagnostic pop")
-#else
-#define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<Rule*>(16)->f)
-#endif
-
-#define ZR_(first, last) do {\
-  ::memset(&first, 0,\
-           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
-} while (0)
-
-  ZR_(float_default_, float_maximum_);
-  ZR_(required_, bool_default_);
-  rule_type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  key_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  description_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ZR_(int_default_, int_maximum_);
-  string_default_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-
-#undef ZR_HELPER_
-#undef ZR_
-
-}
-
-bool Rule::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:rpc.Rule)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string rule_type = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_rule_type()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->rule_type().data(), this->rule_type().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "rpc.Rule.rule_type"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_key;
-        break;
-      }
-
-      // optional string key = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_key:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_key()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->key().data(), this->key().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "rpc.Rule.key"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(24)) goto parse_required;
-        break;
-      }
-
-      // optional bool required = 3;
-      case 3: {
-        if (tag == 24) {
-         parse_required:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
-                 input, &required_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(34)) goto parse_description;
-        break;
-      }
-
-      // optional string description = 4;
-      case 4: {
-        if (tag == 34) {
-         parse_description:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_description()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->description().data(), this->description().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "rpc.Rule.description"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(40)) goto parse_bool_default;
-        break;
-      }
-
-      // optional bool bool_default = 5;
-      case 5: {
-        if (tag == 40) {
-         parse_bool_default:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
-                 input, &bool_default_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(49)) goto parse_float_default;
-        break;
-      }
-
-      // optional double float_default = 6;
-      case 6: {
-        if (tag == 49) {
-         parse_float_default:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &float_default_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(57)) goto parse_float_minimum;
-        break;
-      }
-
-      // optional double float_minimum = 7;
-      case 7: {
-        if (tag == 57) {
-         parse_float_minimum:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &float_minimum_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(65)) goto parse_float_maximum;
-        break;
-      }
-
-      // optional double float_maximum = 8;
-      case 8: {
-        if (tag == 65) {
-         parse_float_maximum:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &float_maximum_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(72)) goto parse_int_default;
-        break;
-      }
-
-      // optional int64 int_default = 9;
-      case 9: {
-        if (tag == 72) {
-         parse_int_default:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &int_default_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(80)) goto parse_int_minimum;
-        break;
-      }
-
-      // optional int64 int_minimum = 10;
-      case 10: {
-        if (tag == 80) {
-         parse_int_minimum:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &int_minimum_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(88)) goto parse_int_maximum;
-        break;
-      }
-
-      // optional int64 int_maximum = 11;
-      case 11: {
-        if (tag == 88) {
-         parse_int_maximum:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &int_maximum_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(98)) goto parse_string_default;
-        break;
-      }
-
-      // optional string string_default = 12;
-      case 12: {
-        if (tag == 98) {
-         parse_string_default:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_string_default()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->string_default().data(), this->string_default().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "rpc.Rule.string_default"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:rpc.Rule)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:rpc.Rule)
-  return false;
-#undef DO_
-}
-
-void Rule::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:rpc.Rule)
-  // optional string rule_type = 1;
-  if (this->rule_type().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->rule_type().data(), this->rule_type().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "rpc.Rule.rule_type");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->rule_type(), output);
-  }
-
-  // optional string key = 2;
-  if (this->key().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->key().data(), this->key().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "rpc.Rule.key");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->key(), output);
-  }
-
-  // optional bool required = 3;
-  if (this->required() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteBool(3, this->required(), output);
-  }
-
-  // optional string description = 4;
-  if (this->description().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->description().data(), this->description().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "rpc.Rule.description");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      4, this->description(), output);
-  }
-
-  // optional bool bool_default = 5;
-  if (this->bool_default() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteBool(5, this->bool_default(), output);
-  }
-
-  // optional double float_default = 6;
-  if (this->float_default() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(6, this->float_default(), output);
-  }
-
-  // optional double float_minimum = 7;
-  if (this->float_minimum() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(7, this->float_minimum(), output);
-  }
-
-  // optional double float_maximum = 8;
-  if (this->float_maximum() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(8, this->float_maximum(), output);
-  }
-
-  // optional int64 int_default = 9;
-  if (this->int_default() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(9, this->int_default(), output);
-  }
-
-  // optional int64 int_minimum = 10;
-  if (this->int_minimum() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(10, this->int_minimum(), output);
-  }
-
-  // optional int64 int_maximum = 11;
-  if (this->int_maximum() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(11, this->int_maximum(), output);
-  }
-
-  // optional string string_default = 12;
-  if (this->string_default().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->string_default().data(), this->string_default().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "rpc.Rule.string_default");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      12, this->string_default(), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:rpc.Rule)
-}
-
-::google::protobuf::uint8* Rule::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:rpc.Rule)
-  // optional string rule_type = 1;
-  if (this->rule_type().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->rule_type().data(), this->rule_type().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "rpc.Rule.rule_type");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->rule_type(), target);
-  }
-
-  // optional string key = 2;
-  if (this->key().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->key().data(), this->key().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "rpc.Rule.key");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->key(), target);
-  }
-
-  // optional bool required = 3;
-  if (this->required() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->required(), target);
-  }
-
-  // optional string description = 4;
-  if (this->description().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->description().data(), this->description().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "rpc.Rule.description");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        4, this->description(), target);
-  }
-
-  // optional bool bool_default = 5;
-  if (this->bool_default() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(5, this->bool_default(), target);
-  }
-
-  // optional double float_default = 6;
-  if (this->float_default() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(6, this->float_default(), target);
-  }
-
-  // optional double float_minimum = 7;
-  if (this->float_minimum() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(7, this->float_minimum(), target);
-  }
-
-  // optional double float_maximum = 8;
-  if (this->float_maximum() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(8, this->float_maximum(), target);
-  }
-
-  // optional int64 int_default = 9;
-  if (this->int_default() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(9, this->int_default(), target);
-  }
-
-  // optional int64 int_minimum = 10;
-  if (this->int_minimum() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(10, this->int_minimum(), target);
-  }
-
-  // optional int64 int_maximum = 11;
-  if (this->int_maximum() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(11, this->int_maximum(), target);
-  }
-
-  // optional string string_default = 12;
-  if (this->string_default().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->string_default().data(), this->string_default().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "rpc.Rule.string_default");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        12, this->string_default(), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:rpc.Rule)
-  return target;
-}
-
-int Rule::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:rpc.Rule)
-  int total_size = 0;
-
-  // optional string rule_type = 1;
-  if (this->rule_type().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->rule_type());
-  }
-
-  // optional string key = 2;
-  if (this->key().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->key());
-  }
-
-  // optional bool required = 3;
-  if (this->required() != 0) {
-    total_size += 1 + 1;
-  }
-
-  // optional string description = 4;
-  if (this->description().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->description());
-  }
-
-  // optional bool bool_default = 5;
-  if (this->bool_default() != 0) {
-    total_size += 1 + 1;
-  }
-
-  // optional double float_default = 6;
-  if (this->float_default() != 0) {
-    total_size += 1 + 8;
-  }
-
-  // optional double float_minimum = 7;
-  if (this->float_minimum() != 0) {
-    total_size += 1 + 8;
-  }
-
-  // optional double float_maximum = 8;
-  if (this->float_maximum() != 0) {
-    total_size += 1 + 8;
-  }
-
-  // optional int64 int_default = 9;
-  if (this->int_default() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->int_default());
-  }
-
-  // optional int64 int_minimum = 10;
-  if (this->int_minimum() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->int_minimum());
-  }
-
-  // optional int64 int_maximum = 11;
-  if (this->int_maximum() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->int_maximum());
-  }
-
-  // optional string string_default = 12;
-  if (this->string_default().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->string_default());
-  }
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void Rule::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:rpc.Rule)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const Rule* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const Rule>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:rpc.Rule)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:rpc.Rule)
-    MergeFrom(*source);
-  }
-}
-
-void Rule::MergeFrom(const Rule& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rpc.Rule)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.rule_type().size() > 0) {
-
-    rule_type_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.rule_type_);
-  }
-  if (from.key().size() > 0) {
-
-    key_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.key_);
-  }
-  if (from.required() != 0) {
-    set_required(from.required());
-  }
-  if (from.description().size() > 0) {
-
-    description_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.description_);
-  }
-  if (from.bool_default() != 0) {
-    set_bool_default(from.bool_default());
-  }
-  if (from.float_default() != 0) {
-    set_float_default(from.float_default());
-  }
-  if (from.float_minimum() != 0) {
-    set_float_minimum(from.float_minimum());
-  }
-  if (from.float_maximum() != 0) {
-    set_float_maximum(from.float_maximum());
-  }
-  if (from.int_default() != 0) {
-    set_int_default(from.int_default());
-  }
-  if (from.int_minimum() != 0) {
-    set_int_minimum(from.int_minimum());
-  }
-  if (from.int_maximum() != 0) {
-    set_int_maximum(from.int_maximum());
-  }
-  if (from.string_default().size() > 0) {
-
-    string_default_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.string_default_);
-  }
-}
-
-void Rule::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:rpc.Rule)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void Rule::CopyFrom(const Rule& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:rpc.Rule)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool Rule::IsInitialized() const {
-
-  return true;
-}
-
-void Rule::Swap(Rule* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void Rule::InternalSwap(Rule* other) {
-  rule_type_.Swap(&other->rule_type_);
-  key_.Swap(&other->key_);
-  std::swap(required_, other->required_);
-  description_.Swap(&other->description_);
-  std::swap(bool_default_, other->bool_default_);
-  std::swap(float_default_, other->float_default_);
-  std::swap(float_minimum_, other->float_minimum_);
-  std::swap(float_maximum_, other->float_maximum_);
-  std::swap(int_default_, other->int_default_);
-  std::swap(int_minimum_, other->int_minimum_);
-  std::swap(int_maximum_, other->int_maximum_);
-  string_default_.Swap(&other->string_default_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata Rule::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = Rule_descriptor_;
-  metadata.reflection = Rule_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// Rule
-
-// optional string rule_type = 1;
-void Rule::clear_rule_type() {
-  rule_type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- const ::std::string& Rule::rule_type() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.rule_type)
-  return rule_type_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void Rule::set_rule_type(const ::std::string& value) {
-  
-  rule_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:rpc.Rule.rule_type)
-}
- void Rule::set_rule_type(const char* value) {
-  
-  rule_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:rpc.Rule.rule_type)
-}
- void Rule::set_rule_type(const char* value, size_t size) {
-  
-  rule_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:rpc.Rule.rule_type)
-}
- ::std::string* Rule::mutable_rule_type() {
-  
-  // @@protoc_insertion_point(field_mutable:rpc.Rule.rule_type)
-  return rule_type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- ::std::string* Rule::release_rule_type() {
-  // @@protoc_insertion_point(field_release:rpc.Rule.rule_type)
-  
-  return rule_type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void Rule::set_allocated_rule_type(::std::string* rule_type) {
-  if (rule_type != NULL) {
-    
-  } else {
-    
-  }
-  rule_type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), rule_type);
-  // @@protoc_insertion_point(field_set_allocated:rpc.Rule.rule_type)
-}
-
-// optional string key = 2;
-void Rule::clear_key() {
-  key_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- const ::std::string& Rule::key() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.key)
-  return key_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void Rule::set_key(const ::std::string& value) {
-  
-  key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:rpc.Rule.key)
-}
- void Rule::set_key(const char* value) {
-  
-  key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:rpc.Rule.key)
-}
- void Rule::set_key(const char* value, size_t size) {
-  
-  key_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:rpc.Rule.key)
-}
- ::std::string* Rule::mutable_key() {
-  
-  // @@protoc_insertion_point(field_mutable:rpc.Rule.key)
-  return key_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- ::std::string* Rule::release_key() {
-  // @@protoc_insertion_point(field_release:rpc.Rule.key)
-  
-  return key_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void Rule::set_allocated_key(::std::string* key) {
-  if (key != NULL) {
-    
-  } else {
-    
-  }
-  key_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), key);
-  // @@protoc_insertion_point(field_set_allocated:rpc.Rule.key)
-}
-
-// optional bool required = 3;
-void Rule::clear_required() {
-  required_ = false;
-}
- bool Rule::required() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.required)
-  return required_;
-}
- void Rule::set_required(bool value) {
-  
-  required_ = value;
-  // @@protoc_insertion_point(field_set:rpc.Rule.required)
-}
-
-// optional string description = 4;
-void Rule::clear_description() {
-  description_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- const ::std::string& Rule::description() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.description)
-  return description_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void Rule::set_description(const ::std::string& value) {
-  
-  description_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:rpc.Rule.description)
-}
- void Rule::set_description(const char* value) {
-  
-  description_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:rpc.Rule.description)
-}
- void Rule::set_description(const char* value, size_t size) {
-  
-  description_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:rpc.Rule.description)
-}
- ::std::string* Rule::mutable_description() {
-  
-  // @@protoc_insertion_point(field_mutable:rpc.Rule.description)
-  return description_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- ::std::string* Rule::release_description() {
-  // @@protoc_insertion_point(field_release:rpc.Rule.description)
-  
-  return description_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void Rule::set_allocated_description(::std::string* description) {
-  if (description != NULL) {
-    
-  } else {
-    
-  }
-  description_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), description);
-  // @@protoc_insertion_point(field_set_allocated:rpc.Rule.description)
-}
-
-// optional bool bool_default = 5;
-void Rule::clear_bool_default() {
-  bool_default_ = false;
-}
- bool Rule::bool_default() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.bool_default)
-  return bool_default_;
-}
- void Rule::set_bool_default(bool value) {
-  
-  bool_default_ = value;
-  // @@protoc_insertion_point(field_set:rpc.Rule.bool_default)
-}
-
-// optional double float_default = 6;
-void Rule::clear_float_default() {
-  float_default_ = 0;
-}
- double Rule::float_default() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.float_default)
-  return float_default_;
-}
- void Rule::set_float_default(double value) {
-  
-  float_default_ = value;
-  // @@protoc_insertion_point(field_set:rpc.Rule.float_default)
-}
-
-// optional double float_minimum = 7;
-void Rule::clear_float_minimum() {
-  float_minimum_ = 0;
-}
- double Rule::float_minimum() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.float_minimum)
-  return float_minimum_;
-}
- void Rule::set_float_minimum(double value) {
-  
-  float_minimum_ = value;
-  // @@protoc_insertion_point(field_set:rpc.Rule.float_minimum)
-}
-
-// optional double float_maximum = 8;
-void Rule::clear_float_maximum() {
-  float_maximum_ = 0;
-}
- double Rule::float_maximum() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.float_maximum)
-  return float_maximum_;
-}
- void Rule::set_float_maximum(double value) {
-  
-  float_maximum_ = value;
-  // @@protoc_insertion_point(field_set:rpc.Rule.float_maximum)
-}
-
-// optional int64 int_default = 9;
-void Rule::clear_int_default() {
-  int_default_ = GOOGLE_LONGLONG(0);
-}
- ::google::protobuf::int64 Rule::int_default() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.int_default)
-  return int_default_;
-}
- void Rule::set_int_default(::google::protobuf::int64 value) {
-  
-  int_default_ = value;
-  // @@protoc_insertion_point(field_set:rpc.Rule.int_default)
-}
-
-// optional int64 int_minimum = 10;
-void Rule::clear_int_minimum() {
-  int_minimum_ = GOOGLE_LONGLONG(0);
-}
- ::google::protobuf::int64 Rule::int_minimum() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.int_minimum)
-  return int_minimum_;
-}
- void Rule::set_int_minimum(::google::protobuf::int64 value) {
-  
-  int_minimum_ = value;
-  // @@protoc_insertion_point(field_set:rpc.Rule.int_minimum)
-}
-
-// optional int64 int_maximum = 11;
-void Rule::clear_int_maximum() {
-  int_maximum_ = GOOGLE_LONGLONG(0);
-}
- ::google::protobuf::int64 Rule::int_maximum() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.int_maximum)
-  return int_maximum_;
-}
- void Rule::set_int_maximum(::google::protobuf::int64 value) {
-  
-  int_maximum_ = value;
-  // @@protoc_insertion_point(field_set:rpc.Rule.int_maximum)
-}
-
-// optional string string_default = 12;
-void Rule::clear_string_default() {
-  string_default_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- const ::std::string& Rule::string_default() const {
-  // @@protoc_insertion_point(field_get:rpc.Rule.string_default)
-  return string_default_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void Rule::set_string_default(const ::std::string& value) {
-  
-  string_default_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:rpc.Rule.string_default)
-}
- void Rule::set_string_default(const char* value) {
-  
-  string_default_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:rpc.Rule.string_default)
-}
- void Rule::set_string_default(const char* value, size_t size) {
-  
-  string_default_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:rpc.Rule.string_default)
-}
- ::std::string* Rule::mutable_string_default() {
-  
-  // @@protoc_insertion_point(field_mutable:rpc.Rule.string_default)
-  return string_default_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- ::std::string* Rule::release_string_default() {
-  // @@protoc_insertion_point(field_release:rpc.Rule.string_default)
-  
-  return string_default_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void Rule::set_allocated_string_default(::std::string* string_default) {
-  if (string_default != NULL) {
-    
-  } else {
-    
-  }
-  string_default_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), string_default);
-  // @@protoc_insertion_point(field_set_allocated:rpc.Rule.string_default)
-}
-
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int KillArg::kReasonFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -6069,6 +5036,7 @@ GetConfigPolicyReply::mutable_string_policy() {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int BoolRule::kRequiredFieldNumber;
 const int BoolRule::kDefaultFieldNumber;
+const int BoolRule::kHasDefaultFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 BoolRule::BoolRule()
@@ -6094,6 +5062,7 @@ void BoolRule::SharedCtor() {
   _cached_size_ = 0;
   required_ = false;
   default__ = false;
+  has_default_ = false;
 }
 
 BoolRule::~BoolRule() {
@@ -6149,7 +5118,7 @@ void BoolRule::Clear() {
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(required_, default__);
+  ZR_(required_, has_default_);
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -6187,6 +5156,21 @@ bool BoolRule::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &default__)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_has_default;
+        break;
+      }
+
+      // optional bool has_default = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_has_default:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &has_default_)));
 
         } else {
           goto handle_unusual;
@@ -6229,6 +5213,11 @@ void BoolRule::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteBool(2, this->default_(), output);
   }
 
+  // optional bool has_default = 3;
+  if (this->has_default() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(3, this->has_default(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:rpc.BoolRule)
 }
 
@@ -6243,6 +5232,11 @@ void BoolRule::SerializeWithCachedSizes(
   // optional bool default = 2;
   if (this->default_() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(2, this->default_(), target);
+  }
+
+  // optional bool has_default = 3;
+  if (this->has_default() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->has_default(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:rpc.BoolRule)
@@ -6260,6 +5254,11 @@ int BoolRule::ByteSize() const {
 
   // optional bool default = 2;
   if (this->default_() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // optional bool has_default = 3;
+  if (this->has_default() != 0) {
     total_size += 1 + 1;
   }
 
@@ -6293,6 +5292,9 @@ void BoolRule::MergeFrom(const BoolRule& from) {
   if (from.default_() != 0) {
     set_default_(from.default_());
   }
+  if (from.has_default() != 0) {
+    set_has_default(from.has_default());
+  }
 }
 
 void BoolRule::CopyFrom(const ::google::protobuf::Message& from) {
@@ -6321,6 +5323,7 @@ void BoolRule::Swap(BoolRule* other) {
 void BoolRule::InternalSwap(BoolRule* other) {
   std::swap(required_, other->required_);
   std::swap(default__, other->default__);
+  std::swap(has_default_, other->has_default_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -6362,6 +5365,20 @@ void BoolRule::clear_default_() {
   
   default__ = value;
   // @@protoc_insertion_point(field_set:rpc.BoolRule.default)
+}
+
+// optional bool has_default = 3;
+void BoolRule::clear_has_default() {
+  has_default_ = false;
+}
+ bool BoolRule::has_default() const {
+  // @@protoc_insertion_point(field_get:rpc.BoolRule.has_default)
+  return has_default_;
+}
+ void BoolRule::set_has_default(bool value) {
+  
+  has_default_ = value;
+  // @@protoc_insertion_point(field_set:rpc.BoolRule.has_default)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -6654,6 +5671,9 @@ const int FloatRule::kRequiredFieldNumber;
 const int FloatRule::kMinimumFieldNumber;
 const int FloatRule::kMaximumFieldNumber;
 const int FloatRule::kDefaultFieldNumber;
+const int FloatRule::kHasDefaultFieldNumber;
+const int FloatRule::kHasMinFieldNumber;
+const int FloatRule::kHasMaxFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 FloatRule::FloatRule()
@@ -6681,6 +5701,9 @@ void FloatRule::SharedCtor() {
   minimum_ = 0;
   maximum_ = 0;
   default__ = 0;
+  has_default_ = false;
+  has_min_ = false;
+  has_max_ = false;
 }
 
 FloatRule::~FloatRule() {
@@ -6736,7 +5759,7 @@ void FloatRule::Clear() {
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(minimum_, required_);
+  ZR_(minimum_, has_max_);
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -6808,6 +5831,51 @@ bool FloatRule::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(40)) goto parse_has_default;
+        break;
+      }
+
+      // optional bool has_default = 5;
+      case 5: {
+        if (tag == 40) {
+         parse_has_default:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &has_default_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(48)) goto parse_has_min;
+        break;
+      }
+
+      // optional bool has_min = 6;
+      case 6: {
+        if (tag == 48) {
+         parse_has_min:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &has_min_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(56)) goto parse_has_max;
+        break;
+      }
+
+      // optional bool has_max = 7;
+      case 7: {
+        if (tag == 56) {
+         parse_has_max:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &has_max_)));
+
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -6856,6 +5924,21 @@ void FloatRule::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteDouble(4, this->default_(), output);
   }
 
+  // optional bool has_default = 5;
+  if (this->has_default() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(5, this->has_default(), output);
+  }
+
+  // optional bool has_min = 6;
+  if (this->has_min() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(6, this->has_min(), output);
+  }
+
+  // optional bool has_max = 7;
+  if (this->has_max() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(7, this->has_max(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:rpc.FloatRule)
 }
 
@@ -6880,6 +5963,21 @@ void FloatRule::SerializeWithCachedSizes(
   // optional double default = 4;
   if (this->default_() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(4, this->default_(), target);
+  }
+
+  // optional bool has_default = 5;
+  if (this->has_default() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(5, this->has_default(), target);
+  }
+
+  // optional bool has_min = 6;
+  if (this->has_min() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(6, this->has_min(), target);
+  }
+
+  // optional bool has_max = 7;
+  if (this->has_max() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(7, this->has_max(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:rpc.FloatRule)
@@ -6908,6 +6006,21 @@ int FloatRule::ByteSize() const {
   // optional double default = 4;
   if (this->default_() != 0) {
     total_size += 1 + 8;
+  }
+
+  // optional bool has_default = 5;
+  if (this->has_default() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // optional bool has_min = 6;
+  if (this->has_min() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // optional bool has_max = 7;
+  if (this->has_max() != 0) {
+    total_size += 1 + 1;
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -6946,6 +6059,15 @@ void FloatRule::MergeFrom(const FloatRule& from) {
   if (from.default_() != 0) {
     set_default_(from.default_());
   }
+  if (from.has_default() != 0) {
+    set_has_default(from.has_default());
+  }
+  if (from.has_min() != 0) {
+    set_has_min(from.has_min());
+  }
+  if (from.has_max() != 0) {
+    set_has_max(from.has_max());
+  }
 }
 
 void FloatRule::CopyFrom(const ::google::protobuf::Message& from) {
@@ -6976,6 +6098,9 @@ void FloatRule::InternalSwap(FloatRule* other) {
   std::swap(minimum_, other->minimum_);
   std::swap(maximum_, other->maximum_);
   std::swap(default__, other->default__);
+  std::swap(has_default_, other->has_default_);
+  std::swap(has_min_, other->has_min_);
+  std::swap(has_max_, other->has_max_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -7045,6 +6170,48 @@ void FloatRule::clear_default_() {
   
   default__ = value;
   // @@protoc_insertion_point(field_set:rpc.FloatRule.default)
+}
+
+// optional bool has_default = 5;
+void FloatRule::clear_has_default() {
+  has_default_ = false;
+}
+ bool FloatRule::has_default() const {
+  // @@protoc_insertion_point(field_get:rpc.FloatRule.has_default)
+  return has_default_;
+}
+ void FloatRule::set_has_default(bool value) {
+  
+  has_default_ = value;
+  // @@protoc_insertion_point(field_set:rpc.FloatRule.has_default)
+}
+
+// optional bool has_min = 6;
+void FloatRule::clear_has_min() {
+  has_min_ = false;
+}
+ bool FloatRule::has_min() const {
+  // @@protoc_insertion_point(field_get:rpc.FloatRule.has_min)
+  return has_min_;
+}
+ void FloatRule::set_has_min(bool value) {
+  
+  has_min_ = value;
+  // @@protoc_insertion_point(field_set:rpc.FloatRule.has_min)
+}
+
+// optional bool has_max = 7;
+void FloatRule::clear_has_max() {
+  has_max_ = false;
+}
+ bool FloatRule::has_max() const {
+  // @@protoc_insertion_point(field_get:rpc.FloatRule.has_max)
+  return has_max_;
+}
+ void FloatRule::set_has_max(bool value) {
+  
+  has_max_ = value;
+  // @@protoc_insertion_point(field_set:rpc.FloatRule.has_max)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -7337,6 +6504,9 @@ const int IntegerRule::kRequiredFieldNumber;
 const int IntegerRule::kMinimumFieldNumber;
 const int IntegerRule::kMaximumFieldNumber;
 const int IntegerRule::kDefaultFieldNumber;
+const int IntegerRule::kHasDefaultFieldNumber;
+const int IntegerRule::kHasMinFieldNumber;
+const int IntegerRule::kHasMaxFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 IntegerRule::IntegerRule()
@@ -7364,6 +6534,9 @@ void IntegerRule::SharedCtor() {
   minimum_ = GOOGLE_LONGLONG(0);
   maximum_ = GOOGLE_LONGLONG(0);
   default__ = GOOGLE_LONGLONG(0);
+  has_default_ = false;
+  has_min_ = false;
+  has_max_ = false;
 }
 
 IntegerRule::~IntegerRule() {
@@ -7419,7 +6592,7 @@ void IntegerRule::Clear() {
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(minimum_, required_);
+  ZR_(minimum_, has_max_);
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -7491,6 +6664,51 @@ bool IntegerRule::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(40)) goto parse_has_default;
+        break;
+      }
+
+      // optional bool has_default = 5;
+      case 5: {
+        if (tag == 40) {
+         parse_has_default:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &has_default_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(48)) goto parse_has_min;
+        break;
+      }
+
+      // optional bool has_min = 6;
+      case 6: {
+        if (tag == 48) {
+         parse_has_min:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &has_min_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(56)) goto parse_has_max;
+        break;
+      }
+
+      // optional bool has_max = 7;
+      case 7: {
+        if (tag == 56) {
+         parse_has_max:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &has_max_)));
+
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -7539,6 +6757,21 @@ void IntegerRule::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(4, this->default_(), output);
   }
 
+  // optional bool has_default = 5;
+  if (this->has_default() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(5, this->has_default(), output);
+  }
+
+  // optional bool has_min = 6;
+  if (this->has_min() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(6, this->has_min(), output);
+  }
+
+  // optional bool has_max = 7;
+  if (this->has_max() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(7, this->has_max(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:rpc.IntegerRule)
 }
 
@@ -7563,6 +6796,21 @@ void IntegerRule::SerializeWithCachedSizes(
   // optional int64 default = 4;
   if (this->default_() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(4, this->default_(), target);
+  }
+
+  // optional bool has_default = 5;
+  if (this->has_default() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(5, this->has_default(), target);
+  }
+
+  // optional bool has_min = 6;
+  if (this->has_min() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(6, this->has_min(), target);
+  }
+
+  // optional bool has_max = 7;
+  if (this->has_max() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(7, this->has_max(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:rpc.IntegerRule)
@@ -7597,6 +6845,21 @@ int IntegerRule::ByteSize() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int64Size(
         this->default_());
+  }
+
+  // optional bool has_default = 5;
+  if (this->has_default() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // optional bool has_min = 6;
+  if (this->has_min() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // optional bool has_max = 7;
+  if (this->has_max() != 0) {
+    total_size += 1 + 1;
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -7635,6 +6898,15 @@ void IntegerRule::MergeFrom(const IntegerRule& from) {
   if (from.default_() != 0) {
     set_default_(from.default_());
   }
+  if (from.has_default() != 0) {
+    set_has_default(from.has_default());
+  }
+  if (from.has_min() != 0) {
+    set_has_min(from.has_min());
+  }
+  if (from.has_max() != 0) {
+    set_has_max(from.has_max());
+  }
 }
 
 void IntegerRule::CopyFrom(const ::google::protobuf::Message& from) {
@@ -7665,6 +6937,9 @@ void IntegerRule::InternalSwap(IntegerRule* other) {
   std::swap(minimum_, other->minimum_);
   std::swap(maximum_, other->maximum_);
   std::swap(default__, other->default__);
+  std::swap(has_default_, other->has_default_);
+  std::swap(has_min_, other->has_min_);
+  std::swap(has_max_, other->has_max_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -7734,6 +7009,48 @@ void IntegerRule::clear_default_() {
   
   default__ = value;
   // @@protoc_insertion_point(field_set:rpc.IntegerRule.default)
+}
+
+// optional bool has_default = 5;
+void IntegerRule::clear_has_default() {
+  has_default_ = false;
+}
+ bool IntegerRule::has_default() const {
+  // @@protoc_insertion_point(field_get:rpc.IntegerRule.has_default)
+  return has_default_;
+}
+ void IntegerRule::set_has_default(bool value) {
+  
+  has_default_ = value;
+  // @@protoc_insertion_point(field_set:rpc.IntegerRule.has_default)
+}
+
+// optional bool has_min = 6;
+void IntegerRule::clear_has_min() {
+  has_min_ = false;
+}
+ bool IntegerRule::has_min() const {
+  // @@protoc_insertion_point(field_get:rpc.IntegerRule.has_min)
+  return has_min_;
+}
+ void IntegerRule::set_has_min(bool value) {
+  
+  has_min_ = value;
+  // @@protoc_insertion_point(field_set:rpc.IntegerRule.has_min)
+}
+
+// optional bool has_max = 7;
+void IntegerRule::clear_has_max() {
+  has_max_ = false;
+}
+ bool IntegerRule::has_max() const {
+  // @@protoc_insertion_point(field_get:rpc.IntegerRule.has_max)
+  return has_max_;
+}
+ void IntegerRule::set_has_max(bool value) {
+  
+  has_max_ = value;
+  // @@protoc_insertion_point(field_set:rpc.IntegerRule.has_max)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -8024,6 +7341,7 @@ IntegerPolicy::mutable_rules() {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int StringRule::kRequiredFieldNumber;
 const int StringRule::kDefaultFieldNumber;
+const int StringRule::kHasDefaultFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 StringRule::StringRule()
@@ -8050,6 +7368,7 @@ void StringRule::SharedCtor() {
   _cached_size_ = 0;
   required_ = false;
   default__.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  has_default_ = false;
 }
 
 StringRule::~StringRule() {
@@ -8090,8 +7409,28 @@ StringRule* StringRule::New(::google::protobuf::Arena* arena) const {
 
 void StringRule::Clear() {
 // @@protoc_insertion_point(message_clear_start:rpc.StringRule)
-  required_ = false;
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(StringRule, f) \
+  _Pragma("clang diagnostic pop")
+#else
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<StringRule*>(16)->f)
+#endif
+
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  ZR_(required_, has_default_);
   default__.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+
+#undef ZR_HELPER_
+#undef ZR_
+
 }
 
 bool StringRule::MergePartialFromCodedStream(
@@ -8128,6 +7467,21 @@ bool StringRule::MergePartialFromCodedStream(
             this->default_().data(), this->default_().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
             "rpc.StringRule.default"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_has_default;
+        break;
+      }
+
+      // optional bool has_default = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_has_default:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &has_default_)));
+
         } else {
           goto handle_unusual;
         }
@@ -8174,6 +7528,11 @@ void StringRule::SerializeWithCachedSizes(
       2, this->default_(), output);
   }
 
+  // optional bool has_default = 3;
+  if (this->has_default() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(3, this->has_default(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:rpc.StringRule)
 }
 
@@ -8196,6 +7555,11 @@ void StringRule::SerializeWithCachedSizes(
         2, this->default_(), target);
   }
 
+  // optional bool has_default = 3;
+  if (this->has_default() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(3, this->has_default(), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:rpc.StringRule)
   return target;
 }
@@ -8214,6 +7578,11 @@ int StringRule::ByteSize() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->default_());
+  }
+
+  // optional bool has_default = 3;
+  if (this->has_default() != 0) {
+    total_size += 1 + 1;
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -8247,6 +7616,9 @@ void StringRule::MergeFrom(const StringRule& from) {
 
     default__.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.default__);
   }
+  if (from.has_default() != 0) {
+    set_has_default(from.has_default());
+  }
 }
 
 void StringRule::CopyFrom(const ::google::protobuf::Message& from) {
@@ -8275,6 +7647,7 @@ void StringRule::Swap(StringRule* other) {
 void StringRule::InternalSwap(StringRule* other) {
   std::swap(required_, other->required_);
   default__.Swap(&other->default__);
+  std::swap(has_default_, other->has_default_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -8346,6 +7719,20 @@ void StringRule::clear_default_() {
   }
   default__.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), default_);
   // @@protoc_insertion_point(field_set_allocated:rpc.StringRule.default)
+}
+
+// optional bool has_default = 3;
+void StringRule::clear_has_default() {
+  has_default_ = false;
+}
+ bool StringRule::has_default() const {
+  // @@protoc_insertion_point(field_get:rpc.StringRule.has_default)
+  return has_default_;
+}
+ void StringRule::set_has_default(bool value) {
+  
+  has_default_ = value;
+  // @@protoc_insertion_point(field_set:rpc.StringRule.has_default)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

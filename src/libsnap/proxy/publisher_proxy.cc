@@ -11,12 +11,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+#include "snap/proxy/publisher_proxy.h"
 
 #include <grpc++/grpc++.h>
 
-#include "plugin.grpc.pb.h"
-
-#include "snap/proxy/publisher_proxy.h"
+#include "snap/rpc/plugin.pb.h"
 
 using grpc::Server;
 using grpc::ServerContext;
@@ -26,9 +25,9 @@ using rpc::Publisher;
 using rpc::MetricsArg;
 using rpc::ErrReply;
 
-using namespace Plugin::Proxy;
+using Plugin::Proxy::PublisherImpl;
 
-Status PublisherImpl::Publish(ServerContext* context, const MetricsArg* request,
-                              ErrReply* response) {
+Status PublisherImpl::Publish(ServerContext* context, const MetricsArg* req,
+                              ErrReply* resp) {
   return Status::OK;
 }

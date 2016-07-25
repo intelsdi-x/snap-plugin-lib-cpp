@@ -11,40 +11,46 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-
-#ifndef COLLECTOR_PROXY_H
-#define COLLECTOR_PROXY_H
+#pragma once
 
 #include <grpc++/grpc++.h>
 
-#include "plugin.grpc.pb.h"
+#include "snap/rpc/plugin.grpc.pb.h"
+#include "snap/rpc/plugin.pb.h"
 
 #include "snap/proxy/plugin_proxy.h"
-
-using grpc::Server;
-using grpc::ServerContext;
-using grpc::Status;
-
-using rpc::Collector;
-using rpc::GetMetricTypesArg;
-using rpc::MetricsArg;
-using rpc::MetricsReply;
 
 namespace Plugin {
 namespace Proxy {
 
-class CollectorImpl final : Collector::Service, PluginImpl {
+class CollectorImpl final : public rpc::Collector::Service {
+ public:
+  explicit CollectorImpl(Plugin::CollectorInterface* plugin);
 
-  public:
-    Status CollectMetrics(ServerContext* context, const MetricsArg* request,
-                          MetricsReply* response);
+  ~CollectorImpl();
 
-    Status GetMetricTypes(ServerContext* context,
-                          const GetMetricTypesArg* request,
-                          MetricsReply* response);
+  grpc::Status CollectMetrics(grpc::ServerContext* context,
+                              const rpc::MetricsArg* req,
+                              rpc::MetricsReply* resp);
+
+  grpc::Status GetMetricTypes(grpc::ServerContext* context,
+                              const rpc::GetMetricTypesArg* request,
+                              rpc::MetricsReply* resp);
+
+  grpc::Status Kill(grpc::ServerContext* context, const rpc::KillArg* request,
+                    rpc::ErrReply* response);
+
+  grpc::Status GetConfigPolicy(grpc::ServerContext* context,
+                               const rpc::Empty* request,
+                               rpc::GetConfigPolicyReply* resp);
+
+  grpc::Status Ping(grpc::ServerContext* context, const rpc::Empty* request,
+                    rpc::ErrReply* resp);
+
+ private:
+  Plugin::CollectorInterface* collector;
+  PluginImpl* plugin_impl_ptr;
 };
 
-} // Proxy
-} // Plugin
-
-#endif
+}  // namespace Proxy
+}  // namespace Plugin

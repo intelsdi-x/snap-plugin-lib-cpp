@@ -11,8 +11,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-
-#include <iostream>
 #include <vector>
 
 #include <snap/config.h>
@@ -21,24 +19,57 @@ limitations under the License.
 
 #include "rando.h"
 
-using namespace Plugin;
+using Plugin::Config;
+using Plugin::ConfigPolicy;
+using Plugin::Metric;
+using Plugin::Meta;
+using Plugin::Type;
 
-Config::Policy Rando::getConfigPolicy() {
-  Config::Policy policy;
+ConfigPolicy Rando::get_config_policy() {
+  ConfigPolicy policy;
   return policy;
 }
 
-std::vector<Metric::Metric> Rando::getMetricTypes(Config::Config cfg) {
-  std::vector<Metric::Metric> metrics;
+std::vector<Metric> Rando::get_metric_types(Config cfg) {
+  std::vector<Metric> metrics = {
+    {
+      {
+        {"intel", "", ""},
+        {"cpp", "", ""},
+        {"mock", "", ""},
+        {"random_number", "", ""},
+        {"one", "", ""},
+      },
+      "",
+      "the first random number"
+    },
+    {
+      {
+        {"intel", "", ""},
+        {"cpp", "", ""},
+        {"mock", "", ""},
+        {"random_number", "", ""},
+        {"two", "", ""},
+      },
+      "",
+      "the second random number"
+    }
+  };
   return metrics;
 }
 
-std::vector<Metric::Metric> Rando::collectMetrics(std::vector<Metric::Metric> metrics) {
-  return metrics;
+void Rando::collect_metrics(std::vector<Metric>* metrics) {
+  std::vector<Metric>::iterator mets_iter;
+  unsigned int seed;
+  for (mets_iter = metrics->begin(); mets_iter != metrics->end(); mets_iter++) {
+    mets_iter->set_data(rand_r(&seed) % 1000);
+    mets_iter->set_timestamp();
+  }
 }
 
 int main() {
+  Meta meta(Type::Collector, "rando", 1);
+  meta.unsecure = true;
   Rando plg = Rando();
-  start(&plg, Type::collector, "rando", 1);
-  std::cout << "well that compiled" << std::endl;
+  start_collector(&plg, meta);
 }
