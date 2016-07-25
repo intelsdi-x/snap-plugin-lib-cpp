@@ -1,3 +1,11 @@
+# build artifacts
+*.o
+*.lo
+*.la
+*.so
+
+# autogen.sh pulls this down
+include/json.hpp
+
 *.swp
 snap-plugin-collector-rando
-libsnap.so

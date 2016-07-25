@@ -5,41 +5,27 @@ _Note: This repository is a work in progress and is not, by any means, ready to 
 
 See the [RPC Type, Content Types, and Client Libraries RFC](https://github.com/intelsdi-x/snap/issues/1038) on Snap as a reference for the plans for this repository.
 
-## Development Notes
+## Building libsnap:
 
-Things you need to compile grpc++:
+Dependencies:
 * autoconf
 * automake
-* gettext
 * libtool
+* grpc++
 
-After that:
+Once the above dependencies have been resolved:
+
 ```sh
- $ git clone https://github.com/grpc/grpc.git
- $ cd grpc
- $ git submodule update --init
- $ make
- $ [sudo] make install
- ```
-Once grpc++ is installed you need these two commands:
-```sh
-$ protoc \
-  --grpc_out=`pwd` \
-  --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` \
-  --proto_path=${GOPATH}/src/github.com/intelsdi-x/snap/control/plugin/rpc \
-  ${GOPATH}/src/github.com/intelsdi-x/snap/control/plugin/rpc/plugin.proto
-$ protoc \
-  --cpp_out=`pwd` \
-  --proto_path=${GOPATH}/src/github.com/intelsdi-x/snap/control/plugin/rpc \
-  ${GOPATH}/src/github.com/intelsdi-x/snap/control/plugin/rpc/plugin.proto
-```
-Compiling and installing libsnap:
-```sh
-$ find src/libsnap -name "*.cc" | xargs -I{} clang++ --std=c++11 -Wall -fPIC -c -I include -I include/snap/rpc {} && clang++ -shared -lprotobuf -lgrpc++ -o libsnap.so *.o && rm *.o && sudo mv libsnap.so /usr/lib
+$ ./autogen.sh
+$ ./configure
+$ make
+$ [sudo] make install
 ```
 
-To build libsnap, it must be linked against libprotobuf and libgrpc.  Then plugins are linked against libsnap 
+`autotools` installs `libsnap` into `/usr/local/lib`, which not all linkers use when searching for shared objects.  Using the `--prefix=/usr` switch when running the `configure` script will place the resulting libraries into `/usr/lib`, for example.
 
+To clean up and rebuild use:
 ```sh
-$ clang++ --std=c++11 -I examples/rando/include -I include -l snap -o snap-collector-rando examples/rando/src/rando.cc
+$ make clean
+$ git clean -df  # warning! This deletes all dirs and files not checked in.  Be sure to check in any new files before running `git clean`.
 ```
