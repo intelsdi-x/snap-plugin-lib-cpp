@@ -163,11 +163,11 @@ Processor::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   , rpcmethod_GetConfigPolicy_(Processor_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status Processor::Stub::Process(::grpc::ClientContext* context, const ::rpc::MetricsArg& request, ::rpc::MetricsReply* response) {
+::grpc::Status Processor::Stub::Process(::grpc::ClientContext* context, const ::rpc::PubProcArg& request, ::rpc::MetricsReply* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Process_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::rpc::MetricsReply>* Processor::Stub::AsyncProcessRaw(::grpc::ClientContext* context, const ::rpc::MetricsArg& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::rpc::MetricsReply>* Processor::Stub::AsyncProcessRaw(::grpc::ClientContext* context, const ::rpc::PubProcArg& request, ::grpc::CompletionQueue* cq) {
   return new ::grpc::ClientAsyncResponseReader< ::rpc::MetricsReply>(channel_.get(), cq, rpcmethod_Process_, context, request);
 }
 
@@ -200,7 +200,7 @@ Processor::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       Processor_method_names[0],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< Processor::Service, ::rpc::MetricsArg, ::rpc::MetricsReply>(
+      new ::grpc::RpcMethodHandler< Processor::Service, ::rpc::PubProcArg, ::rpc::MetricsReply>(
           std::mem_fn(&Processor::Service::Process), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       Processor_method_names[1],
@@ -222,7 +222,7 @@ Processor::Service::Service() {
 Processor::Service::~Service() {
 }
 
-::grpc::Status Processor::Service::Process(::grpc::ServerContext* context, const ::rpc::MetricsArg* request, ::rpc::MetricsReply* response) {
+::grpc::Status Processor::Service::Process(::grpc::ServerContext* context, const ::rpc::PubProcArg* request, ::rpc::MetricsReply* response) {
   (void) context;
   (void) request;
   (void) response;
@@ -270,11 +270,11 @@ Publisher::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   , rpcmethod_GetConfigPolicy_(Publisher_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status Publisher::Stub::Publish(::grpc::ClientContext* context, const ::rpc::MetricsArg& request, ::rpc::ErrReply* response) {
+::grpc::Status Publisher::Stub::Publish(::grpc::ClientContext* context, const ::rpc::PubProcArg& request, ::rpc::ErrReply* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Publish_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>* Publisher::Stub::AsyncPublishRaw(::grpc::ClientContext* context, const ::rpc::MetricsArg& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>* Publisher::Stub::AsyncPublishRaw(::grpc::ClientContext* context, const ::rpc::PubProcArg& request, ::grpc::CompletionQueue* cq) {
   return new ::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>(channel_.get(), cq, rpcmethod_Publish_, context, request);
 }
 
@@ -307,7 +307,7 @@ Publisher::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       Publisher_method_names[0],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< Publisher::Service, ::rpc::MetricsArg, ::rpc::ErrReply>(
+      new ::grpc::RpcMethodHandler< Publisher::Service, ::rpc::PubProcArg, ::rpc::ErrReply>(
           std::mem_fn(&Publisher::Service::Publish), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       Publisher_method_names[1],
@@ -329,7 +329,7 @@ Publisher::Service::Service() {
 Publisher::Service::~Service() {
 }
 
-::grpc::Status Publisher::Service::Publish(::grpc::ServerContext* context, const ::rpc::MetricsArg* request, ::rpc::ErrReply* response) {
+::grpc::Status Publisher::Service::Publish(::grpc::ServerContext* context, const ::rpc::PubProcArg* request, ::rpc::ErrReply* response) {
   (void) context;
   (void) request;
   (void) response;

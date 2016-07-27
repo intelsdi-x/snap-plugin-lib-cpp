@@ -317,8 +317,8 @@ class Processor GRPC_FINAL {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    virtual ::grpc::Status Process(::grpc::ClientContext* context, const ::rpc::MetricsArg& request, ::rpc::MetricsReply* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::MetricsReply>> AsyncProcess(::grpc::ClientContext* context, const ::rpc::MetricsArg& request, ::grpc::CompletionQueue* cq) {
+    virtual ::grpc::Status Process(::grpc::ClientContext* context, const ::rpc::PubProcArg& request, ::rpc::MetricsReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::MetricsReply>> AsyncProcess(::grpc::ClientContext* context, const ::rpc::PubProcArg& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::MetricsReply>>(AsyncProcessRaw(context, request, cq));
     }
     virtual ::grpc::Status Ping(::grpc::ClientContext* context, const ::rpc::Empty& request, ::rpc::ErrReply* response) = 0;
@@ -334,7 +334,7 @@ class Processor GRPC_FINAL {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::GetConfigPolicyReply>>(AsyncGetConfigPolicyRaw(context, request, cq));
     }
   private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::MetricsReply>* AsyncProcessRaw(::grpc::ClientContext* context, const ::rpc::MetricsArg& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::MetricsReply>* AsyncProcessRaw(::grpc::ClientContext* context, const ::rpc::PubProcArg& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::ErrReply>* AsyncPingRaw(::grpc::ClientContext* context, const ::rpc::Empty& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::ErrReply>* AsyncKillRaw(::grpc::ClientContext* context, const ::rpc::KillArg& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::GetConfigPolicyReply>* AsyncGetConfigPolicyRaw(::grpc::ClientContext* context, const ::rpc::Empty& request, ::grpc::CompletionQueue* cq) = 0;
@@ -342,8 +342,8 @@ class Processor GRPC_FINAL {
   class Stub GRPC_FINAL : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
-    ::grpc::Status Process(::grpc::ClientContext* context, const ::rpc::MetricsArg& request, ::rpc::MetricsReply* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::MetricsReply>> AsyncProcess(::grpc::ClientContext* context, const ::rpc::MetricsArg& request, ::grpc::CompletionQueue* cq) {
+    ::grpc::Status Process(::grpc::ClientContext* context, const ::rpc::PubProcArg& request, ::rpc::MetricsReply* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::MetricsReply>> AsyncProcess(::grpc::ClientContext* context, const ::rpc::PubProcArg& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::MetricsReply>>(AsyncProcessRaw(context, request, cq));
     }
     ::grpc::Status Ping(::grpc::ClientContext* context, const ::rpc::Empty& request, ::rpc::ErrReply* response) GRPC_OVERRIDE;
@@ -361,7 +361,7 @@ class Processor GRPC_FINAL {
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    ::grpc::ClientAsyncResponseReader< ::rpc::MetricsReply>* AsyncProcessRaw(::grpc::ClientContext* context, const ::rpc::MetricsArg& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::rpc::MetricsReply>* AsyncProcessRaw(::grpc::ClientContext* context, const ::rpc::PubProcArg& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>* AsyncPingRaw(::grpc::ClientContext* context, const ::rpc::Empty& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>* AsyncKillRaw(::grpc::ClientContext* context, const ::rpc::KillArg& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::rpc::GetConfigPolicyReply>* AsyncGetConfigPolicyRaw(::grpc::ClientContext* context, const ::rpc::Empty& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
@@ -376,7 +376,7 @@ class Processor GRPC_FINAL {
    public:
     Service();
     virtual ~Service();
-    virtual ::grpc::Status Process(::grpc::ServerContext* context, const ::rpc::MetricsArg* request, ::rpc::MetricsReply* response);
+    virtual ::grpc::Status Process(::grpc::ServerContext* context, const ::rpc::PubProcArg* request, ::rpc::MetricsReply* response);
     virtual ::grpc::Status Ping(::grpc::ServerContext* context, const ::rpc::Empty* request, ::rpc::ErrReply* response);
     virtual ::grpc::Status Kill(::grpc::ServerContext* context, const ::rpc::KillArg* request, ::rpc::ErrReply* response);
     virtual ::grpc::Status GetConfigPolicy(::grpc::ServerContext* context, const ::rpc::Empty* request, ::rpc::GetConfigPolicyReply* response);
@@ -393,11 +393,11 @@ class Processor GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Process(::grpc::ServerContext* context, const ::rpc::MetricsArg* request, ::rpc::MetricsReply* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status Process(::grpc::ServerContext* context, const ::rpc::PubProcArg* request, ::rpc::MetricsReply* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestProcess(::grpc::ServerContext* context, ::rpc::MetricsArg* request, ::grpc::ServerAsyncResponseWriter< ::rpc::MetricsReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestProcess(::grpc::ServerContext* context, ::rpc::PubProcArg* request, ::grpc::ServerAsyncResponseWriter< ::rpc::MetricsReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -474,7 +474,7 @@ class Processor GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Process(::grpc::ServerContext* context, const ::rpc::MetricsArg* request, ::rpc::MetricsReply* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status Process(::grpc::ServerContext* context, const ::rpc::PubProcArg* request, ::rpc::MetricsReply* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -537,8 +537,8 @@ class Publisher GRPC_FINAL {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    virtual ::grpc::Status Publish(::grpc::ClientContext* context, const ::rpc::MetricsArg& request, ::rpc::ErrReply* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::ErrReply>> AsyncPublish(::grpc::ClientContext* context, const ::rpc::MetricsArg& request, ::grpc::CompletionQueue* cq) {
+    virtual ::grpc::Status Publish(::grpc::ClientContext* context, const ::rpc::PubProcArg& request, ::rpc::ErrReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::ErrReply>> AsyncPublish(::grpc::ClientContext* context, const ::rpc::PubProcArg& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::ErrReply>>(AsyncPublishRaw(context, request, cq));
     }
     virtual ::grpc::Status Ping(::grpc::ClientContext* context, const ::rpc::Empty& request, ::rpc::ErrReply* response) = 0;
@@ -554,7 +554,7 @@ class Publisher GRPC_FINAL {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::GetConfigPolicyReply>>(AsyncGetConfigPolicyRaw(context, request, cq));
     }
   private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::ErrReply>* AsyncPublishRaw(::grpc::ClientContext* context, const ::rpc::MetricsArg& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::ErrReply>* AsyncPublishRaw(::grpc::ClientContext* context, const ::rpc::PubProcArg& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::ErrReply>* AsyncPingRaw(::grpc::ClientContext* context, const ::rpc::Empty& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::ErrReply>* AsyncKillRaw(::grpc::ClientContext* context, const ::rpc::KillArg& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::GetConfigPolicyReply>* AsyncGetConfigPolicyRaw(::grpc::ClientContext* context, const ::rpc::Empty& request, ::grpc::CompletionQueue* cq) = 0;
@@ -562,8 +562,8 @@ class Publisher GRPC_FINAL {
   class Stub GRPC_FINAL : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
-    ::grpc::Status Publish(::grpc::ClientContext* context, const ::rpc::MetricsArg& request, ::rpc::ErrReply* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>> AsyncPublish(::grpc::ClientContext* context, const ::rpc::MetricsArg& request, ::grpc::CompletionQueue* cq) {
+    ::grpc::Status Publish(::grpc::ClientContext* context, const ::rpc::PubProcArg& request, ::rpc::ErrReply* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>> AsyncPublish(::grpc::ClientContext* context, const ::rpc::PubProcArg& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>>(AsyncPublishRaw(context, request, cq));
     }
     ::grpc::Status Ping(::grpc::ClientContext* context, const ::rpc::Empty& request, ::rpc::ErrReply* response) GRPC_OVERRIDE;
@@ -581,7 +581,7 @@ class Publisher GRPC_FINAL {
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    ::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>* AsyncPublishRaw(::grpc::ClientContext* context, const ::rpc::MetricsArg& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>* AsyncPublishRaw(::grpc::ClientContext* context, const ::rpc::PubProcArg& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>* AsyncPingRaw(::grpc::ClientContext* context, const ::rpc::Empty& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>* AsyncKillRaw(::grpc::ClientContext* context, const ::rpc::KillArg& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::rpc::GetConfigPolicyReply>* AsyncGetConfigPolicyRaw(::grpc::ClientContext* context, const ::rpc::Empty& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
@@ -596,7 +596,7 @@ class Publisher GRPC_FINAL {
    public:
     Service();
     virtual ~Service();
-    virtual ::grpc::Status Publish(::grpc::ServerContext* context, const ::rpc::MetricsArg* request, ::rpc::ErrReply* response);
+    virtual ::grpc::Status Publish(::grpc::ServerContext* context, const ::rpc::PubProcArg* request, ::rpc::ErrReply* response);
     virtual ::grpc::Status Ping(::grpc::ServerContext* context, const ::rpc::Empty* request, ::rpc::ErrReply* response);
     virtual ::grpc::Status Kill(::grpc::ServerContext* context, const ::rpc::KillArg* request, ::rpc::ErrReply* response);
     virtual ::grpc::Status GetConfigPolicy(::grpc::ServerContext* context, const ::rpc::Empty* request, ::rpc::GetConfigPolicyReply* response);
@@ -613,11 +613,11 @@ class Publisher GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Publish(::grpc::ServerContext* context, const ::rpc::MetricsArg* request, ::rpc::ErrReply* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status Publish(::grpc::ServerContext* context, const ::rpc::PubProcArg* request, ::rpc::ErrReply* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestPublish(::grpc::ServerContext* context, ::rpc::MetricsArg* request, ::grpc::ServerAsyncResponseWriter< ::rpc::ErrReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestPublish(::grpc::ServerContext* context, ::rpc::PubProcArg* request, ::grpc::ServerAsyncResponseWriter< ::rpc::ErrReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -694,7 +694,7 @@ class Publisher GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Publish(::grpc::ServerContext* context, const ::rpc::MetricsArg* request, ::rpc::ErrReply* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status Publish(::grpc::ServerContext* context, const ::rpc::PubProcArg* request, ::rpc::ErrReply* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }

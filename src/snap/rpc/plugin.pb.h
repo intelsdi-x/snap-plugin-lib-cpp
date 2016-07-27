@@ -54,6 +54,7 @@ class Metric;
 class MetricsArg;
 class MetricsReply;
 class NamespaceElement;
+class PubProcArg;
 class StringPolicy;
 class StringRule;
 class Time;
@@ -419,6 +420,104 @@ class NamespaceElement : public ::google::protobuf::Message /* @@protoc_insertio
 
   void InitAsDefaultInstance();
   static NamespaceElement* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class PubProcArg : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:rpc.PubProcArg) */ {
+ public:
+  PubProcArg();
+  virtual ~PubProcArg();
+
+  PubProcArg(const PubProcArg& from);
+
+  inline PubProcArg& operator=(const PubProcArg& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PubProcArg& default_instance();
+
+  void Swap(PubProcArg* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PubProcArg* New() const { return New(NULL); }
+
+  PubProcArg* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PubProcArg& from);
+  void MergeFrom(const PubProcArg& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PubProcArg* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .rpc.Metric Metrics = 1;
+  int metrics_size() const;
+  void clear_metrics();
+  static const int kMetricsFieldNumber = 1;
+  const ::rpc::Metric& metrics(int index) const;
+  ::rpc::Metric* mutable_metrics(int index);
+  ::rpc::Metric* add_metrics();
+  ::google::protobuf::RepeatedPtrField< ::rpc::Metric >*
+      mutable_metrics();
+  const ::google::protobuf::RepeatedPtrField< ::rpc::Metric >&
+      metrics() const;
+
+  // optional .rpc.ConfigMap Config = 2;
+  bool has_config() const;
+  void clear_config();
+  static const int kConfigFieldNumber = 2;
+  const ::rpc::ConfigMap& config() const;
+  ::rpc::ConfigMap* mutable_config();
+  ::rpc::ConfigMap* release_config();
+  void set_allocated_config(::rpc::ConfigMap* config);
+
+  // @@protoc_insertion_point(class_scope:rpc.PubProcArg)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::RepeatedPtrField< ::rpc::Metric > metrics_;
+  ::rpc::ConfigMap* config_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_plugin_2eproto();
+  friend void protobuf_AssignDesc_plugin_2eproto();
+  friend void protobuf_ShutdownFile_plugin_2eproto();
+
+  void InitAsDefaultInstance();
+  static PubProcArg* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -2425,6 +2524,78 @@ inline void NamespaceElement::set_allocated_name(::std::string* name) {
 
 // -------------------------------------------------------------------
 
+// PubProcArg
+
+// repeated .rpc.Metric Metrics = 1;
+inline int PubProcArg::metrics_size() const {
+  return metrics_.size();
+}
+inline void PubProcArg::clear_metrics() {
+  metrics_.Clear();
+}
+inline const ::rpc::Metric& PubProcArg::metrics(int index) const {
+  // @@protoc_insertion_point(field_get:rpc.PubProcArg.Metrics)
+  return metrics_.Get(index);
+}
+inline ::rpc::Metric* PubProcArg::mutable_metrics(int index) {
+  // @@protoc_insertion_point(field_mutable:rpc.PubProcArg.Metrics)
+  return metrics_.Mutable(index);
+}
+inline ::rpc::Metric* PubProcArg::add_metrics() {
+  // @@protoc_insertion_point(field_add:rpc.PubProcArg.Metrics)
+  return metrics_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::rpc::Metric >*
+PubProcArg::mutable_metrics() {
+  // @@protoc_insertion_point(field_mutable_list:rpc.PubProcArg.Metrics)
+  return &metrics_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::rpc::Metric >&
+PubProcArg::metrics() const {
+  // @@protoc_insertion_point(field_list:rpc.PubProcArg.Metrics)
+  return metrics_;
+}
+
+// optional .rpc.ConfigMap Config = 2;
+inline bool PubProcArg::has_config() const {
+  return !_is_default_instance_ && config_ != NULL;
+}
+inline void PubProcArg::clear_config() {
+  if (GetArenaNoVirtual() == NULL && config_ != NULL) delete config_;
+  config_ = NULL;
+}
+inline const ::rpc::ConfigMap& PubProcArg::config() const {
+  // @@protoc_insertion_point(field_get:rpc.PubProcArg.Config)
+  return config_ != NULL ? *config_ : *default_instance_->config_;
+}
+inline ::rpc::ConfigMap* PubProcArg::mutable_config() {
+  
+  if (config_ == NULL) {
+    config_ = new ::rpc::ConfigMap;
+  }
+  // @@protoc_insertion_point(field_mutable:rpc.PubProcArg.Config)
+  return config_;
+}
+inline ::rpc::ConfigMap* PubProcArg::release_config() {
+  // @@protoc_insertion_point(field_release:rpc.PubProcArg.Config)
+  
+  ::rpc::ConfigMap* temp = config_;
+  config_ = NULL;
+  return temp;
+}
+inline void PubProcArg::set_allocated_config(::rpc::ConfigMap* config) {
+  delete config_;
+  config_ = config;
+  if (config) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:rpc.PubProcArg.Config)
+}
+
+// -------------------------------------------------------------------
+
 // Metric
 
 // repeated .rpc.NamespaceElement Namespace = 1;
@@ -3791,6 +3962,8 @@ inline void GetMetricTypesArg::set_allocated_config(::rpc::ConfigMap* config) {
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

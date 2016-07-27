@@ -33,6 +33,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* NamespaceElement_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   NamespaceElement_reflection_ = NULL;
+const ::google::protobuf::Descriptor* PubProcArg_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  PubProcArg_reflection_ = NULL;
 const ::google::protobuf::Descriptor* Metric_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Metric_reflection_ = NULL;
@@ -171,7 +174,23 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(NamespaceElement),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NamespaceElement, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NamespaceElement, _is_default_instance_));
-  Metric_descriptor_ = file->message_type(4);
+  PubProcArg_descriptor_ = file->message_type(4);
+  static const int PubProcArg_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PubProcArg, metrics_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PubProcArg, config_),
+  };
+  PubProcArg_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      PubProcArg_descriptor_,
+      PubProcArg::default_instance_,
+      PubProcArg_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(PubProcArg),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PubProcArg, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PubProcArg, _is_default_instance_));
+  Metric_descriptor_ = file->message_type(5);
   static const int Metric_offsets_[15] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Metric, namespace__),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Metric, version_),
@@ -203,7 +222,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Metric, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Metric, _is_default_instance_));
   Metric_TagsEntry_descriptor_ = Metric_descriptor_->nested_type(0);
-  ConfigMap_descriptor_ = file->message_type(5);
+  ConfigMap_descriptor_ = file->message_type(6);
   static const int ConfigMap_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ConfigMap, intmap_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ConfigMap, stringmap_),
@@ -225,7 +244,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
   ConfigMap_StringMapEntry_descriptor_ = ConfigMap_descriptor_->nested_type(1);
   ConfigMap_FloatMapEntry_descriptor_ = ConfigMap_descriptor_->nested_type(2);
   ConfigMap_BoolMapEntry_descriptor_ = ConfigMap_descriptor_->nested_type(3);
-  KillArg_descriptor_ = file->message_type(6);
+  KillArg_descriptor_ = file->message_type(7);
   static const int KillArg_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(KillArg, reason_),
   };
@@ -240,7 +259,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(KillArg),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(KillArg, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(KillArg, _is_default_instance_));
-  GetConfigPolicyReply_descriptor_ = file->message_type(7);
+  GetConfigPolicyReply_descriptor_ = file->message_type(8);
   static const int GetConfigPolicyReply_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GetConfigPolicyReply, error_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GetConfigPolicyReply, bool_policy_),
@@ -263,7 +282,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
   GetConfigPolicyReply_FloatPolicyEntry_descriptor_ = GetConfigPolicyReply_descriptor_->nested_type(1);
   GetConfigPolicyReply_IntegerPolicyEntry_descriptor_ = GetConfigPolicyReply_descriptor_->nested_type(2);
   GetConfigPolicyReply_StringPolicyEntry_descriptor_ = GetConfigPolicyReply_descriptor_->nested_type(3);
-  BoolRule_descriptor_ = file->message_type(8);
+  BoolRule_descriptor_ = file->message_type(9);
   static const int BoolRule_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolRule, required_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolRule, default__),
@@ -280,7 +299,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(BoolRule),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolRule, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolRule, _is_default_instance_));
-  BoolPolicy_descriptor_ = file->message_type(9);
+  BoolPolicy_descriptor_ = file->message_type(10);
   static const int BoolPolicy_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolPolicy, rules_),
   };
@@ -296,7 +315,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolPolicy, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolPolicy, _is_default_instance_));
   BoolPolicy_RulesEntry_descriptor_ = BoolPolicy_descriptor_->nested_type(0);
-  FloatRule_descriptor_ = file->message_type(10);
+  FloatRule_descriptor_ = file->message_type(11);
   static const int FloatRule_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatRule, required_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatRule, minimum_),
@@ -317,7 +336,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(FloatRule),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatRule, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatRule, _is_default_instance_));
-  FloatPolicy_descriptor_ = file->message_type(11);
+  FloatPolicy_descriptor_ = file->message_type(12);
   static const int FloatPolicy_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatPolicy, rules_),
   };
@@ -333,7 +352,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatPolicy, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatPolicy, _is_default_instance_));
   FloatPolicy_RulesEntry_descriptor_ = FloatPolicy_descriptor_->nested_type(0);
-  IntegerRule_descriptor_ = file->message_type(12);
+  IntegerRule_descriptor_ = file->message_type(13);
   static const int IntegerRule_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerRule, required_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerRule, minimum_),
@@ -354,7 +373,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(IntegerRule),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerRule, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerRule, _is_default_instance_));
-  IntegerPolicy_descriptor_ = file->message_type(13);
+  IntegerPolicy_descriptor_ = file->message_type(14);
   static const int IntegerPolicy_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerPolicy, rules_),
   };
@@ -370,7 +389,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerPolicy, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerPolicy, _is_default_instance_));
   IntegerPolicy_RulesEntry_descriptor_ = IntegerPolicy_descriptor_->nested_type(0);
-  StringRule_descriptor_ = file->message_type(14);
+  StringRule_descriptor_ = file->message_type(15);
   static const int StringRule_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringRule, required_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringRule, default__),
@@ -387,7 +406,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(StringRule),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringRule, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringRule, _is_default_instance_));
-  StringPolicy_descriptor_ = file->message_type(15);
+  StringPolicy_descriptor_ = file->message_type(16);
   static const int StringPolicy_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringPolicy, rules_),
   };
@@ -403,7 +422,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringPolicy, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringPolicy, _is_default_instance_));
   StringPolicy_RulesEntry_descriptor_ = StringPolicy_descriptor_->nested_type(0);
-  MetricsArg_descriptor_ = file->message_type(16);
+  MetricsArg_descriptor_ = file->message_type(17);
   static const int MetricsArg_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsArg, metrics_),
   };
@@ -418,7 +437,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(MetricsArg),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsArg, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsArg, _is_default_instance_));
-  MetricsReply_descriptor_ = file->message_type(17);
+  MetricsReply_descriptor_ = file->message_type(18);
   static const int MetricsReply_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsReply, metrics_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsReply, error_),
@@ -434,7 +453,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(MetricsReply),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsReply, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsReply, _is_default_instance_));
-  GetMetricTypesArg_descriptor_ = file->message_type(18);
+  GetMetricTypesArg_descriptor_ = file->message_type(19);
   static const int GetMetricTypesArg_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GetMetricTypesArg, config_),
   };
@@ -469,6 +488,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
       Time_descriptor_, &Time::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       NamespaceElement_descriptor_, &NamespaceElement::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      PubProcArg_descriptor_, &PubProcArg::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       Metric_descriptor_, &Metric::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -629,6 +650,8 @@ void protobuf_ShutdownFile_plugin_2eproto() {
   delete Time_reflection_;
   delete NamespaceElement::default_instance_;
   delete NamespaceElement_reflection_;
+  delete PubProcArg::default_instance_;
+  delete PubProcArg_reflection_;
   delete Metric::default_instance_;
   delete Metric_default_oneof_instance_;
   delete Metric_reflection_;
@@ -673,92 +696,95 @@ void protobuf_AddDesc_plugin_2eproto() {
     "\022\r\n\005error\030\001 \001(\t\"!\n\004Time\022\013\n\003sec\030\001 \001(\003\022\014\n\004"
     "nsec\030\002 \001(\003\"D\n\020NamespaceElement\022\r\n\005Value\030"
     "\001 \001(\t\022\023\n\013Description\030\002 \001(\t\022\014\n\004Name\030\003 \001(\t"
-    "\"\256\003\n\006Metric\022(\n\tNamespace\030\001 \003(\0132\025.rpc.Nam"
-    "espaceElement\022\017\n\007Version\030\002 \001(\003\022\036\n\006Config"
-    "\030\003 \001(\0132\016.rpc.ConfigMap\022%\n\022LastAdvertised"
-    "Time\030\004 \001(\0132\t.rpc.Time\022#\n\004Tags\030\005 \003(\0132\025.rp"
-    "c.Metric.TagsEntry\022\034\n\tTimestamp\030\006 \001(\0132\t."
-    "rpc.Time\022\014\n\004Unit\030\007 \001(\t\022\023\n\013Description\030\010 "
-    "\001(\t\022\025\n\013string_data\030\t \001(\tH\000\022\026\n\014float32_da"
-    "ta\030\n \001(\002H\000\022\026\n\014float64_data\030\013 \001(\001H\000\022\024\n\nin"
-    "t32_data\030\014 \001(\005H\000\022\024\n\nint64_data\030\r \001(\003H\000\022\024"
-    "\n\nbytes_data\030\016 \001(\014H\000\032+\n\tTagsEntry\022\013\n\003key"
-    "\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001B\006\n\004data\"\211\003\n\tCo"
-    "nfigMap\022*\n\006IntMap\030\001 \003(\0132\032.rpc.ConfigMap."
-    "IntMapEntry\0220\n\tStringMap\030\002 \003(\0132\035.rpc.Con"
-    "figMap.StringMapEntry\022.\n\010FloatMap\030\003 \003(\0132"
-    "\034.rpc.ConfigMap.FloatMapEntry\022,\n\007BoolMap"
-    "\030\004 \003(\0132\033.rpc.ConfigMap.BoolMapEntry\032-\n\013I"
-    "ntMapEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\003:\002"
-    "8\001\0320\n\016StringMapEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005val"
-    "ue\030\002 \001(\t:\0028\001\032/\n\rFloatMapEntry\022\013\n\003key\030\001 \001"
-    "(\t\022\r\n\005value\030\002 \001(\001:\0028\001\032.\n\014BoolMapEntry\022\013\n"
-    "\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\010:\0028\001\"\031\n\007KillArg"
-    "\022\016\n\006Reason\030\001 \001(\t\"\315\004\n\024GetConfigPolicyRepl"
-    "y\022\r\n\005error\030\001 \001(\t\022>\n\013bool_policy\030\002 \003(\0132)."
-    "rpc.GetConfigPolicyReply.BoolPolicyEntry"
-    "\022@\n\014float_policy\030\003 \003(\0132*.rpc.GetConfigPo"
-    "licyReply.FloatPolicyEntry\022D\n\016integer_po"
-    "licy\030\004 \003(\0132,.rpc.GetConfigPolicyReply.In"
-    "tegerPolicyEntry\022B\n\rstring_policy\030\005 \003(\0132"
-    "+.rpc.GetConfigPolicyReply.StringPolicyE"
-    "ntry\032B\n\017BoolPolicyEntry\022\013\n\003key\030\001 \001(\t\022\036\n\005"
-    "value\030\002 \001(\0132\017.rpc.BoolPolicy:\0028\001\032D\n\020Floa"
-    "tPolicyEntry\022\013\n\003key\030\001 \001(\t\022\037\n\005value\030\002 \001(\013"
-    "2\020.rpc.FloatPolicy:\0028\001\032H\n\022IntegerPolicyE"
-    "ntry\022\013\n\003key\030\001 \001(\t\022!\n\005value\030\002 \001(\0132\022.rpc.I"
-    "ntegerPolicy:\0028\001\032F\n\021StringPolicyEntry\022\013\n"
-    "\003key\030\001 \001(\t\022 \n\005value\030\002 \001(\0132\021.rpc.StringPo"
-    "licy:\0028\001\"B\n\010BoolRule\022\020\n\010required\030\001 \001(\010\022\017"
-    "\n\007default\030\002 \001(\010\022\023\n\013has_default\030\003 \001(\010\"t\n\n"
-    "BoolPolicy\022)\n\005rules\030\001 \003(\0132\032.rpc.BoolPoli"
-    "cy.RulesEntry\032;\n\nRulesEntry\022\013\n\003key\030\001 \001(\t"
-    "\022\034\n\005value\030\002 \001(\0132\r.rpc.BoolRule:\0028\001\"\207\001\n\tF"
-    "loatRule\022\020\n\010required\030\001 \001(\010\022\017\n\007minimum\030\002 "
-    "\001(\001\022\017\n\007maximum\030\003 \001(\001\022\017\n\007default\030\004 \001(\001\022\023\n"
-    "\013has_default\030\005 \001(\010\022\017\n\007has_min\030\006 \001(\010\022\017\n\007h"
-    "as_max\030\007 \001(\010\"w\n\013FloatPolicy\022*\n\005rules\030\001 \003"
-    "(\0132\033.rpc.FloatPolicy.RulesEntry\032<\n\nRules"
-    "Entry\022\013\n\003key\030\001 \001(\t\022\035\n\005value\030\002 \001(\0132\016.rpc."
-    "FloatRule:\0028\001\"\211\001\n\013IntegerRule\022\020\n\010require"
-    "d\030\001 \001(\010\022\017\n\007minimum\030\002 \001(\003\022\017\n\007maximum\030\003 \001("
-    "\003\022\017\n\007default\030\004 \001(\003\022\023\n\013has_default\030\005 \001(\010\022"
-    "\017\n\007has_min\030\006 \001(\010\022\017\n\007has_max\030\007 \001(\010\"}\n\rInt"
-    "egerPolicy\022,\n\005rules\030\001 \003(\0132\035.rpc.IntegerP"
-    "olicy.RulesEntry\032>\n\nRulesEntry\022\013\n\003key\030\001 "
-    "\001(\t\022\037\n\005value\030\002 \001(\0132\020.rpc.IntegerRule:\0028\001"
-    "\"D\n\nStringRule\022\020\n\010required\030\001 \001(\010\022\017\n\007defa"
-    "ult\030\002 \001(\t\022\023\n\013has_default\030\003 \001(\010\"z\n\014String"
-    "Policy\022+\n\005rules\030\001 \003(\0132\034.rpc.StringPolicy"
-    ".RulesEntry\032=\n\nRulesEntry\022\013\n\003key\030\001 \001(\t\022\036"
-    "\n\005value\030\002 \001(\0132\017.rpc.StringRule:\0028\001\"*\n\nMe"
-    "tricsArg\022\034\n\007metrics\030\001 \003(\0132\013.rpc.Metric\";"
-    "\n\014MetricsReply\022\034\n\007metrics\030\001 \003(\0132\013.rpc.Me"
-    "tric\022\r\n\005error\030\002 \001(\t\"3\n\021GetMetricTypesArg"
-    "\022\036\n\006config\030\001 \001(\0132\016.rpc.ConfigMap2\212\002\n\tCol"
-    "lector\0226\n\016CollectMetrics\022\017.rpc.MetricsAr"
-    "g\032\021.rpc.MetricsReply\"\000\022=\n\016GetMetricTypes"
-    "\022\026.rpc.GetMetricTypesArg\032\021.rpc.MetricsRe"
-    "ply\"\000\022#\n\004Ping\022\n.rpc.Empty\032\r.rpc.ErrReply"
-    "\"\000\022%\n\004Kill\022\014.rpc.KillArg\032\r.rpc.ErrReply\""
-    "\000\022:\n\017GetConfigPolicy\022\n.rpc.Empty\032\031.rpc.G"
-    "etConfigPolicyReply\"\0002\304\001\n\tProcessor\022/\n\007P"
-    "rocess\022\017.rpc.MetricsArg\032\021.rpc.MetricsRep"
-    "ly\"\000\022#\n\004Ping\022\n.rpc.Empty\032\r.rpc.ErrReply\""
-    "\000\022%\n\004Kill\022\014.rpc.KillArg\032\r.rpc.ErrReply\"\000"
-    "\022:\n\017GetConfigPolicy\022\n.rpc.Empty\032\031.rpc.Ge"
-    "tConfigPolicyReply\"\0002\300\001\n\tPublisher\022+\n\007Pu"
-    "blish\022\017.rpc.MetricsArg\032\r.rpc.ErrReply\"\000\022"
-    "#\n\004Ping\022\n.rpc.Empty\032\r.rpc.ErrReply\"\000\022%\n\004"
-    "Kill\022\014.rpc.KillArg\032\r.rpc.ErrReply\"\000\022:\n\017G"
-    "etConfigPolicy\022\n.rpc.Empty\032\031.rpc.GetConf"
-    "igPolicyReply\"\000b\006proto3", 3343);
+    "\"J\n\nPubProcArg\022\034\n\007Metrics\030\001 \003(\0132\013.rpc.Me"
+    "tric\022\036\n\006Config\030\002 \001(\0132\016.rpc.ConfigMap\"\256\003\n"
+    "\006Metric\022(\n\tNamespace\030\001 \003(\0132\025.rpc.Namespa"
+    "ceElement\022\017\n\007Version\030\002 \001(\003\022\036\n\006Config\030\003 \001"
+    "(\0132\016.rpc.ConfigMap\022%\n\022LastAdvertisedTime"
+    "\030\004 \001(\0132\t.rpc.Time\022#\n\004Tags\030\005 \003(\0132\025.rpc.Me"
+    "tric.TagsEntry\022\034\n\tTimestamp\030\006 \001(\0132\t.rpc."
+    "Time\022\014\n\004Unit\030\007 \001(\t\022\023\n\013Description\030\010 \001(\t\022"
+    "\025\n\013string_data\030\t \001(\tH\000\022\026\n\014float32_data\030\n"
+    " \001(\002H\000\022\026\n\014float64_data\030\013 \001(\001H\000\022\024\n\nint32_"
+    "data\030\014 \001(\005H\000\022\024\n\nint64_data\030\r \001(\003H\000\022\024\n\nby"
+    "tes_data\030\016 \001(\014H\000\032+\n\tTagsEntry\022\013\n\003key\030\001 \001"
+    "(\t\022\r\n\005value\030\002 \001(\t:\0028\001B\006\n\004data\"\211\003\n\tConfig"
+    "Map\022*\n\006IntMap\030\001 \003(\0132\032.rpc.ConfigMap.IntM"
+    "apEntry\0220\n\tStringMap\030\002 \003(\0132\035.rpc.ConfigM"
+    "ap.StringMapEntry\022.\n\010FloatMap\030\003 \003(\0132\034.rp"
+    "c.ConfigMap.FloatMapEntry\022,\n\007BoolMap\030\004 \003"
+    "(\0132\033.rpc.ConfigMap.BoolMapEntry\032-\n\013IntMa"
+    "pEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\003:\0028\001\0320"
+    "\n\016StringMapEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002"
+    " \001(\t:\0028\001\032/\n\rFloatMapEntry\022\013\n\003key\030\001 \001(\t\022\r"
+    "\n\005value\030\002 \001(\001:\0028\001\032.\n\014BoolMapEntry\022\013\n\003key"
+    "\030\001 \001(\t\022\r\n\005value\030\002 \001(\010:\0028\001\"\031\n\007KillArg\022\016\n\006"
+    "Reason\030\001 \001(\t\"\315\004\n\024GetConfigPolicyReply\022\r\n"
+    "\005error\030\001 \001(\t\022>\n\013bool_policy\030\002 \003(\0132).rpc."
+    "GetConfigPolicyReply.BoolPolicyEntry\022@\n\014"
+    "float_policy\030\003 \003(\0132*.rpc.GetConfigPolicy"
+    "Reply.FloatPolicyEntry\022D\n\016integer_policy"
+    "\030\004 \003(\0132,.rpc.GetConfigPolicyReply.Intege"
+    "rPolicyEntry\022B\n\rstring_policy\030\005 \003(\0132+.rp"
+    "c.GetConfigPolicyReply.StringPolicyEntry"
+    "\032B\n\017BoolPolicyEntry\022\013\n\003key\030\001 \001(\t\022\036\n\005valu"
+    "e\030\002 \001(\0132\017.rpc.BoolPolicy:\0028\001\032D\n\020FloatPol"
+    "icyEntry\022\013\n\003key\030\001 \001(\t\022\037\n\005value\030\002 \001(\0132\020.r"
+    "pc.FloatPolicy:\0028\001\032H\n\022IntegerPolicyEntry"
+    "\022\013\n\003key\030\001 \001(\t\022!\n\005value\030\002 \001(\0132\022.rpc.Integ"
+    "erPolicy:\0028\001\032F\n\021StringPolicyEntry\022\013\n\003key"
+    "\030\001 \001(\t\022 \n\005value\030\002 \001(\0132\021.rpc.StringPolicy"
+    ":\0028\001\"B\n\010BoolRule\022\020\n\010required\030\001 \001(\010\022\017\n\007de"
+    "fault\030\002 \001(\010\022\023\n\013has_default\030\003 \001(\010\"t\n\nBool"
+    "Policy\022)\n\005rules\030\001 \003(\0132\032.rpc.BoolPolicy.R"
+    "ulesEntry\032;\n\nRulesEntry\022\013\n\003key\030\001 \001(\t\022\034\n\005"
+    "value\030\002 \001(\0132\r.rpc.BoolRule:\0028\001\"\207\001\n\tFloat"
+    "Rule\022\020\n\010required\030\001 \001(\010\022\017\n\007minimum\030\002 \001(\001\022"
+    "\017\n\007maximum\030\003 \001(\001\022\017\n\007default\030\004 \001(\001\022\023\n\013has"
+    "_default\030\005 \001(\010\022\017\n\007has_min\030\006 \001(\010\022\017\n\007has_m"
+    "ax\030\007 \001(\010\"w\n\013FloatPolicy\022*\n\005rules\030\001 \003(\0132\033"
+    ".rpc.FloatPolicy.RulesEntry\032<\n\nRulesEntr"
+    "y\022\013\n\003key\030\001 \001(\t\022\035\n\005value\030\002 \001(\0132\016.rpc.Floa"
+    "tRule:\0028\001\"\211\001\n\013IntegerRule\022\020\n\010required\030\001 "
+    "\001(\010\022\017\n\007minimum\030\002 \001(\003\022\017\n\007maximum\030\003 \001(\003\022\017\n"
+    "\007default\030\004 \001(\003\022\023\n\013has_default\030\005 \001(\010\022\017\n\007h"
+    "as_min\030\006 \001(\010\022\017\n\007has_max\030\007 \001(\010\"}\n\rInteger"
+    "Policy\022,\n\005rules\030\001 \003(\0132\035.rpc.IntegerPolic"
+    "y.RulesEntry\032>\n\nRulesEntry\022\013\n\003key\030\001 \001(\t\022"
+    "\037\n\005value\030\002 \001(\0132\020.rpc.IntegerRule:\0028\001\"D\n\n"
+    "StringRule\022\020\n\010required\030\001 \001(\010\022\017\n\007default\030"
+    "\002 \001(\t\022\023\n\013has_default\030\003 \001(\010\"z\n\014StringPoli"
+    "cy\022+\n\005rules\030\001 \003(\0132\034.rpc.StringPolicy.Rul"
+    "esEntry\032=\n\nRulesEntry\022\013\n\003key\030\001 \001(\t\022\036\n\005va"
+    "lue\030\002 \001(\0132\017.rpc.StringRule:\0028\001\"*\n\nMetric"
+    "sArg\022\034\n\007metrics\030\001 \003(\0132\013.rpc.Metric\";\n\014Me"
+    "tricsReply\022\034\n\007metrics\030\001 \003(\0132\013.rpc.Metric"
+    "\022\r\n\005error\030\002 \001(\t\"3\n\021GetMetricTypesArg\022\036\n\006"
+    "config\030\001 \001(\0132\016.rpc.ConfigMap2\212\002\n\tCollect"
+    "or\0226\n\016CollectMetrics\022\017.rpc.MetricsArg\032\021."
+    "rpc.MetricsReply\"\000\022=\n\016GetMetricTypes\022\026.r"
+    "pc.GetMetricTypesArg\032\021.rpc.MetricsReply\""
+    "\000\022#\n\004Ping\022\n.rpc.Empty\032\r.rpc.ErrReply\"\000\022%"
+    "\n\004Kill\022\014.rpc.KillArg\032\r.rpc.ErrReply\"\000\022:\n"
+    "\017GetConfigPolicy\022\n.rpc.Empty\032\031.rpc.GetCo"
+    "nfigPolicyReply\"\0002\304\001\n\tProcessor\022/\n\007Proce"
+    "ss\022\017.rpc.PubProcArg\032\021.rpc.MetricsReply\"\000"
+    "\022#\n\004Ping\022\n.rpc.Empty\032\r.rpc.ErrReply\"\000\022%\n"
+    "\004Kill\022\014.rpc.KillArg\032\r.rpc.ErrReply\"\000\022:\n\017"
+    "GetConfigPolicy\022\n.rpc.Empty\032\031.rpc.GetCon"
+    "figPolicyReply\"\0002\300\001\n\tPublisher\022+\n\007Publis"
+    "h\022\017.rpc.PubProcArg\032\r.rpc.ErrReply\"\000\022#\n\004P"
+    "ing\022\n.rpc.Empty\032\r.rpc.ErrReply\"\000\022%\n\004Kill"
+    "\022\014.rpc.KillArg\032\r.rpc.ErrReply\"\000\022:\n\017GetCo"
+    "nfigPolicy\022\n.rpc.Empty\032\031.rpc.GetConfigPo"
+    "licyReply\"\000b\006proto3", 3419);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "plugin.proto", &protobuf_RegisterTypes);
   Empty::default_instance_ = new Empty();
   ErrReply::default_instance_ = new ErrReply();
   Time::default_instance_ = new Time();
   NamespaceElement::default_instance_ = new NamespaceElement();
+  PubProcArg::default_instance_ = new PubProcArg();
   Metric::default_instance_ = new Metric();
   Metric_default_oneof_instance_ = new MetricOneofInstance();
   ConfigMap::default_instance_ = new ConfigMap();
@@ -779,6 +805,7 @@ void protobuf_AddDesc_plugin_2eproto() {
   ErrReply::default_instance_->InitAsDefaultInstance();
   Time::default_instance_->InitAsDefaultInstance();
   NamespaceElement::default_instance_->InitAsDefaultInstance();
+  PubProcArg::default_instance_->InitAsDefaultInstance();
   Metric::default_instance_->InitAsDefaultInstance();
   ConfigMap::default_instance_->InitAsDefaultInstance();
   KillArg::default_instance_->InitAsDefaultInstance();
@@ -2049,6 +2076,340 @@ void NamespaceElement::clear_name() {
   }
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:rpc.NamespaceElement.Name)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int PubProcArg::kMetricsFieldNumber;
+const int PubProcArg::kConfigFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+PubProcArg::PubProcArg()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:rpc.PubProcArg)
+}
+
+void PubProcArg::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+  config_ = const_cast< ::rpc::ConfigMap*>(&::rpc::ConfigMap::default_instance());
+}
+
+PubProcArg::PubProcArg(const PubProcArg& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:rpc.PubProcArg)
+}
+
+void PubProcArg::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+  config_ = NULL;
+}
+
+PubProcArg::~PubProcArg() {
+  // @@protoc_insertion_point(destructor:rpc.PubProcArg)
+  SharedDtor();
+}
+
+void PubProcArg::SharedDtor() {
+  if (this != default_instance_) {
+    delete config_;
+  }
+}
+
+void PubProcArg::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* PubProcArg::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return PubProcArg_descriptor_;
+}
+
+const PubProcArg& PubProcArg::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_plugin_2eproto();
+  return *default_instance_;
+}
+
+PubProcArg* PubProcArg::default_instance_ = NULL;
+
+PubProcArg* PubProcArg::New(::google::protobuf::Arena* arena) const {
+  PubProcArg* n = new PubProcArg;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void PubProcArg::Clear() {
+// @@protoc_insertion_point(message_clear_start:rpc.PubProcArg)
+  if (GetArenaNoVirtual() == NULL && config_ != NULL) delete config_;
+  config_ = NULL;
+  metrics_.Clear();
+}
+
+bool PubProcArg::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:rpc.PubProcArg)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .rpc.Metric Metrics = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_Metrics:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_metrics()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(10)) goto parse_loop_Metrics;
+        input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectTag(18)) goto parse_Config;
+        break;
+      }
+
+      // optional .rpc.ConfigMap Config = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_Config:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_config()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:rpc.PubProcArg)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:rpc.PubProcArg)
+  return false;
+#undef DO_
+}
+
+void PubProcArg::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:rpc.PubProcArg)
+  // repeated .rpc.Metric Metrics = 1;
+  for (unsigned int i = 0, n = this->metrics_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->metrics(i), output);
+  }
+
+  // optional .rpc.ConfigMap Config = 2;
+  if (this->has_config()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, *this->config_, output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:rpc.PubProcArg)
+}
+
+::google::protobuf::uint8* PubProcArg::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:rpc.PubProcArg)
+  // repeated .rpc.Metric Metrics = 1;
+  for (unsigned int i = 0, n = this->metrics_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        1, this->metrics(i), false, target);
+  }
+
+  // optional .rpc.ConfigMap Config = 2;
+  if (this->has_config()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        2, *this->config_, false, target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:rpc.PubProcArg)
+  return target;
+}
+
+int PubProcArg::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:rpc.PubProcArg)
+  int total_size = 0;
+
+  // optional .rpc.ConfigMap Config = 2;
+  if (this->has_config()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->config_);
+  }
+
+  // repeated .rpc.Metric Metrics = 1;
+  total_size += 1 * this->metrics_size();
+  for (int i = 0; i < this->metrics_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->metrics(i));
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void PubProcArg::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:rpc.PubProcArg)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const PubProcArg* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const PubProcArg>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:rpc.PubProcArg)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:rpc.PubProcArg)
+    MergeFrom(*source);
+  }
+}
+
+void PubProcArg::MergeFrom(const PubProcArg& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:rpc.PubProcArg)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  metrics_.MergeFrom(from.metrics_);
+  if (from.has_config()) {
+    mutable_config()->::rpc::ConfigMap::MergeFrom(from.config());
+  }
+}
+
+void PubProcArg::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:rpc.PubProcArg)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void PubProcArg::CopyFrom(const PubProcArg& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:rpc.PubProcArg)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PubProcArg::IsInitialized() const {
+
+  return true;
+}
+
+void PubProcArg::Swap(PubProcArg* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void PubProcArg::InternalSwap(PubProcArg* other) {
+  metrics_.UnsafeArenaSwap(&other->metrics_);
+  std::swap(config_, other->config_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata PubProcArg::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = PubProcArg_descriptor_;
+  metadata.reflection = PubProcArg_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// PubProcArg
+
+// repeated .rpc.Metric Metrics = 1;
+int PubProcArg::metrics_size() const {
+  return metrics_.size();
+}
+void PubProcArg::clear_metrics() {
+  metrics_.Clear();
+}
+const ::rpc::Metric& PubProcArg::metrics(int index) const {
+  // @@protoc_insertion_point(field_get:rpc.PubProcArg.Metrics)
+  return metrics_.Get(index);
+}
+::rpc::Metric* PubProcArg::mutable_metrics(int index) {
+  // @@protoc_insertion_point(field_mutable:rpc.PubProcArg.Metrics)
+  return metrics_.Mutable(index);
+}
+::rpc::Metric* PubProcArg::add_metrics() {
+  // @@protoc_insertion_point(field_add:rpc.PubProcArg.Metrics)
+  return metrics_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::rpc::Metric >*
+PubProcArg::mutable_metrics() {
+  // @@protoc_insertion_point(field_mutable_list:rpc.PubProcArg.Metrics)
+  return &metrics_;
+}
+const ::google::protobuf::RepeatedPtrField< ::rpc::Metric >&
+PubProcArg::metrics() const {
+  // @@protoc_insertion_point(field_list:rpc.PubProcArg.Metrics)
+  return metrics_;
+}
+
+// optional .rpc.ConfigMap Config = 2;
+bool PubProcArg::has_config() const {
+  return !_is_default_instance_ && config_ != NULL;
+}
+void PubProcArg::clear_config() {
+  if (GetArenaNoVirtual() == NULL && config_ != NULL) delete config_;
+  config_ = NULL;
+}
+const ::rpc::ConfigMap& PubProcArg::config() const {
+  // @@protoc_insertion_point(field_get:rpc.PubProcArg.Config)
+  return config_ != NULL ? *config_ : *default_instance_->config_;
+}
+::rpc::ConfigMap* PubProcArg::mutable_config() {
+  
+  if (config_ == NULL) {
+    config_ = new ::rpc::ConfigMap;
+  }
+  // @@protoc_insertion_point(field_mutable:rpc.PubProcArg.Config)
+  return config_;
+}
+::rpc::ConfigMap* PubProcArg::release_config() {
+  // @@protoc_insertion_point(field_release:rpc.PubProcArg.Config)
+  
+  ::rpc::ConfigMap* temp = config_;
+  config_ = NULL;
+  return temp;
+}
+void PubProcArg::set_allocated_config(::rpc::ConfigMap* config) {
+  delete config_;
+  config_ = config;
+  if (config) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:rpc.PubProcArg.Config)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

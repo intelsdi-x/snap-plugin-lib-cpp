@@ -4,6 +4,7 @@ nobase_include_HEADERS =         \
     snap/metric.h                \
     snap/config.h                \
     snap/plugin.h                \
+    snap/proxy/plugin_proxy.h    \
     snap/proxy/collector_proxy.h \
     snap/proxy/processor_proxy.h \
     snap/proxy/publisher_proxy.h \
@@ -14,6 +15,7 @@ libsnap_la_SOURCES =              \
     snap/metric.cc                \
     snap/config.cc                \
     snap/plugin.cc                \
+    snap/proxy/plugin_proxy.cc    \
     snap/proxy/collector_proxy.cc \
     snap/proxy/processor_proxy.cc \
     snap/proxy/publisher_proxy.cc \
