@@ -28,7 +28,7 @@ using Plugin::Type;
 const ConfigPolicy Rando::get_config_policy() {
   ConfigPolicy policy;
   policy.add_rule({"intel", "cpp"},
-  {
+  Plugin::StringRule{
     "username",
     {
       "root",
@@ -36,7 +36,7 @@ const ConfigPolicy Rando::get_config_policy() {
     }
   });
   policy.add_rule({"intel", "cpp", "mock", "random_number", "one"},
-  {
+  Plugin::StringRule{
     "password",
     {
       "h4ck3r",

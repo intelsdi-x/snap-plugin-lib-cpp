@@ -20,6 +20,8 @@ limitations under the License.
 #include "snap/config.h"
 #include "snap/metric.h"
 
+#define RPC_VERSION 1
+
 namespace Plugin {
 
 /**
@@ -76,12 +78,12 @@ struct Meta final {
   int version;
 
   // These members all have defaults.
-  RpcType rpc_type;  // = RpcType::GRPC;
-  int concurrency_count;  // = 5;
-  bool exclusive;  // = false;
-  bool unsecure;  // = false;
-  std::chrono::milliseconds cache_ttl;  // = std::chrono::milliseconds(500);
-  Strategy strategy; // = Strategy::LRU;
+  RpcType rpc_type;                     // RpcType::GRPC
+  int concurrency_count;                // 5
+  bool exclusive;                       // false
+  bool unsecure;                        // false
+  std::chrono::milliseconds cache_ttl;  // 500ms
+  Strategy strategy;                    // Strategy::LRU
 };
 
 /**
@@ -122,7 +124,7 @@ class CollectorInterface : public PluginInterface {
 class ProcessorInterface : public PluginInterface {
  public:
   virtual ~ProcessorInterface() {}
-  virtual void process(std::vector<Metric>* metrics) = 0;
+  virtual void process_metrics(std::vector<Metric>* metrics, const Config& config) = 0;
 };
 
 /**
@@ -133,9 +135,16 @@ class ProcessorInterface : public PluginInterface {
 class PublisherInterface : public PluginInterface {
  public:
   virtual ~PublisherInterface() {}
-  virtual void publish(std::vector<Metric>* metrics) = 0;
+  virtual void publish_metrics(std::vector<Metric>* metrics, const Config& config) = 0;
 };
 
+/**
+ * These functions are called to start a plugin.
+ * They construct the gRPC service and server, start them, and then
+ * block forever.
+ */
 void start_collector(CollectorInterface* plg, const Meta& meta);
+void start_processor(ProcessorInterface* plg, const Meta& meta);
+void start_publisher(PublisherInterface* plg, const Meta& meta);
 
 };  // namespace Plugin

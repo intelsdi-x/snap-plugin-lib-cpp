@@ -62,6 +62,11 @@ class Rule final : public P {
     auto rule_ptr = this->mutable_rules();
     (*rule_ptr)[key] = rl;
   }
+  Rule(const std::string& key, bool req) {
+    rule rl(req);
+    auto rule_ptr = this->mutable_rules();
+    (*rule_ptr)[key] = rl;
+  }
 
   ~Rule() {}
 };
@@ -69,12 +74,44 @@ class Rule final : public P {
 class ConfigPolicy final : public rpc::GetConfigPolicyReply {
  public:
   ConfigPolicy();
+
+  ConfigPolicy(const StringRule& rule);
+  ConfigPolicy(const IntRule& rule);
+  ConfigPolicy(const BoolRule& rule);
+
   ~ConfigPolicy();
 
   void add_rule(const std::vector<std::string>& ns, const StringRule& rule);
+  void add_rule(const std::vector<std::string>& ns, const IntRule& rule);
+  void add_rule(const std::vector<std::string>& ns, const BoolRule& rule);
 };
 
 class Config {
+ public:
+  /**
+   * A config is immutable, and is always passed _to_ a Plugin Author's plugin,
+   * If one is constructed manually, any reads will be attempt to do `gets`
+   * against an unallocated pointer.  Deleting this constructor will block, at
+   * compile time, the ability to construct and use an incomplete config.
+   */
+  Config() = delete;
+
+  /**
+   * This library controls the lifetime of not only the Plugin::Config type,
+   * but also the rpc::ConfigMap it contains. This allows us hold a reference to
+   * the contained rpc::ConfigMap without using smart pointers or explicitly
+   * managing memory.
+   */
+  explicit Config(const rpc::ConfigMap&);
+
+  ~Config();
+
+  bool get_bool(const std::string& key) const;
+  int get_int(const std::string& key) const;
+  std::string get_string(const std::string& key) const;
+
+ private:
+  const rpc::ConfigMap& rpc_map;
 };
 
 };  // namespace Plugin

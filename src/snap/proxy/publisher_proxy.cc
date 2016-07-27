@@ -17,17 +17,56 @@ limitations under the License.
 
 #include "snap/rpc/plugin.pb.h"
 
+using google::protobuf::RepeatedPtrField;
+
 using grpc::Server;
 using grpc::ServerContext;
 using grpc::Status;
 
-using rpc::Publisher;
-using rpc::MetricsArg;
+using rpc::Empty;
 using rpc::ErrReply;
+using rpc::GetConfigPolicyReply;
+using rpc::KillArg;
+using rpc::Publisher;
+using rpc::PubProcArg;
 
 using Plugin::Proxy::PublisherImpl;
 
-Status PublisherImpl::Publish(ServerContext* context, const MetricsArg* req,
+PublisherImpl::PublisherImpl(Plugin::PublisherInterface* plugin) :
+                             publisher(plugin) {
+  plugin_impl_ptr = new PluginImpl(plugin);
+}
+
+PublisherImpl::~PublisherImpl() {
+  delete plugin_impl_ptr;
+}
+
+Status PublisherImpl::Publish(ServerContext* context, const PubProcArg* req,
                               ErrReply* resp) {
+  std::vector<Metric::Metric> metrics;
+  RepeatedPtrField<rpc::Metric> rpc_mets = req->metrics();
+
+  for (int i = 0; i < rpc_mets.size(); i++) {
+    metrics.emplace_back(rpc_mets.Mutable(i));
+  }
+
+  Plugin::Config config(req->config());
+  publisher->publish_metrics(&metrics, config);
+
   return Status::OK;
+}
+
+Status PublisherImpl::Kill(ServerContext* context, const KillArg* req,
+                           ErrReply* resp) {
+  return plugin_impl_ptr->Kill(context, req, resp);
+}
+
+Status PublisherImpl::GetConfigPolicy(ServerContext* context, const Empty* req,
+                                      GetConfigPolicyReply* resp) {
+  return plugin_impl_ptr->GetConfigPolicy(context, req, resp);
+}
+
+Status PublisherImpl::Ping(ServerContext* context, const Empty* req,
+                           ErrReply* resp) {
+  return plugin_impl_ptr->Ping(context, req, resp);
 }
