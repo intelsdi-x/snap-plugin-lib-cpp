@@ -11,13 +11,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+#include "rando.h"
+
 #include <vector>
 
 #include <snap/config.h>
 #include <snap/plugin.h>
 #include <snap/metric.h>
-
-#include "rando.h"
 
 using Plugin::Config;
 using Plugin::ConfigPolicy;
@@ -25,8 +25,24 @@ using Plugin::Metric;
 using Plugin::Meta;
 using Plugin::Type;
 
-ConfigPolicy Rando::get_config_policy() {
+const ConfigPolicy Rando::get_config_policy() {
   ConfigPolicy policy;
+  policy.add_rule({"intel", "cpp"},
+  {
+    "username",
+    {
+      "root",
+      false
+    }
+  });
+  policy.add_rule({"intel", "cpp", "mock", "random_number", "one"},
+  {
+    "password",
+    {
+      "h4ck3r",
+      true
+    }
+  });
   return policy;
 }
 

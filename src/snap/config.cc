@@ -11,3 +11,27 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+#include "snap/config.h"
+
+#include <sstream>
+#include <string>
+#include <vector>
+
+using Plugin::ConfigPolicy;
+using Plugin::StringRule;
+
+ConfigPolicy::ConfigPolicy() {}
+ConfigPolicy::~ConfigPolicy() {}
+
+void ConfigPolicy::add_rule(const std::vector<std::string>& ns,
+                            const StringRule& rule) {
+  std::stringstream ss;
+  int i = 1;
+  for (std::string node : ns) {
+    if (i < ns.size()) ss << node << ".";
+    if (i == ns.size()) ss << node;
+    i++;
+  }
+  auto policy_ptr = mutable_string_policy();
+  (*policy_ptr)[ss.str()] = rule;
+}

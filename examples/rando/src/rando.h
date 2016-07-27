@@ -21,7 +21,7 @@ limitations under the License.
 
 class Rando final : public Plugin::CollectorInterface {
  public:
-  Plugin::ConfigPolicy get_config_policy();
+  const Plugin::ConfigPolicy get_config_policy();
   std::vector<Plugin::Metric> get_metric_types(Plugin::Config cfg);
   void collect_metrics(std::vector<Plugin::Metric>* metrics);
 };
