@@ -42,6 +42,6 @@ Status PluginImpl::Kill(ServerContext* context, const KillArg* req,
 
 Status PluginImpl::GetConfigPolicy(ServerContext* context, const Empty* req,
                                    GetConfigPolicyReply* resp) {
-  plugin->get_config_policy();
+  *resp = plugin->get_config_policy();
   return Status::OK;
 }

@@ -91,7 +91,7 @@ struct Meta final {
 class PluginInterface {
  public:
   virtual ~PluginInterface() {}
-  virtual ConfigPolicy get_config_policy() = 0;
+  virtual const ConfigPolicy get_config_policy() = 0;
 };
 
 /**
