@@ -103,7 +103,7 @@ class PluginInterface {
  */
 class CollectorInterface : public PluginInterface {
  public:
-   virtual ~CollectorInterface() {}
+  virtual ~CollectorInterface() {}
   /*
    * get_metric_types should report all the metrics this plugin can collect.
    */
@@ -124,7 +124,8 @@ class CollectorInterface : public PluginInterface {
 class ProcessorInterface : public PluginInterface {
  public:
   virtual ~ProcessorInterface() {}
-  virtual void process_metrics(std::vector<Metric>* metrics, const Config& config) = 0;
+  virtual void process_metrics(std::vector<Metric>* metrics,
+                               const Config& config) = 0;
 };
 
 /**
@@ -135,7 +136,8 @@ class ProcessorInterface : public PluginInterface {
 class PublisherInterface : public PluginInterface {
  public:
   virtual ~PublisherInterface() {}
-  virtual void publish_metrics(std::vector<Metric>* metrics, const Config& config) = 0;
+  virtual void publish_metrics(std::vector<Metric>* metrics,
+                               const Config& config) = 0;
 };
 
 /**

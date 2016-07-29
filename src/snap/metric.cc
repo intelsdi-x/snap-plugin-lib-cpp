@@ -96,6 +96,19 @@ const std::vector<Metric::NamespaceElement>& Metric::ns() {
   return memo_ns;
 }
 
+std::vector<int> Metric::dynamic_ns_elements() {
+  const std::vector<Metric::NamespaceElement>& namesp = ns();
+  std::vector<int> idxs;
+  int i = 0;
+  for (Metric::NamespaceElement nse : namesp) {
+    if (!nse.name.empty()) {
+      idxs.push_back(i);
+    }
+    i++;
+  }
+  return idxs;
+}
+
 void Metric::add_tag(std::pair<std::string, std::string> pair) {
   // invalidate memoized tags.
   std::map<std::string, std::string> memo_tags;
