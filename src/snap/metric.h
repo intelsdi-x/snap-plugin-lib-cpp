@@ -55,6 +55,17 @@ class Metric final {
     std::string description;
   };
 
+  enum DataType {
+    String = rpc::Metric::DataCase::kStringData,
+    Float32 = rpc::Metric::DataCase::kFloat32Data,
+    Float64 = rpc::Metric::DataCase::kFloat64Data,
+    Int32 = rpc::Metric::DataCase::kInt32Data,
+    // TODO(danielscottt)
+    //Int64 = rpc::Metric::DataCase::kInt64Data,
+    //Bytes = rpc::Metric::DataCase::kBytesData,
+    NotSet = rpc::Metric::DataCase::DATA_NOT_SET
+  };
+
   Metric();
   /**
    * The typical metric constructor.
@@ -66,11 +77,11 @@ class Metric final {
          std::string description);
 
   /**
-   * This constructor is used in the collector proxy during collect metrics.
-   * It's used to wrap the rpc::Metric type with the metric type from this
-   * library.
+   * This constructor is used in the plugin proxies.
+   * It's used to wrap the rpc::Metric and rpc::ConfigMap types with the metric
+   * type from this library.
    */
-  explicit Metric(rpc::Metric* metric);  //TODO(danielscottt): shared_ptr, probably.
+  explicit Metric(rpc::Metric* metric);
 
   Metric(const Metric& from);
 
@@ -113,6 +124,10 @@ class Metric final {
   void add_tag(std::pair<std::string, std::string>);
 
   /**
+   * timestamp returns the metric's collection timestamp.
+   */
+  std::chrono::system_clock::time_point timestamp();
+  /**
    * set_timestamp sets the timestamp as now.
    */
   void set_timestamp();
@@ -134,6 +149,8 @@ class Metric final {
    */
   void set_last_advertised_time(std::chrono::system_clock::time_point tp);
 
+  DataType data_type();
+
   /**
    * set_data sets the metric instances data in the underlying rpc::Metric
    * pointer.
@@ -143,8 +160,14 @@ class Metric final {
   void set_data(double data);
   void set_data(const std::string& data);
 
+  int get_int_data();
+  float get_float32_data();
+  double get_float64_data();
+  const std::string& get_string_data();
 
   rpc::Metric* rpc_metric_ptr;
+  Config config;
+
 
  private:
   void inline set_ts(std::chrono::system_clock::time_point tp);
@@ -155,6 +178,7 @@ class Metric final {
   std::map<std::string, std::string> memo_tags;
 
   bool delete_metric_ptr;
+  DataType type;
 };
 
 }   // namespace Plugin

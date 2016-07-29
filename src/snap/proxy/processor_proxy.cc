@@ -17,17 +17,60 @@ limitations under the License.
 
 #include "snap/rpc/plugin.pb.h"
 
+using google::protobuf::RepeatedPtrField;
+
 using grpc::Server;
 using grpc::ServerContext;
 using grpc::Status;
 
-using rpc::Processor;
-using rpc::MetricsArg;
+using rpc::Empty;
+using rpc::ErrReply;
+using rpc::GetConfigPolicyReply;
+using rpc::KillArg;
 using rpc::MetricsReply;
+using rpc::Processor;
+using rpc::PubProcArg;
 
 using Plugin::Proxy::ProcessorImpl;
 
-Status ProcessorImpl::Process(ServerContext* context, const MetricsArg* req,
+ProcessorImpl::ProcessorImpl(Plugin::ProcessorInterface* plugin) :
+                             processor(plugin) {
+  plugin_impl_ptr = new PluginImpl(plugin);
+}
+
+ProcessorImpl::~ProcessorImpl() {
+  delete plugin_impl_ptr;
+}
+
+Status ProcessorImpl::Process(ServerContext* context, const PubProcArg* req,
                               MetricsReply* resp) {
+  std::vector<Metric::Metric> metrics;
+  RepeatedPtrField<rpc::Metric> rpc_mets = req->metrics();
+
+  for (int i = 0; i < rpc_mets.size(); i++) {
+    metrics.emplace_back(rpc_mets.Mutable(i));
+  }
+
+  Plugin::Config config(req->config());
+  processor->process_metrics(&metrics, config);
+
+  for (Metric::Metric met : metrics) {
+    *resp->add_metrics() = *met.rpc_metric_ptr;
+  }
   return Status::OK;
+}
+
+Status ProcessorImpl::Kill(ServerContext* context, const KillArg* req,
+                           ErrReply* resp) {
+  return plugin_impl_ptr->Kill(context, req, resp);
+}
+
+Status ProcessorImpl::GetConfigPolicy(ServerContext* context, const Empty* req,
+                                      GetConfigPolicyReply* resp) {
+  return plugin_impl_ptr->GetConfigPolicy(context, req, resp);
+}
+
+Status ProcessorImpl::Ping(ServerContext* context, const Empty* req,
+                           ErrReply* resp) {
+  return plugin_impl_ptr->Ping(context, req, resp);
 }

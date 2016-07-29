@@ -27,27 +27,37 @@ limitations under the License.
 using std::chrono::system_clock;
 using std::chrono::duration_cast;
 using std::chrono::nanoseconds;
+using std::chrono::seconds;
 
 using google::protobuf::Map;
 using google::protobuf::RepeatedPtrField;
 
 using Plugin::Metric;
 
-Metric::Metric() : delete_metric_ptr(true) {
-  rpc_metric_ptr = new rpc::Metric;
-}
+Metric::Metric() : delete_metric_ptr(true),
+                   rpc_metric_ptr(new rpc::Metric),
+                   type(DataType::NotSet),
+                   config(Config(rpc_metric_ptr->config())) {}
 
 Metric::Metric(std::vector<Metric::NamespaceElement> ns, std::string unit,
-               std::string description) : delete_metric_ptr(true) {
-  rpc_metric_ptr = new rpc::Metric;
+               std::string description) :
+                 delete_metric_ptr(true),
+                 type(DataType::NotSet),
+                 rpc_metric_ptr(new rpc::Metric),
+                 config(Config(rpc_metric_ptr->config())) {
   rpc_metric_ptr->set_unit(unit);
   rpc_metric_ptr->set_description(description);
   set_ns(ns);
 }
 
-Metric::Metric(rpc::Metric* metric) : rpc_metric_ptr(metric) {}
+Metric::Metric(rpc::Metric* metric) :
+                 rpc_metric_ptr(metric),
+                 type(DataType::NotSet),
+                 delete_metric_ptr(false),
+                 config(Config(rpc_metric_ptr->config())) {}
 
-Metric::Metric(const Metric& from) : delete_metric_ptr(true) {
+Metric::Metric(const Metric& from) : delete_metric_ptr(true),
+                                     config(from.config) {
   rpc_metric_ptr = new rpc::Metric;
   *rpc_metric_ptr = *from.rpc_metric_ptr;
 }
@@ -78,8 +88,8 @@ const std::vector<Metric::NamespaceElement>& Metric::ns() {
 
   for (rpc::NamespaceElement rpc_elem : rpc_ns) {
     memo_ns.push_back({
-        rpc_elem.name(),
         rpc_elem.value(),
+        rpc_elem.name(),
         rpc_elem.description()
     });
   }
@@ -103,6 +113,24 @@ const std::map<std::string, std::string>& Metric::tags() {
   return memo_tags;
 }
 
+/**
+ * rpc::Time is a structure containing seconds and nanoseconds. To retrieve an
+ * accurate timestamp, these two counters must be summed.
+ */
+system_clock::time_point Metric::timestamp() {
+  // retrieve the tpc::Time
+  rpc::Time rpc_tm = rpc_metric_ptr->timestamp();
+
+  // Convert the seconds member to a timepoint.
+  system_clock::time_point tp(seconds(rpc_tm.sec()));
+
+  // retrieve and convert the nanoseconds from rpc_tm to a nanoseconds duration.
+  nanoseconds rpc_nano_dur = nanoseconds(rpc_tm.nsec());
+
+  // add the rpc nanoseconds to tp.
+  return (tp + rpc_nano_dur);
+}
+
 void Metric::set_timestamp() {
   auto now = system_clock::now();
   set_ts(now);
@@ -121,22 +149,46 @@ void Metric::set_last_advertised_time(system_clock::time_point tp) {
   set_last_advert_tm(tp);
 }
 
+Metric::DataType Metric::data_type() {
+  return (Metric::DataType)rpc_metric_ptr->data_case();
+}
+
 // TODO(danielscottt): figure out the whole ::google::protobuf::int{32,64}
 // thing
 void Metric::set_data(float data) {
+  type = DataType::Float32;
   rpc_metric_ptr->set_float32_data(data);
 }
 
 void Metric::set_data(double data) {
+  type = DataType::Float64;
   rpc_metric_ptr->set_float64_data(data);
 }
 
 void Metric::set_data(int data) {
+  type = DataType::Int32;
   rpc_metric_ptr->set_int32_data(data);
 }
 
 void Metric::set_data(const std::string& data) {
+  type = DataType::String;
   rpc_metric_ptr->set_string_data(data);
+}
+
+int Metric::get_int_data() {
+  return rpc_metric_ptr->int32_data();
+}
+
+float Metric::get_float32_data() {
+  return rpc_metric_ptr->float32_data();
+}
+
+double Metric::get_float64_data() {
+  return rpc_metric_ptr->float64_data();
+}
+
+const std::string& Metric::get_string_data() {
+  return rpc_metric_ptr->string_data();
 }
 
 void Metric::set_ts(system_clock::time_point tp) {

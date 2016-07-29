@@ -29,9 +29,9 @@ using grpc::Status;
 
 using rpc::Empty;
 using rpc::ErrReply;
-using rpc::KillArg;
-using rpc::GetMetricTypesArg;
 using rpc::GetConfigPolicyReply;
+using rpc::GetMetricTypesArg;
+using rpc::KillArg;
 using rpc::MetricsArg;
 using rpc::MetricsReply;
 
@@ -68,7 +68,7 @@ Status CollectorImpl::CollectMetrics(ServerContext* context,
 Status CollectorImpl::GetMetricTypes(ServerContext* context,
                                      const GetMetricTypesArg* req,
                                      MetricsReply* resp) {
-  Plugin::Config cfg;
+  Plugin::Config cfg(req->config());
 
   std::vector<Metric> metrics = collector->get_metric_types(cfg);
 
@@ -79,6 +79,7 @@ Status CollectorImpl::GetMetricTypes(ServerContext* context,
   }
   return Status::OK;
 }
+
 Status CollectorImpl::Kill(ServerContext* context, const KillArg* req,
                            ErrReply* resp) {
   return plugin_impl_ptr->Kill(context, req, resp);
@@ -88,6 +89,7 @@ Status CollectorImpl::GetConfigPolicy(ServerContext* context, const Empty* req,
                                       GetConfigPolicyReply* resp) {
   return plugin_impl_ptr->GetConfigPolicy(context, req, resp);
 }
+
 Status CollectorImpl::Ping(ServerContext* context, const Empty* req,
                            ErrReply* resp) {
   return plugin_impl_ptr->Ping(context, req, resp);

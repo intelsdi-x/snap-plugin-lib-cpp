@@ -23,11 +23,28 @@ limitations under the License.
 namespace Plugin {
 namespace Proxy {
 
-class PublisherImpl final : rpc::Publisher::Service {
+class PublisherImpl final : public rpc::Publisher::Service {
  public:
-  grpc::Status Publish(grpc::ServerContext* context,
-                       const rpc::MetricsArg* req,
+  explicit PublisherImpl(Plugin::PublisherInterface* plugin);
+
+  ~PublisherImpl();
+
+  grpc::Status Publish(grpc::ServerContext* context, const rpc::PubProcArg* req,
                        rpc::ErrReply* resp);
+
+  grpc::Status Kill(grpc::ServerContext* context, const rpc::KillArg* request,
+                    rpc::ErrReply* response);
+
+  grpc::Status GetConfigPolicy(grpc::ServerContext* context,
+                               const rpc::Empty* request,
+                               rpc::GetConfigPolicyReply* resp);
+
+  grpc::Status Ping(grpc::ServerContext* context, const rpc::Empty* request,
+                    rpc::ErrReply* resp);
+
+ private:
+  Plugin::PublisherInterface* publisher;
+  PluginImpl* plugin_impl_ptr;
 };
 
 }  // namespace Proxy
