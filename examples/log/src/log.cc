@@ -16,6 +16,8 @@ limitations under the License.
 #include <chrono>
 #include <ctime>
 #include <fstream>
+#include <map>
+#include <string>
 #include <vector>
 
 #include <snap/config.h>
@@ -52,7 +54,6 @@ void Log::publish_metrics(std::vector<Metric>* metrics,
   std::vector<Metric>::iterator mets_iter;
 
   for (mets_iter = metrics->begin(); mets_iter != metrics->end(); mets_iter++) {
-
     // timestamp
     system_clock::time_point ts = mets_iter->timestamp();
     std::time_t c_ts = system_clock::to_time_t(ts);
@@ -78,7 +79,7 @@ void Log::publish_metrics(std::vector<Metric>* metrics,
 
     // data
     outfile << "] " << "data: ";
-    switch(mets_iter->data_type()) {
+    switch (mets_iter->data_type()) {
       case Metric::DataType::String:
         outfile << mets_iter->get_float64_data() << "\n";
         break;

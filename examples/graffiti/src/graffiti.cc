@@ -15,6 +15,7 @@ limitations under the License.
 
 #include <sstream>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include <snap/config.h>
@@ -63,7 +64,7 @@ static inline std::vector<std::string> split_tags(std::string tags_str) {
   std::stringstream tag_stream(tags_str);
   std::string elem;
   std::vector<std::string> tags;
-  while(getline(tag_stream, elem, ',')) {
+  while (getline(tag_stream, elem, ',')) {
     if (!elem.empty()) tags.push_back(elem);
   }
   return tags;

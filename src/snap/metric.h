@@ -61,8 +61,8 @@ class Metric final {
     Float64 = rpc::Metric::DataCase::kFloat64Data,
     Int32 = rpc::Metric::DataCase::kInt32Data,
     // TODO(danielscottt)
-    //Int64 = rpc::Metric::DataCase::kInt64Data,
-    //Bytes = rpc::Metric::DataCase::kBytesData,
+    // Int64 = rpc::Metric::DataCase::kInt64Data,
+    // Bytes = rpc::Metric::DataCase::kBytesData,
     NotSet = rpc::Metric::DataCase::DATA_NOT_SET
   };
 

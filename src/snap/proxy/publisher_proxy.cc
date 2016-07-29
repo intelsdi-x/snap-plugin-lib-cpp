@@ -13,6 +13,8 @@ limitations under the License.
 */
 #include "snap/proxy/publisher_proxy.h"
 
+#include<vector>
+
 #include <grpc++/grpc++.h>
 
 #include "snap/rpc/plugin.pb.h"

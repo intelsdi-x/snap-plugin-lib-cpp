@@ -75,9 +75,9 @@ class ConfigPolicy final : public rpc::GetConfigPolicyReply {
  public:
   ConfigPolicy();
 
-  ConfigPolicy(const StringRule& rule);
-  ConfigPolicy(const IntRule& rule);
-  ConfigPolicy(const BoolRule& rule);
+  explicit ConfigPolicy(const StringRule& rule);
+  explicit ConfigPolicy(const IntRule& rule);
+  explicit ConfigPolicy(const BoolRule& rule);
 
   ~ConfigPolicy();
 
