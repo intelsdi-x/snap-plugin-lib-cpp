@@ -88,17 +88,17 @@ class Metric final {
   ~Metric();
 
   /**
-   * dynamic_ns_elements returns the indices in the metric's namespace which
-   * are dynamic.
-   */
-  std::vector<int> dynamic_ns_elements();
-
-  /**
    * ns returns the metric's namespace.
    * If there is a memoized copy, that is returned. Else the namespace is
    * copied into the cache then returned.
    */
   const std::vector<NamespaceElement>& ns();
+
+  /**
+   * dynamic_ns_elements returns the indices in the metric's namespace which
+   * are dynamic.
+   */
+  std::vector<int> dynamic_ns_elements();
 
   /**
    * set_ns sets the namespace of the metric in its `rpc::Metric` ptr.
@@ -160,6 +160,9 @@ class Metric final {
   void set_data(double data);
   void set_data(const std::string& data);
 
+  /**
+   * Retrieve this metric's datapoint
+   */
   int get_int_data();
   float get_float32_data();
   double get_float64_data();
