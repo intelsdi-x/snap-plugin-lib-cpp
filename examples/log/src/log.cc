@@ -72,9 +72,13 @@ void Log::publish_metrics(std::vector<Metric>* metrics,
     outfile << " tags: [";
     std::map<std::string, std::string>::iterator tags_iter;
     std::map<std::string, std::string> tags = mets_iter->tags();
+    int tags_size = tags.size();
+    int idx = 1;
     for (tags_iter = tags.begin(); tags_iter != tags.end();
          tags_iter++) {
-      outfile << tags_iter->first << ", ";
+      outfile << tags_iter->first;
+      if (idx != tags_size) outfile << ", ";
+      idx++;
     }
 
     // data

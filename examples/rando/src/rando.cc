@@ -13,6 +13,7 @@ limitations under the License.
 */
 #include "rando.h"
 
+#include <time.h>
 #include <vector>
 
 #include <snap/config.h>
@@ -76,7 +77,7 @@ std::vector<Metric> Rando::get_metric_types(Config cfg) {
 
 void Rando::collect_metrics(std::vector<Metric>* metrics) {
   std::vector<Metric>::iterator mets_iter;
-  unsigned int seed;
+  unsigned int seed = time(NULL);
   for (mets_iter = metrics->begin(); mets_iter != metrics->end(); mets_iter++) {
     mets_iter->set_data(rand_r(&seed) % 1000);
     mets_iter->set_timestamp();

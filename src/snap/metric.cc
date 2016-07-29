@@ -104,7 +104,7 @@ std::vector<int> Metric::dynamic_ns_elements() {
     if (!nse.name.empty()) {
       idxs.push_back(i);
     }
-    i++
+    i++;
   }
   return idxs;
 }
