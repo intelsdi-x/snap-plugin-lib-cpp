@@ -54,7 +54,6 @@ void Graffiti::process_metrics(std::vector<Metric>* metrics,
 
 int main() {
   Meta meta(Type::Processor, "graffiti", 1);
-  meta.unsecure = true;
   Graffiti plg = Graffiti();
   start_processor(&plg, meta);
 }

@@ -86,7 +86,6 @@ void Rando::collect_metrics(std::vector<Metric>* metrics) {
 
 int main() {
   Meta meta(Type::Collector, "rando", 1);
-  meta.unsecure = true;
   Rando plg = Rando();
   start_collector(&plg, meta);
 }
