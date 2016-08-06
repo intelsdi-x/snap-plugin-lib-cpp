@@ -81,7 +81,6 @@ struct Meta final {
   RpcType rpc_type;                     // RpcType::GRPC
   int concurrency_count;                // 5
   bool exclusive;                       // false
-  bool unsecure;                        // false
   std::chrono::milliseconds cache_ttl;  // 500ms
   Strategy strategy;                    // Strategy::LRU
 };

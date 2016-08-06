@@ -105,7 +105,6 @@ void Log::publish_metrics(std::vector<Metric>* metrics,
 
 int main() {
   Meta meta(Type::Publisher, "log", 1);
-  meta.unsecure = true;
   Log plg = Log();
   start_publisher(&plg, meta);
 }

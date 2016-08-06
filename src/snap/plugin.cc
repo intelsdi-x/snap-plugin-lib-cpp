@@ -45,7 +45,6 @@ Plugin::Meta::Meta(Type type, std::string name, int version) :
                      rpc_type(RpcType::GRPC),
                      concurrency_count(5),
                      exclusive(false),
-                     unsecure(false),
                      cache_ttl(std::chrono::milliseconds(500)),
                      strategy(Strategy::LRU) {}
 
@@ -115,7 +114,12 @@ static void emit_preamble(const Plugin::Meta& meta, int port) {
       {"RPCVersion", RPC_VERSION},
       {"ConcurrencyCount", meta.concurrency_count},
       {"Exclusive", meta.exclusive},
-      {"Unsecure", meta.unsecure},
+
+      // The gRPC client in Snap does not use the `Unsecure` metadata key at
+      // this time, as it is used for payload encryption.  With gRPC, encryption
+      // is done via its transport, and this will be updated once support for
+      // that feature lands in snapd.
+      {"Unsecure", true},
       {"CacheTTL", meta.cache_ttl.count()},
       {"RoutingStrategy", meta.strategy}
     }},
