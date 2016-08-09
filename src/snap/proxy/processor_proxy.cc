@@ -46,7 +46,7 @@ ProcessorImpl::~ProcessorImpl() {
 
 Status ProcessorImpl::Process(ServerContext* context, const PubProcArg* req,
                               MetricsReply* resp) {
-  std::vector<Metric::Metric> metrics;
+  std::vector<Metric> metrics;
   RepeatedPtrField<rpc::Metric> rpc_mets = req->metrics();
 
   for (int i = 0; i < rpc_mets.size(); i++) {
@@ -56,7 +56,7 @@ Status ProcessorImpl::Process(ServerContext* context, const PubProcArg* req,
   Plugin::Config config(req->config());
   processor->process_metrics(&metrics, config);
 
-  for (Metric::Metric met : metrics) {
+  for (Metric met : metrics) {
     *resp->add_metrics() = *met.rpc_metric_ptr;
   }
   return Status::OK;

@@ -50,7 +50,7 @@ CollectorImpl::~CollectorImpl() {
 Status CollectorImpl::CollectMetrics(ServerContext* context,
                                      const MetricsArg* req,
                                      MetricsReply* resp) {
-  std::vector<Metric::Metric> metrics;
+  std::vector<Metric> metrics;
   RepeatedPtrField<rpc::Metric> rpc_mets = req->metrics();
 
   for (int i = 0; i < rpc_mets.size(); i++) {
@@ -59,7 +59,7 @@ Status CollectorImpl::CollectMetrics(ServerContext* context,
 
   collector->collect_metrics(&metrics);
 
-  for (Metric::Metric met : metrics) {
+  for (Metric met : metrics) {
     *resp->add_metrics() = *met.rpc_metric_ptr;
   }
   return Status::OK;
