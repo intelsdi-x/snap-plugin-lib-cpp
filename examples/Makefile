@@ -8,10 +8,10 @@ clean:
 	rm -f snap-publisher-log
 
 snap-collector-rando:
-	c++ --std=c++11 -lsnap -lprotobuf -lgrpc++ -o snap-collector-rando rando/src/rando.cc
+	c++ --std=c++11 -o snap-collector-rando rando/src/rando.cc -lsnap -lprotobuf -lgrpc++
 
 snap-processor-graf:
-	c++ --std=c++11 -lsnap -lprotobuf -lgrpc++ -o snap-processor-graf graffiti/src/graffiti.cc
+	c++ --std=c++11 -o snap-processor-graf graffiti/src/graffiti.cc -lsnap -lprotobuf -lgrpc++
 
 snap-publisher-log:
-	c++ --std=c++11 -lsnap -lprotobuf -lgrpc++ -o snap-publisher-log log/src/log.cc
+	c++ --std=c++11 -o snap-publisher-log log/src/log.cc -lsnap -lprotobuf -lgrpc++
