@@ -45,7 +45,7 @@ PublisherImpl::~PublisherImpl() {
 
 Status PublisherImpl::Publish(ServerContext* context, const PubProcArg* req,
                               ErrReply* resp) {
-  std::vector<Metric::Metric> metrics;
+  std::vector<Metric> metrics;
   RepeatedPtrField<rpc::Metric> rpc_mets = req->metrics();
 
   for (int i = 0; i < rpc_mets.size(); i++) {
