@@ -36,7 +36,7 @@ const ConfigPolicy Rando::get_config_policy() {
       false
     }
   });
-  policy.add_rule({"intel", "cpp", "mock", "random_number", "one"},
+  policy.add_rule({"intel", "cpp", "mock", "randomnumber", "one"},
   Plugin::StringRule{
     "password",
     {
@@ -54,7 +54,7 @@ std::vector<Metric> Rando::get_metric_types(Config cfg) {
         {"intel", "", ""},
         {"cpp", "", ""},
         {"mock", "", ""},
-        {"random_number", "", ""},
+        {"randomnumber", "", ""},
         {"one", "", ""},
       },
       "",
@@ -65,7 +65,7 @@ std::vector<Metric> Rando::get_metric_types(Config cfg) {
         {"intel", "", ""},
         {"cpp", "", ""},
         {"mock", "", ""},
-        {"random_number", "", ""},
+        {"randomnumber", "", ""},
         {"two", "", ""},
       },
       "",
