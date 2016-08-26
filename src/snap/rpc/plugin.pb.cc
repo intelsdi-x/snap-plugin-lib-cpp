@@ -106,6 +106,7 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 }  // namespace
 
 
+void protobuf_AssignDesc_plugin_2eproto() GOOGLE_ATTRIBUTE_COLD;
 void protobuf_AssignDesc_plugin_2eproto() {
   protobuf_AddDesc_plugin_2eproto();
   const ::google::protobuf::FileDescriptor* file =
@@ -478,6 +479,7 @@ inline void protobuf_AssignDescriptorsOnce() {
                  &protobuf_AssignDesc_plugin_2eproto);
 }
 
+void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -685,6 +687,7 @@ void protobuf_ShutdownFile_plugin_2eproto() {
   delete GetMetricTypesArg_reflection_;
 }
 
+void protobuf_AddDesc_plugin_2eproto() GOOGLE_ATTRIBUTE_COLD;
 void protobuf_AddDesc_plugin_2eproto() {
   static bool already_here = false;
   if (already_here) return;
@@ -831,16 +834,6 @@ struct StaticDescriptorInitializer_plugin_2eproto {
   }
 } static_descriptor_initializer_plugin_2eproto_;
 
-namespace {
-
-static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD;
-static void MergeFromFail(int line) {
-  GOOGLE_CHECK(false) << __FILE__ << ":" << line;
-}
-
-}  // namespace
-
-
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -959,7 +952,9 @@ int Empty::ByteSize() const {
 
 void Empty::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.Empty)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const Empty* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Empty>(
           &from);
@@ -974,7 +969,9 @@ void Empty::MergeFrom(const ::google::protobuf::Message& from) {
 
 void Empty::MergeFrom(const Empty& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.Empty)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
 }
 
 void Empty::CopyFrom(const ::google::protobuf::Message& from) {
@@ -1190,7 +1187,9 @@ int ErrReply::ByteSize() const {
 
 void ErrReply::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.ErrReply)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const ErrReply* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const ErrReply>(
           &from);
@@ -1205,7 +1204,9 @@ void ErrReply::MergeFrom(const ::google::protobuf::Message& from) {
 
 void ErrReply::MergeFrom(const ErrReply& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.ErrReply)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   if (from.error().size() > 0) {
 
     error_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.error_);
@@ -1509,7 +1510,9 @@ int Time::ByteSize() const {
 
 void Time::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.Time)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const Time* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Time>(
           &from);
@@ -1524,7 +1527,9 @@ void Time::MergeFrom(const ::google::protobuf::Message& from) {
 
 void Time::MergeFrom(const Time& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.Time)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   if (from.sec() != 0) {
     set_sec(from.sec());
   }
@@ -1874,7 +1879,9 @@ int NamespaceElement::ByteSize() const {
 
 void NamespaceElement::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.NamespaceElement)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const NamespaceElement* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const NamespaceElement>(
           &from);
@@ -1889,7 +1896,9 @@ void NamespaceElement::MergeFrom(const ::google::protobuf::Message& from) {
 
 void NamespaceElement::MergeFrom(const NamespaceElement& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.NamespaceElement)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   if (from.value().size() > 0) {
 
     value_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.value_);
@@ -2281,7 +2290,9 @@ int PubProcArg::ByteSize() const {
 
 void PubProcArg::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.PubProcArg)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const PubProcArg* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const PubProcArg>(
           &from);
@@ -2296,7 +2307,9 @@ void PubProcArg::MergeFrom(const ::google::protobuf::Message& from) {
 
 void PubProcArg::MergeFrom(const PubProcArg& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.PubProcArg)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   metrics_.MergeFrom(from.metrics_);
   if (from.has_config()) {
     mutable_config()->::rpc::ConfigMap::MergeFrom(from.config());
@@ -2858,22 +2871,55 @@ void Metric::SerializeWithCachedSizes(
   }
 
   // map<string, string> Tags = 5;
-  {
-    ::google::protobuf::scoped_ptr<Metric_TagsEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
-        it = this->tags().begin();
-        it != this->tags().end(); ++it) {
-      entry.reset(tags_.NewEntryWrapper(it->first, it->second));
-      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-          5, *entry, output);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.Metric.TagsEntry.key");
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->second.data(), it->second.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.Metric.TagsEntry.value");
+  if (!this->tags().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::std::string >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.Metric.TagsEntry.key");
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->second.data(), p->second.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.Metric.TagsEntry.value");
+      }
+    };
+
+    if (output->IsSerializationDeterminstic() &&
+        this->tags().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->tags().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::std::string >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+          it = this->tags().begin();
+          it != this->tags().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<Metric_TagsEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(tags_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            5, *entry, output);
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<Metric_TagsEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+          it = this->tags().begin();
+          it != this->tags().end(); ++it) {
+        entry.reset(tags_.NewEntryWrapper(
+            it->first, it->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            5, *entry, output);
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
@@ -2972,23 +3018,59 @@ void Metric::SerializeWithCachedSizes(
   }
 
   // map<string, string> Tags = 5;
-  {
-    ::google::protobuf::scoped_ptr<Metric_TagsEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
-        it = this->tags().begin();
-        it != this->tags().end(); ++it) {
-      entry.reset(tags_.NewEntryWrapper(it->first, it->second));
-      target = ::google::protobuf::internal::WireFormatLite::
-          InternalWriteMessageNoVirtualToArray(
-              5, *entry, false, target);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.Metric.TagsEntry.key");
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->second.data(), it->second.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.Metric.TagsEntry.value");
+  if (!this->tags().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::std::string >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.Metric.TagsEntry.key");
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->second.data(), p->second.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.Metric.TagsEntry.value");
+      }
+    };
+
+    if (deterministic &&
+        this->tags().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->tags().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::std::string >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+          it = this->tags().begin();
+          it != this->tags().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<Metric_TagsEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(tags_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       5, *entry, deterministic, target);
+;
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<Metric_TagsEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+          it = this->tags().begin();
+          it != this->tags().end(); ++it) {
+        entry.reset(tags_.NewEntryWrapper(
+            it->first, it->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       5, *entry, deterministic, target);
+;
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
@@ -3181,7 +3263,9 @@ int Metric::ByteSize() const {
 
 void Metric::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.Metric)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const Metric* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Metric>(
           &from);
@@ -3196,7 +3280,9 @@ void Metric::MergeFrom(const ::google::protobuf::Message& from) {
 
 void Metric::MergeFrom(const Metric& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.Metric)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   namespace__.MergeFrom(from.namespace__);
   tags_.MergeFrom(from.tags_);
   switch (from.data_case()) {
@@ -4087,70 +4173,202 @@ void ConfigMap::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:rpc.ConfigMap)
   // map<string, int64> IntMap = 1;
-  {
-    ::google::protobuf::scoped_ptr<ConfigMap_IntMapEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >::const_iterator
-        it = this->intmap().begin();
-        it != this->intmap().end(); ++it) {
-      entry.reset(intmap_.NewEntryWrapper(it->first, it->second));
-      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-          1, *entry, output);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.ConfigMap.IntMapEntry.key");
+  if (!this->intmap().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.ConfigMap.IntMapEntry.key");
+      }
+    };
+
+    if (output->IsSerializationDeterminstic() &&
+        this->intmap().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->intmap().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >::const_iterator
+          it = this->intmap().begin();
+          it != this->intmap().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<ConfigMap_IntMapEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(intmap_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            1, *entry, output);
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<ConfigMap_IntMapEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >::const_iterator
+          it = this->intmap().begin();
+          it != this->intmap().end(); ++it) {
+        entry.reset(intmap_.NewEntryWrapper(
+            it->first, it->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            1, *entry, output);
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
   // map<string, string> StringMap = 2;
-  {
-    ::google::protobuf::scoped_ptr<ConfigMap_StringMapEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
-        it = this->stringmap().begin();
-        it != this->stringmap().end(); ++it) {
-      entry.reset(stringmap_.NewEntryWrapper(it->first, it->second));
-      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-          2, *entry, output);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.ConfigMap.StringMapEntry.key");
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->second.data(), it->second.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.ConfigMap.StringMapEntry.value");
+  if (!this->stringmap().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::std::string >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.ConfigMap.StringMapEntry.key");
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->second.data(), p->second.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.ConfigMap.StringMapEntry.value");
+      }
+    };
+
+    if (output->IsSerializationDeterminstic() &&
+        this->stringmap().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->stringmap().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::std::string >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+          it = this->stringmap().begin();
+          it != this->stringmap().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<ConfigMap_StringMapEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(stringmap_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            2, *entry, output);
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<ConfigMap_StringMapEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+          it = this->stringmap().begin();
+          it != this->stringmap().end(); ++it) {
+        entry.reset(stringmap_.NewEntryWrapper(
+            it->first, it->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            2, *entry, output);
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
   // map<string, double> FloatMap = 3;
-  {
-    ::google::protobuf::scoped_ptr<ConfigMap_FloatMapEntry> entry;
-    for (::google::protobuf::Map< ::std::string, double >::const_iterator
-        it = this->floatmap().begin();
-        it != this->floatmap().end(); ++it) {
-      entry.reset(floatmap_.NewEntryWrapper(it->first, it->second));
-      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-          3, *entry, output);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.ConfigMap.FloatMapEntry.key");
+  if (!this->floatmap().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, double >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.ConfigMap.FloatMapEntry.key");
+      }
+    };
+
+    if (output->IsSerializationDeterminstic() &&
+        this->floatmap().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->floatmap().size()]);
+      typedef ::google::protobuf::Map< ::std::string, double >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, double >::const_iterator
+          it = this->floatmap().begin();
+          it != this->floatmap().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<ConfigMap_FloatMapEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(floatmap_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            3, *entry, output);
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<ConfigMap_FloatMapEntry> entry;
+      for (::google::protobuf::Map< ::std::string, double >::const_iterator
+          it = this->floatmap().begin();
+          it != this->floatmap().end(); ++it) {
+        entry.reset(floatmap_.NewEntryWrapper(
+            it->first, it->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            3, *entry, output);
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
   // map<string, bool> BoolMap = 4;
-  {
-    ::google::protobuf::scoped_ptr<ConfigMap_BoolMapEntry> entry;
-    for (::google::protobuf::Map< ::std::string, bool >::const_iterator
-        it = this->boolmap().begin();
-        it != this->boolmap().end(); ++it) {
-      entry.reset(boolmap_.NewEntryWrapper(it->first, it->second));
-      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-          4, *entry, output);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.ConfigMap.BoolMapEntry.key");
+  if (!this->boolmap().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, bool >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.ConfigMap.BoolMapEntry.key");
+      }
+    };
+
+    if (output->IsSerializationDeterminstic() &&
+        this->boolmap().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->boolmap().size()]);
+      typedef ::google::protobuf::Map< ::std::string, bool >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, bool >::const_iterator
+          it = this->boolmap().begin();
+          it != this->boolmap().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<ConfigMap_BoolMapEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(boolmap_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            4, *entry, output);
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<ConfigMap_BoolMapEntry> entry;
+      for (::google::protobuf::Map< ::std::string, bool >::const_iterator
+          it = this->boolmap().begin();
+          it != this->boolmap().end(); ++it) {
+        entry.reset(boolmap_.NewEntryWrapper(
+            it->first, it->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            4, *entry, output);
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
@@ -4161,74 +4379,218 @@ void ConfigMap::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:rpc.ConfigMap)
   // map<string, int64> IntMap = 1;
-  {
-    ::google::protobuf::scoped_ptr<ConfigMap_IntMapEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >::const_iterator
-        it = this->intmap().begin();
-        it != this->intmap().end(); ++it) {
-      entry.reset(intmap_.NewEntryWrapper(it->first, it->second));
-      target = ::google::protobuf::internal::WireFormatLite::
-          InternalWriteMessageNoVirtualToArray(
-              1, *entry, false, target);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.ConfigMap.IntMapEntry.key");
+  if (!this->intmap().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.ConfigMap.IntMapEntry.key");
+      }
+    };
+
+    if (deterministic &&
+        this->intmap().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->intmap().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >::const_iterator
+          it = this->intmap().begin();
+          it != this->intmap().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<ConfigMap_IntMapEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(intmap_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       1, *entry, deterministic, target);
+;
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<ConfigMap_IntMapEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::google::protobuf::int64 >::const_iterator
+          it = this->intmap().begin();
+          it != this->intmap().end(); ++it) {
+        entry.reset(intmap_.NewEntryWrapper(
+            it->first, it->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       1, *entry, deterministic, target);
+;
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
   // map<string, string> StringMap = 2;
-  {
-    ::google::protobuf::scoped_ptr<ConfigMap_StringMapEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
-        it = this->stringmap().begin();
-        it != this->stringmap().end(); ++it) {
-      entry.reset(stringmap_.NewEntryWrapper(it->first, it->second));
-      target = ::google::protobuf::internal::WireFormatLite::
-          InternalWriteMessageNoVirtualToArray(
-              2, *entry, false, target);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.ConfigMap.StringMapEntry.key");
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->second.data(), it->second.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.ConfigMap.StringMapEntry.value");
+  if (!this->stringmap().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::std::string >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.ConfigMap.StringMapEntry.key");
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->second.data(), p->second.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.ConfigMap.StringMapEntry.value");
+      }
+    };
+
+    if (deterministic &&
+        this->stringmap().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->stringmap().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::std::string >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+          it = this->stringmap().begin();
+          it != this->stringmap().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<ConfigMap_StringMapEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(stringmap_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       2, *entry, deterministic, target);
+;
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<ConfigMap_StringMapEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+          it = this->stringmap().begin();
+          it != this->stringmap().end(); ++it) {
+        entry.reset(stringmap_.NewEntryWrapper(
+            it->first, it->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       2, *entry, deterministic, target);
+;
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
   // map<string, double> FloatMap = 3;
-  {
-    ::google::protobuf::scoped_ptr<ConfigMap_FloatMapEntry> entry;
-    for (::google::protobuf::Map< ::std::string, double >::const_iterator
-        it = this->floatmap().begin();
-        it != this->floatmap().end(); ++it) {
-      entry.reset(floatmap_.NewEntryWrapper(it->first, it->second));
-      target = ::google::protobuf::internal::WireFormatLite::
-          InternalWriteMessageNoVirtualToArray(
-              3, *entry, false, target);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.ConfigMap.FloatMapEntry.key");
+  if (!this->floatmap().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, double >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.ConfigMap.FloatMapEntry.key");
+      }
+    };
+
+    if (deterministic &&
+        this->floatmap().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->floatmap().size()]);
+      typedef ::google::protobuf::Map< ::std::string, double >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, double >::const_iterator
+          it = this->floatmap().begin();
+          it != this->floatmap().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<ConfigMap_FloatMapEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(floatmap_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       3, *entry, deterministic, target);
+;
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<ConfigMap_FloatMapEntry> entry;
+      for (::google::protobuf::Map< ::std::string, double >::const_iterator
+          it = this->floatmap().begin();
+          it != this->floatmap().end(); ++it) {
+        entry.reset(floatmap_.NewEntryWrapper(
+            it->first, it->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       3, *entry, deterministic, target);
+;
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
   // map<string, bool> BoolMap = 4;
-  {
-    ::google::protobuf::scoped_ptr<ConfigMap_BoolMapEntry> entry;
-    for (::google::protobuf::Map< ::std::string, bool >::const_iterator
-        it = this->boolmap().begin();
-        it != this->boolmap().end(); ++it) {
-      entry.reset(boolmap_.NewEntryWrapper(it->first, it->second));
-      target = ::google::protobuf::internal::WireFormatLite::
-          InternalWriteMessageNoVirtualToArray(
-              4, *entry, false, target);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.ConfigMap.BoolMapEntry.key");
+  if (!this->boolmap().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, bool >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.ConfigMap.BoolMapEntry.key");
+      }
+    };
+
+    if (deterministic &&
+        this->boolmap().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->boolmap().size()]);
+      typedef ::google::protobuf::Map< ::std::string, bool >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, bool >::const_iterator
+          it = this->boolmap().begin();
+          it != this->boolmap().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<ConfigMap_BoolMapEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(boolmap_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       4, *entry, deterministic, target);
+;
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<ConfigMap_BoolMapEntry> entry;
+      for (::google::protobuf::Map< ::std::string, bool >::const_iterator
+          it = this->boolmap().begin();
+          it != this->boolmap().end(); ++it) {
+        entry.reset(boolmap_.NewEntryWrapper(
+            it->first, it->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       4, *entry, deterministic, target);
+;
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
@@ -4300,7 +4662,9 @@ int ConfigMap::ByteSize() const {
 
 void ConfigMap::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.ConfigMap)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const ConfigMap* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const ConfigMap>(
           &from);
@@ -4315,7 +4679,9 @@ void ConfigMap::MergeFrom(const ::google::protobuf::Message& from) {
 
 void ConfigMap::MergeFrom(const ConfigMap& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.ConfigMap)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   intmap_.MergeFrom(from.intmap_);
   stringmap_.MergeFrom(from.stringmap_);
   floatmap_.MergeFrom(from.floatmap_);
@@ -4611,7 +4977,9 @@ int KillArg::ByteSize() const {
 
 void KillArg::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.KillArg)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const KillArg* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const KillArg>(
           &from);
@@ -4626,7 +4994,9 @@ void KillArg::MergeFrom(const ::google::protobuf::Message& from) {
 
 void KillArg::MergeFrom(const KillArg& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.KillArg)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   if (from.reason().size() > 0) {
 
     reason_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.reason_);
@@ -4981,66 +5351,198 @@ void GetConfigPolicyReply::SerializeWithCachedSizes(
   }
 
   // map<string, .rpc.BoolPolicy> bool_policy = 2;
-  {
-    ::google::protobuf::scoped_ptr<GetConfigPolicyReply_BoolPolicyEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::rpc::BoolPolicy >::const_iterator
-        it = this->bool_policy().begin();
-        it != this->bool_policy().end(); ++it) {
-      entry.reset(bool_policy_.NewEntryWrapper(it->first, it->second));
-      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-          2, *entry, output);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.GetConfigPolicyReply.BoolPolicyEntry.key");
+  if (!this->bool_policy().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::rpc::BoolPolicy >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.GetConfigPolicyReply.BoolPolicyEntry.key");
+      }
+    };
+
+    if (output->IsSerializationDeterminstic() &&
+        this->bool_policy().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->bool_policy().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::rpc::BoolPolicy >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::rpc::BoolPolicy >::const_iterator
+          it = this->bool_policy().begin();
+          it != this->bool_policy().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<GetConfigPolicyReply_BoolPolicyEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(bool_policy_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            2, *entry, output);
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<GetConfigPolicyReply_BoolPolicyEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::rpc::BoolPolicy >::const_iterator
+          it = this->bool_policy().begin();
+          it != this->bool_policy().end(); ++it) {
+        entry.reset(bool_policy_.NewEntryWrapper(
+            it->first, it->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            2, *entry, output);
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
   // map<string, .rpc.FloatPolicy> float_policy = 3;
-  {
-    ::google::protobuf::scoped_ptr<GetConfigPolicyReply_FloatPolicyEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::rpc::FloatPolicy >::const_iterator
-        it = this->float_policy().begin();
-        it != this->float_policy().end(); ++it) {
-      entry.reset(float_policy_.NewEntryWrapper(it->first, it->second));
-      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-          3, *entry, output);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.GetConfigPolicyReply.FloatPolicyEntry.key");
+  if (!this->float_policy().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::rpc::FloatPolicy >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.GetConfigPolicyReply.FloatPolicyEntry.key");
+      }
+    };
+
+    if (output->IsSerializationDeterminstic() &&
+        this->float_policy().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->float_policy().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::rpc::FloatPolicy >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::rpc::FloatPolicy >::const_iterator
+          it = this->float_policy().begin();
+          it != this->float_policy().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<GetConfigPolicyReply_FloatPolicyEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(float_policy_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            3, *entry, output);
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<GetConfigPolicyReply_FloatPolicyEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::rpc::FloatPolicy >::const_iterator
+          it = this->float_policy().begin();
+          it != this->float_policy().end(); ++it) {
+        entry.reset(float_policy_.NewEntryWrapper(
+            it->first, it->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            3, *entry, output);
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
   // map<string, .rpc.IntegerPolicy> integer_policy = 4;
-  {
-    ::google::protobuf::scoped_ptr<GetConfigPolicyReply_IntegerPolicyEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::rpc::IntegerPolicy >::const_iterator
-        it = this->integer_policy().begin();
-        it != this->integer_policy().end(); ++it) {
-      entry.reset(integer_policy_.NewEntryWrapper(it->first, it->second));
-      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-          4, *entry, output);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.GetConfigPolicyReply.IntegerPolicyEntry.key");
+  if (!this->integer_policy().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::rpc::IntegerPolicy >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.GetConfigPolicyReply.IntegerPolicyEntry.key");
+      }
+    };
+
+    if (output->IsSerializationDeterminstic() &&
+        this->integer_policy().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->integer_policy().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::rpc::IntegerPolicy >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::rpc::IntegerPolicy >::const_iterator
+          it = this->integer_policy().begin();
+          it != this->integer_policy().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<GetConfigPolicyReply_IntegerPolicyEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(integer_policy_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            4, *entry, output);
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<GetConfigPolicyReply_IntegerPolicyEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::rpc::IntegerPolicy >::const_iterator
+          it = this->integer_policy().begin();
+          it != this->integer_policy().end(); ++it) {
+        entry.reset(integer_policy_.NewEntryWrapper(
+            it->first, it->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            4, *entry, output);
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
   // map<string, .rpc.StringPolicy> string_policy = 5;
-  {
-    ::google::protobuf::scoped_ptr<GetConfigPolicyReply_StringPolicyEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::rpc::StringPolicy >::const_iterator
-        it = this->string_policy().begin();
-        it != this->string_policy().end(); ++it) {
-      entry.reset(string_policy_.NewEntryWrapper(it->first, it->second));
-      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-          5, *entry, output);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.GetConfigPolicyReply.StringPolicyEntry.key");
+  if (!this->string_policy().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::rpc::StringPolicy >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.GetConfigPolicyReply.StringPolicyEntry.key");
+      }
+    };
+
+    if (output->IsSerializationDeterminstic() &&
+        this->string_policy().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->string_policy().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::rpc::StringPolicy >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::rpc::StringPolicy >::const_iterator
+          it = this->string_policy().begin();
+          it != this->string_policy().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<GetConfigPolicyReply_StringPolicyEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(string_policy_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            5, *entry, output);
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<GetConfigPolicyReply_StringPolicyEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::rpc::StringPolicy >::const_iterator
+          it = this->string_policy().begin();
+          it != this->string_policy().end(); ++it) {
+        entry.reset(string_policy_.NewEntryWrapper(
+            it->first, it->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            5, *entry, output);
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
@@ -5062,70 +5564,214 @@ void GetConfigPolicyReply::SerializeWithCachedSizes(
   }
 
   // map<string, .rpc.BoolPolicy> bool_policy = 2;
-  {
-    ::google::protobuf::scoped_ptr<GetConfigPolicyReply_BoolPolicyEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::rpc::BoolPolicy >::const_iterator
-        it = this->bool_policy().begin();
-        it != this->bool_policy().end(); ++it) {
-      entry.reset(bool_policy_.NewEntryWrapper(it->first, it->second));
-      target = ::google::protobuf::internal::WireFormatLite::
-          InternalWriteMessageNoVirtualToArray(
-              2, *entry, false, target);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.GetConfigPolicyReply.BoolPolicyEntry.key");
+  if (!this->bool_policy().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::rpc::BoolPolicy >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.GetConfigPolicyReply.BoolPolicyEntry.key");
+      }
+    };
+
+    if (deterministic &&
+        this->bool_policy().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->bool_policy().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::rpc::BoolPolicy >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::rpc::BoolPolicy >::const_iterator
+          it = this->bool_policy().begin();
+          it != this->bool_policy().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<GetConfigPolicyReply_BoolPolicyEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(bool_policy_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       2, *entry, deterministic, target);
+;
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<GetConfigPolicyReply_BoolPolicyEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::rpc::BoolPolicy >::const_iterator
+          it = this->bool_policy().begin();
+          it != this->bool_policy().end(); ++it) {
+        entry.reset(bool_policy_.NewEntryWrapper(
+            it->first, it->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       2, *entry, deterministic, target);
+;
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
   // map<string, .rpc.FloatPolicy> float_policy = 3;
-  {
-    ::google::protobuf::scoped_ptr<GetConfigPolicyReply_FloatPolicyEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::rpc::FloatPolicy >::const_iterator
-        it = this->float_policy().begin();
-        it != this->float_policy().end(); ++it) {
-      entry.reset(float_policy_.NewEntryWrapper(it->first, it->second));
-      target = ::google::protobuf::internal::WireFormatLite::
-          InternalWriteMessageNoVirtualToArray(
-              3, *entry, false, target);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.GetConfigPolicyReply.FloatPolicyEntry.key");
+  if (!this->float_policy().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::rpc::FloatPolicy >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.GetConfigPolicyReply.FloatPolicyEntry.key");
+      }
+    };
+
+    if (deterministic &&
+        this->float_policy().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->float_policy().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::rpc::FloatPolicy >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::rpc::FloatPolicy >::const_iterator
+          it = this->float_policy().begin();
+          it != this->float_policy().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<GetConfigPolicyReply_FloatPolicyEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(float_policy_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       3, *entry, deterministic, target);
+;
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<GetConfigPolicyReply_FloatPolicyEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::rpc::FloatPolicy >::const_iterator
+          it = this->float_policy().begin();
+          it != this->float_policy().end(); ++it) {
+        entry.reset(float_policy_.NewEntryWrapper(
+            it->first, it->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       3, *entry, deterministic, target);
+;
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
   // map<string, .rpc.IntegerPolicy> integer_policy = 4;
-  {
-    ::google::protobuf::scoped_ptr<GetConfigPolicyReply_IntegerPolicyEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::rpc::IntegerPolicy >::const_iterator
-        it = this->integer_policy().begin();
-        it != this->integer_policy().end(); ++it) {
-      entry.reset(integer_policy_.NewEntryWrapper(it->first, it->second));
-      target = ::google::protobuf::internal::WireFormatLite::
-          InternalWriteMessageNoVirtualToArray(
-              4, *entry, false, target);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.GetConfigPolicyReply.IntegerPolicyEntry.key");
+  if (!this->integer_policy().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::rpc::IntegerPolicy >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.GetConfigPolicyReply.IntegerPolicyEntry.key");
+      }
+    };
+
+    if (deterministic &&
+        this->integer_policy().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->integer_policy().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::rpc::IntegerPolicy >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::rpc::IntegerPolicy >::const_iterator
+          it = this->integer_policy().begin();
+          it != this->integer_policy().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<GetConfigPolicyReply_IntegerPolicyEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(integer_policy_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       4, *entry, deterministic, target);
+;
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<GetConfigPolicyReply_IntegerPolicyEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::rpc::IntegerPolicy >::const_iterator
+          it = this->integer_policy().begin();
+          it != this->integer_policy().end(); ++it) {
+        entry.reset(integer_policy_.NewEntryWrapper(
+            it->first, it->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       4, *entry, deterministic, target);
+;
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
   // map<string, .rpc.StringPolicy> string_policy = 5;
-  {
-    ::google::protobuf::scoped_ptr<GetConfigPolicyReply_StringPolicyEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::rpc::StringPolicy >::const_iterator
-        it = this->string_policy().begin();
-        it != this->string_policy().end(); ++it) {
-      entry.reset(string_policy_.NewEntryWrapper(it->first, it->second));
-      target = ::google::protobuf::internal::WireFormatLite::
-          InternalWriteMessageNoVirtualToArray(
-              5, *entry, false, target);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.GetConfigPolicyReply.StringPolicyEntry.key");
+  if (!this->string_policy().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::rpc::StringPolicy >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.GetConfigPolicyReply.StringPolicyEntry.key");
+      }
+    };
+
+    if (deterministic &&
+        this->string_policy().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->string_policy().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::rpc::StringPolicy >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::rpc::StringPolicy >::const_iterator
+          it = this->string_policy().begin();
+          it != this->string_policy().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<GetConfigPolicyReply_StringPolicyEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(string_policy_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       5, *entry, deterministic, target);
+;
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<GetConfigPolicyReply_StringPolicyEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::rpc::StringPolicy >::const_iterator
+          it = this->string_policy().begin();
+          it != this->string_policy().end(); ++it) {
+        entry.reset(string_policy_.NewEntryWrapper(
+            it->first, it->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       5, *entry, deterministic, target);
+;
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
@@ -5204,7 +5850,9 @@ int GetConfigPolicyReply::ByteSize() const {
 
 void GetConfigPolicyReply::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.GetConfigPolicyReply)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const GetConfigPolicyReply* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const GetConfigPolicyReply>(
           &from);
@@ -5219,7 +5867,9 @@ void GetConfigPolicyReply::MergeFrom(const ::google::protobuf::Message& from) {
 
 void GetConfigPolicyReply::MergeFrom(const GetConfigPolicyReply& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.GetConfigPolicyReply)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   bool_policy_.MergeFrom(from.bool_policy_);
   float_policy_.MergeFrom(from.float_policy_);
   integer_policy_.MergeFrom(from.integer_policy_);
@@ -5631,7 +6281,9 @@ int BoolRule::ByteSize() const {
 
 void BoolRule::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.BoolRule)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const BoolRule* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BoolRule>(
           &from);
@@ -5646,7 +6298,9 @@ void BoolRule::MergeFrom(const ::google::protobuf::Message& from) {
 
 void BoolRule::MergeFrom(const BoolRule& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.BoolRule)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   if (from.required() != 0) {
     set_required(from.required());
   }
@@ -5879,18 +6533,51 @@ void BoolPolicy::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:rpc.BoolPolicy)
   // map<string, .rpc.BoolRule> rules = 1;
-  {
-    ::google::protobuf::scoped_ptr<BoolPolicy_RulesEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::rpc::BoolRule >::const_iterator
-        it = this->rules().begin();
-        it != this->rules().end(); ++it) {
-      entry.reset(rules_.NewEntryWrapper(it->first, it->second));
-      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-          1, *entry, output);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.BoolPolicy.RulesEntry.key");
+  if (!this->rules().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::rpc::BoolRule >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.BoolPolicy.RulesEntry.key");
+      }
+    };
+
+    if (output->IsSerializationDeterminstic() &&
+        this->rules().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->rules().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::rpc::BoolRule >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::rpc::BoolRule >::const_iterator
+          it = this->rules().begin();
+          it != this->rules().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<BoolPolicy_RulesEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(rules_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            1, *entry, output);
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<BoolPolicy_RulesEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::rpc::BoolRule >::const_iterator
+          it = this->rules().begin();
+          it != this->rules().end(); ++it) {
+        entry.reset(rules_.NewEntryWrapper(
+            it->first, it->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            1, *entry, output);
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
@@ -5901,19 +6588,55 @@ void BoolPolicy::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:rpc.BoolPolicy)
   // map<string, .rpc.BoolRule> rules = 1;
-  {
-    ::google::protobuf::scoped_ptr<BoolPolicy_RulesEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::rpc::BoolRule >::const_iterator
-        it = this->rules().begin();
-        it != this->rules().end(); ++it) {
-      entry.reset(rules_.NewEntryWrapper(it->first, it->second));
-      target = ::google::protobuf::internal::WireFormatLite::
-          InternalWriteMessageNoVirtualToArray(
-              1, *entry, false, target);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.BoolPolicy.RulesEntry.key");
+  if (!this->rules().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::rpc::BoolRule >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.BoolPolicy.RulesEntry.key");
+      }
+    };
+
+    if (deterministic &&
+        this->rules().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->rules().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::rpc::BoolRule >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::rpc::BoolRule >::const_iterator
+          it = this->rules().begin();
+          it != this->rules().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<BoolPolicy_RulesEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(rules_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       1, *entry, deterministic, target);
+;
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<BoolPolicy_RulesEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::rpc::BoolRule >::const_iterator
+          it = this->rules().begin();
+          it != this->rules().end(); ++it) {
+        entry.reset(rules_.NewEntryWrapper(
+            it->first, it->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       1, *entry, deterministic, target);
+;
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
@@ -5946,7 +6669,9 @@ int BoolPolicy::ByteSize() const {
 
 void BoolPolicy::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.BoolPolicy)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const BoolPolicy* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BoolPolicy>(
           &from);
@@ -5961,7 +6686,9 @@ void BoolPolicy::MergeFrom(const ::google::protobuf::Message& from) {
 
 void BoolPolicy::MergeFrom(const BoolPolicy& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.BoolPolicy)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   rules_.MergeFrom(from.rules_);
 }
 
@@ -6392,7 +7119,9 @@ int FloatRule::ByteSize() const {
 
 void FloatRule::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.FloatRule)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const FloatRule* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const FloatRule>(
           &from);
@@ -6407,7 +7136,9 @@ void FloatRule::MergeFrom(const ::google::protobuf::Message& from) {
 
 void FloatRule::MergeFrom(const FloatRule& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.FloatRule)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   if (from.required() != 0) {
     set_required(from.required());
   }
@@ -6712,18 +7443,51 @@ void FloatPolicy::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:rpc.FloatPolicy)
   // map<string, .rpc.FloatRule> rules = 1;
-  {
-    ::google::protobuf::scoped_ptr<FloatPolicy_RulesEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::rpc::FloatRule >::const_iterator
-        it = this->rules().begin();
-        it != this->rules().end(); ++it) {
-      entry.reset(rules_.NewEntryWrapper(it->first, it->second));
-      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-          1, *entry, output);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.FloatPolicy.RulesEntry.key");
+  if (!this->rules().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::rpc::FloatRule >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.FloatPolicy.RulesEntry.key");
+      }
+    };
+
+    if (output->IsSerializationDeterminstic() &&
+        this->rules().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->rules().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::rpc::FloatRule >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::rpc::FloatRule >::const_iterator
+          it = this->rules().begin();
+          it != this->rules().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<FloatPolicy_RulesEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(rules_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            1, *entry, output);
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<FloatPolicy_RulesEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::rpc::FloatRule >::const_iterator
+          it = this->rules().begin();
+          it != this->rules().end(); ++it) {
+        entry.reset(rules_.NewEntryWrapper(
+            it->first, it->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            1, *entry, output);
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
@@ -6734,19 +7498,55 @@ void FloatPolicy::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:rpc.FloatPolicy)
   // map<string, .rpc.FloatRule> rules = 1;
-  {
-    ::google::protobuf::scoped_ptr<FloatPolicy_RulesEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::rpc::FloatRule >::const_iterator
-        it = this->rules().begin();
-        it != this->rules().end(); ++it) {
-      entry.reset(rules_.NewEntryWrapper(it->first, it->second));
-      target = ::google::protobuf::internal::WireFormatLite::
-          InternalWriteMessageNoVirtualToArray(
-              1, *entry, false, target);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.FloatPolicy.RulesEntry.key");
+  if (!this->rules().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::rpc::FloatRule >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.FloatPolicy.RulesEntry.key");
+      }
+    };
+
+    if (deterministic &&
+        this->rules().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->rules().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::rpc::FloatRule >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::rpc::FloatRule >::const_iterator
+          it = this->rules().begin();
+          it != this->rules().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<FloatPolicy_RulesEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(rules_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       1, *entry, deterministic, target);
+;
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<FloatPolicy_RulesEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::rpc::FloatRule >::const_iterator
+          it = this->rules().begin();
+          it != this->rules().end(); ++it) {
+        entry.reset(rules_.NewEntryWrapper(
+            it->first, it->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       1, *entry, deterministic, target);
+;
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
@@ -6779,7 +7579,9 @@ int FloatPolicy::ByteSize() const {
 
 void FloatPolicy::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.FloatPolicy)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const FloatPolicy* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const FloatPolicy>(
           &from);
@@ -6794,7 +7596,9 @@ void FloatPolicy::MergeFrom(const ::google::protobuf::Message& from) {
 
 void FloatPolicy::MergeFrom(const FloatPolicy& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.FloatPolicy)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   rules_.MergeFrom(from.rules_);
 }
 
@@ -7231,7 +8035,9 @@ int IntegerRule::ByteSize() const {
 
 void IntegerRule::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.IntegerRule)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const IntegerRule* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const IntegerRule>(
           &from);
@@ -7246,7 +8052,9 @@ void IntegerRule::MergeFrom(const ::google::protobuf::Message& from) {
 
 void IntegerRule::MergeFrom(const IntegerRule& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.IntegerRule)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   if (from.required() != 0) {
     set_required(from.required());
   }
@@ -7551,18 +8359,51 @@ void IntegerPolicy::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:rpc.IntegerPolicy)
   // map<string, .rpc.IntegerRule> rules = 1;
-  {
-    ::google::protobuf::scoped_ptr<IntegerPolicy_RulesEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::rpc::IntegerRule >::const_iterator
-        it = this->rules().begin();
-        it != this->rules().end(); ++it) {
-      entry.reset(rules_.NewEntryWrapper(it->first, it->second));
-      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-          1, *entry, output);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.IntegerPolicy.RulesEntry.key");
+  if (!this->rules().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::rpc::IntegerRule >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.IntegerPolicy.RulesEntry.key");
+      }
+    };
+
+    if (output->IsSerializationDeterminstic() &&
+        this->rules().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->rules().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::rpc::IntegerRule >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::rpc::IntegerRule >::const_iterator
+          it = this->rules().begin();
+          it != this->rules().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<IntegerPolicy_RulesEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(rules_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            1, *entry, output);
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<IntegerPolicy_RulesEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::rpc::IntegerRule >::const_iterator
+          it = this->rules().begin();
+          it != this->rules().end(); ++it) {
+        entry.reset(rules_.NewEntryWrapper(
+            it->first, it->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            1, *entry, output);
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
@@ -7573,19 +8414,55 @@ void IntegerPolicy::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:rpc.IntegerPolicy)
   // map<string, .rpc.IntegerRule> rules = 1;
-  {
-    ::google::protobuf::scoped_ptr<IntegerPolicy_RulesEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::rpc::IntegerRule >::const_iterator
-        it = this->rules().begin();
-        it != this->rules().end(); ++it) {
-      entry.reset(rules_.NewEntryWrapper(it->first, it->second));
-      target = ::google::protobuf::internal::WireFormatLite::
-          InternalWriteMessageNoVirtualToArray(
-              1, *entry, false, target);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.IntegerPolicy.RulesEntry.key");
+  if (!this->rules().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::rpc::IntegerRule >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.IntegerPolicy.RulesEntry.key");
+      }
+    };
+
+    if (deterministic &&
+        this->rules().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->rules().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::rpc::IntegerRule >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::rpc::IntegerRule >::const_iterator
+          it = this->rules().begin();
+          it != this->rules().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<IntegerPolicy_RulesEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(rules_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       1, *entry, deterministic, target);
+;
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<IntegerPolicy_RulesEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::rpc::IntegerRule >::const_iterator
+          it = this->rules().begin();
+          it != this->rules().end(); ++it) {
+        entry.reset(rules_.NewEntryWrapper(
+            it->first, it->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       1, *entry, deterministic, target);
+;
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
@@ -7618,7 +8495,9 @@ int IntegerPolicy::ByteSize() const {
 
 void IntegerPolicy::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.IntegerPolicy)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const IntegerPolicy* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const IntegerPolicy>(
           &from);
@@ -7633,7 +8512,9 @@ void IntegerPolicy::MergeFrom(const ::google::protobuf::Message& from) {
 
 void IntegerPolicy::MergeFrom(const IntegerPolicy& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.IntegerPolicy)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   rules_.MergeFrom(from.rules_);
 }
 
@@ -7954,7 +8835,9 @@ int StringRule::ByteSize() const {
 
 void StringRule::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.StringRule)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const StringRule* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const StringRule>(
           &from);
@@ -7969,7 +8852,9 @@ void StringRule::MergeFrom(const ::google::protobuf::Message& from) {
 
 void StringRule::MergeFrom(const StringRule& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.StringRule)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   if (from.required() != 0) {
     set_required(from.required());
   }
@@ -8233,18 +9118,51 @@ void StringPolicy::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:rpc.StringPolicy)
   // map<string, .rpc.StringRule> rules = 1;
-  {
-    ::google::protobuf::scoped_ptr<StringPolicy_RulesEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::rpc::StringRule >::const_iterator
-        it = this->rules().begin();
-        it != this->rules().end(); ++it) {
-      entry.reset(rules_.NewEntryWrapper(it->first, it->second));
-      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-          1, *entry, output);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.StringPolicy.RulesEntry.key");
+  if (!this->rules().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::rpc::StringRule >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.StringPolicy.RulesEntry.key");
+      }
+    };
+
+    if (output->IsSerializationDeterminstic() &&
+        this->rules().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->rules().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::rpc::StringRule >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::rpc::StringRule >::const_iterator
+          it = this->rules().begin();
+          it != this->rules().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<StringPolicy_RulesEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(rules_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            1, *entry, output);
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<StringPolicy_RulesEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::rpc::StringRule >::const_iterator
+          it = this->rules().begin();
+          it != this->rules().end(); ++it) {
+        entry.reset(rules_.NewEntryWrapper(
+            it->first, it->second));
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            1, *entry, output);
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
@@ -8255,19 +9173,55 @@ void StringPolicy::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:rpc.StringPolicy)
   // map<string, .rpc.StringRule> rules = 1;
-  {
-    ::google::protobuf::scoped_ptr<StringPolicy_RulesEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::rpc::StringRule >::const_iterator
-        it = this->rules().begin();
-        it != this->rules().end(); ++it) {
-      entry.reset(rules_.NewEntryWrapper(it->first, it->second));
-      target = ::google::protobuf::internal::WireFormatLite::
-          InternalWriteMessageNoVirtualToArray(
-              1, *entry, false, target);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "rpc.StringPolicy.RulesEntry.key");
+  if (!this->rules().empty()) {
+    typedef ::google::protobuf::Map< ::std::string, ::rpc::StringRule >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::google::protobuf::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), p->first.length(),
+          ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+          "rpc.StringPolicy.RulesEntry.key");
+      }
+    };
+
+    if (deterministic &&
+        this->rules().size() > 1) {
+      ::google::protobuf::scoped_array<SortItem> items(
+          new SortItem[this->rules().size()]);
+      typedef ::google::protobuf::Map< ::std::string, ::rpc::StringRule >::size_type size_type;
+      size_type n = 0;
+      for (::google::protobuf::Map< ::std::string, ::rpc::StringRule >::const_iterator
+          it = this->rules().begin();
+          it != this->rules().end(); ++it, ++n) {
+        items[n] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[n], Less());
+      ::google::protobuf::scoped_ptr<StringPolicy_RulesEntry> entry;
+      for (size_type i = 0; i < n; i++) {
+        entry.reset(rules_.NewEntryWrapper(
+            items[i]->first, items[i]->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       1, *entry, deterministic, target);
+;
+        Utf8Check::Check(items[i]);
+      }
+    } else {
+      ::google::protobuf::scoped_ptr<StringPolicy_RulesEntry> entry;
+      for (::google::protobuf::Map< ::std::string, ::rpc::StringRule >::const_iterator
+          it = this->rules().begin();
+          it != this->rules().end(); ++it) {
+        entry.reset(rules_.NewEntryWrapper(
+            it->first, it->second));
+        target = ::google::protobuf::internal::WireFormatLite::
+                   InternalWriteMessageNoVirtualToArray(
+                       1, *entry, deterministic, target);
+;
+        Utf8Check::Check(&*it);
+      }
     }
   }
 
@@ -8300,7 +9254,9 @@ int StringPolicy::ByteSize() const {
 
 void StringPolicy::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.StringPolicy)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const StringPolicy* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const StringPolicy>(
           &from);
@@ -8315,7 +9271,9 @@ void StringPolicy::MergeFrom(const ::google::protobuf::Message& from) {
 
 void StringPolicy::MergeFrom(const StringPolicy& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.StringPolicy)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   rules_.MergeFrom(from.rules_);
 }
 
@@ -8541,7 +9499,9 @@ int MetricsArg::ByteSize() const {
 
 void MetricsArg::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.MetricsArg)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const MetricsArg* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const MetricsArg>(
           &from);
@@ -8556,7 +9516,9 @@ void MetricsArg::MergeFrom(const ::google::protobuf::Message& from) {
 
 void MetricsArg::MergeFrom(const MetricsArg& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.MetricsArg)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   metrics_.MergeFrom(from.metrics_);
 }
 
@@ -8844,7 +9806,9 @@ int MetricsReply::ByteSize() const {
 
 void MetricsReply::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.MetricsReply)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const MetricsReply* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const MetricsReply>(
           &from);
@@ -8859,7 +9823,9 @@ void MetricsReply::MergeFrom(const ::google::protobuf::Message& from) {
 
 void MetricsReply::MergeFrom(const MetricsReply& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.MetricsReply)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   metrics_.MergeFrom(from.metrics_);
   if (from.error().size() > 0) {
 
@@ -9145,7 +10111,9 @@ int GetMetricTypesArg::ByteSize() const {
 
 void GetMetricTypesArg::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:rpc.GetMetricTypesArg)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   const GetMetricTypesArg* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const GetMetricTypesArg>(
           &from);
@@ -9160,7 +10128,9 @@ void GetMetricTypesArg::MergeFrom(const ::google::protobuf::Message& from) {
 
 void GetMetricTypesArg::MergeFrom(const GetMetricTypesArg& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:rpc.GetMetricTypesArg)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   if (from.has_config()) {
     mutable_config()->::rpc::ConfigMap::MergeFrom(from.config());
   }

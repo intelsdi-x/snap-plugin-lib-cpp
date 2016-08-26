@@ -8,11 +8,11 @@
 	"workflow": {
 		"collect": {
 			"metrics": {
-				"/intel/cpp/mock/random_number/one": {},
-				"/intel/cpp/mock/random_number/two": {}
+				"/intel/cpp/mock/randomnumber/one": {},
+				"/intel/cpp/mock/randomnumber/two": {}
 			},
 			"config": {
-					"/intel/cpp/mock/random_number/one": {
+					"/intel/cpp/mock/randomnumber/one": {
 							"password": "silly goose"
 					}
 			},
