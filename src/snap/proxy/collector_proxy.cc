@@ -57,10 +57,10 @@ Status CollectorImpl::CollectMetrics(ServerContext* context,
     metrics.emplace_back(rpc_mets.Mutable(i));
   }
 
-  collector->collect_metrics(&metrics);
+  collector->collect_metrics(metrics);
 
   for (Metric met : metrics) {
-    *resp->add_metrics() = *met.rpc_metric_ptr;
+    *resp->add_metrics() = *met.get_rpc_metric_ptr();
   }
   return Status::OK;
 }
@@ -75,7 +75,7 @@ Status CollectorImpl::GetMetricTypes(ServerContext* context,
   for (Metric met : metrics) {
     met.set_timestamp();
     met.set_last_advertised_time();
-    *resp->add_metrics() = *met.rpc_metric_ptr;
+    *resp->add_metrics() = *met.get_rpc_metric_ptr();
   }
   return Status::OK;
 }

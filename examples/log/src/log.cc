@@ -45,7 +45,7 @@ const ConfigPolicy Log::get_config_policy() {
 /**
  * {ISO 8601 timestamp} {namespace} tags: [{tags}] data: {data}
  */
-void Log::publish_metrics(std::vector<Metric>* metrics,
+void Log::publish_metrics(std::vector<Metric> &metrics,
                           const Config& config) {
   std::string path = config.get_string("path");
   std::ofstream outfile;
@@ -53,7 +53,7 @@ void Log::publish_metrics(std::vector<Metric>* metrics,
 
   std::vector<Metric>::iterator mets_iter;
 
-  for (mets_iter = metrics->begin(); mets_iter != metrics->end(); mets_iter++) {
+  for (mets_iter = metrics.begin(); mets_iter != metrics.end(); mets_iter++) {
     // timestamp
     system_clock::time_point ts = mets_iter->timestamp();
     std::time_t c_ts = system_clock::to_time_t(ts);

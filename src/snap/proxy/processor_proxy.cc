@@ -54,10 +54,10 @@ Status ProcessorImpl::Process(ServerContext* context, const PubProcArg* req,
   }
 
   Plugin::Config config(req->config());
-  processor->process_metrics(&metrics, config);
+  processor->process_metrics(metrics, config);
 
   for (Metric met : metrics) {
-    *resp->add_metrics() = *met.rpc_metric_ptr;
+    *resp->add_metrics() = *met.get_rpc_metric_ptr();
   }
   return Status::OK;
 }

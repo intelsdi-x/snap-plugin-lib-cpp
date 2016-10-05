@@ -38,14 +38,14 @@ const ConfigPolicy Graffiti::get_config_policy() {
   return policy;
 }
 
-void Graffiti::process_metrics(std::vector<Metric>* metrics,
+void Graffiti::process_metrics(std::vector<Metric> &metrics,
                                const Config& config) {
   std::vector<Metric>::iterator mets_iter;
   std::string tags_str = config.get_string("tags");
 
   std::vector<std::string> tags = split_tags(tags_str);
 
-  for (mets_iter = metrics->begin(); mets_iter != metrics->end(); mets_iter++) {
+  for (mets_iter = metrics.begin(); mets_iter != metrics.end(); mets_iter++) {
     for (std::string tag : tags) {
       mets_iter->add_tag(std::pair<std::string, std::string>(tag, "present"));
     }
