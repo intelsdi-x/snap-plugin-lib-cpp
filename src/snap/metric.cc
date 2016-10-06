@@ -105,12 +105,13 @@ const std::vector<Metric::NamespaceElement>& Metric::ns() const {
 
 std::vector<int> Metric::dynamic_ns_elements() const {
   std::vector<int> idxs;
-  RepeatedPtrField<rpc::NamespaceElement> rpc_ns = rpc_metric_ptr->namespace_();
-  
-  for (int i = 0; i < rpc_ns.size(); i++) {
-    if (rpc_ns.Get(i).name().empty()) {
+  const std::vector<Metric::NamespaceElement>& namesp = ns();
+  int i = 0; 
+  for (auto element : namesp) {
+    if (!element.name.empty()) {
       idxs.push_back(i);    
     }
+    i++;
   }
   return idxs;
 }
@@ -122,7 +123,7 @@ void Metric::add_tag(std::pair<std::string, std::string> pair) {
   (*rpc_tags)[pair.first] = pair.second;
 }
 
-const std::map<std::string, std::string>& Metric::tags() {
+const std::map<std::string, std::string>& Metric::tags() const {
   if (memo_tags.size() != 0) {
     return memo_tags;
   }
@@ -136,7 +137,7 @@ const std::map<std::string, std::string>& Metric::tags() {
  * rpc::Time is a structure containing seconds and nanoseconds. To retrieve an
  * accurate timestamp, these two counters must be summed.
  */
-system_clock::time_point Metric::timestamp() {
+system_clock::time_point Metric::timestamp() const {
   // retrieve the tpc::Time
   rpc::Time rpc_tm = rpc_metric_ptr->timestamp();
 

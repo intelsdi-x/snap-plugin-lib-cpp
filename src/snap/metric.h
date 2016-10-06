@@ -113,7 +113,7 @@ class Metric final {
    * If there is a memoized copy, that is returned. Else the tags are copied
    * into the cache then returned.
    */
-  const std::map<std::string, std::string>& tags();
+  const std::map<std::string, std::string>& tags() const;
 
   /**
    * set_ns adds tags to the metric in its `rpc::Metric` ptr.
@@ -126,7 +126,7 @@ class Metric final {
   /**
    * timestamp returns the metric's collection timestamp.
    */
-  std::chrono::system_clock::time_point timestamp();
+  std::chrono::system_clock::time_point timestamp() const;
   /**
    * set_timestamp sets the timestamp as now.
    */
@@ -179,7 +179,7 @@ class Metric final {
 
   // memoized members
   mutable std::vector<NamespaceElement> memo_ns;
-  std::map<std::string, std::string> memo_tags;
+  mutable std::map<std::string, std::string> memo_tags;
 
   bool delete_metric_ptr;
   DataType type;
