@@ -112,7 +112,7 @@ class CollectorInterface : public PluginInterface {
    * collect_metrics is given a list of metrics to collect.
    * It should collect and annotate each metric with the apropos context.
    */
-  virtual void collect_metrics(std::vector<Metric>* metrics) = 0;
+  virtual void collect_metrics(std::vector<Metric> &metrics) = 0;
 };
 
 /**
@@ -123,7 +123,7 @@ class CollectorInterface : public PluginInterface {
 class ProcessorInterface : public PluginInterface {
  public:
   virtual ~ProcessorInterface() {}
-  virtual void process_metrics(std::vector<Metric>* metrics,
+  virtual void process_metrics(std::vector<Metric> &metrics,
                                const Config& config) = 0;
 };
 
@@ -135,7 +135,7 @@ class ProcessorInterface : public PluginInterface {
 class PublisherInterface : public PluginInterface {
  public:
   virtual ~PublisherInterface() {}
-  virtual void publish_metrics(std::vector<Metric>* metrics,
+  virtual void publish_metrics(std::vector<Metric> &metrics,
                                const Config& config) = 0;
 };
 

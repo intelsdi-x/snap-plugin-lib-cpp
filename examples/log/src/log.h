@@ -22,6 +22,6 @@ limitations under the License.
 class Log final : public Plugin::PublisherInterface {
  public:
   const Plugin::ConfigPolicy get_config_policy();
-  void publish_metrics(std::vector<Plugin::Metric>* metrics,
+  void publish_metrics(std::vector<Plugin::Metric> &metrics,
                        const Plugin::Config& config);
 };

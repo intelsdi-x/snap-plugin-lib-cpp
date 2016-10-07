@@ -92,13 +92,13 @@ class Metric final {
    * If there is a memoized copy, that is returned. Else the namespace is
    * copied into the cache then returned.
    */
-  const std::vector<NamespaceElement>& ns();
+  const std::vector<NamespaceElement>& ns() const;
 
   /**
    * dynamic_ns_elements returns the indices in the metric's namespace which
    * are dynamic.
    */
-  std::vector<int> dynamic_ns_elements();
+  std::vector<int> dynamic_ns_elements() const;
 
   /**
    * set_ns sets the namespace of the metric in its `rpc::Metric` ptr.
@@ -113,7 +113,7 @@ class Metric final {
    * If there is a memoized copy, that is returned. Else the tags are copied
    * into the cache then returned.
    */
-  const std::map<std::string, std::string>& tags();
+  const std::map<std::string, std::string>& tags() const;
 
   /**
    * set_ns adds tags to the metric in its `rpc::Metric` ptr.
@@ -126,7 +126,7 @@ class Metric final {
   /**
    * timestamp returns the metric's collection timestamp.
    */
-  std::chrono::system_clock::time_point timestamp();
+  std::chrono::system_clock::time_point timestamp() const;
   /**
    * set_timestamp sets the timestamp as now.
    */
@@ -163,22 +163,23 @@ class Metric final {
   /**
    * Retrieve this metric's datapoint
    */
-  int get_int_data();
-  float get_float32_data();
-  double get_float64_data();
-  const std::string& get_string_data();
+  int get_int_data() const;
+  float get_float32_data() const;
+  double get_float64_data() const;
+  const std::string& get_string_data() const;
+  Config get_config() const;
+  const rpc::Metric* get_rpc_metric_ptr() const;
 
+ private:
   rpc::Metric* rpc_metric_ptr;
   Config config;
 
-
- private:
   void inline set_ts(std::chrono::system_clock::time_point tp);
   void inline set_last_advert_tm(std::chrono::system_clock::time_point tp);
 
   // memoized members
-  std::vector<NamespaceElement> memo_ns;
-  std::map<std::string, std::string> memo_tags;
+  mutable std::vector<NamespaceElement> memo_ns;
+  mutable std::map<std::string, std::string> memo_tags;
 
   bool delete_metric_ptr;
   DataType type;

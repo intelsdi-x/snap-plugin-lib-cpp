@@ -53,7 +53,7 @@ Status PublisherImpl::Publish(ServerContext* context, const PubProcArg* req,
   }
 
   Plugin::Config config(req->config());
-  publisher->publish_metrics(&metrics, config);
+  publisher->publish_metrics(metrics, config);
 
   return Status::OK;
 }

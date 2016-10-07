@@ -69,16 +69,23 @@ Metric::~Metric() {
 }
 
 void Metric::set_ns(std::vector<Metric::NamespaceElement> ns) {
-  std::vector<Metric::NamespaceElement> memo_ns;
+  memo_ns.clear();
+  rpc_metric_ptr->clear_namespace_();
+
   for (Metric::NamespaceElement ns_elem : ns) {
     rpc::NamespaceElement* rpc_elem = rpc_metric_ptr->add_namespace_();
     rpc_elem->set_name(ns_elem.name);
     rpc_elem->set_value(ns_elem.value);
     rpc_elem->set_description(ns_elem.description);
+    memo_ns.push_back({
+      rpc_elem->value(),
+      rpc_elem->name(),
+      rpc_elem->description(),
+    });
   }
 }
 
-const std::vector<Metric::NamespaceElement>& Metric::ns() {
+const std::vector<Metric::NamespaceElement>& Metric::ns() const {
   if (memo_ns.size() != 0) {
     return memo_ns;
   }
@@ -96,13 +103,13 @@ const std::vector<Metric::NamespaceElement>& Metric::ns() {
   return memo_ns;
 }
 
-std::vector<int> Metric::dynamic_ns_elements() {
-  const std::vector<Metric::NamespaceElement>& namesp = ns();
+std::vector<int> Metric::dynamic_ns_elements() const {
   std::vector<int> idxs;
-  int i = 0;
-  for (Metric::NamespaceElement nse : namesp) {
-    if (!nse.name.empty()) {
-      idxs.push_back(i);
+  const std::vector<Metric::NamespaceElement>& namesp = ns();
+  int i = 0; 
+  for (auto element : namesp) {
+    if (!element.name.empty()) {
+      idxs.push_back(i);    
     }
     i++;
   }
@@ -116,7 +123,7 @@ void Metric::add_tag(std::pair<std::string, std::string> pair) {
   (*rpc_tags)[pair.first] = pair.second;
 }
 
-const std::map<std::string, std::string>& Metric::tags() {
+const std::map<std::string, std::string>& Metric::tags() const {
   if (memo_tags.size() != 0) {
     return memo_tags;
   }
@@ -130,7 +137,7 @@ const std::map<std::string, std::string>& Metric::tags() {
  * rpc::Time is a structure containing seconds and nanoseconds. To retrieve an
  * accurate timestamp, these two counters must be summed.
  */
-system_clock::time_point Metric::timestamp() {
+system_clock::time_point Metric::timestamp() const {
   // retrieve the tpc::Time
   rpc::Time rpc_tm = rpc_metric_ptr->timestamp();
 
@@ -188,20 +195,28 @@ void Metric::set_data(const std::string& data) {
   rpc_metric_ptr->set_string_data(data);
 }
 
-int Metric::get_int_data() {
+int Metric::get_int_data() const {
   return rpc_metric_ptr->int32_data();
 }
 
-float Metric::get_float32_data() {
+float Metric::get_float32_data() const {
   return rpc_metric_ptr->float32_data();
 }
 
-double Metric::get_float64_data() {
+double Metric::get_float64_data() const {
   return rpc_metric_ptr->float64_data();
 }
 
-const std::string& Metric::get_string_data() {
+const std::string& Metric::get_string_data() const {
   return rpc_metric_ptr->string_data();
+}
+
+Plugin::Config Metric::get_config() const {
+  return config;
+}
+
+const rpc::Metric* Metric::get_rpc_metric_ptr() const {
+  return rpc_metric_ptr;
 }
 
 void Metric::set_ts(system_clock::time_point tp) {
