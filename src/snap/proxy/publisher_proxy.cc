@@ -24,6 +24,7 @@ using google::protobuf::RepeatedPtrField;
 using grpc::Server;
 using grpc::ServerContext;
 using grpc::Status;
+using grpc::StatusCode;
 
 using rpc::Empty;
 using rpc::ErrReply;
@@ -53,9 +54,13 @@ Status PublisherImpl::Publish(ServerContext* context, const PubProcArg* req,
   }
 
   Plugin::Config config(req->config());
-  publisher->publish_metrics(metrics, config);
-
-  return Status::OK;
+  try {
+   publisher->publish_metrics(metrics, config);
+   return Status::OK;
+  } catch (PluginException &e) {
+   resp->set_error(e.what());
+   return Status(StatusCode::UNKNOWN, e.what());
+  }
 }
 
 Status PublisherImpl::Kill(ServerContext* context, const KillArg* req,
@@ -65,7 +70,12 @@ Status PublisherImpl::Kill(ServerContext* context, const KillArg* req,
 
 Status PublisherImpl::GetConfigPolicy(ServerContext* context, const Empty* req,
                                       GetConfigPolicyReply* resp) {
-  return plugin_impl_ptr->GetConfigPolicy(context, req, resp);
+  try {
+   return plugin_impl_ptr->GetConfigPolicy(context, req, resp);
+  } catch (PluginException &e) {
+   resp->set_error(e.what());
+   return Status(StatusCode::UNKNOWN, e.what());
+  }
 }
 
 Status PublisherImpl::Ping(ServerContext* context, const Empty* req,

@@ -30,6 +30,8 @@ limitations under the License.
 
 using std::cout;
 using std::endl;
+using std::runtime_error;
+using std::string;
 
 using grpc::Server;
 using grpc::ServerBuilder;
@@ -37,6 +39,9 @@ using grpc::ServerBuilder;
 using json = nlohmann::json;
 
 static void emit_preamble(const Plugin::Meta& meta, int port);
+
+Plugin::PluginException::PluginException(const string& message) : 
+                                         runtime_error(message) {}
 
 Plugin::Meta::Meta(Type type, std::string name, int version) :
                      type(type),

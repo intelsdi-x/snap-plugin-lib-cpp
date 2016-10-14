@@ -86,6 +86,17 @@ struct Meta final {
 };
 
 /**
+ * Base class for exceptions indicated by plugins.
+ *
+ * When thrown from any kind of plugin, the exception will be
+ * propagated to and reported by Snap framework.
+ */
+class PluginException : public std::runtime_error {
+ public:
+  PluginException(const std::string& message);
+};
+
+/**
  * PluginInterface is the interface implemented by ALL plugins.
  * Every plugin must implement get_config_policy.
  */

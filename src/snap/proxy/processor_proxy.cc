@@ -24,6 +24,7 @@ using google::protobuf::RepeatedPtrField;
 using grpc::Server;
 using grpc::ServerContext;
 using grpc::Status;
+using grpc::StatusCode;
 
 using rpc::Empty;
 using rpc::ErrReply;
@@ -54,12 +55,17 @@ Status ProcessorImpl::Process(ServerContext* context, const PubProcArg* req,
   }
 
   Plugin::Config config(req->config());
-  processor->process_metrics(metrics, config);
+  try {
+   processor->process_metrics(metrics, config);
 
-  for (Metric met : metrics) {
-    *resp->add_metrics() = *met.get_rpc_metric_ptr();
+   for (Metric met : metrics) {
+     *resp->add_metrics() = *met.get_rpc_metric_ptr();
+   }
+   return Status::OK;
+  } catch (PluginException &e) {
+   resp->set_error(e.what());
+   return Status(StatusCode::UNKNOWN, e.what());
   }
-  return Status::OK;
 }
 
 Status ProcessorImpl::Kill(ServerContext* context, const KillArg* req,
@@ -69,7 +75,12 @@ Status ProcessorImpl::Kill(ServerContext* context, const KillArg* req,
 
 Status ProcessorImpl::GetConfigPolicy(ServerContext* context, const Empty* req,
                                       GetConfigPolicyReply* resp) {
-  return plugin_impl_ptr->GetConfigPolicy(context, req, resp);
+  try {
+   return plugin_impl_ptr->GetConfigPolicy(context, req, resp);
+  } catch (PluginException &e) {
+   resp->set_error(e.what());
+   return Status(StatusCode::UNKNOWN, e.what());
+  }
 }
 
 Status ProcessorImpl::Ping(ServerContext* context, const Empty* req,

@@ -26,6 +26,7 @@ using google::protobuf::RepeatedPtrField;
 using grpc::Server;
 using grpc::ServerContext;
 using grpc::Status;
+using grpc::StatusCode;
 
 using rpc::Empty;
 using rpc::ErrReply;
@@ -57,12 +58,17 @@ Status CollectorImpl::CollectMetrics(ServerContext* context,
     metrics.emplace_back(rpc_mets.Mutable(i));
   }
 
-  collector->collect_metrics(metrics);
+  try {
+   collector->collect_metrics(metrics);
 
-  for (Metric met : metrics) {
-    *resp->add_metrics() = *met.get_rpc_metric_ptr();
+   for (Metric met : metrics) {
+     *resp->add_metrics() = *met.get_rpc_metric_ptr();
+   }
+   return Status::OK;
+  } catch (PluginException &e) {
+   resp->set_error(e.what());
+   return Status(StatusCode::UNKNOWN, e.what());
   }
-  return Status::OK;
 }
 
 Status CollectorImpl::GetMetricTypes(ServerContext* context,
@@ -70,14 +76,20 @@ Status CollectorImpl::GetMetricTypes(ServerContext* context,
                                      MetricsReply* resp) {
   Plugin::Config cfg(req->config());
 
-  std::vector<Metric> metrics = collector->get_metric_types(cfg);
+  try {
+   std::vector<Metric> metrics = collector->get_metric_types(cfg);
 
-  for (Metric met : metrics) {
-    met.set_timestamp();
-    met.set_last_advertised_time();
-    *resp->add_metrics() = *met.get_rpc_metric_ptr();
+   for (Metric met : metrics) {
+     met.set_timestamp();
+     met.set_last_advertised_time();
+     *resp->add_metrics() = *met.get_rpc_metric_ptr();
+   }
+   return Status::OK;
+  } catch (PluginException &e) {
+   resp->set_error(e.what());
+   return Status(StatusCode::UNKNOWN, e.what());
   }
-  return Status::OK;
+
 }
 
 Status CollectorImpl::Kill(ServerContext* context, const KillArg* req,
@@ -87,7 +99,13 @@ Status CollectorImpl::Kill(ServerContext* context, const KillArg* req,
 
 Status CollectorImpl::GetConfigPolicy(ServerContext* context, const Empty* req,
                                       GetConfigPolicyReply* resp) {
-  return plugin_impl_ptr->GetConfigPolicy(context, req, resp);
+  try {
+   return plugin_impl_ptr->GetConfigPolicy(context, req, resp);
+  } catch (PluginException &e) {
+   resp->set_error(e.what());
+   return Status(StatusCode::UNKNOWN, e.what());
+  }
+
 }
 
 Status CollectorImpl::Ping(ServerContext* context, const Empty* req,
