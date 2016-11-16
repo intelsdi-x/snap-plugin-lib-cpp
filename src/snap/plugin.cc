@@ -12,15 +12,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 #include "snap/plugin.h"
+#include "snap/grpc_export.h"
+#include "snap/lib_setup_impl.h"
 
 #include <chrono>
-#include <iostream>
+#include <functional>
 #include <sstream>
 #include <string>
 
 #include <grpc++/grpc++.h>
-
-#include <json.hpp>
 
 #include "snap/rpc/plugin.pb.h"
 
@@ -28,19 +28,20 @@ limitations under the License.
 #include "snap/proxy/processor_proxy.h"
 #include "snap/proxy/publisher_proxy.h"
 
-using std::cout;
-using std::endl;
+using std::function;
 using std::runtime_error;
+using std::shared_ptr;
+using std::unique_ptr;
 using std::string;
 
 using grpc::Server;
 using grpc::ServerBuilder;
 
-using json = nlohmann::json;
+static void start_plugin(Plugin::PluginInterface* plugin, const Plugin::Meta& meta);
 
-static void emit_preamble(const Plugin::Meta& meta, int port);
+function<unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter*)>>()> Plugin::LibSetup::exporter_provider = []{ return std::unique_ptr<PluginExporter>(new GRPCExporter()); };
 
-Plugin::PluginException::PluginException(const string& message) : 
+Plugin::PluginException::PluginException(const string& message) :
                                          runtime_error(message) {}
 
 Plugin::Meta::Meta(Type type, std::string name, int version) :
@@ -53,86 +54,61 @@ Plugin::Meta::Meta(Type type, std::string name, int version) :
                      cache_ttl(std::chrono::milliseconds(500)),
                      strategy(Strategy::LRU) {}
 
+Plugin::CollectorInterface* Plugin::PluginInterface::IsCollector() {
+  return nullptr;
+}
+
+Plugin::ProcessorInterface* Plugin::PluginInterface::IsProcessor() {
+  return nullptr;
+}
+
+Plugin::PublisherInterface* Plugin::PluginInterface::IsPublisher() {
+  return nullptr;
+}
+
+Plugin::Type Plugin::CollectorInterface::GetType() const {
+  return Collector;
+}
+
+Plugin::CollectorInterface* Plugin::CollectorInterface::IsCollector() {
+  return this;
+}
+
+Plugin::Type Plugin::ProcessorInterface::GetType() const {
+  return Processor;
+}
+
+Plugin::ProcessorInterface* Plugin::ProcessorInterface::IsProcessor() {
+  return this;
+}
+
+Plugin::Type Plugin::PublisherInterface::GetType() const {
+  return Publisher;
+}
+
+Plugin::PublisherInterface* Plugin::PublisherInterface::IsPublisher() {
+  return this;
+}
+
 void Plugin::start_collector(CollectorInterface* collector,
                              const Meta& meta) {
-    std::string server_address = "127.0.0.1:0";
-    int port;
-
-    Proxy::CollectorImpl collector_impl(collector);
-
-    ServerBuilder builder;
-    builder.AddListeningPort(server_address, grpc::InsecureServerCredentials(),
-                             &port);
-    builder.RegisterService(&collector_impl);
-    std::unique_ptr<Server> server(builder.BuildAndStart());
-
-    emit_preamble(meta, port);
-
-    server->Wait();
+  start_plugin(collector, meta);
 }
 
 void Plugin::start_processor(ProcessorInterface* processor,
                              const Meta& meta) {
-    std::string server_address = "127.0.0.1:0";
-    int port;
-
-    Proxy::ProcessorImpl processor_impl(processor);
-
-    ServerBuilder builder;
-    builder.AddListeningPort(server_address, grpc::InsecureServerCredentials(),
-                             &port);
-    builder.RegisterService(&processor_impl);
-    std::unique_ptr<Server> server(builder.BuildAndStart());
-
-    emit_preamble(meta, port);
-
-    server->Wait();
+  start_plugin(processor, meta);
 }
 
 void Plugin::start_publisher(PublisherInterface* publisher,
                              const Meta& meta) {
-    std::string server_address = "127.0.0.1:0";
-    int port;
-
-    Proxy::PublisherImpl publisher_impl(publisher);
-
-    ServerBuilder builder;
-    builder.AddListeningPort(server_address, grpc::InsecureServerCredentials(),
-                             &port);
-    builder.RegisterService(&publisher_impl);
-    std::unique_ptr<Server> server(builder.BuildAndStart());
-
-    emit_preamble(meta, port);
-
-    server->Wait();
+  start_plugin(publisher, meta);
 }
 
-static void emit_preamble(const Plugin::Meta& meta, int port) {
-  std::stringstream ss;
-  ss << "127.0.0.1:" << port;
-  json j = {
-    {"Meta", {
-      {"Type", meta.type},
-      {"Name", meta.name},
-      {"Version", meta.version},
-      {"RPCType", meta.rpc_type},
-      {"RPCVersion", RPC_VERSION},
-      {"ConcurrencyCount", meta.concurrency_count},
-      {"Exclusive", meta.exclusive},
-
-      // The gRPC client in Snap does not use the `Unsecure` metadata key at
-      // this time, as it is used for payload encryption.  With gRPC, encryption
-      // is done via its transport, and this will be updated once support for
-      // that feature lands in snapd.
-      {"Unsecure", true},
-      {"CacheTTL", meta.cache_ttl.count()},
-      {"RoutingStrategy", meta.strategy}
-    }},
-    {"ListenAddress", ss.str()},
-    {"Type", meta.type},
-    {"State", 0},
-    {"ErrMessage", ""},
-    {"Version", meta.version},
-  };
-  cout << j << endl;
+static void start_plugin(Plugin::PluginInterface* plugin, const Plugin::Meta& meta) {
+  auto exporter = Plugin::LibSetup::exporter_provider();
+  // disable deleting the plugin instance
+  auto plugin_ptr = shared_ptr<Plugin::PluginInterface>(plugin, [](void*){});
+  auto completion = exporter->ExportPlugin(plugin_ptr, &meta);
+  completion.get();
 }

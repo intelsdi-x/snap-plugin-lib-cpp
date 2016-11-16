@@ -14,6 +14,8 @@ limitations under the License.
 #pragma once
 
 #include <chrono>
+#include <future>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -23,6 +25,10 @@ limitations under the License.
 #define RPC_VERSION 1
 
 namespace Plugin {
+
+class CollectorInterface;
+class ProcessorInterface;
+class PublisherInterface;
 
 /**
  * Type is the plugin type
@@ -101,9 +107,42 @@ class PluginException : public std::runtime_error {
  * Every plugin must implement get_config_policy.
  */
 class PluginInterface {
- public:
+public:
   virtual ~PluginInterface() {}
+  virtual Type GetType() const = 0;
+  virtual CollectorInterface* IsCollector();
+  virtual ProcessorInterface* IsProcessor();
+  virtual PublisherInterface* IsPublisher();
+
   virtual const ConfigPolicy get_config_policy() = 0;
+protected:
+  PluginInterface() = default;
+
+};
+
+/**
+ * PluginExporter is the driver for exporting plugin as a service (e.g.: via
+ * GRPC). It's supposed to export a single instance of a plugin - should not be
+ * reused.
+ *
+ * PluginExporter can block waiting for plugin termination. Any resources
+ * associated with export operation are retained until the blocking wait
+ * completes or exporter instance is destroyed.
+ *
+ * Plugin Library offers default plugin export implementation based on GRPC, if
+ * the static start_xxx methods are used.
+ */
+class PluginExporter {
+public:
+  virtual ~PluginExporter() = default;
+
+  PluginExporter(const PluginExporter &) = delete;
+  PluginExporter& operator=(const PluginExporter &) = delete;
+
+  /** Export plugin as a service, allow waiting for termination (via future). */
+  virtual std::future<void> ExportPlugin(std::shared_ptr<PluginInterface> plugin, const Meta* meta) = 0;
+protected:
+  PluginExporter() = default;
 };
 
 /**
@@ -112,8 +151,9 @@ class PluginInterface {
  * It is responsible for collecting metrics in the snap pipeline.
  */
 class CollectorInterface : public PluginInterface {
- public:
-  virtual ~CollectorInterface() {}
+public:
+  Type GetType() const final;
+  CollectorInterface* IsCollector() final;
   /*
    * get_metric_types should report all the metrics this plugin can collect.
    */
@@ -124,6 +164,7 @@ class CollectorInterface : public PluginInterface {
    * It should collect and annotate each metric with the apropos context.
    */
   virtual void collect_metrics(std::vector<Metric> &metrics) = 0;
+
 };
 
 /**
@@ -132,8 +173,10 @@ class CollectorInterface : public PluginInterface {
  * derive as data passes through Snap's pipeline.
  */
 class ProcessorInterface : public PluginInterface {
- public:
-  virtual ~ProcessorInterface() {}
+public:
+  Type GetType() const final;
+  ProcessorInterface* IsProcessor() final;
+
   virtual void process_metrics(std::vector<Metric> &metrics,
                                const Config& config) = 0;
 };
@@ -144,16 +187,22 @@ class ProcessorInterface : public PluginInterface {
  * It sinks data into some external system.
  */
 class PublisherInterface : public PluginInterface {
- public:
-  virtual ~PublisherInterface() {}
+public:
+  Type GetType() const final;
+  PublisherInterface* IsPublisher() final;
+
   virtual void publish_metrics(std::vector<Metric> &metrics,
                                const Config& config) = 0;
 };
 
 /**
  * These functions are called to start a plugin.
- * They construct the gRPC service and server, start them, and then
+ * They export plugin using default PluginExporter based on GRPC:
+ * construct the gRPC service and server, start them, and then
  * block forever.
+ *
+ * These functions do not manage the plugin instance passed as parameter -
+ * caller's responsible for releasing the resources.
  */
 void start_collector(CollectorInterface* plg, const Meta& meta);
 void start_processor(ProcessorInterface* plg, const Meta& meta);
