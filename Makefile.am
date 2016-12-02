@@ -23,8 +23,6 @@ lint:
 
 test:
 	bash -c "./scripts/test.sh $(TEST_TYPE)"
-test-legacy:
-	bash -c "./scripts/test.sh legacy"
 test-small:
 	bash -c "./scripts/test.sh small"
 test-medium:
