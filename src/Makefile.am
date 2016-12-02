@@ -3,7 +3,10 @@ lib_LTLIBRARIES = libsnap.la
 nobase_include_HEADERS =         \
     snap/metric.h                \
     snap/config.h                \
+    snap/grpc_export.h           \
+    snap/grpc_export_impl.h      \
     snap/plugin.h                \
+    snap/lib_setup_impl.h        \
     snap/proxy/plugin_proxy.h    \
     snap/proxy/collector_proxy.h \
     snap/proxy/processor_proxy.h \
@@ -14,6 +17,7 @@ nobase_include_HEADERS =         \
 libsnap_la_SOURCES =              \
     snap/metric.cc                \
     snap/config.cc                \
+    snap/grpc_export.cc           \
     snap/plugin.cc                \
     snap/proxy/plugin_proxy.cc    \
     snap/proxy/collector_proxy.cc \
