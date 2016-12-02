@@ -1,0 +1,23 @@
+# File managed by pluginsync
+sudo: false
+language: cpp
+compiler:
+  - gcc
+env:
+  global:
+  - ORG_PATH=/home/travis/gopath/src/github.com/intelsdi-x
+  - SNAP_PLUGIN_SOURCE=/home/travis/gopath/src/github.com/${TRAVIS_REPO_SLUG}
+  matrix:
+  - TEST_TYPE=small
+before_install:
+- "[[ -d $SNAP_PLUGIN_SOURCE ]] || mkdir -p $ORG_PATH && ln -s $TRAVIS_BUILD_DIR $SNAP_PLUGIN_SOURCE"
+install:
+- cd $SNAP_PLUGIN_SOURCE
+- ./autogen.sh && ./configure && make  2>&1
+script:
+- make ${TEST_TYPE}
+notifications:
+  email: false
+  slack:
+    secure: VkbZLIc2RH8yf3PtIAxUNPdAu3rQQ7yQx0GcK124JhbEnZGaHyK615V0rbG7HcVmYKGPdB0cXqZiLBDKGqGKb2zR1NepOe1nF03jxGSpPq8jIFeEXSJGEYGL34ScDzZZGuG6qwbjFcXiW5lqn6t8igzp7v2+URYBaZo5ktCS2xY=
+
