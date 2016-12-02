@@ -12,9 +12,6 @@ env:
 before_install:
 - "[[ -d $SNAP_PLUGIN_SOURCE ]] || mkdir -p $ORG_PATH && ln -s $TRAVIS_BUILD_DIR $SNAP_PLUGIN_SOURCE"
 install: true
-- ./autogen.sh && ./configure && make  2>&1
-script:
-sudo: required
 script:
   - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-4.9 /usr/bin/gcc
   - gcc --version
