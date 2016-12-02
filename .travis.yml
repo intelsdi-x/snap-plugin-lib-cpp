@@ -1,8 +1,8 @@
 # File managed by pluginsync
-sudo: false
+sudo: required
 language: cpp
 compiler:
-  - gcc
+  - g++
 env:
   global:
   - ORG_PATH=/home/travis/gopath/src/github.com/intelsdi-x
@@ -11,11 +11,21 @@ env:
   - TEST_TYPE=small
 before_install:
 - "[[ -d $SNAP_PLUGIN_SOURCE ]] || mkdir -p $ORG_PATH && ln -s $TRAVIS_BUILD_DIR $SNAP_PLUGIN_SOURCE"
-install:
-- cd $SNAP_PLUGIN_SOURCE
+install: true
 - ./autogen.sh && ./configure && make  2>&1
 script:
-- make ${TEST_TYPE}
+sudo: required
+script:
+  - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-4.9 /usr/bin/gcc
+  - gcc --version
+  - ./autogen.sh && ./configure && make ${TEST_TYPE}
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-4.9
+    - g++-4.9
 notifications:
   email: false
   slack:
