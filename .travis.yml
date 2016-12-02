@@ -15,7 +15,7 @@ install: true
 script:
   - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-4.9 /usr/bin/gcc
   - gcc --version
-  - ./autogen.sh && ./configure && make ${TEST_TYPE}
+  - ./autogen.sh && ./configure && make test ${TEST_TYPE}
 addons:
   apt:
     sources:
