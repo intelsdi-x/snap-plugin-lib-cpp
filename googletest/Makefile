@@ -14,7 +14,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-CC		= g++
+CXX		= g++
 AR		= ar
 GIT		= git
 GTEST_VER	= release-1.8.0
@@ -27,7 +27,7 @@ CPPFLAGS	= --std=c++11
 ARFLAGS		= -rv
 
 define run-cc =
-	$(CC) $(RUN_CPPFLAGS) -c $^ -o $@
+	$(CXX) $(RUN_CPPFLAGS) -c $^ -o $@
 endef
 
 define run-ar = 

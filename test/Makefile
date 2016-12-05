@@ -14,7 +14,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-CC		= g++
+CXX		= g++
 LD		= g++
 GTEST_DIR	= $(CURDIR)/../googletest/testing/googletest
 GMOCK_DIR	= $(CURDIR)/../googletest/testing/googlemock
@@ -30,7 +30,7 @@ OBJ       	:= $(patsubst %.cc,%.o,$(SRC))
 EXE		:= test_main
 
 define run-cc =
-	$(CC) $(RUN_CPPFLAGS) -c $^ -o $@
+	$(CXX) $(RUN_CPPFLAGS) -c $^ -o $@
 endef
 
 define run-ld = 
