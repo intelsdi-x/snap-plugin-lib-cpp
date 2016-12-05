@@ -11,6 +11,8 @@ env:
   - TEST_TYPE=small
 before_install:
 - "[[ -d $SNAP_PLUGIN_SOURCE ]] || mkdir -p $ORG_PATH && ln -s $TRAVIS_BUILD_DIR $SNAP_PLUGIN_SOURCE"
+- sudo apt-get update -qq
+- sudo apt-get install -qq libtool grpc++
 install: true
 script:
   - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-4.9 /usr/bin/gcc
