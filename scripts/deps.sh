@@ -1,3 +1,6 @@
+#!/bin/bash
+# File managed by pluginsync
+
 # http://www.apache.org/licenses/LICENSE-2.0.txt
 #
 #
@@ -14,23 +17,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-SUBDIRS = src
 
-.PHONY: lint deps test test-small test-medium test-large
+set -e
+set -u
+set -o pipefail
 
-lint:
-	git ls-files '*.cc' '*.h' | grep -v pb | xargs cpplint --filter -build/c++11,-build/include_order,-build/include_subdir
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+__proj_dir="$(dirname "$__dir")"
+GTESTLIB_DIR="$(cd "${__proj_dir}/googletest" && pwd)"
 
-test: deps
-	bash -c "./scripts/test.sh $(TEST_TYPE)"
-test-legacy: deps
-	bash -c "./scripts/test.sh legacy"
-test-small: deps
-	bash -c "./scripts/test.sh small"
-test-medium: deps
-	bash -c "./scripts/test.sh medium"
-test-large: deps
-	bash -c "./scripts/test.sh large"
-deps:
-	bash -c "./scripts/deps.sh"
+# shellcheck source=scripts/common.sh
+. "${__dir}/common.sh"
+
+_debug "getting googletest source"
+make -C ${GTESTLIB_DIR} sources
 
