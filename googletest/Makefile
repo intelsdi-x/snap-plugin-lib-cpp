@@ -19,8 +19,9 @@ AR		= ar
 GIT		= git
 GTEST_VER	= release-1.8.0
 GTEST_REPO	= https://github.com/google/googletest.git
-GTEST_DIR	= $(CURDIR)/testing/googletest
-GMOCK_DIR	= $(CURDIR)/testing/googlemock
+GTESTLIB_DIR	= $(CURDIR)
+GTEST_DIR	= $(GTESTLIB_DIR)/testing/googletest
+GMOCK_DIR	= $(GTESTLIB_DIR)/testing/googlemock
 PREFIX		= $(CURDIR)/lib
 OBJ		= $(CURDIR)/obj
 CPPFLAGS	= --std=c++11
@@ -43,9 +44,9 @@ endef
 
 all : init gtest gmock
 
-sources : $(dir $(GTEST_DIR))
+sources : $(GTESTLIB_DIR)/testing
 
-$(dir $(GTEST_DIR)):
+$(GTESTLIB_DIR)/testing :
 	$(run-clone)
 
 clean :
