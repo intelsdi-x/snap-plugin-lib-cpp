@@ -24,7 +24,7 @@ GTEST_DIR	= $(GTESTLIB_DIR)/testing/googletest
 GMOCK_DIR	= $(GTESTLIB_DIR)/testing/googlemock
 PREFIX		= $(CURDIR)/lib
 OBJ		= $(CURDIR)/obj
-CPPFLAGS	= --std=c++11
+CPPFLAGS	= --std=c++0x
 ARFLAGS		= -rv
 
 define run-cc =

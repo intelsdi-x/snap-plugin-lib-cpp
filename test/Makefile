@@ -21,8 +21,8 @@ GMOCK_DIR	= $(CURDIR)/../googletest/testing/googlemock
 GTESTLIB_DIR	= $(CURDIR)/../googletest
 SNAPLIB_DIR	= $(CURDIR)/../lib
 PREFIX		= $(CURDIR)
-CPPFLAGS	= --std=c++11
-LDFLAGS		= --std=c++11
+CPPFLAGS	= --std=c++0x
+LDFLAGS		= --std=c++0x
 SRCDIR		:= $(CURDIR)
 OBJDIR		:= $(CURDIR)
 SRC       	:= $(wildcard $(SRCDIR)/*.cc)
