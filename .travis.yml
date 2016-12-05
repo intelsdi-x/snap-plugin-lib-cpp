@@ -1,8 +1,8 @@
 # File managed by pluginsync
 sudo: required
 language: cpp
-compiler:
-  - g++
+services:
+  - docker
 env:
   global:
   - ORG_PATH=/home/travis/gopath/src/github.com/intelsdi-x
@@ -10,21 +10,15 @@ env:
   matrix:
   - TEST_TYPE=small
 before_install:
-- "[[ -d $SNAP_PLUGIN_SOURCE ]] || mkdir -p $ORG_PATH && ln -s $TRAVIS_BUILD_DIR $SNAP_PLUGIN_SOURCE"
-- sudo apt-get update -qq
-- sudo apt-get install -qq libtool grpc++
-install: true
+##- "[[ -d $SNAP_PLUGIN_SOURCE ]] || mkdir -p $ORG_PATH && ln -s $TRAVIS_BUILD_DIR $SNAP_PLUGIN_SOURCE"
+  - docker pull ubuntu:yakkety
+  - docker build -t for-worker-box -f scripts/Dockerfile.travis .
+install:
+  - docker run -dt --name "worker-box" -e TEST_TYPE -v ${TRAVIS_BUILD_DIR}/:/opt/${TRAVIS_REPO_SLUG}/ -v ${TRAVIS_BUILD_DIR}/scripts/:/opt/scripts/ for-worker-box bash
 script:
-  - sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-4.9 /usr/bin/gcc
-  - gcc --version
-  - ./autogen.sh && ./configure && make test ${TEST_TYPE}
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - gcc-4.9
-    - g++-4.9
+  - docker exec -ti worker-box bash -c "cd /opt/${TRAVIS_REPO_SLUG} && ./autogen.sh && ./configure && make test"
+after_script:
+  - docker rm -fv worker-box
 notifications:
   email: false
   slack:

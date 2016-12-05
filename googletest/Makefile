@@ -24,7 +24,8 @@ GTEST_DIR	= $(GTESTLIB_DIR)/testing/googletest
 GMOCK_DIR	= $(GTESTLIB_DIR)/testing/googlemock
 PREFIX		= $(CURDIR)/lib
 OBJ		= $(CURDIR)/obj
-CPPFLAGS	= --std=c++0x
+COV_ARGS	= -g -fprofile-arcs -ftest-coverage --coverage -fPIC -lgcov -O0
+CPPFLAGS	= --std=c++0x ${COV_ARGS}
 ARFLAGS		= -rv
 
 define run-cc =
@@ -51,7 +52,7 @@ $(GTESTLIB_DIR)/testing :
 
 clean :
 	for dir in $(OBJ) $(PREFIX) $(dir $(GTEST_DIR)) ; do \
-		find $${dir} -type f -and -name '*.o' -or -name '*.a' -or -name '*.gc*' -exec rm {} + ; \
+		find $${dir} \( -type f -and \( -name '*.o' -or -name '*.a' -or -name '*.gc*' \) \) -exec rm {} + ; \
 	done ;\
 	rm -rf $(OBJ)
 

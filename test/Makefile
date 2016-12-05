@@ -21,8 +21,9 @@ GMOCK_DIR	= $(CURDIR)/../googletest/testing/googlemock
 GTESTLIB_DIR	= $(CURDIR)/../googletest
 SNAPLIB_DIR	= $(CURDIR)/../lib
 PREFIX		= $(CURDIR)
+COV_ARGS	= -g -fprofile-arcs -ftest-coverage --coverage -fPIC -lgcov -O0
 CPPFLAGS	= --std=c++0x
-LDFLAGS		= --std=c++0x
+LDFLAGS		= --std=c++0x -fPIC -DPIC
 SRCDIR		:= $(CURDIR)
 OBJDIR		:= $(CURDIR)
 SRC       	:= $(wildcard $(SRCDIR)/*.cc)
@@ -50,16 +51,16 @@ run :
 build : $(PREFIX)/$(EXE)
 
 clean :
-	for dir in $(OBJDIR) $(PREFIX); do find $${dir} -type f -name '*.o' -or -name '*.a' -or -name '*.gc*' -or -name $(EXE) -exec rm {} + ; done
+	for dir in $(OBJDIR) $(PREFIX); do find $${dir} \( -type f -and \( -name '*.o' -or -name '*.a' -or -name '*.gc*' -or -name $(EXE) \) \) -exec rm {} + ; done
 
 init :	;
 	
 
-$(PREFIX)/$(EXE) : RUN_LDFLAGS = $(LDFLAGS) -L${SNAPLIB_DIR}/lib -L${GTESTLIB_DIR}/lib -pthread -lpthread -lgmock -lgtest -lsnap -lprotobuf -lgrpc++ -lgcov
+$(PREFIX)/$(EXE) : RUN_LDFLAGS = $(LDFLAGS) -L$(SNAPLIB_DIR)/lib -L$(GTESTLIB_DIR)/lib -pthread -lpthread -lgmock -lgtest -lsnap -lprotobuf -lgrpc++ -lgcov $(COV_ARGS)
 $(PREFIX)/$(EXE) : $(OBJ)
 	$(run-ld)
 
-%.o : RUN_CPPFLAGS = $(CPPFLAGS) -isystem ${GTEST_DIR}/include -isystem ${GMOCK_DIR}/include -I${SNAPLIB_DIR}/include -pthread
+%.o : RUN_CPPFLAGS = $(CPPFLAGS) -isystem $(GTEST_DIR)/include -isystem $(GMOCK_DIR)/include -I$(SNAPLIB_DIR)/include -pthread $(COV_ARGS)
 %.o : %.cc
 	$(run-cc)
 
