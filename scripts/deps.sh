@@ -25,10 +25,18 @@ set -o pipefail
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __proj_dir="$(dirname "$__dir")"
 GTESTLIB_DIR="$(cd "${__proj_dir}/googletest" && pwd)"
+GTEST_VER="${GTEST_VER:-release-1.8.0}"
+GTEST_REPO="${GTEST_REPO:-https://github.com/google/googletest.git}"
+GIT="${GIT:-git}"
 
 # shellcheck source=scripts/common.sh
 . "${__dir}/common.sh"
 
 _debug "getting googletest source"
-make -C ${GTESTLIB_DIR} sources
+##make -C ${GTESTLIB_DIR} sources
+if [ -d "${GTESTLIB_DIR}/testing" ]; then
+	_debug "repository working copy already available"
+	exit 0
+fi
+"${GIT}" clone --branch ${GTEST_VER} -c advice.detachedHead=false "${GTEST_REPO}" "${GTESTLIB_DIR}/testing"
 
