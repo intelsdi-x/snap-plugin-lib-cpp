@@ -43,7 +43,10 @@ endef
 
 all : test
 
-test : init build run
+test : init build run coverage
+
+coverage :
+	../test/gather-coverage.sh
 
 run : 
 	LD_LIBRARY_PATH=$$LD_LIBRARY_PATH:$(GTESTLIB_DIR):$(SNAPLIB_DIR)/lib $(PREFIX)/$(EXE)
