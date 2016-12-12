@@ -16,19 +16,21 @@
 # limitations under the License.
 SUBDIRS = src
 
-.PHONY: lint test test-legacy test-small test-medium test-large
+.PHONY: lint deps test test-small test-medium test-large
 
 lint:
 	git ls-files '*.cc' '*.h' | grep -v pb | xargs cpplint --filter -build/c++11,-build/include_order,-build/include_subdir
 
-test:
+test: deps
 	bash -c "./scripts/test.sh $(TEST_TYPE)"
-test-legacy:
+test-legacy: deps
 	bash -c "./scripts/test.sh legacy"
-test-small:
+test-small: deps
 	bash -c "./scripts/test.sh small"
-test-medium:
+test-medium: deps
 	bash -c "./scripts/test.sh medium"
-test-large:
+test-large: deps
 	bash -c "./scripts/test.sh large"
+deps:
+	bash -c "./scripts/deps.sh"
 

@@ -14,20 +14,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-CC		= g++
+CXX		= g++
 AR		= ar
 GIT		= git
 GTEST_VER	= release-1.8.0
 GTEST_REPO	= https://github.com/google/googletest.git
-GTEST_DIR	= $(CURDIR)/testing/googletest
-GMOCK_DIR	= $(CURDIR)/testing/googlemock
+GTESTLIB_DIR	= $(CURDIR)
+GTEST_DIR	= $(GTESTLIB_DIR)/testing/googletest
+GMOCK_DIR	= $(GTESTLIB_DIR)/testing/googlemock
 PREFIX		= $(CURDIR)/lib
 OBJ		= $(CURDIR)/obj
-CPPFLAGS	= --std=c++11
+COV_ARGS	= -g -fprofile-arcs -ftest-coverage --coverage -fPIC -lgcov -O0
+CPPFLAGS	= --std=c++0x ${COV_ARGS}
 ARFLAGS		= -rv
 
 define run-cc =
-	$(CC) $(RUN_CPPFLAGS) -c $^ -o $@
+	$(CXX) $(RUN_CPPFLAGS) -c $^ -o $@
 endef
 
 define run-ar = 
@@ -43,14 +45,14 @@ endef
 
 all : init gtest gmock
 
-sources : $(dir $(GTEST_DIR))
+sources : $(GTESTLIB_DIR)/testing
 
-$(dir $(GTEST_DIR)):
+$(GTESTLIB_DIR)/testing :
 	$(run-clone)
 
 clean :
 	for dir in $(OBJ) $(PREFIX) $(dir $(GTEST_DIR)) ; do \
-		find $${dir} -type f -and -name '*.o' -or -name '*.a' -or -name '*.gc*' -exec rm {} + ; \
+		find $${dir} \( -type f -and \( -name '*.o' -or -name '*.a' -or -name '*.gc*' \) \) -exec rm {} + ; \
 	done ;\
 	rm -rf $(OBJ)
 
