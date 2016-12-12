@@ -43,5 +43,5 @@ libsnap_la_SOURCES =              \
     snap/rpc/plugin.grpc.pb.cc
 
 libsnap_la_CPPFLAGS = \
-    --std=c++11       \
+    --std=c++0x       \
     -I$(top_srcdir)/include

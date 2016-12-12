@@ -24,27 +24,19 @@ set -o pipefail
 
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __proj_dir="$(dirname "$__dir")"
-__proj_name="snap-plugin-lib-cpp"
+GTESTLIB_DIR="$(cd "${__proj_dir}/googletest" && pwd)"
+GTEST_VER="${GTEST_VER:-release-1.8.0}"
+GTEST_REPO="${GTEST_REPO:-https://github.com/google/googletest.git}"
+GIT="${GIT:-git}"
 
 # shellcheck source=scripts/common.sh
 . "${__dir}/common.sh"
 
-TEST_TYPE="${TEST_TYPE:-"small"}"
-COV_ARGS="${COV_ARGS:-"-g -fprofile-arcs -ftest-coverage --coverage -fPIC -DPIC -lgcov -O0"}"
-
-_debug "building googletest"
-make -C "${__proj_dir}/googletest"
-
-_debug "building snap plugin lib"
-export SNAPLIB_DIR="${__proj_dir}/lib"
-mkdir -p "${SNAPLIB_DIR}"
-pushd "${__proj_dir}"
-"${__proj_dir}/autogen.sh"
-"${__proj_dir}/configure" CPPFLAGS="--std=c++0x ${COV_ARGS}" LDFLAGS="${COV_ARGS}"  --prefix="${SNAPLIB_DIR}"
-make -C "${__proj_dir}"
-make -C "${__proj_dir}" install
-popd
-
-_debug "running tests"
-make -C "${__proj_dir}/test"
+_debug "getting googletest source"
+##make -C ${GTESTLIB_DIR} sources
+if [ -d "${GTESTLIB_DIR}/testing" ]; then
+	_debug "repository working copy already available"
+	exit 0
+fi
+"${GIT}" clone --branch ${GTEST_VER} -c advice.detachedHead=false "${GTEST_REPO}" "${GTESTLIB_DIR}/testing"
 

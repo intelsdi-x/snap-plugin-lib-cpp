@@ -1,0 +1,13 @@
+FROM ubuntu:yakkety
+
+## install deps
+RUN apt-get update -yq
+RUN apt-get install g++-4.9 gcc-4.9 protobuf-compiler libprotobuf-dev libprotoc-dev git curl cmake golang-go autoconf libtool ca-certificates -yq 
+
+## installing grpc
+RUN git clone -b $(curl -L http://grpc.io/release) --depth 1 -c advice.detachedHead=false  https://github.com/grpc/grpc /opt/grpc
+WORKDIR /opt/grpc
+RUN git submodule update --init
+RUN sed -i 's/-Werror//g' /opt/grpc/Makefile
+RUN make && make install
+
