@@ -16,19 +16,19 @@
 # limitations under the License.
 .PHONY: build clean
 
-build: clean snap-collector-rando snap-processor-graf snap-publisher-log
+build: clean test-collector-rando test-processor-graffiti test-publisher-log
 
 clean:
-	rm -f snap-collector-rando
-	rm -f snap-processor-graf
-	rm -f snap-publisher-log
+	rm -f test-collector-rando
+	rm -f test-processor-graffiti
+	rm -f test-publisher-log
 
-snap-collector-rando:
-	c++ --std=c++0x ${CPP_FLAGS} -o snap-collector-rando rando/src/rando.cc ${CPP_FLAGS_POST} -lsnap -lprotobuf -lgrpc++
+test-collector-rando:
+	c++ --std=c++0x ${CPP_FLAGS} -o test-collector-rando collector/src/rando.cc ${CPP_FLAGS_POST} -lsnap -lprotobuf -lgrpc++
 
-snap-processor-graf:
-	c++ --std=c++0x ${CPP_FLAGS} -o snap-processor-graf graffiti/src/graffiti.cc ${CPP_FLAGS_POST} -lsnap -lprotobuf -lgrpc++
+test-processor-graffiti:
+	c++ --std=c++0x ${CPP_FLAGS} -o test-processor-graffiti processor/src/graffiti.cc ${CPP_FLAGS_POST} -lsnap -lprotobuf -lgrpc++
 
-snap-publisher-log:
-	c++ --std=c++0x ${CPP_FLAGS} -o snap-publisher-log log/src/log.cc ${CPP_FLAGS_POST} -lsnap -lprotobuf -lgrpc++
+test-publisher-log:
+	c++ --std=c++0x ${CPP_FLAGS} -o test-publisher-log publisher/src/log.cc ${CPP_FLAGS_POST} -lsnap -lprotobuf -lgrpc++
 
