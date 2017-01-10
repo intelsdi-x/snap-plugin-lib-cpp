@@ -83,12 +83,39 @@ struct Meta final {
   std::string name;
   int version;
 
-  // These members all have defaults.
-  RpcType rpc_type;                     // RpcType::GRPC
-  int concurrency_count;                // 5
-  bool exclusive;                       // false
-  std::chrono::milliseconds cache_ttl;  // 500ms
-  Strategy strategy;                    // Strategy::LRU
+  /**
+   * The RpcType in use, defaults to RpcType::GRPC. There should be no need to change
+   * it.
+   */
+  RpcType rpc_type;
+
+  /**
+   * concurrency_count is the max number of concurrent calls the plugin
+   * should take.  For example:
+   * If there are 5 tasks using the plugin and its concurrency count is 2,
+   * snapteld will keep 3 plugin instances running.
+   * Using concurrency_count overwrites the default value of (5).
+   */
+  int concurrency_count;
+
+  /**
+   * exclusive == true results in a single instance of the plugin running
+   * regardless of the number of tasks using the plugin.
+   * Using exclusive overwrites the default value of (false).
+   */
+  bool exclusive;
+  /**
+   * snapteld caches metrics on the daemon side for a default of 500ms.
+   * CacheTTL overwrites the default value of (500ms).
+   */
+  std::chrono::milliseconds cache_ttl;
+
+  /**
+   * Strategy will override the routing strategy this plugin requires.
+   * The default routing strategy is Least Recently Used.
+   * Strategy overwrites the default value of (LRU).
+   */
+  Strategy strategy;
 };
 
 /**
@@ -148,12 +175,18 @@ protected:
 /**
  * The interface for a collector plugin.
  * A Collector is the source.
- * It is responsible for collecting metrics in the snap pipeline.
+ * It is responsible for collecting metrics in the Snap pipeline.
  */
 class CollectorInterface : public PluginInterface {
 public:
   Type GetType() const final;
   CollectorInterface* IsCollector() final;
+
+  /*
+   * (inherited from PluginInterface)
+   */
+  virtual const ConfigPolicy get_config_policy() = 0;
+
   /*
    * get_metric_types should report all the metrics this plugin can collect.
    */
