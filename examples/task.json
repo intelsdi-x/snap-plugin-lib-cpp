@@ -1,33 +1,37 @@
 {
-	"version": 1,
-	"schedule": {
-		"type": "simple",
-		"interval": "1s"
-	},
-	"max-failures": 10,
-	"workflow": {
-		"collect": {
-			"metrics": {
-				"/intel/cpp/mock/randomnumber/one": {},
-				"/intel/cpp/mock/randomnumber/two": {}
-			},
-			"config": {
-					"/intel/cpp/mock/randomnumber/one": {
-							"password": "silly goose"
-					}
-			},
-			"process": [{
-				"plugin_name": "graffiti",
-				"config": {
-					"tags": "one,two,three"
-				},
-				"publish": [{
-						"plugin_name": "log",
-						"config": {
-								"path": "/tmp/log_pub.log"
-						}
-				}]
-			}]
-		}
-	}
+  "version": 1,
+  "schedule": {
+    "type": "simple",
+    "interval": "1s"
+  },
+  "max-failures": 10,
+  "workflow": {
+    "collect": {
+      "metrics": {
+        "/intel/cpp/mock/randomnumber/one": {},
+        "/intel/cpp/mock/randomnumber/two": {}
+      },
+      "config": {
+        "/intel/cpp/mock/randomnumber/one": {
+          "password": "silly goose"
+        }
+      },
+      "process": [
+        {
+          "plugin_name": "graffiti",
+          "config": {
+            "tags": "one,two,three"
+          },
+          "publish": [
+            {
+              "plugin_name": "log",
+              "config": {
+                "path": "/tmp/log_pub.log"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
 }
