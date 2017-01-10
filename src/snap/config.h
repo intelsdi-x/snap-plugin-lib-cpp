@@ -128,7 +128,7 @@ class ConfigPolicy final : public rpc::GetConfigPolicyReply {
 };
 
 /**
- * Config is the incoming configuration data which has been vetted by snapd
+ * Config is the incoming configuration data which has been vetted by snapteld
  * according to the plugin's ConfigPolicy.
  *
  */
