@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-snapctl plugin load snap-collector-rando
-snapctl plugin load snap-processor-graf
-snapctl plugin load snap-publisher-log
-snapctl task create -t task.json
+snaptel plugin load test-collector-rando
+snaptel plugin load test-processor-graffiti
+snaptel plugin load test-publisher-log
+snaptel task create -t task.json
