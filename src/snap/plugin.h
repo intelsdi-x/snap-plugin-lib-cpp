@@ -49,7 +49,7 @@ enum RpcType {
 
 /**
  * Strategy is the routing and caching strategy this plugin requires.
- * A routing and caching Strategy is the method which snapd uses to cache 
+ * A routing and caching Strategy is the method which snapteld uses to cache
  * metrics, and select the correct running instance of a plugin.
  */
 enum Strategy {

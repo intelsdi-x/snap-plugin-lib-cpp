@@ -109,7 +109,7 @@ void Plugin::GRPCExportImpl::doAdvertise() {
                    // The gRPC client in Snap does not use the `Unsecure` metadata key at
                    // this time, as it is used for payload encryption.  With gRPC, encryption
                    // is done via its transport, and this will be updated once support for
-                   // that feature lands in snapd.
+                   // that feature lands in snapteld.
                    {"Unsecure", true},
                    {"CacheTTL", meta->cache_ttl.count()},
                    {"RoutingStrategy", meta->strategy}
