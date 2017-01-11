@@ -17,16 +17,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-## Snap Plugin Library for C++: Collector Plugin Example
-Here you will find an example plugin that covers the basics for writing a collector plugin.
+## Snap Plugin Library for C++: Processor Plugin Example
+Here you will find an example plugin that covers the basics for writing a processor plugin.
 
 ## Plugin Naming, Files, and Directory
-For your collector plugin, create a new repository and name your plugin project using the following format:
+For your processor plugin, create a new repository and name your plugin project using the following format:
 
 >snap-plugin-[plugin-type]-[plugin-name]
 
 For example:
->snap-plugin-collector-rando
+>snap-plugin-processor-graffiti
 
 Proposed files and directory structure:  
 ```
@@ -38,44 +38,36 @@ snap-plugin-[plugin-type]-[plugin-name]
 
 For example:
 ```
-snap-plugin-collector-rando
+snap-plugin-processor-graffiti
  |--src
-  |--rando.cc  
-  |--rando_test.cc  
+  |--graffiti.cc  
+  |--graffiti_test.cc  
 ```
 
 ## Interface methods
 
-In order to write a plugin for Snap, it is necessary to define a few methods to satisfy the appropriate interfaces. These interfaces must be defined for a collector plugin:
+In order to write a plugin for Snap, it is necessary to define a few methods to satisfy the appropriate interfaces. These interfaces must be defined for a processor plugin:
 
 ```cpp
 /**
- * The interface for a collector plugin.
- * A Collector is the source.
- * It is responsible for collecting metrics in the Snap pipeline.
+ * The interface for a Processor plugin.
+ * A Processor is an intermediary in the pipeline. It may decorate, filter, or
+ * derive as data passes through Snap's pipeline.
  */
-class CollectorInterface : public PluginInterface {
+class ProcessorInterface : public PluginInterface {
 public:
   Type GetType() const final;
-  CollectorInterface* IsCollector() final;
-  
+  ProcessorInterface* IsProcessor() final;
+
   /*
    * (inherited from PluginInterface)
    */
   virtual const ConfigPolicy get_config_policy() = 0;
 
-  /*
-   * get_metric_types should report all the metrics this plugin can collect.
-   */
-  virtual std::vector<Metric> get_metric_types(Config cfg) = 0;
-
-  /*
-   * collect_metrics is given a list of metrics to collect.
-   * It should collect and annotate each metric with the apropos context.
-   */
-  virtual void collect_metrics(std::vector<Metric> &metrics) = 0;
-
+  virtual void process_metrics(std::vector<Metric> &metrics,
+                               const Config& config) = 0;
 };
+
 ```
 
 The interface is slightly different depending on what type (collector, processor, or publisher) of plugin is being written. Please see other plugin types for more details.
@@ -85,7 +77,7 @@ The interface is slightly different depending on what type (collector, processor
 After implementing a type that satisfies one of {collector, processor, publisher} interfaces, all that is left to do is to call the appropriate plugin.start_xxx() with your plugin specific meta options. For example with minimum meta data specified:
 
 ```cpp
-    Plugin::start_collector(&plg, Meta{Type::Collector, "rando", 1});
+    Plugin::start_processor(&plg, Meta{Type::Processor, "graffiti", 1});
 ```
 
 ### Meta options
@@ -144,10 +136,10 @@ struct Meta final {
 An example using some arbitrary values:
 
 ```cpp
-    Rando plg = Rando();
-    Meta meta = Meta{Type::Collector, "rando", 1};
+    Graffiti plg = Graffiti();
+    Meta meta = Meta{Type::Collector, "graffiti", 1};
     meta.exclusive = true;
-    Plugin::start_collector(&plg, meta);
+    Plugin::start_processor(&plg, meta);
 ```
 
 ## Testing
