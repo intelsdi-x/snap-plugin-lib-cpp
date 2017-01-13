@@ -35,7 +35,7 @@ COV_ARGS="${COV_ARGS:-"-g -fprofile-arcs -ftest-coverage --coverage -fPIC -DPIC 
 _debug "building googletest"
 make -C "${__proj_dir}/googletest"
 
-_debug "building snap plugin lib"
+_debug "building Snap plugin lib"
 export SNAPLIB_DIR="${__proj_dir}/lib"
 mkdir -p "${SNAPLIB_DIR}"
 pushd "${__proj_dir}"

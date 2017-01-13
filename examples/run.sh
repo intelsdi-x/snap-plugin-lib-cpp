@@ -20,3 +20,4 @@ snaptel plugin load test-collector-rando
 snaptel plugin load test-processor-graffiti
 snaptel plugin load test-publisher-log
 snaptel task create -t task.json
+
