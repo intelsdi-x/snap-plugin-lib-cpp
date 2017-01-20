@@ -14,21 +14,80 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-.PHONY: build clean
 
-build: clean test-collector-rando test-processor-graffiti test-publisher-log
+# Collector build
+A_PREFIX=test
+A_TYPE=collector
+A_NAME=rando
+A_TARGET=$(A_PREFIX)-$(A_TYPE)-$(A_NAME)
+A_DIR=$(A_TYPE)/src
 
-clean:
-	rm -f test-collector-rando
-	rm -f test-processor-graffiti
-	rm -f test-publisher-log
+# Processor build
+B_PREFIX=test
+B_TYPE=processor
+B_NAME=graffiti
+B_TARGET=$(B_PREFIX)-$(B_TYPE)-$(B_NAME)
+B_DIR=$(B_TYPE)/src
 
-test-collector-rando:
-	c++ --std=c++0x ${CPP_FLAGS} -o test-collector-rando collector/src/rando.cc ${CPP_FLAGS_POST} -lsnap -lprotobuf -lgrpc++
+# Publisher build
+C_PREFIX=test
+C_TYPE=publisher
+C_NAME=log
+C_TARGET=$(C_PREFIX)-$(C_TYPE)-$(C_NAME)
+C_DIR=$(C_TYPE)/src
 
-test-processor-graffiti:
-	c++ --std=c++0x ${CPP_FLAGS} -o test-processor-graffiti processor/src/graffiti.cc ${CPP_FLAGS_POST} -lsnap -lprotobuf -lgrpc++
+A_PATH=$(PWD)
 
-test-publisher-log:
-	c++ --std=c++0x ${CPP_FLAGS} -o test-publisher-log publisher/src/log.cc ${CPP_FLAGS_POST} -lsnap -lprotobuf -lgrpc++
+all: $(A_TARGET) $(B_TARGET) $(C_TARGET)   # Build all targets
 
+.PHONY: all help clean rebuild install uninstall $(A_TARGET) $(A_TARGET)-clean $(A_TARGET)-install $(A_TARGET)-uninstall $(B_TARGET) $(B_TARGET)-clean $(B_TARGET)-install $(B_TARGET)-uninstall $(C_TARGET) $(C_TARGET)-clean $(C_TARGET)-install $(C_TARGET)-uninstall
+
+help:                                      # Show Makefile targets
+        @egrep "[a-z]\w+:" Makefile | sort
+
+clean: $(A_TARGET)-clean $(B_TARGET)-clean $(C_TARGET)-clean
+
+rebuild: clean all                      # Clean and build targets
+
+install: $(A_TARGET)-install $(B_TARGET)-install $(C_TARGET)-install
+
+uninstall: $(A_TARGET)-uninstall $(B_TARGET)-uninstall $(C_TARGET)-uninstall
+
+
+$(A_TARGET):
+	@(cd $(A_DIR); make; echo " ") 
+
+$(A_TARGET)-clean:
+	@(cd $(A_DIR); make clean; echo " ") 
+
+$(A_TARGET)-install:
+	@(cd $(A_DIR); make install; echo " ")
+
+$(A_TARGET)-uninstall:
+	@(cd $(A_DIR); make uninstall; echo " ")
+
+
+$(B_TARGET):
+	@(cd $(B_DIR); make; echo " ")
+
+$(B_TARGET)-clean:
+	@(cd $(B_DIR); make clean; echo " ") 
+
+$(B_TARGET)-install:
+	@(cd $(B_DIR); make install; echo " ")
+
+$(B_TARGET)-uninstall:
+	@(cd $(B_DIR); make uninstall; echo " ")
+
+
+$(C_TARGET):
+	@(cd $(C_DIR); make; echo " ") 
+
+$(C_TARGET)-clean:
+	@(cd $(C_DIR); make clean; echo " ")
+
+$(C_TARGET)-install:
+	@(cd $(C_DIR); make install; echo " ")
+
+$(C_TARGET)-uninstall:
+	@(cd $(C_DIR); make uninstall; echo " ")

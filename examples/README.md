@@ -18,7 +18,7 @@ limitations under the License.
 -->
 
 ## Snap Plugin C++ Library Examples
-Here you will find example plugins that cover the basics for writing collector, processor and publisher plugins.
+Here you will find example plugins that cover the basics for writing collector, processor and publisher plugins. When compiling source code, use static linking. This will ensure dependent libraries are built into the binaries and not required to locate libs during runtime.
 
 ## Build Plugins & Use with Snap
 
@@ -32,11 +32,12 @@ To test these plugins with Snap, you will need to have [Snap](https://github.com
 Refer to [repository README](../README.md#building-libsnap) for installation instructions.
 
 ### 3. Build the collector, processor, and/or publisher plugins in the examples folder.
-Enter the examples directory and execute `make`:
+Enter the examples directory and execute `make`, followed by 'make install'. With 'make install', the example plugin libraries will be copied into examples/bin:
 
 ```sh
 $ cd examples
 $ make
+$ make install
 ```
 
 ### 4. Launch example task in `examples` directory:

@@ -16,8 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-snaptel plugin load test-collector-rando
-snaptel plugin load test-processor-graffiti
-snaptel plugin load test-publisher-log
+snaptel plugin load bin/test-collector-rando
+snaptel plugin load bin/test-processor-graffiti
+snaptel plugin load bin/test-publisher-log
 snaptel task create -t task.json
 
