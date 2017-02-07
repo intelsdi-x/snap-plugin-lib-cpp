@@ -47,10 +47,35 @@ You will find [example plugins](examples) that cover the basics for writing coll
 Dependencies:
 * autoconf
 * automake
+* curl
+* g++
+* grpc++ (see below)
 * libtool
-* grpc++
+* make
 
-Once the above dependencies have been resolved:
+### Building GRPC from source
+
+Plugin currently depends on GRPC 1.0.x, so if your OS's package repository contains another version, it won't be compatible.
+First, you need to install all dependencies except GRPC, then build GRPC 1.0.x from source.
+
+#### To install GRPC 1.0.1:
+```bash
+git clone https://github.com/grpc/grpc
+cd grpc
+git checkout tags/v1.0.1
+git submodule update --init
+make
+[sudo] make install
+```
+
+#### To install protobuf (Google Protocol Buffers):
+Snap plugin library for C++ depends also on protobuf library. As it is already in GRPC dependencies, you can install it like:
+```bash
+cd ./third_party/protobuf
+[sudo] make install
+```
+
+### Once the above dependencies have been resolved:
 
 ```sh
 $ ./autogen.sh
