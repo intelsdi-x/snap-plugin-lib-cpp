@@ -25,175 +25,172 @@ limitations under the License.
 #include "snap/config.h"
 
 namespace Plugin {
-
-/**
- * Metric is the representation of a Metric inside Snap.
- */
-class Metric final {
- public:
-  /**
-   * A PODS describing an element in a metric namespace.
-   */
-  struct NamespaceElement {
     /**
-     * value is the static value of this node in a namespace.
-     * When a namespace element is _not_ dynamic, value is used. During
-     * metric collection, value should contain the static name for this metric.
-     */
-    std::string value;
-
+    * Metric is the representation of a Metric inside Snap.
+    */
+    class Metric final {
+    public:
     /**
-     * name is used to describe what this dynamic element is querying against.
-     * E.g. in the namespace `/intel/kvm/[vm_id]/cpu_wait` the element at index
-     * 2 has the name "vm_id".
-     * @see value
-     */
-    std::string name;
+    * A PODS describing an element in a metric namespace.
+    */
+        struct NamespaceElement {
+            /**
+            * value is the static value of this node in a namespace.
+            * When a namespace element is _not_ dynamic, value is used. During
+            * metric collection, value should contain the static name for this metric.
+            */
+            std::string value;
 
-    /**
-     * description is the description of this namespace element.
-     */
-    std::string description;
-  };
+            /**
+            * name is used to describe what this dynamic element is querying against.
+            * E.g. in the namespace `/intel/kvm/[vm_id]/cpu_wait` the element at index
+            * 2 has the name "vm_id".
+            * @see value
+            */
+            std::string name;
 
-  enum DataType {
-    String = rpc::Metric::DataCase::kStringData,
-    Float32 = rpc::Metric::DataCase::kFloat32Data,
-    Float64 = rpc::Metric::DataCase::kFloat64Data,
-    Int32 = rpc::Metric::DataCase::kInt32Data,
-    Int64 = rpc::Metric::DataCase::kInt64Data,
-    Uint32 = rpc::Metric::DataCase::kUint32Data,
-    Uint64 = rpc::Metric::DataCase::kUint64Data,
-    Bool = rpc::Metric::DataCase::kBoolData,
-    NotSet = rpc::Metric::DataCase::DATA_NOT_SET,
+            /**
+            * description is the description of this namespace element.
+            */
+            std::string description;
+        };
 
-  };
+        enum DataType {
+            String = rpc::Metric::DataCase::kStringData,
+            Float32 = rpc::Metric::DataCase::kFloat32Data,
+            Float64 = rpc::Metric::DataCase::kFloat64Data,
+            Int32 = rpc::Metric::DataCase::kInt32Data,
+            Int64 = rpc::Metric::DataCase::kInt64Data,
+            Uint32 = rpc::Metric::DataCase::kUint32Data,
+            Uint64 = rpc::Metric::DataCase::kUint64Data,
+            Bool = rpc::Metric::DataCase::kBoolData,
+            NotSet = rpc::Metric::DataCase::DATA_NOT_SET,
+        };
 
-  Metric();
-  /**
-   * The typical metric constructor.
-   * @param ns The metric's namespace.
-   * @param unit The metric's unit.
-   * @param description The metric's description.
-   */
-  Metric(std::vector<NamespaceElement> ns, std::string unit,
-         std::string description);
+        Metric();
+        /**
+        * The typical metric constructor.
+        * @param ns The metric's namespace.
+        * @param unit The metric's unit.
+        * @param description The metric's description.
+        */
+        Metric(std::vector<NamespaceElement> ns, std::string unit,
+                std::string description);
 
-  /**
-   * This constructor is used in the plugin proxies.
-   * It's used to wrap the rpc::Metric and rpc::ConfigMap types with the metric
-   * type from this library.
-   */
-  explicit Metric(rpc::Metric* metric);
+        /**
+        * This constructor is used in the plugin proxies.
+        * It's used to wrap the rpc::Metric and rpc::ConfigMap types with the metric
+        * type from this library.
+        */
+        explicit Metric(rpc::Metric* metric);
 
-  Metric(const Metric& from);
+        Metric(const Metric& from);
 
-  ~Metric();
+        ~Metric();
 
-  /**
-   * ns returns the metric's namespace.
-   * If there is a memoized copy, that is returned. Else the namespace is
-   * copied into the cache then returned.
-   */
-  const std::vector<NamespaceElement>& ns() const;
+        /**
+        * ns returns the metric's namespace.
+        * If there is a memoized copy, that is returned. Else the namespace is
+        * copied into the cache then returned.
+        */
+        const std::vector<NamespaceElement>& ns() const;
 
-  /**
-   * dynamic_ns_elements returns the indices in the metric's namespace which
-   * are dynamic.
-   */
-  std::vector<int> dynamic_ns_elements() const;
+        /**
+        * dynamic_ns_elements returns the indices in the metric's namespace which
+        * are dynamic.
+        */
+        std::vector<int> dynamic_ns_elements() const;
 
-  /**
-   * set_ns sets the namespace of the metric in its `rpc::Metric` ptr.
-   * It also invalidates the memoization cache of the namespace if it is
-   * present.
-   * @see memo_ns
-   */
-  void set_ns(std::vector<NamespaceElement>);
+        /**
+        * set_ns sets the namespace of the metric in its `rpc::Metric` ptr.
+        * It also invalidates the memoization cache of the namespace if it is
+        * present.
+        * @see memo_ns
+        */
+        void set_ns(std::vector<NamespaceElement>);
 
-  /**
-   * tags returns the metric's tags.
-   * If there is a memoized copy, that is returned. Else the tags are copied
-   * into the cache then returned.
-   */
-  const std::map<std::string, std::string>& tags() const;
+        /**
+        * tags returns the metric's tags.
+        * If there is a memoized copy, that is returned. Else the tags are copied
+        * into the cache then returned.
+        */
+        const std::map<std::string, std::string>& tags() const;
 
-  /**
-   * set_ns adds tags to the metric in its `rpc::Metric` ptr.
-   * It also invalidates the memoization cache of the tags if it is
-   * present.
-   * @see memo_tags_ptr
-   */
-  void add_tag(std::pair<std::string, std::string>);
+        /**
+        * set_ns adds tags to the metric in its `rpc::Metric` ptr.
+        * It also invalidates the memoization cache of the tags if it is
+        * present.
+        * @see memo_tags_ptr
+        */
+        void add_tag(std::pair<std::string, std::string>);
 
-  /**
-   * timestamp returns the metric's collection timestamp.
-   */
-  std::chrono::system_clock::time_point timestamp() const;
-  /**
-   * set_timestamp sets the timestamp as now.
-   */
-  void set_timestamp();
+        /**
+        * timestamp returns the metric's collection timestamp.
+        */
+        std::chrono::system_clock::time_point timestamp() const;
+        /**
+        * set_timestamp sets the timestamp as now.
+        */
+        void set_timestamp();
 
-  /**
-   * set_timestamp sets the timestamp as tp.
-   * @param tp The timestamp to use.
-   */
-  void set_timestamp(std::chrono::system_clock::time_point tp);
+        /**
+        * set_timestamp sets the timestamp as tp.
+        * @param tp The timestamp to use.
+        */
+        void set_timestamp(std::chrono::system_clock::time_point tp);
 
-  /**
-   * set_last_advertised_time sets last_advertised_time as now.
-   */
-  void set_last_advertised_time();
+        /**
+        * set_last_advertised_time sets last_advertised_time as now.
+        */
+        void set_last_advertised_time();
 
-  /**
-   * set_last_advertised_time sets last_advertised_time as tp.
-   * @param tp The timestamp to use.
-   */
-  void set_last_advertised_time(std::chrono::system_clock::time_point tp);
+        /**
+        * set_last_advertised_time sets last_advertised_time as tp.
+        * @param tp The timestamp to use.
+        */
+        void set_last_advertised_time(std::chrono::system_clock::time_point tp);
 
-  DataType data_type();
+        DataType data_type();
 
-  /**
-   * set_data sets the metric instances data in the underlying rpc::Metric
-   * pointer.
-   */
-  void set_data(int32_t data);
-  void set_data(int64_t data);
-  void set_data(uint32_t data);
-  void set_data(uint64_t data);
-  void set_data(float data);
-  void set_data(double data);
-  void set_data(bool data);
-  void set_data(const std::string& data);
+        /**
+        * set_data sets the metric instances data in the underlying rpc::Metric
+        * pointer.
+        */
+        void set_data(int32_t data);
+        void set_data(int64_t data);
+        void set_data(uint32_t data);
+        void set_data(uint64_t data);
+        void set_data(float data);
+        void set_data(double data);
+        void set_data(bool data);
+        void set_data(const std::string& data);
 
-  /**
-   * Retrieve this metric's datapoint
-   */
-  int32_t get_int_data() const;
-  int64_t get_int64_data() const;
-  uint32_t get_uint32_data() const;
-  uint64_t get_uint64_data() const;
-  float get_float32_data() const;
-  double get_float64_data() const;
-  bool get_bool_data() const;
-  const std::string& get_string_data() const;
-  Config get_config() const;
-  const rpc::Metric* get_rpc_metric_ptr() const;
+        /**
+        * Retrieve this metric's datapoint
+        */
+        int32_t get_int_data() const;
+        int64_t get_int64_data() const;
+        uint32_t get_uint32_data() const;
+        uint64_t get_uint64_data() const;
+        float get_float32_data() const;
+        double get_float64_data() const;
+        bool get_bool_data() const;
+        const std::string& get_string_data() const;
+        Config get_config() const;
+        const rpc::Metric* get_rpc_metric_ptr() const;
 
- private:
-  rpc::Metric* rpc_metric_ptr;
-  Config config;
+        private:
+        rpc::Metric* rpc_metric_ptr;
+        Config config;
 
-  void inline set_ts(std::chrono::system_clock::time_point tp);
-  void inline set_last_advert_tm(std::chrono::system_clock::time_point tp);
+        void inline set_ts(std::chrono::system_clock::time_point tp);
+        void inline set_last_advert_tm(std::chrono::system_clock::time_point tp);
 
-  // memoized members
-  mutable std::vector<NamespaceElement> memo_ns;
-  mutable std::map<std::string, std::string> memo_tags;
+        // memoized members
+        mutable std::vector<NamespaceElement> memo_ns;
+        mutable std::map<std::string, std::string> memo_tags;
 
-  bool delete_metric_ptr;
-  DataType type;
-};
-
+        bool delete_metric_ptr;
+        DataType type;
+    };
 }   // namespace Plugin

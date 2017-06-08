@@ -21,36 +21,34 @@ limitations under the License.
 #include "snap/proxy/plugin_proxy.h"
 
 namespace Plugin {
-namespace Proxy {
+    namespace Proxy {
+        class CollectorImpl final : public rpc::Collector::Service {
+        public:
+            explicit CollectorImpl(Plugin::CollectorInterface* plugin);
 
-class CollectorImpl final : public rpc::Collector::Service {
- public:
-  explicit CollectorImpl(Plugin::CollectorInterface* plugin);
+            ~CollectorImpl();
 
-  ~CollectorImpl();
+            grpc::Status CollectMetrics(grpc::ServerContext* context,
+                                        const rpc::MetricsArg* req,
+                                        rpc::MetricsReply* resp);
 
-  grpc::Status CollectMetrics(grpc::ServerContext* context,
-                              const rpc::MetricsArg* req,
-                              rpc::MetricsReply* resp);
+            grpc::Status GetMetricTypes(grpc::ServerContext* context,
+                                        const rpc::GetMetricTypesArg* request,
+                                        rpc::MetricsReply* resp);
 
-  grpc::Status GetMetricTypes(grpc::ServerContext* context,
-                              const rpc::GetMetricTypesArg* request,
-                              rpc::MetricsReply* resp);
+            grpc::Status Kill(grpc::ServerContext* context, const rpc::KillArg* request,
+                                rpc::ErrReply* response);
 
-  grpc::Status Kill(grpc::ServerContext* context, const rpc::KillArg* request,
-                    rpc::ErrReply* response);
+            grpc::Status GetConfigPolicy(grpc::ServerContext* context,
+                                        const rpc::Empty* request,
+                                        rpc::GetConfigPolicyReply* resp);
 
-  grpc::Status GetConfigPolicy(grpc::ServerContext* context,
-                               const rpc::Empty* request,
-                               rpc::GetConfigPolicyReply* resp);
+            grpc::Status Ping(grpc::ServerContext* context, const rpc::Empty* request,
+                                rpc::ErrReply* resp);
 
-  grpc::Status Ping(grpc::ServerContext* context, const rpc::Empty* request,
-                    rpc::ErrReply* resp);
-
- private:
-  Plugin::CollectorInterface* collector;
-  PluginImpl* plugin_impl_ptr;
-};
-
-}  // namespace Proxy
+        private:
+            Plugin::CollectorInterface* collector;
+            PluginImpl* plugin_impl_ptr;
+        };
+    }  // namespace Proxy
 }  // namespace Plugin

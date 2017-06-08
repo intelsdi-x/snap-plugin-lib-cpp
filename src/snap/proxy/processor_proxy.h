@@ -21,32 +21,30 @@ limitations under the License.
 #include "snap/proxy/plugin_proxy.h"
 
 namespace Plugin {
-namespace Proxy {
+    namespace Proxy {
+        class ProcessorImpl final : public rpc::Processor::Service {
+        public:
+            explicit ProcessorImpl(Plugin::ProcessorInterface* plugin);
 
-class ProcessorImpl final : public rpc::Processor::Service {
- public:
-  explicit ProcessorImpl(Plugin::ProcessorInterface* plugin);
+            ~ProcessorImpl();
 
-  ~ProcessorImpl();
+            grpc::Status Process(grpc::ServerContext* context,
+                                const rpc::PubProcArg* req,
+                                rpc::MetricsReply* resp);
 
-  grpc::Status Process(grpc::ServerContext* context,
-                       const rpc::PubProcArg* req,
-                       rpc::MetricsReply* resp);
+            grpc::Status Kill(grpc::ServerContext* context, const rpc::KillArg* request,
+                                rpc::ErrReply* response);
 
-  grpc::Status Kill(grpc::ServerContext* context, const rpc::KillArg* request,
-                    rpc::ErrReply* response);
+            grpc::Status GetConfigPolicy(grpc::ServerContext* context,
+                                        const rpc::Empty* request,
+                                        rpc::GetConfigPolicyReply* resp);
 
-  grpc::Status GetConfigPolicy(grpc::ServerContext* context,
-                               const rpc::Empty* request,
-                               rpc::GetConfigPolicyReply* resp);
+            grpc::Status Ping(grpc::ServerContext* context, const rpc::Empty* request,
+                                rpc::ErrReply* resp);
 
-  grpc::Status Ping(grpc::ServerContext* context, const rpc::Empty* request,
-                    rpc::ErrReply* resp);
-
- private:
-  Plugin::ProcessorInterface* processor;
-  PluginImpl* plugin_impl_ptr;
-};
-
-}   // namespace Proxy
+        private:
+            Plugin::ProcessorInterface* processor;
+            PluginImpl* plugin_impl_ptr;
+        };
+    }   // namespace Proxy
 }   // namespace Plugin

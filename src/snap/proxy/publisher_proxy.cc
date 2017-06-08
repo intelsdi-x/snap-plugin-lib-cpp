@@ -37,48 +37,48 @@ using Plugin::Proxy::PublisherImpl;
 
 PublisherImpl::PublisherImpl(Plugin::PublisherInterface* plugin) :
                              publisher(plugin) {
-  plugin_impl_ptr = new PluginImpl(plugin);
+    plugin_impl_ptr = new PluginImpl(plugin);
 }
 
 PublisherImpl::~PublisherImpl() {
-  delete plugin_impl_ptr;
+    delete plugin_impl_ptr;
 }
 
 Status PublisherImpl::Publish(ServerContext* context, const PubProcArg* req,
                               ErrReply* resp) {
-  std::vector<Metric> metrics;
-  RepeatedPtrField<rpc::Metric> rpc_mets = req->metrics();
+    std::vector<Metric> metrics;
+    RepeatedPtrField<rpc::Metric> rpc_mets = req->metrics();
 
-  for (int i = 0; i < rpc_mets.size(); i++) {
-    metrics.emplace_back(rpc_mets.Mutable(i));
-  }
+    for (int i = 0; i < rpc_mets.size(); i++) {
+        metrics.emplace_back(rpc_mets.Mutable(i));
+    }
 
-  Plugin::Config config(req->config());
-  try {
-   publisher->publish_metrics(metrics, config);
-   return Status::OK;
-  } catch (PluginException &e) {
-   resp->set_error(e.what());
-   return Status(StatusCode::UNKNOWN, e.what());
-  }
+    Plugin::Config config(req->config());
+    try {
+        publisher->publish_metrics(metrics, config);
+        return Status::OK;
+    } catch (PluginException &e) {
+        resp->set_error(e.what());
+        return Status(StatusCode::UNKNOWN, e.what());
+    }
 }
 
 Status PublisherImpl::Kill(ServerContext* context, const KillArg* req,
                            ErrReply* resp) {
-  return plugin_impl_ptr->Kill(context, req, resp);
+    return plugin_impl_ptr->Kill(context, req, resp);
 }
 
 Status PublisherImpl::GetConfigPolicy(ServerContext* context, const Empty* req,
                                       GetConfigPolicyReply* resp) {
-  try {
-   return plugin_impl_ptr->GetConfigPolicy(context, req, resp);
-  } catch (PluginException &e) {
-   resp->set_error(e.what());
-   return Status(StatusCode::UNKNOWN, e.what());
-  }
+    try {
+        return plugin_impl_ptr->GetConfigPolicy(context, req, resp);
+    } catch (PluginException &e) {
+        resp->set_error(e.what());
+        return Status(StatusCode::UNKNOWN, e.what());
+    }
 }
 
 Status PublisherImpl::Ping(ServerContext* context, const Empty* req,
                            ErrReply* resp) {
-  return plugin_impl_ptr->Ping(context, req, resp);
+    return plugin_impl_ptr->Ping(context, req, resp);
 }

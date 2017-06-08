@@ -52,6 +52,9 @@ Dependencies:
 * grpc++ (see below)
 * libtool
 * make
+* [spdlog v0.13.0](https://github.com/gabime/spdlog/releases)
+* [boost c++ libs v1.58.0](http://www.boost.org)
+* [cpp-netlib v0.11.2](http://cpp-netlib.org)
 
 ### Building GRPC from source
 
