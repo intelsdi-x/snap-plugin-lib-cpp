@@ -60,10 +60,12 @@ class Metric final {
     Float32 = rpc::Metric::DataCase::kFloat32Data,
     Float64 = rpc::Metric::DataCase::kFloat64Data,
     Int32 = rpc::Metric::DataCase::kInt32Data,
-    // TODO(danielscottt)
-    // Int64 = rpc::Metric::DataCase::kInt64Data,
-    // Bytes = rpc::Metric::DataCase::kBytesData,
-    NotSet = rpc::Metric::DataCase::DATA_NOT_SET
+    Int64 = rpc::Metric::DataCase::kInt64Data,
+    Uint32 = rpc::Metric::DataCase::kUint32Data,
+    Uint64 = rpc::Metric::DataCase::kUint64Data,
+    Bool = rpc::Metric::DataCase::kBoolData,
+    NotSet = rpc::Metric::DataCase::DATA_NOT_SET,
+
   };
 
   Metric();
@@ -156,16 +158,24 @@ class Metric final {
    * pointer.
    */
   void set_data(int data);
+  void set_data(long int data);
+  void set_data(unsigned int data);
+  void set_data(unsigned long int data);
   void set_data(float data);
   void set_data(double data);
+  void set_data(bool data);
   void set_data(const std::string& data);
 
   /**
    * Retrieve this metric's datapoint
    */
   int get_int_data() const;
+  long int get_int64_data() const;
+  unsigned int get_uint32_data() const;
+  unsigned long int get_uint64_data() const;
   float get_float32_data() const;
   double get_float64_data() const;
+  bool get_bool_data() const;
   const std::string& get_string_data() const;
   Config get_config() const;
   const rpc::Metric* get_rpc_metric_ptr() const;

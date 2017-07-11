@@ -173,8 +173,6 @@ Metric::DataType Metric::data_type() {
   return (Metric::DataType)rpc_metric_ptr->data_case();
 }
 
-// TODO(danielscottt): figure out the whole ::google::protobuf::int{32,64}
-// thing
 void Metric::set_data(float data) {
   type = DataType::Float32;
   rpc_metric_ptr->set_float32_data(data);
@@ -190,6 +188,26 @@ void Metric::set_data(int data) {
   rpc_metric_ptr->set_int32_data(data);
 }
 
+void Metric::set_data(long int data) {
+  type = DataType::Int64;
+  rpc_metric_ptr->set_int64_data(data);
+}
+
+void Metric::set_data(unsigned int data) {
+  type = DataType::Uint32;
+  rpc_metric_ptr->set_uint32_data(data);
+}
+
+void Metric::set_data(unsigned long int data) {
+  type = DataType::Uint64;
+  rpc_metric_ptr->set_uint64_data(data);
+}
+
+void Metric::set_data(bool data) {
+  type = DataType::Bool;
+  rpc_metric_ptr->set_bool_data(data);
+}
+
 void Metric::set_data(const std::string& data) {
   type = DataType::String;
   rpc_metric_ptr->set_string_data(data);
@@ -199,12 +217,28 @@ int Metric::get_int_data() const {
   return rpc_metric_ptr->int32_data();
 }
 
+long int Metric::get_int64_data() const {
+  return rpc_metric_ptr->int64_data();
+}
+
 float Metric::get_float32_data() const {
   return rpc_metric_ptr->float32_data();
 }
 
 double Metric::get_float64_data() const {
   return rpc_metric_ptr->float64_data();
+}
+
+unsigned int Metric::get_uint32_data() const {
+  return rpc_metric_ptr->uint32_data();
+}
+
+unsigned long int Metric::get_uint64_data() const {
+  return rpc_metric_ptr->uint64_data();
+}
+
+bool Metric::get_bool_data() const {
+  return rpc_metric_ptr->bool_data();
 }
 
 const std::string& Metric::get_string_data() const {

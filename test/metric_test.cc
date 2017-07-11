@@ -139,12 +139,32 @@ TEST(MetricTest, SetLastAdvertisedTimeWorks) {
 
 TEST(MetricTest, SetDataWorks) {
     Metric fake_metric;
-    fake_metric.set_data("hop");
-    EXPECT_EQ("hop", fake_metric.get_string_data());
-    fake_metric.set_data(3.14159f);
-    EXPECT_EQ(3.14159f, fake_metric.get_float32_data());
-    fake_metric.set_data(1.73205);
-    EXPECT_EQ(1.73205, fake_metric.get_float64_data());
-    fake_metric.set_data(4099);
-    EXPECT_EQ(4099, fake_metric.get_int_data());
+
+    const string string_var = "hop";
+    fake_metric.set_data(string_var);
+    EXPECT_EQ(string_var, fake_metric.get_string_data());
+
+    float float_var = 3.14159;
+    fake_metric.set_data(float_var);
+    EXPECT_EQ(float_var, fake_metric.get_float32_data());
+
+    double double_var = 1.73205;
+    fake_metric.set_data(double_var);
+    EXPECT_EQ(double_var, fake_metric.get_float64_data());
+
+    int int_var = 40990;
+    fake_metric.set_data(int_var);
+    EXPECT_EQ(int_var, fake_metric.get_int_data());
+
+    long int long_int_var = 40991;
+    fake_metric.set_data(long_int_var);
+    EXPECT_EQ(long_int_var, fake_metric.get_int64_data());
+
+    unsigned int uint_var = 40992;
+    fake_metric.set_data(uint_var);
+    EXPECT_EQ(uint_var, fake_metric.get_uint32_data());
+
+    unsigned long int ulong_int_var = 40993;
+    fake_metric.set_data(ulong_int_var);
+    EXPECT_EQ(ulong_int_var, fake_metric.get_uint64_data());
 }
