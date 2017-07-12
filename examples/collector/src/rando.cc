@@ -13,6 +13,8 @@ limitations under the License.
 */
 #include "rando.h"
 
+#include <map>
+#include <string>
 #include <time.h>
 #include <vector>
 
@@ -26,6 +28,29 @@ using Plugin::Metric;
 using Plugin::Meta;
 using Plugin::Type;
 
+enum supported_types
+{
+    float32,
+    float64,
+    int32,
+    int64,
+    uint32,
+    uint64,
+    boolean,
+	string
+};
+
+std::map<std::string, int> metric_types{
+   {"float32", float32},
+   {"float64", float64},
+   {"int32", int32},
+   {"int64", int64},
+   {"uint32", uint32},
+   {"uint64", uint64},
+   {"boolean", boolean},
+   {"string", string},
+};
+
 const ConfigPolicy Rando::get_config_policy() {
   ConfigPolicy policy;
   policy.add_rule({"intel", "cpp"},
@@ -36,7 +61,7 @@ const ConfigPolicy Rando::get_config_policy() {
       false
     }
   });
-  policy.add_rule({"intel", "cpp", "mock", "randomnumber", "one"},
+  policy.add_rule({"intel", "cpp", "mock", "randomnumber", "float32"},
   Plugin::StringRule{
     "password",
     {
@@ -55,10 +80,10 @@ std::vector<Metric> Rando::get_metric_types(Config cfg) {
         {"cpp", "", ""},
         {"mock", "", ""},
         {"randomnumber", "", ""},
-        {"one", "", ""},
+        {"float32", "", ""},
       },
       "",
-      "the first random number"
+      "float32 random number"
     },
     {
       {
@@ -66,10 +91,76 @@ std::vector<Metric> Rando::get_metric_types(Config cfg) {
         {"cpp", "", ""},
         {"mock", "", ""},
         {"randomnumber", "", ""},
-        {"two", "", ""},
+        {"float64", "", ""},
       },
       "",
-      "the second random number"
+      "float64 random number"
+    },
+    {
+      {
+        {"intel", "", ""},
+        {"cpp", "", ""},
+        {"mock", "", ""},
+        {"randomnumber", "", ""},
+        {"int32", "", ""},
+      },
+      "",
+      "int32 random number"
+    },
+    {
+      {
+        {"intel", "", ""},
+        {"cpp", "", ""},
+        {"mock", "", ""},
+        {"randomnumber", "", ""},
+        {"int64", "", ""},
+      },
+      "",
+      "int64 random number"
+    },
+    {
+      {
+        {"intel", "", ""},
+        {"cpp", "", ""},
+        {"mock", "", ""},
+        {"randomnumber", "", ""},
+        {"uint32", "", ""},
+      },
+      "",
+      "uint32 random number"
+    },
+    {
+      {
+        {"intel", "", ""},
+        {"cpp", "", ""},
+        {"mock", "", ""},
+        {"randomnumber", "", ""},
+        {"uint64", "", ""},
+      },
+      "",
+      "uint64 random number"
+    },
+    {
+      {
+        {"intel", "", ""},
+        {"cpp", "", ""},
+        {"mock", "", ""},
+        {"randomboolean", "", ""},
+        {"boolean", "", ""},
+      },
+      "",
+      "random boolean"
+    },
+    {
+      {
+        {"intel", "", ""},
+        {"cpp", "", ""},
+        {"mock", "", ""},
+        {"randomstring", "", ""},
+        {"string", "", ""},
+      },
+      "",
+      "random string"
     }
   };
   return metrics;
@@ -78,8 +169,38 @@ std::vector<Metric> Rando::get_metric_types(Config cfg) {
 void Rando::collect_metrics(std::vector<Metric> &metrics) {
   std::vector<Metric>::iterator mets_iter;
   unsigned int seed = time(NULL);
+  int random_value = rand_r(&seed) % 1000;
+
   for (mets_iter = metrics.begin(); mets_iter != metrics.end(); mets_iter++) {
-    mets_iter->set_data(rand_r(&seed) % 1000);
+    std::string ns_mts_type = mets_iter->ns()[4].value;
+    int mts_type = metric_types[ns_mts_type];
+
+    switch(mts_type) {
+    case supported_types::float32:
+        mets_iter->set_data((float)random_value);
+        break;
+    case supported_types::float64:
+        mets_iter->set_data((double)random_value);
+        break;
+    case supported_types::int32:
+        mets_iter->set_data((int32_t)random_value);
+        break;
+    case supported_types::int64:
+        mets_iter->set_data((int64_t)random_value);
+        break;
+    case supported_types::uint32:
+        mets_iter->set_data((uint32_t)random_value);
+        break;
+    case supported_types::uint64:
+        mets_iter->set_data((uint64_t)random_value);
+        break;
+    case supported_types::boolean:
+        mets_iter->set_data(random_value%2 ? true : false);
+        break;
+    case supported_types::string:
+        mets_iter->set_data(std::to_string(random_value));
+        break;
+    }
     mets_iter->set_timestamp();
   }
 }
