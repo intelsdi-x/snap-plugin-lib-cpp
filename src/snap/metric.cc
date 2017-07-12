@@ -13,17 +13,10 @@ limitations under the License.
 */
 #include "snap/metric.h"
 
-#include <utility>
-#include <chrono>
-#include <cstdint>
 #include <ratio>
-#include <vector>
-#include <map>
-
 
 #include <google/protobuf/repeated_field.h>
 
-#include "snap/rpc/plugin.pb.h"
 
 
 using std::chrono::system_clock;
