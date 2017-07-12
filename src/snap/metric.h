@@ -14,10 +14,12 @@ limitations under the License.
 #pragma once
 
 #include <chrono>
+#include <cstdint>
 #include <map>
 #include <string>
 #include <utility>
 #include <vector>
+
 
 #include "snap/rpc/plugin.pb.h"
 
@@ -157,10 +159,10 @@ class Metric final {
    * set_data sets the metric instances data in the underlying rpc::Metric
    * pointer.
    */
-  void set_data(int data);
-  void set_data(long int data);
-  void set_data(unsigned int data);
-  void set_data(unsigned long int data);
+  void set_data(int32_t data);
+  void set_data(int64_t data);
+  void set_data(uint32_t data);
+  void set_data(uint64_t data);
   void set_data(float data);
   void set_data(double data);
   void set_data(bool data);
@@ -169,10 +171,10 @@ class Metric final {
   /**
    * Retrieve this metric's datapoint
    */
-  int get_int_data() const;
-  long int get_int64_data() const;
-  unsigned int get_uint32_data() const;
-  unsigned long int get_uint64_data() const;
+  int32_t get_int_data() const;
+  int64_t get_int64_data() const;
+  uint32_t get_uint32_data() const;
+  uint64_t get_uint64_data() const;
   float get_float32_data() const;
   double get_float64_data() const;
   bool get_bool_data() const;

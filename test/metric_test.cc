@@ -16,10 +16,12 @@ limitations under the License.
 #include "gtest/gtest.h"
 
 #include <chrono>
+#include <cstdint>
 #include <ctime>
 #include <sstream>
 #include <string>
 #include <vector>
+
 
 using std::chrono::system_clock;
 using std::make_pair;
@@ -152,19 +154,19 @@ TEST(MetricTest, SetDataWorks) {
     fake_metric.set_data(double_var);
     EXPECT_EQ(double_var, fake_metric.get_float64_data());
 
-    int int_var = 40990;
-    fake_metric.set_data(int_var);
-    EXPECT_EQ(int_var, fake_metric.get_int_data());
+    int32_t int32_var = 40990;
+    fake_metric.set_data(int32_var);
+    EXPECT_EQ(int32_var, fake_metric.get_int_data());
 
-    long int long_int_var = 40991;
-    fake_metric.set_data(long_int_var);
-    EXPECT_EQ(long_int_var, fake_metric.get_int64_data());
+    int64_t int64_var = 40991;
+    fake_metric.set_data(int64_var);
+    EXPECT_EQ(int64_var, fake_metric.get_int64_data());
 
-    unsigned int uint_var = 40992;
-    fake_metric.set_data(uint_var);
-    EXPECT_EQ(uint_var, fake_metric.get_uint32_data());
+    uint32_t uint32_var = 40992;
+    fake_metric.set_data(uint32_var);
+    EXPECT_EQ(uint32_var, fake_metric.get_uint32_data());
 
-    unsigned long int ulong_int_var = 40993;
-    fake_metric.set_data(ulong_int_var);
-    EXPECT_EQ(ulong_int_var, fake_metric.get_uint64_data());
+    uint64_t uint64_var = 40993;
+    fake_metric.set_data(uint64_var);
+    EXPECT_EQ(uint64_var, fake_metric.get_uint64_data());
 }

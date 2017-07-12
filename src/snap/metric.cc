@@ -15,9 +15,11 @@ limitations under the License.
 
 #include <utility>
 #include <chrono>
+#include <cstdint>
 #include <ratio>
 #include <vector>
 #include <map>
+
 
 #include <google/protobuf/repeated_field.h>
 
@@ -183,22 +185,22 @@ void Metric::set_data(double data) {
   rpc_metric_ptr->set_float64_data(data);
 }
 
-void Metric::set_data(int data) {
+void Metric::set_data(int32_t data) {
   type = DataType::Int32;
   rpc_metric_ptr->set_int32_data(data);
 }
 
-void Metric::set_data(long int data) {
+void Metric::set_data(int64_t data) {
   type = DataType::Int64;
   rpc_metric_ptr->set_int64_data(data);
 }
 
-void Metric::set_data(unsigned int data) {
+void Metric::set_data(uint32_t data) {
   type = DataType::Uint32;
   rpc_metric_ptr->set_uint32_data(data);
 }
 
-void Metric::set_data(unsigned long int data) {
+void Metric::set_data(uint64_t data) {
   type = DataType::Uint64;
   rpc_metric_ptr->set_uint64_data(data);
 }
@@ -213,12 +215,20 @@ void Metric::set_data(const std::string& data) {
   rpc_metric_ptr->set_string_data(data);
 }
 
-int Metric::get_int_data() const {
+int32_t Metric::get_int_data() const {
   return rpc_metric_ptr->int32_data();
 }
 
-long int Metric::get_int64_data() const {
+int64_t Metric::get_int64_data() const {
   return rpc_metric_ptr->int64_data();
+}
+
+uint32_t Metric::get_uint32_data() const {
+  return rpc_metric_ptr->uint32_data();
+}
+
+uint64_t Metric::get_uint64_data() const {
+  return rpc_metric_ptr->uint64_data();
 }
 
 float Metric::get_float32_data() const {
@@ -227,14 +237,6 @@ float Metric::get_float32_data() const {
 
 double Metric::get_float64_data() const {
   return rpc_metric_ptr->float64_data();
-}
-
-unsigned int Metric::get_uint32_data() const {
-  return rpc_metric_ptr->uint32_data();
-}
-
-unsigned long int Metric::get_uint64_data() const {
-  return rpc_metric_ptr->uint64_data();
 }
 
 bool Metric::get_bool_data() const {
