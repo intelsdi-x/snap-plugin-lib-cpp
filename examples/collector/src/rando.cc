@@ -37,7 +37,7 @@ enum supported_types
     uint32,
     uint64,
     boolean,
-	string
+    string
 };
 
 std::map<std::string, int> metric_types{
