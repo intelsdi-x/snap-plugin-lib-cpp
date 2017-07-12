@@ -20,7 +20,6 @@ limitations under the License.
 #include <utility>
 #include <vector>
 
-
 #include "snap/rpc/plugin.pb.h"
 
 #include "snap/config.h"

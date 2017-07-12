@@ -84,7 +84,6 @@ void Log::publish_metrics(std::vector<Metric> &metrics,
     // data
     outfile << "] " << "data: ";
     switch (mets_iter->data_type()) {
-
       case Metric::DataType::Float32:
         outfile << mets_iter->get_float32_data() << "\n";
         break;
