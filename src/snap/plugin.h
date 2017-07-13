@@ -26,7 +26,6 @@ limitations under the License.
 #define RPC_VERSION 1
 
 namespace Plugin {
-
     class CollectorInterface;
     class ProcessorInterface;
     class PublisherInterface;
@@ -150,17 +149,17 @@ namespace Plugin {
         /**
         * Necessary to provide when TLS enabled
         */
-        std::string cert_path;
+        std::string tls_certificate_crt_path;
 
         /**
         * Necessary to provide when TLS enabled
         */
-        std::string key_path;
+        std::string tls_certificate_key_path;
 
         /**
-        * Root path separator
+        * Neccessary to proivide when TLS Enabled. 
         */
-        std::string root_cert_paths;
+        std::string tls_certificate_authority_paths;
 
         /**
         * Enable stand-alone plugin
@@ -307,5 +306,4 @@ namespace Plugin {
     void start_collector(CollectorInterface* plg, const Meta& meta);
     void start_processor(ProcessorInterface* plg, const Meta& meta);
     void start_publisher(PublisherInterface* plg, const Meta& meta);
-
 };  // namespace Plugin

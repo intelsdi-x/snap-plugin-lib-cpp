@@ -21,10 +21,12 @@ limitations under the License.
 
 #include <grpc++/grpc++.h>
 #include <json.hpp>
+#include <spdlog/spdlog.h>
 
 #include "snap/config.h"
 #include "snap/metric.h"
 
+namespace spd = spdlog;
 #define RPC_VERSION 1
 
 namespace Plugin {
@@ -39,13 +41,20 @@ namespace Plugin {
         std::future<void> DoExport(std::shared_ptr<PluginInterface> plugin, const Meta* meta);
         struct handler_type;
 
+        GRPCExportImpl () {
+          _logger = spdlog::stderr_logger_mt("gprcExportImpl");
+        }
+
     protected:
         int port;
         std::shared_ptr<PluginInterface> plugin;
         const Meta* meta;
+        std::shared_ptr<grpc::ServerCredentials> credentials;
         std::unique_ptr<grpc::Service> service;
         std::unique_ptr<grpc::ServerBuilder> builder;
         std::unique_ptr<grpc::Server> server;
+
+        std::shared_ptr<grpc::ServerCredentials> configureCredentials();
 
         /* steps of the export procedure */
         void doConfigure();
@@ -56,5 +65,13 @@ namespace Plugin {
         void doJoin();
 
         int start_stand_alone(const int &httpPort);
+    private:
+        bool file_exists(const std::string);
+        std::string readFile(std::string);
+        std::string read_if_exists(std::string);
+        std::string load_key(std::string);
+        std::string load_directory(std::string);
+        std::string load_tls_ca(std::string);
+        std::shared_ptr<spd::logger> _logger;
     };
 }

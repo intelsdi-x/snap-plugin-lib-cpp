@@ -45,6 +45,7 @@ function<unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter
 Plugin::PluginException::PluginException(const std::string& message) :
                                             runtime_error(message) {}
 
+
 Plugin::Meta::Meta(Type type, std::string name, int version) :
                     type(type),
                     name(name),
@@ -59,9 +60,9 @@ Plugin::Meta::Meta(Type type, std::string name, int version) :
                     listen_addr("127.0.0.1"),
                     pprof_enabled(false),
                     tls_enabled(false),
-                    cert_path(""),
-                    key_path(""),
-                    root_cert_paths("::"),
+                    tls_certificate_key_path(""),
+                    tls_certificate_crt_path(""),
+                    tls_certificate_authority_paths(""),
                     stand_alone(false),
                     stand_alone_port(stand_alone_port),
                     max_collect_duration(std::chrono::seconds(10)),
@@ -81,9 +82,9 @@ Plugin::Meta::Meta(Type type, std::string name, int version, Flags *flags) :
                     listen_addr(flags->GetFlagStrValue("addr")),
                     pprof_enabled(flags->IsParsedFlag("pprof")),
                     tls_enabled(flags->IsParsedFlag("tls")),
-                    cert_path(flags->GetFlagStrValue("cert-path")),
-                    key_path(flags->GetFlagStrValue("key-path")),
-                    root_cert_paths(flags->GetFlagStrValue("root-cert-paths")),
+                    tls_certificate_crt_path(flags->GetFlagStrValue("cert-path")),
+                    tls_certificate_key_path(flags->GetFlagStrValue("key-path")),
+                    tls_certificate_authority_paths(flags->GetFlagStrValue("root-cert-paths")),
                     stand_alone(flags->IsParsedFlag("stand-alone")),
                     stand_alone_port(flags->GetFlagIntValue("stand-alone-port")),
                     max_collect_duration(std::chrono::seconds(flags->GetFlagIntValue("max-collect-duration"))),

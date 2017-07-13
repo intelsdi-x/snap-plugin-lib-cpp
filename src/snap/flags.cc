@@ -11,10 +11,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-#include <map>
 #include <iostream>
+#include <list>
+#include <map>
 
 #include <boost/any.hpp>
+#include <json.hpp>
 #include <spdlog/spdlog.h>
 
 #include "snap/flags.h"
@@ -26,7 +28,8 @@ limitations under the License.
 #define LOG_LEVEL 2
 #define CERT_PATH ""
 #define KEY_PATH ""
-#define ROOT_CERT_PATHS "::"
+#define ROOT_CERT_PATHS ""
+#define CIPHER_SUITES ""
 #define STAND_ALONE_PORT 8182
 #define MAX_COLLECT_DURATION 10
 #define MAX_METRICS_BUFFER 0
@@ -36,6 +39,35 @@ limitations under the License.
 
 namespace po = boost::program_options;
 namespace spd = spdlog;
+using json = nlohmann::json;
+
+
+namespace Plugin {
+  namespace JsonHelpers {
+    nlohmann::json generateJsonFromCommandLine(char* cmd_line);
+    nlohmann::json removeUnusedFlags(nlohmann::json j);
+    void generateCommandLineFromJson(nlohmann::json jsonArgs, char** argv, int index);
+    std::map<std::string, std::string> _pretty_flags = {{"TLSEnabled", "tls"},
+                                                        {"LogLevel", "log-level"},
+                                                        {"CertPath", "cert-path"},
+                                                        {"KeyPath", "key-path"},
+                                                        {"RootCertPaths", "root-cert-paths"},
+                                                        {"Pprof", "pprof"}};
+    bool isFlag(std::string flag);
+    char* copyStringStream(std::stringstream& src);
+    std::shared_ptr<spd::logger> _logger = spdlog::stderr_logger_mt("jsonhelpers"); 
+
+  }
+}
+
+bool Plugin::JsonHelpers::isFlag(std::string flag) {
+  bool retVal = false;
+  if (_pretty_flags.find(flag) != _pretty_flags.end()) {
+    retVal = true;
+  }
+  return retVal;
+}
+
 // Group of options allowed only on command line
 int Plugin::Flags::addDefaultCommandFlags() {
     try {
@@ -64,7 +96,7 @@ int Plugin::Flags::addDefaultGlobalFlags() {
             ("tls", "Enable TLS")
             ("cert-path", po::value<std::string>(&_cert_path)->default_value(CERT_PATH), "Necessary to provide when TLS enabled")
             ("key-path", po::value<std::string>(&_key_path)->default_value(KEY_PATH), "Necessary to provide when TLS enabled")
-            ("root-cert-paths", po::value<std::string>(&_root_cert_paths)->default_value(ROOT_CERT_PATHS), "Root paths separator")
+            ("root-cert-paths", po::value<std::string>(&_root_cert_paths)->default_value(ROOT_CERT_PATHS), "Necessary to provide when TLS enabled.")
             ("stand-alone", "Enable stand-alone plugin")
             ("stand-alone-port", po::value<int>(&_stand_alone_port)->default_value(STAND_ALONE_PORT),
                 "Specify http port when stand-alone is set")
@@ -273,6 +305,14 @@ int Plugin::Flags::SetCombinedFlags() {
 
 int Plugin::Flags::parseCommandLineFlags(const int &argc, char **argv) {
     try {
+      if (parsejsonFlags(argc, argv) == 0) {
+        return 0;
+      }
+    }
+    catch (std::exception &e) {
+      _logger->debug(e.what());
+    }
+    try {
         po::store(po::command_line_parser(argc, argv).options(_command_line).run(), _flags);
         po::notify(_flags);
 
@@ -285,6 +325,93 @@ int Plugin::Flags::parseCommandLineFlags(const int &argc, char **argv) {
         _logger->error(e.what());
         return 1;
     }
+}
+
+/* 
+ * The Go plugin lib assumes that the first item command line arguement might
+ * be JSON. This function checks for JSON and does the following:
+ *
+ *   If it is JSON it parses it out and runs the parseCommandLineFlags() function
+ *   Otherwise it logs a debug message with the error, and returns failure.
+ */
+int Plugin::Flags::parsejsonFlags(const int &argc, char** argv) {
+  if (argc <= 1) {
+    return 1;
+  }
+  int retVal = 1;
+
+  json jsonArgs;
+
+  try {
+    jsonArgs = Plugin::JsonHelpers::generateJsonFromCommandLine(argv[1]);
+  }
+  catch (std::exception &e) {
+    _logger->debug(e.what());
+    return retVal;
+  }
+
+  jsonArgs = Plugin::JsonHelpers::removeUnusedFlags(jsonArgs);
+
+  int newArgc = argc + (jsonArgs.size() * 2) - 1;
+  char **newArgv = new char*[newArgc];
+  int i = 0;
+
+  newArgv[i] = argv[i];
+  for (i = 1; i < argc - 1; i++){
+    newArgv[i] = argv[i + 1];
+  }
+
+  Plugin::JsonHelpers::generateCommandLineFromJson(jsonArgs, newArgv, i);
+
+  retVal = parseCommandLineFlags(newArgc, newArgv);
+
+  return retVal;
+}
+
+json Plugin::JsonHelpers::generateJsonFromCommandLine(char* cmd_line){
+  std::stringstream ss;
+  json j;
+  ss << cmd_line;
+  ss >> j;
+  return j;
+}
+
+json Plugin::JsonHelpers::removeUnusedFlags(json j) {
+  std::list<std::string> notFlag;
+  for (json::iterator it = j.begin(); it != j.end(); it++) {
+    if (!isFlag(it.key())) {
+      std::stringstream error;
+      error << "Key provided but not supported: " << it.key() << std::endl;
+      _logger->error(error.str());
+      notFlag.push_back(it.key());
+    }
+  }
+
+  for (auto flag : notFlag) {
+    j.erase(flag);
+  }
+  return j;
+}
+
+void Plugin::JsonHelpers::generateCommandLineFromJson(json jsonArgs, char** argv, int index) {
+  std::stringstream temp_ss;
+  for (json::iterator it = jsonArgs.begin(); it != jsonArgs.end(); it++) {
+    temp_ss = std::stringstream();
+    temp_ss << "--";
+    temp_ss << _pretty_flags[it.key()];
+    argv[index++] = Plugin::JsonHelpers::copyStringStream(temp_ss);
+    temp_ss = std::stringstream();
+    temp_ss << it.value();
+    argv[index++] = copyStringStream(temp_ss);
+  }
+}
+
+char* Plugin::JsonHelpers::copyStringStream(std::stringstream& src) {
+  std::string temp_str(src.str());
+  temp_str.erase(std::remove(temp_str.begin(), temp_str.end(), '"'), temp_str.end());
+  char* dest = new char[temp_str.size() + 1];
+  memcpy(dest, temp_str.c_str(), temp_str.size() + 1);
+  return dest;
 }
 
 int Plugin::Flags::parseConfigFileFlags(std::string filePathAndName /*=""*/) {

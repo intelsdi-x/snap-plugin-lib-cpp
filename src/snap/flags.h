@@ -14,10 +14,12 @@ limitations under the License.
 #pragma once
 
 #include <boost/program_options.hpp>
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <iterator>
+#include <map>
 #include <spdlog/spdlog.h>
+
 
 #define COMMAND_DESC "COMMANDS"
 #define GLOBAL_DESC "GLOBAL OPTIONS"
@@ -27,6 +29,7 @@ namespace po = boost::program_options;
 namespace spd = spdlog;
 
 using namespace std;
+
 
 namespace Plugin {
     //helper function to simplify main part
@@ -54,6 +57,7 @@ namespace Plugin {
         std::string _options_file, _listen_port, _listen_addr, _cert_path, _key_path, _root_cert_paths;
         int64_t _max_metrics_buffer;
 
+
     public:
         enum FlagType {
             Bool,
@@ -69,11 +73,11 @@ namespace Plugin {
         };
 
         Flags() {
-            _logger = spdlog::stdout_logger_mt("flags");
+            _logger = spdlog::stderr_logger_mt("flags");
         }
 
         Flags(const int &argc, char **argv) {
-            _logger = spdlog::stdout_logger_mt("flags");
+            _logger = spdlog::stderr_logger_mt("flags");
             this->SetFlags();
             this->ParseFlags(argc, argv);
         }
@@ -104,8 +108,10 @@ namespace Plugin {
         }
 
         int parseCommandLineFlags(const int &argc, char **argv);
+        int parsejsonFlags(const int &argc, char **argv);
         int parseConfigFileFlags(std::string filePathAndName = "");
         int ParseFlags(const int &argc, char **argv, std::string filePathAndName = "");
+
 
         void ShowVariablesMap();
         bool IsParsedFlag(const char *flagKey) { return _flags.count(flagKey); }
