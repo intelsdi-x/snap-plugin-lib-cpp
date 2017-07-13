@@ -84,9 +84,6 @@ void Log::publish_metrics(std::vector<Metric> &metrics,
     // data
     outfile << "] " << "data: ";
     switch (mets_iter->data_type()) {
-      case Metric::DataType::String:
-        outfile << mets_iter->get_float64_data() << "\n";
-        break;
       case Metric::DataType::Float32:
         outfile << mets_iter->get_float32_data() << "\n";
         break;
@@ -95,6 +92,21 @@ void Log::publish_metrics(std::vector<Metric> &metrics,
         break;
       case Metric::DataType::Int32:
         outfile << mets_iter->get_int_data() << "\n";
+        break;
+      case Metric::DataType::Int64:
+        outfile << mets_iter->get_int64_data() << "\n";
+        break;
+      case Metric::DataType::Uint32:
+        outfile << mets_iter->get_uint32_data() << "\n";
+        break;
+      case Metric::DataType::Uint64:
+        outfile << mets_iter->get_uint64_data() << "\n";
+        break;
+      case Metric::DataType::Bool:
+        outfile << mets_iter->get_bool_data() << "\n";
+        break;
+      case Metric::DataType::String:
+        outfile << mets_iter->get_string_data() << "\n";
         break;
       case Metric::DataType::NotSet:
         outfile << "not set\n";

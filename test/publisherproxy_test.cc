@@ -62,7 +62,8 @@ TEST(PublisherProxySuccessTest, PublishWorks) {
     EXPECT_NO_THROW({
         PublisherImpl publisher(&mockee);
         rpc::PubProcArg args;
-        mockee.fake_metric.set_data("hop");
+        const string data = "hop";
+        mockee.fake_metric.set_data(data);
         *args.add_metrics() = *mockee.fake_metric.get_rpc_metric_ptr();
         status = publisher.Publish(nullptr, &args, &resp);
     });
@@ -118,7 +119,8 @@ TEST(PublisherProxyFailureTest, PublishReportsError) {
     EXPECT_NO_THROW({
                         PublisherImpl publisher(&mockee);
                         rpc::PubProcArg args;
-                        mockee.fake_metric.set_data("hop");
+                        const string data = "hop";
+                        mockee.fake_metric.set_data(data);
                         *args.add_metrics() = *mockee.fake_metric.get_rpc_metric_ptr();
                         status = publisher.Publish(nullptr, &args, &resp);
                     });

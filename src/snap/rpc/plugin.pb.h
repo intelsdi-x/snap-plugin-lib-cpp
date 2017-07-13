@@ -40,6 +40,8 @@ void protobuf_ShutdownFile_plugin_2eproto();
 
 class BoolPolicy;
 class BoolRule;
+class CollectArg;
+class CollectReply;
 class ConfigMap;
 class Empty;
 class ErrReply;
@@ -60,6 +62,212 @@ class StringRule;
 class Time;
 
 // ===================================================================
+
+class CollectArg : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:rpc.CollectArg) */ {
+ public:
+  CollectArg();
+  virtual ~CollectArg();
+
+  CollectArg(const CollectArg& from);
+
+  inline CollectArg& operator=(const CollectArg& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CollectArg& default_instance();
+
+  void Swap(CollectArg* other);
+
+  // implements Message ----------------------------------------------
+
+  inline CollectArg* New() const { return New(NULL); }
+
+  CollectArg* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const CollectArg& from);
+  void MergeFrom(const CollectArg& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(CollectArg* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional .rpc.MetricsArg Metrics_Arg = 1;
+  bool has_metrics_arg() const;
+  void clear_metrics_arg();
+  static const int kMetricsArgFieldNumber = 1;
+  const ::rpc::MetricsArg& metrics_arg() const;
+  ::rpc::MetricsArg* mutable_metrics_arg();
+  ::rpc::MetricsArg* release_metrics_arg();
+  void set_allocated_metrics_arg(::rpc::MetricsArg* metrics_arg);
+
+  // optional int64 MaxCollectDuration = 2;
+  void clear_maxcollectduration();
+  static const int kMaxCollectDurationFieldNumber = 2;
+  ::google::protobuf::int64 maxcollectduration() const;
+  void set_maxcollectduration(::google::protobuf::int64 value);
+
+  // optional int64 MaxMetricsBuffer = 3;
+  void clear_maxmetricsbuffer();
+  static const int kMaxMetricsBufferFieldNumber = 3;
+  ::google::protobuf::int64 maxmetricsbuffer() const;
+  void set_maxmetricsbuffer(::google::protobuf::int64 value);
+
+  // optional bytes Other = 4;
+  void clear_other();
+  static const int kOtherFieldNumber = 4;
+  const ::std::string& other() const;
+  void set_other(const ::std::string& value);
+  void set_other(const char* value);
+  void set_other(const void* value, size_t size);
+  ::std::string* mutable_other();
+  ::std::string* release_other();
+  void set_allocated_other(::std::string* other);
+
+  // @@protoc_insertion_point(class_scope:rpc.CollectArg)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::rpc::MetricsArg* metrics_arg_;
+  ::google::protobuf::int64 maxcollectduration_;
+  ::google::protobuf::int64 maxmetricsbuffer_;
+  ::google::protobuf::internal::ArenaStringPtr other_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_plugin_2eproto();
+  friend void protobuf_AssignDesc_plugin_2eproto();
+  friend void protobuf_ShutdownFile_plugin_2eproto();
+
+  void InitAsDefaultInstance();
+  static CollectArg* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class CollectReply : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:rpc.CollectReply) */ {
+ public:
+  CollectReply();
+  virtual ~CollectReply();
+
+  CollectReply(const CollectReply& from);
+
+  inline CollectReply& operator=(const CollectReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CollectReply& default_instance();
+
+  void Swap(CollectReply* other);
+
+  // implements Message ----------------------------------------------
+
+  inline CollectReply* New() const { return New(NULL); }
+
+  CollectReply* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const CollectReply& from);
+  void MergeFrom(const CollectReply& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(CollectReply* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional .rpc.MetricsReply Metrics_Reply = 1;
+  bool has_metrics_reply() const;
+  void clear_metrics_reply();
+  static const int kMetricsReplyFieldNumber = 1;
+  const ::rpc::MetricsReply& metrics_reply() const;
+  ::rpc::MetricsReply* mutable_metrics_reply();
+  ::rpc::MetricsReply* release_metrics_reply();
+  void set_allocated_metrics_reply(::rpc::MetricsReply* metrics_reply);
+
+  // optional .rpc.ErrReply Error = 2;
+  bool has_error() const;
+  void clear_error();
+  static const int kErrorFieldNumber = 2;
+  const ::rpc::ErrReply& error() const;
+  ::rpc::ErrReply* mutable_error();
+  ::rpc::ErrReply* release_error();
+  void set_allocated_error(::rpc::ErrReply* error);
+
+  // @@protoc_insertion_point(class_scope:rpc.CollectReply)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::rpc::MetricsReply* metrics_reply_;
+  ::rpc::ErrReply* error_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_plugin_2eproto();
+  friend void protobuf_AssignDesc_plugin_2eproto();
+  friend void protobuf_ShutdownFile_plugin_2eproto();
+
+  void InitAsDefaultInstance();
+  static CollectReply* default_instance_;
+};
+// -------------------------------------------------------------------
 
 class Empty : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:rpc.Empty) */ {
  public:
@@ -543,6 +751,9 @@ class Metric : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
     kInt32Data = 12,
     kInt64Data = 13,
     kBytesData = 14,
+    kBoolData = 15,
+    kUint32Data = 16,
+    kUint64Data = 17,
     DATA_NOT_SET = 0,
   };
 
@@ -732,6 +943,33 @@ class Metric : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
   ::std::string* release_bytes_data();
   void set_allocated_bytes_data(::std::string* bytes_data);
 
+  // optional bool bool_data = 15;
+  private:
+  bool has_bool_data() const;
+  public:
+  void clear_bool_data();
+  static const int kBoolDataFieldNumber = 15;
+  bool bool_data() const;
+  void set_bool_data(bool value);
+
+  // optional uint32 uint32_data = 16;
+  private:
+  bool has_uint32_data() const;
+  public:
+  void clear_uint32_data();
+  static const int kUint32DataFieldNumber = 16;
+  ::google::protobuf::uint32 uint32_data() const;
+  void set_uint32_data(::google::protobuf::uint32 value);
+
+  // optional uint64 uint64_data = 17;
+  private:
+  bool has_uint64_data() const;
+  public:
+  void clear_uint64_data();
+  static const int kUint64DataFieldNumber = 17;
+  ::google::protobuf::uint64 uint64_data() const;
+  void set_uint64_data(::google::protobuf::uint64 value);
+
   DataCase data_case() const;
   // @@protoc_insertion_point(class_scope:rpc.Metric)
  private:
@@ -741,6 +979,9 @@ class Metric : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
   inline void set_has_int32_data();
   inline void set_has_int64_data();
   inline void set_has_bytes_data();
+  inline void set_has_bool_data();
+  inline void set_has_uint32_data();
+  inline void set_has_uint64_data();
 
   inline bool has_data() const;
   void clear_data();
@@ -774,6 +1015,9 @@ class Metric : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
     ::google::protobuf::int32 int32_data_;
     ::google::protobuf::int64 int64_data_;
     ::google::protobuf::internal::ArenaStringPtr bytes_data_;
+    bool bool_data_;
+    ::google::protobuf::uint32 uint32_data_;
+    ::google::protobuf::uint64 uint64_data_;
   } data_;
   mutable int _cached_size_;
   ::google::protobuf::uint32 _oneof_case_[1];
@@ -1364,6 +1608,22 @@ class BoolPolicy : public ::google::protobuf::Message /* @@protoc_insertion_poin
   ::google::protobuf::Map< ::std::string, ::rpc::BoolRule >*
       mutable_rules();
 
+  // repeated string key = 2;
+  int key_size() const;
+  void clear_key();
+  static const int kKeyFieldNumber = 2;
+  const ::std::string& key(int index) const;
+  ::std::string* mutable_key(int index);
+  void set_key(int index, const ::std::string& value);
+  void set_key(int index, const char* value);
+  void set_key(int index, const char* value, size_t size);
+  ::std::string* add_key();
+  void add_key(const ::std::string& value);
+  void add_key(const char* value);
+  void add_key(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField< ::std::string>& key() const;
+  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_key();
+
   // @@protoc_insertion_point(class_scope:rpc.BoolPolicy)
  private:
 
@@ -1380,6 +1640,7 @@ class BoolPolicy : public ::google::protobuf::Message /* @@protoc_insertion_poin
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
       ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
       0 > rules_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> key_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_plugin_2eproto();
   friend void protobuf_AssignDesc_plugin_2eproto();
@@ -1584,6 +1845,22 @@ class FloatPolicy : public ::google::protobuf::Message /* @@protoc_insertion_poi
   ::google::protobuf::Map< ::std::string, ::rpc::FloatRule >*
       mutable_rules();
 
+  // repeated string key = 2;
+  int key_size() const;
+  void clear_key();
+  static const int kKeyFieldNumber = 2;
+  const ::std::string& key(int index) const;
+  ::std::string* mutable_key(int index);
+  void set_key(int index, const ::std::string& value);
+  void set_key(int index, const char* value);
+  void set_key(int index, const char* value, size_t size);
+  ::std::string* add_key();
+  void add_key(const ::std::string& value);
+  void add_key(const char* value);
+  void add_key(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField< ::std::string>& key() const;
+  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_key();
+
   // @@protoc_insertion_point(class_scope:rpc.FloatPolicy)
  private:
 
@@ -1600,6 +1877,7 @@ class FloatPolicy : public ::google::protobuf::Message /* @@protoc_insertion_poi
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
       ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
       0 > rules_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> key_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_plugin_2eproto();
   friend void protobuf_AssignDesc_plugin_2eproto();
@@ -1804,6 +2082,22 @@ class IntegerPolicy : public ::google::protobuf::Message /* @@protoc_insertion_p
   ::google::protobuf::Map< ::std::string, ::rpc::IntegerRule >*
       mutable_rules();
 
+  // repeated string key = 2;
+  int key_size() const;
+  void clear_key();
+  static const int kKeyFieldNumber = 2;
+  const ::std::string& key(int index) const;
+  ::std::string* mutable_key(int index);
+  void set_key(int index, const ::std::string& value);
+  void set_key(int index, const char* value);
+  void set_key(int index, const char* value, size_t size);
+  ::std::string* add_key();
+  void add_key(const ::std::string& value);
+  void add_key(const char* value);
+  void add_key(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField< ::std::string>& key() const;
+  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_key();
+
   // @@protoc_insertion_point(class_scope:rpc.IntegerPolicy)
  private:
 
@@ -1820,6 +2114,7 @@ class IntegerPolicy : public ::google::protobuf::Message /* @@protoc_insertion_p
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
       ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
       0 > rules_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> key_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_plugin_2eproto();
   friend void protobuf_AssignDesc_plugin_2eproto();
@@ -2001,6 +2296,22 @@ class StringPolicy : public ::google::protobuf::Message /* @@protoc_insertion_po
   ::google::protobuf::Map< ::std::string, ::rpc::StringRule >*
       mutable_rules();
 
+  // repeated string key = 2;
+  int key_size() const;
+  void clear_key();
+  static const int kKeyFieldNumber = 2;
+  const ::std::string& key(int index) const;
+  ::std::string* mutable_key(int index);
+  void set_key(int index, const ::std::string& value);
+  void set_key(int index, const char* value);
+  void set_key(int index, const char* value, size_t size);
+  ::std::string* add_key();
+  void add_key(const ::std::string& value);
+  void add_key(const char* value);
+  void add_key(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField< ::std::string>& key() const;
+  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_key();
+
   // @@protoc_insertion_point(class_scope:rpc.StringPolicy)
  private:
 
@@ -2017,6 +2328,7 @@ class StringPolicy : public ::google::protobuf::Message /* @@protoc_insertion_po
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
       ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
       0 > rules_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> key_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_plugin_2eproto();
   friend void protobuf_AssignDesc_plugin_2eproto();
@@ -2304,6 +2616,200 @@ class GetMetricTypesArg : public ::google::protobuf::Message /* @@protoc_inserti
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
+// CollectArg
+
+// optional .rpc.MetricsArg Metrics_Arg = 1;
+inline bool CollectArg::has_metrics_arg() const {
+  return !_is_default_instance_ && metrics_arg_ != NULL;
+}
+inline void CollectArg::clear_metrics_arg() {
+  if (GetArenaNoVirtual() == NULL && metrics_arg_ != NULL) delete metrics_arg_;
+  metrics_arg_ = NULL;
+}
+inline const ::rpc::MetricsArg& CollectArg::metrics_arg() const {
+  // @@protoc_insertion_point(field_get:rpc.CollectArg.Metrics_Arg)
+  return metrics_arg_ != NULL ? *metrics_arg_ : *default_instance_->metrics_arg_;
+}
+inline ::rpc::MetricsArg* CollectArg::mutable_metrics_arg() {
+  
+  if (metrics_arg_ == NULL) {
+    metrics_arg_ = new ::rpc::MetricsArg;
+  }
+  // @@protoc_insertion_point(field_mutable:rpc.CollectArg.Metrics_Arg)
+  return metrics_arg_;
+}
+inline ::rpc::MetricsArg* CollectArg::release_metrics_arg() {
+  // @@protoc_insertion_point(field_release:rpc.CollectArg.Metrics_Arg)
+  
+  ::rpc::MetricsArg* temp = metrics_arg_;
+  metrics_arg_ = NULL;
+  return temp;
+}
+inline void CollectArg::set_allocated_metrics_arg(::rpc::MetricsArg* metrics_arg) {
+  delete metrics_arg_;
+  metrics_arg_ = metrics_arg;
+  if (metrics_arg) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:rpc.CollectArg.Metrics_Arg)
+}
+
+// optional int64 MaxCollectDuration = 2;
+inline void CollectArg::clear_maxcollectduration() {
+  maxcollectduration_ = GOOGLE_LONGLONG(0);
+}
+inline ::google::protobuf::int64 CollectArg::maxcollectduration() const {
+  // @@protoc_insertion_point(field_get:rpc.CollectArg.MaxCollectDuration)
+  return maxcollectduration_;
+}
+inline void CollectArg::set_maxcollectduration(::google::protobuf::int64 value) {
+  
+  maxcollectduration_ = value;
+  // @@protoc_insertion_point(field_set:rpc.CollectArg.MaxCollectDuration)
+}
+
+// optional int64 MaxMetricsBuffer = 3;
+inline void CollectArg::clear_maxmetricsbuffer() {
+  maxmetricsbuffer_ = GOOGLE_LONGLONG(0);
+}
+inline ::google::protobuf::int64 CollectArg::maxmetricsbuffer() const {
+  // @@protoc_insertion_point(field_get:rpc.CollectArg.MaxMetricsBuffer)
+  return maxmetricsbuffer_;
+}
+inline void CollectArg::set_maxmetricsbuffer(::google::protobuf::int64 value) {
+  
+  maxmetricsbuffer_ = value;
+  // @@protoc_insertion_point(field_set:rpc.CollectArg.MaxMetricsBuffer)
+}
+
+// optional bytes Other = 4;
+inline void CollectArg::clear_other() {
+  other_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& CollectArg::other() const {
+  // @@protoc_insertion_point(field_get:rpc.CollectArg.Other)
+  return other_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CollectArg::set_other(const ::std::string& value) {
+  
+  other_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:rpc.CollectArg.Other)
+}
+inline void CollectArg::set_other(const char* value) {
+  
+  other_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:rpc.CollectArg.Other)
+}
+inline void CollectArg::set_other(const void* value, size_t size) {
+  
+  other_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:rpc.CollectArg.Other)
+}
+inline ::std::string* CollectArg::mutable_other() {
+  
+  // @@protoc_insertion_point(field_mutable:rpc.CollectArg.Other)
+  return other_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* CollectArg::release_other() {
+  // @@protoc_insertion_point(field_release:rpc.CollectArg.Other)
+  
+  return other_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CollectArg::set_allocated_other(::std::string* other) {
+  if (other != NULL) {
+    
+  } else {
+    
+  }
+  other_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), other);
+  // @@protoc_insertion_point(field_set_allocated:rpc.CollectArg.Other)
+}
+
+// -------------------------------------------------------------------
+
+// CollectReply
+
+// optional .rpc.MetricsReply Metrics_Reply = 1;
+inline bool CollectReply::has_metrics_reply() const {
+  return !_is_default_instance_ && metrics_reply_ != NULL;
+}
+inline void CollectReply::clear_metrics_reply() {
+  if (GetArenaNoVirtual() == NULL && metrics_reply_ != NULL) delete metrics_reply_;
+  metrics_reply_ = NULL;
+}
+inline const ::rpc::MetricsReply& CollectReply::metrics_reply() const {
+  // @@protoc_insertion_point(field_get:rpc.CollectReply.Metrics_Reply)
+  return metrics_reply_ != NULL ? *metrics_reply_ : *default_instance_->metrics_reply_;
+}
+inline ::rpc::MetricsReply* CollectReply::mutable_metrics_reply() {
+  
+  if (metrics_reply_ == NULL) {
+    metrics_reply_ = new ::rpc::MetricsReply;
+  }
+  // @@protoc_insertion_point(field_mutable:rpc.CollectReply.Metrics_Reply)
+  return metrics_reply_;
+}
+inline ::rpc::MetricsReply* CollectReply::release_metrics_reply() {
+  // @@protoc_insertion_point(field_release:rpc.CollectReply.Metrics_Reply)
+  
+  ::rpc::MetricsReply* temp = metrics_reply_;
+  metrics_reply_ = NULL;
+  return temp;
+}
+inline void CollectReply::set_allocated_metrics_reply(::rpc::MetricsReply* metrics_reply) {
+  delete metrics_reply_;
+  metrics_reply_ = metrics_reply;
+  if (metrics_reply) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:rpc.CollectReply.Metrics_Reply)
+}
+
+// optional .rpc.ErrReply Error = 2;
+inline bool CollectReply::has_error() const {
+  return !_is_default_instance_ && error_ != NULL;
+}
+inline void CollectReply::clear_error() {
+  if (GetArenaNoVirtual() == NULL && error_ != NULL) delete error_;
+  error_ = NULL;
+}
+inline const ::rpc::ErrReply& CollectReply::error() const {
+  // @@protoc_insertion_point(field_get:rpc.CollectReply.Error)
+  return error_ != NULL ? *error_ : *default_instance_->error_;
+}
+inline ::rpc::ErrReply* CollectReply::mutable_error() {
+  
+  if (error_ == NULL) {
+    error_ = new ::rpc::ErrReply;
+  }
+  // @@protoc_insertion_point(field_mutable:rpc.CollectReply.Error)
+  return error_;
+}
+inline ::rpc::ErrReply* CollectReply::release_error() {
+  // @@protoc_insertion_point(field_release:rpc.CollectReply.Error)
+  
+  ::rpc::ErrReply* temp = error_;
+  error_ = NULL;
+  return temp;
+}
+inline void CollectReply::set_allocated_error(::rpc::ErrReply* error) {
+  delete error_;
+  error_ = error;
+  if (error) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:rpc.CollectReply.Error)
+}
+
+// -------------------------------------------------------------------
+
 // Empty
 
 // -------------------------------------------------------------------
@@ -3140,6 +3646,93 @@ inline void Metric::set_allocated_bytes_data(::std::string* bytes_data) {
   // @@protoc_insertion_point(field_set_allocated:rpc.Metric.bytes_data)
 }
 
+// optional bool bool_data = 15;
+inline bool Metric::has_bool_data() const {
+  return data_case() == kBoolData;
+}
+inline void Metric::set_has_bool_data() {
+  _oneof_case_[0] = kBoolData;
+}
+inline void Metric::clear_bool_data() {
+  if (has_bool_data()) {
+    data_.bool_data_ = false;
+    clear_has_data();
+  }
+}
+inline bool Metric::bool_data() const {
+  // @@protoc_insertion_point(field_get:rpc.Metric.bool_data)
+  if (has_bool_data()) {
+    return data_.bool_data_;
+  }
+  return false;
+}
+inline void Metric::set_bool_data(bool value) {
+  if (!has_bool_data()) {
+    clear_data();
+    set_has_bool_data();
+  }
+  data_.bool_data_ = value;
+  // @@protoc_insertion_point(field_set:rpc.Metric.bool_data)
+}
+
+// optional uint32 uint32_data = 16;
+inline bool Metric::has_uint32_data() const {
+  return data_case() == kUint32Data;
+}
+inline void Metric::set_has_uint32_data() {
+  _oneof_case_[0] = kUint32Data;
+}
+inline void Metric::clear_uint32_data() {
+  if (has_uint32_data()) {
+    data_.uint32_data_ = 0u;
+    clear_has_data();
+  }
+}
+inline ::google::protobuf::uint32 Metric::uint32_data() const {
+  // @@protoc_insertion_point(field_get:rpc.Metric.uint32_data)
+  if (has_uint32_data()) {
+    return data_.uint32_data_;
+  }
+  return 0u;
+}
+inline void Metric::set_uint32_data(::google::protobuf::uint32 value) {
+  if (!has_uint32_data()) {
+    clear_data();
+    set_has_uint32_data();
+  }
+  data_.uint32_data_ = value;
+  // @@protoc_insertion_point(field_set:rpc.Metric.uint32_data)
+}
+
+// optional uint64 uint64_data = 17;
+inline bool Metric::has_uint64_data() const {
+  return data_case() == kUint64Data;
+}
+inline void Metric::set_has_uint64_data() {
+  _oneof_case_[0] = kUint64Data;
+}
+inline void Metric::clear_uint64_data() {
+  if (has_uint64_data()) {
+    data_.uint64_data_ = GOOGLE_ULONGLONG(0);
+    clear_has_data();
+  }
+}
+inline ::google::protobuf::uint64 Metric::uint64_data() const {
+  // @@protoc_insertion_point(field_get:rpc.Metric.uint64_data)
+  if (has_uint64_data()) {
+    return data_.uint64_data_;
+  }
+  return GOOGLE_ULONGLONG(0);
+}
+inline void Metric::set_uint64_data(::google::protobuf::uint64 value) {
+  if (!has_uint64_data()) {
+    clear_data();
+    set_has_uint64_data();
+  }
+  data_.uint64_data_ = value;
+  // @@protoc_insertion_point(field_set:rpc.Metric.uint64_data)
+}
+
 inline bool Metric::has_data() const {
   return data_case() != DATA_NOT_SET;
 }
@@ -3461,6 +4054,61 @@ BoolPolicy::mutable_rules() {
   return rules_.MutableMap();
 }
 
+// repeated string key = 2;
+inline int BoolPolicy::key_size() const {
+  return key_.size();
+}
+inline void BoolPolicy::clear_key() {
+  key_.Clear();
+}
+inline const ::std::string& BoolPolicy::key(int index) const {
+  // @@protoc_insertion_point(field_get:rpc.BoolPolicy.key)
+  return key_.Get(index);
+}
+inline ::std::string* BoolPolicy::mutable_key(int index) {
+  // @@protoc_insertion_point(field_mutable:rpc.BoolPolicy.key)
+  return key_.Mutable(index);
+}
+inline void BoolPolicy::set_key(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:rpc.BoolPolicy.key)
+  key_.Mutable(index)->assign(value);
+}
+inline void BoolPolicy::set_key(int index, const char* value) {
+  key_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:rpc.BoolPolicy.key)
+}
+inline void BoolPolicy::set_key(int index, const char* value, size_t size) {
+  key_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:rpc.BoolPolicy.key)
+}
+inline ::std::string* BoolPolicy::add_key() {
+  // @@protoc_insertion_point(field_add_mutable:rpc.BoolPolicy.key)
+  return key_.Add();
+}
+inline void BoolPolicy::add_key(const ::std::string& value) {
+  key_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:rpc.BoolPolicy.key)
+}
+inline void BoolPolicy::add_key(const char* value) {
+  key_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:rpc.BoolPolicy.key)
+}
+inline void BoolPolicy::add_key(const char* value, size_t size) {
+  key_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:rpc.BoolPolicy.key)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+BoolPolicy::key() const {
+  // @@protoc_insertion_point(field_list:rpc.BoolPolicy.key)
+  return key_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+BoolPolicy::mutable_key() {
+  // @@protoc_insertion_point(field_mutable_list:rpc.BoolPolicy.key)
+  return &key_;
+}
+
 // -------------------------------------------------------------------
 
 // FloatRule
@@ -3583,6 +4231,61 @@ inline ::google::protobuf::Map< ::std::string, ::rpc::FloatRule >*
 FloatPolicy::mutable_rules() {
   // @@protoc_insertion_point(field_mutable_map:rpc.FloatPolicy.rules)
   return rules_.MutableMap();
+}
+
+// repeated string key = 2;
+inline int FloatPolicy::key_size() const {
+  return key_.size();
+}
+inline void FloatPolicy::clear_key() {
+  key_.Clear();
+}
+inline const ::std::string& FloatPolicy::key(int index) const {
+  // @@protoc_insertion_point(field_get:rpc.FloatPolicy.key)
+  return key_.Get(index);
+}
+inline ::std::string* FloatPolicy::mutable_key(int index) {
+  // @@protoc_insertion_point(field_mutable:rpc.FloatPolicy.key)
+  return key_.Mutable(index);
+}
+inline void FloatPolicy::set_key(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:rpc.FloatPolicy.key)
+  key_.Mutable(index)->assign(value);
+}
+inline void FloatPolicy::set_key(int index, const char* value) {
+  key_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:rpc.FloatPolicy.key)
+}
+inline void FloatPolicy::set_key(int index, const char* value, size_t size) {
+  key_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:rpc.FloatPolicy.key)
+}
+inline ::std::string* FloatPolicy::add_key() {
+  // @@protoc_insertion_point(field_add_mutable:rpc.FloatPolicy.key)
+  return key_.Add();
+}
+inline void FloatPolicy::add_key(const ::std::string& value) {
+  key_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:rpc.FloatPolicy.key)
+}
+inline void FloatPolicy::add_key(const char* value) {
+  key_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:rpc.FloatPolicy.key)
+}
+inline void FloatPolicy::add_key(const char* value, size_t size) {
+  key_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:rpc.FloatPolicy.key)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+FloatPolicy::key() const {
+  // @@protoc_insertion_point(field_list:rpc.FloatPolicy.key)
+  return key_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+FloatPolicy::mutable_key() {
+  // @@protoc_insertion_point(field_mutable_list:rpc.FloatPolicy.key)
+  return &key_;
 }
 
 // -------------------------------------------------------------------
@@ -3709,6 +4412,61 @@ IntegerPolicy::mutable_rules() {
   return rules_.MutableMap();
 }
 
+// repeated string key = 2;
+inline int IntegerPolicy::key_size() const {
+  return key_.size();
+}
+inline void IntegerPolicy::clear_key() {
+  key_.Clear();
+}
+inline const ::std::string& IntegerPolicy::key(int index) const {
+  // @@protoc_insertion_point(field_get:rpc.IntegerPolicy.key)
+  return key_.Get(index);
+}
+inline ::std::string* IntegerPolicy::mutable_key(int index) {
+  // @@protoc_insertion_point(field_mutable:rpc.IntegerPolicy.key)
+  return key_.Mutable(index);
+}
+inline void IntegerPolicy::set_key(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:rpc.IntegerPolicy.key)
+  key_.Mutable(index)->assign(value);
+}
+inline void IntegerPolicy::set_key(int index, const char* value) {
+  key_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:rpc.IntegerPolicy.key)
+}
+inline void IntegerPolicy::set_key(int index, const char* value, size_t size) {
+  key_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:rpc.IntegerPolicy.key)
+}
+inline ::std::string* IntegerPolicy::add_key() {
+  // @@protoc_insertion_point(field_add_mutable:rpc.IntegerPolicy.key)
+  return key_.Add();
+}
+inline void IntegerPolicy::add_key(const ::std::string& value) {
+  key_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:rpc.IntegerPolicy.key)
+}
+inline void IntegerPolicy::add_key(const char* value) {
+  key_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:rpc.IntegerPolicy.key)
+}
+inline void IntegerPolicy::add_key(const char* value, size_t size) {
+  key_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:rpc.IntegerPolicy.key)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+IntegerPolicy::key() const {
+  // @@protoc_insertion_point(field_list:rpc.IntegerPolicy.key)
+  return key_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+IntegerPolicy::mutable_key() {
+  // @@protoc_insertion_point(field_mutable_list:rpc.IntegerPolicy.key)
+  return &key_;
+}
+
 // -------------------------------------------------------------------
 
 // StringRule
@@ -3805,6 +4563,61 @@ inline ::google::protobuf::Map< ::std::string, ::rpc::StringRule >*
 StringPolicy::mutable_rules() {
   // @@protoc_insertion_point(field_mutable_map:rpc.StringPolicy.rules)
   return rules_.MutableMap();
+}
+
+// repeated string key = 2;
+inline int StringPolicy::key_size() const {
+  return key_.size();
+}
+inline void StringPolicy::clear_key() {
+  key_.Clear();
+}
+inline const ::std::string& StringPolicy::key(int index) const {
+  // @@protoc_insertion_point(field_get:rpc.StringPolicy.key)
+  return key_.Get(index);
+}
+inline ::std::string* StringPolicy::mutable_key(int index) {
+  // @@protoc_insertion_point(field_mutable:rpc.StringPolicy.key)
+  return key_.Mutable(index);
+}
+inline void StringPolicy::set_key(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:rpc.StringPolicy.key)
+  key_.Mutable(index)->assign(value);
+}
+inline void StringPolicy::set_key(int index, const char* value) {
+  key_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:rpc.StringPolicy.key)
+}
+inline void StringPolicy::set_key(int index, const char* value, size_t size) {
+  key_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:rpc.StringPolicy.key)
+}
+inline ::std::string* StringPolicy::add_key() {
+  // @@protoc_insertion_point(field_add_mutable:rpc.StringPolicy.key)
+  return key_.Add();
+}
+inline void StringPolicy::add_key(const ::std::string& value) {
+  key_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:rpc.StringPolicy.key)
+}
+inline void StringPolicy::add_key(const char* value) {
+  key_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:rpc.StringPolicy.key)
+}
+inline void StringPolicy::add_key(const char* value, size_t size) {
+  key_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:rpc.StringPolicy.key)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+StringPolicy::key() const {
+  // @@protoc_insertion_point(field_list:rpc.StringPolicy.key)
+  return key_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+StringPolicy::mutable_key() {
+  // @@protoc_insertion_point(field_mutable_list:rpc.StringPolicy.key)
+  return &key_;
 }
 
 // -------------------------------------------------------------------
@@ -3962,6 +4775,10 @@ inline void GetMetricTypesArg::set_allocated_config(::rpc::ConfigMap* config) {
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

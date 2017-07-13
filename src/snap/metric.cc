@@ -13,15 +13,10 @@ limitations under the License.
 */
 #include "snap/metric.h"
 
-#include <utility>
-#include <chrono>
 #include <ratio>
-#include <vector>
-#include <map>
 
 #include <google/protobuf/repeated_field.h>
 
-#include "snap/rpc/plugin.pb.h"
 
 
 using std::chrono::system_clock;
@@ -173,8 +168,6 @@ Metric::DataType Metric::data_type() {
   return (Metric::DataType)rpc_metric_ptr->data_case();
 }
 
-// TODO(danielscottt): figure out the whole ::google::protobuf::int{32,64}
-// thing
 void Metric::set_data(float data) {
   type = DataType::Float32;
   rpc_metric_ptr->set_float32_data(data);
@@ -185,9 +178,29 @@ void Metric::set_data(double data) {
   rpc_metric_ptr->set_float64_data(data);
 }
 
-void Metric::set_data(int data) {
+void Metric::set_data(int32_t data) {
   type = DataType::Int32;
   rpc_metric_ptr->set_int32_data(data);
+}
+
+void Metric::set_data(int64_t data) {
+  type = DataType::Int64;
+  rpc_metric_ptr->set_int64_data(data);
+}
+
+void Metric::set_data(uint32_t data) {
+  type = DataType::Uint32;
+  rpc_metric_ptr->set_uint32_data(data);
+}
+
+void Metric::set_data(uint64_t data) {
+  type = DataType::Uint64;
+  rpc_metric_ptr->set_uint64_data(data);
+}
+
+void Metric::set_data(bool data) {
+  type = DataType::Bool;
+  rpc_metric_ptr->set_bool_data(data);
 }
 
 void Metric::set_data(const std::string& data) {
@@ -195,8 +208,20 @@ void Metric::set_data(const std::string& data) {
   rpc_metric_ptr->set_string_data(data);
 }
 
-int Metric::get_int_data() const {
+int32_t Metric::get_int_data() const {
   return rpc_metric_ptr->int32_data();
+}
+
+int64_t Metric::get_int64_data() const {
+  return rpc_metric_ptr->int64_data();
+}
+
+uint32_t Metric::get_uint32_data() const {
+  return rpc_metric_ptr->uint32_data();
+}
+
+uint64_t Metric::get_uint64_data() const {
+  return rpc_metric_ptr->uint64_data();
 }
 
 float Metric::get_float32_data() const {
@@ -205,6 +230,10 @@ float Metric::get_float32_data() const {
 
 double Metric::get_float64_data() const {
   return rpc_metric_ptr->float64_data();
+}
+
+bool Metric::get_bool_data() const {
+  return rpc_metric_ptr->bool_data();
 }
 
 const std::string& Metric::get_string_data() const {

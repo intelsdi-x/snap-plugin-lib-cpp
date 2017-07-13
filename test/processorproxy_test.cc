@@ -62,7 +62,8 @@ TEST(ProcessorProxySuccessTest, ProcessWorks) {
     EXPECT_NO_THROW({
         ProcessorImpl processor(&mockee);
         rpc::PubProcArg args;
-        mockee.fake_metric.set_data("hop");
+        const string data = "hop";
+        mockee.fake_metric.set_data(data);
         *args.add_metrics() = *mockee.fake_metric.get_rpc_metric_ptr();
         status = processor.Process(nullptr, &args, &resp);
     });
@@ -118,7 +119,8 @@ TEST(ProcessorProxySuccessTest, ProcessReportsError) {
     EXPECT_NO_THROW({
                         ProcessorImpl processor(&mockee);
                         rpc::PubProcArg args;
-                        mockee.fake_metric.set_data("hop");
+                        const string data = "hop";
+                        mockee.fake_metric.set_data(data);
                         *args.add_metrics() = *mockee.fake_metric.get_rpc_metric_ptr();
                         status = processor.Process(nullptr, &args, &resp);
                     });

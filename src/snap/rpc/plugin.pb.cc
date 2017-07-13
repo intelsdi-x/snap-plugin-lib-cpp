@@ -21,6 +21,12 @@ namespace rpc {
 
 namespace {
 
+const ::google::protobuf::Descriptor* CollectArg_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  CollectArg_reflection_ = NULL;
+const ::google::protobuf::Descriptor* CollectReply_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  CollectReply_reflection_ = NULL;
 const ::google::protobuf::Descriptor* Empty_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Empty_reflection_ = NULL;
@@ -46,6 +52,9 @@ struct MetricOneofInstance {
   ::google::protobuf::int32 int32_data_;
   ::google::protobuf::int64 int64_data_;
   ::google::protobuf::internal::ArenaStringPtr bytes_data_;
+  bool bool_data_;
+  ::google::protobuf::uint32 uint32_data_;
+  ::google::protobuf::uint64 uint64_data_;
 }* Metric_default_oneof_instance_ = NULL;
 const ::google::protobuf::Descriptor* Metric_TagsEntry_descriptor_ = NULL;
 const ::google::protobuf::Descriptor* ConfigMap_descriptor_ = NULL;
@@ -113,7 +122,41 @@ void protobuf_AssignDesc_plugin_2eproto() {
     ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
       "plugin.proto");
   GOOGLE_CHECK(file != NULL);
-  Empty_descriptor_ = file->message_type(0);
+  CollectArg_descriptor_ = file->message_type(0);
+  static const int CollectArg_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CollectArg, metrics_arg_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CollectArg, maxcollectduration_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CollectArg, maxmetricsbuffer_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CollectArg, other_),
+  };
+  CollectArg_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      CollectArg_descriptor_,
+      CollectArg::default_instance_,
+      CollectArg_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(CollectArg),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CollectArg, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CollectArg, _is_default_instance_));
+  CollectReply_descriptor_ = file->message_type(1);
+  static const int CollectReply_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CollectReply, metrics_reply_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CollectReply, error_),
+  };
+  CollectReply_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      CollectReply_descriptor_,
+      CollectReply::default_instance_,
+      CollectReply_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(CollectReply),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CollectReply, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CollectReply, _is_default_instance_));
+  Empty_descriptor_ = file->message_type(2);
   static const int Empty_offsets_[1] = {
   };
   Empty_reflection_ =
@@ -127,7 +170,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(Empty),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Empty, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Empty, _is_default_instance_));
-  ErrReply_descriptor_ = file->message_type(1);
+  ErrReply_descriptor_ = file->message_type(3);
   static const int ErrReply_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ErrReply, error_),
   };
@@ -142,7 +185,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(ErrReply),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ErrReply, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ErrReply, _is_default_instance_));
-  Time_descriptor_ = file->message_type(2);
+  Time_descriptor_ = file->message_type(4);
   static const int Time_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Time, sec_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Time, nsec_),
@@ -158,7 +201,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(Time),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Time, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Time, _is_default_instance_));
-  NamespaceElement_descriptor_ = file->message_type(3);
+  NamespaceElement_descriptor_ = file->message_type(5);
   static const int NamespaceElement_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NamespaceElement, value_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NamespaceElement, description_),
@@ -175,7 +218,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(NamespaceElement),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NamespaceElement, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NamespaceElement, _is_default_instance_));
-  PubProcArg_descriptor_ = file->message_type(4);
+  PubProcArg_descriptor_ = file->message_type(6);
   static const int PubProcArg_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PubProcArg, metrics_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PubProcArg, config_),
@@ -191,8 +234,8 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(PubProcArg),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PubProcArg, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PubProcArg, _is_default_instance_));
-  Metric_descriptor_ = file->message_type(5);
-  static const int Metric_offsets_[15] = {
+  Metric_descriptor_ = file->message_type(7);
+  static const int Metric_offsets_[18] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Metric, namespace__),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Metric, version_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Metric, config_),
@@ -207,6 +250,9 @@ void protobuf_AssignDesc_plugin_2eproto() {
     PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Metric_default_oneof_instance_, int32_data_),
     PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Metric_default_oneof_instance_, int64_data_),
     PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Metric_default_oneof_instance_, bytes_data_),
+    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Metric_default_oneof_instance_, bool_data_),
+    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Metric_default_oneof_instance_, uint32_data_),
+    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(Metric_default_oneof_instance_, uint64_data_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Metric, data_),
   };
   Metric_reflection_ =
@@ -223,7 +269,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Metric, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Metric, _is_default_instance_));
   Metric_TagsEntry_descriptor_ = Metric_descriptor_->nested_type(0);
-  ConfigMap_descriptor_ = file->message_type(6);
+  ConfigMap_descriptor_ = file->message_type(8);
   static const int ConfigMap_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ConfigMap, intmap_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ConfigMap, stringmap_),
@@ -245,7 +291,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
   ConfigMap_StringMapEntry_descriptor_ = ConfigMap_descriptor_->nested_type(1);
   ConfigMap_FloatMapEntry_descriptor_ = ConfigMap_descriptor_->nested_type(2);
   ConfigMap_BoolMapEntry_descriptor_ = ConfigMap_descriptor_->nested_type(3);
-  KillArg_descriptor_ = file->message_type(7);
+  KillArg_descriptor_ = file->message_type(9);
   static const int KillArg_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(KillArg, reason_),
   };
@@ -260,7 +306,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(KillArg),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(KillArg, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(KillArg, _is_default_instance_));
-  GetConfigPolicyReply_descriptor_ = file->message_type(8);
+  GetConfigPolicyReply_descriptor_ = file->message_type(10);
   static const int GetConfigPolicyReply_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GetConfigPolicyReply, error_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GetConfigPolicyReply, bool_policy_),
@@ -283,7 +329,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
   GetConfigPolicyReply_FloatPolicyEntry_descriptor_ = GetConfigPolicyReply_descriptor_->nested_type(1);
   GetConfigPolicyReply_IntegerPolicyEntry_descriptor_ = GetConfigPolicyReply_descriptor_->nested_type(2);
   GetConfigPolicyReply_StringPolicyEntry_descriptor_ = GetConfigPolicyReply_descriptor_->nested_type(3);
-  BoolRule_descriptor_ = file->message_type(9);
+  BoolRule_descriptor_ = file->message_type(11);
   static const int BoolRule_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolRule, required_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolRule, default__),
@@ -300,9 +346,10 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(BoolRule),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolRule, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolRule, _is_default_instance_));
-  BoolPolicy_descriptor_ = file->message_type(10);
-  static const int BoolPolicy_offsets_[1] = {
+  BoolPolicy_descriptor_ = file->message_type(12);
+  static const int BoolPolicy_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolPolicy, rules_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolPolicy, key_),
   };
   BoolPolicy_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -316,7 +363,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolPolicy, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BoolPolicy, _is_default_instance_));
   BoolPolicy_RulesEntry_descriptor_ = BoolPolicy_descriptor_->nested_type(0);
-  FloatRule_descriptor_ = file->message_type(11);
+  FloatRule_descriptor_ = file->message_type(13);
   static const int FloatRule_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatRule, required_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatRule, minimum_),
@@ -337,9 +384,10 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(FloatRule),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatRule, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatRule, _is_default_instance_));
-  FloatPolicy_descriptor_ = file->message_type(12);
-  static const int FloatPolicy_offsets_[1] = {
+  FloatPolicy_descriptor_ = file->message_type(14);
+  static const int FloatPolicy_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatPolicy, rules_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatPolicy, key_),
   };
   FloatPolicy_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -353,7 +401,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatPolicy, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FloatPolicy, _is_default_instance_));
   FloatPolicy_RulesEntry_descriptor_ = FloatPolicy_descriptor_->nested_type(0);
-  IntegerRule_descriptor_ = file->message_type(13);
+  IntegerRule_descriptor_ = file->message_type(15);
   static const int IntegerRule_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerRule, required_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerRule, minimum_),
@@ -374,9 +422,10 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(IntegerRule),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerRule, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerRule, _is_default_instance_));
-  IntegerPolicy_descriptor_ = file->message_type(14);
-  static const int IntegerPolicy_offsets_[1] = {
+  IntegerPolicy_descriptor_ = file->message_type(16);
+  static const int IntegerPolicy_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerPolicy, rules_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerPolicy, key_),
   };
   IntegerPolicy_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -390,7 +439,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerPolicy, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IntegerPolicy, _is_default_instance_));
   IntegerPolicy_RulesEntry_descriptor_ = IntegerPolicy_descriptor_->nested_type(0);
-  StringRule_descriptor_ = file->message_type(15);
+  StringRule_descriptor_ = file->message_type(17);
   static const int StringRule_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringRule, required_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringRule, default__),
@@ -407,9 +456,10 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(StringRule),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringRule, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringRule, _is_default_instance_));
-  StringPolicy_descriptor_ = file->message_type(16);
-  static const int StringPolicy_offsets_[1] = {
+  StringPolicy_descriptor_ = file->message_type(18);
+  static const int StringPolicy_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringPolicy, rules_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringPolicy, key_),
   };
   StringPolicy_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -423,7 +473,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringPolicy, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StringPolicy, _is_default_instance_));
   StringPolicy_RulesEntry_descriptor_ = StringPolicy_descriptor_->nested_type(0);
-  MetricsArg_descriptor_ = file->message_type(17);
+  MetricsArg_descriptor_ = file->message_type(19);
   static const int MetricsArg_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsArg, metrics_),
   };
@@ -438,7 +488,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(MetricsArg),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsArg, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsArg, _is_default_instance_));
-  MetricsReply_descriptor_ = file->message_type(18);
+  MetricsReply_descriptor_ = file->message_type(20);
   static const int MetricsReply_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsReply, metrics_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsReply, error_),
@@ -454,7 +504,7 @@ void protobuf_AssignDesc_plugin_2eproto() {
       sizeof(MetricsReply),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsReply, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MetricsReply, _is_default_instance_));
-  GetMetricTypesArg_descriptor_ = file->message_type(19);
+  GetMetricTypesArg_descriptor_ = file->message_type(21);
   static const int GetMetricTypesArg_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GetMetricTypesArg, config_),
   };
@@ -482,6 +532,10 @@ inline void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      CollectArg_descriptor_, &CollectArg::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      CollectReply_descriptor_, &CollectReply::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       Empty_descriptor_, &Empty::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -644,6 +698,10 @@ void protobuf_RegisterTypes(const ::std::string&) {
 }  // namespace
 
 void protobuf_ShutdownFile_plugin_2eproto() {
+  delete CollectArg::default_instance_;
+  delete CollectArg_reflection_;
+  delete CollectReply::default_instance_;
+  delete CollectReply_reflection_;
   delete Empty::default_instance_;
   delete Empty_reflection_;
   delete ErrReply::default_instance_;
@@ -695,94 +753,111 @@ void protobuf_AddDesc_plugin_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\014plugin.proto\022\003rpc\"\007\n\005Empty\"\031\n\010ErrReply"
-    "\022\r\n\005error\030\001 \001(\t\"!\n\004Time\022\013\n\003sec\030\001 \001(\003\022\014\n\004"
-    "nsec\030\002 \001(\003\"D\n\020NamespaceElement\022\r\n\005Value\030"
-    "\001 \001(\t\022\023\n\013Description\030\002 \001(\t\022\014\n\004Name\030\003 \001(\t"
-    "\"J\n\nPubProcArg\022\034\n\007Metrics\030\001 \003(\0132\013.rpc.Me"
-    "tric\022\036\n\006Config\030\002 \001(\0132\016.rpc.ConfigMap\"\256\003\n"
-    "\006Metric\022(\n\tNamespace\030\001 \003(\0132\025.rpc.Namespa"
-    "ceElement\022\017\n\007Version\030\002 \001(\003\022\036\n\006Config\030\003 \001"
-    "(\0132\016.rpc.ConfigMap\022%\n\022LastAdvertisedTime"
-    "\030\004 \001(\0132\t.rpc.Time\022#\n\004Tags\030\005 \003(\0132\025.rpc.Me"
-    "tric.TagsEntry\022\034\n\tTimestamp\030\006 \001(\0132\t.rpc."
-    "Time\022\014\n\004Unit\030\007 \001(\t\022\023\n\013Description\030\010 \001(\t\022"
-    "\025\n\013string_data\030\t \001(\tH\000\022\026\n\014float32_data\030\n"
-    " \001(\002H\000\022\026\n\014float64_data\030\013 \001(\001H\000\022\024\n\nint32_"
-    "data\030\014 \001(\005H\000\022\024\n\nint64_data\030\r \001(\003H\000\022\024\n\nby"
-    "tes_data\030\016 \001(\014H\000\032+\n\tTagsEntry\022\013\n\003key\030\001 \001"
-    "(\t\022\r\n\005value\030\002 \001(\t:\0028\001B\006\n\004data\"\211\003\n\tConfig"
-    "Map\022*\n\006IntMap\030\001 \003(\0132\032.rpc.ConfigMap.IntM"
-    "apEntry\0220\n\tStringMap\030\002 \003(\0132\035.rpc.ConfigM"
-    "ap.StringMapEntry\022.\n\010FloatMap\030\003 \003(\0132\034.rp"
-    "c.ConfigMap.FloatMapEntry\022,\n\007BoolMap\030\004 \003"
-    "(\0132\033.rpc.ConfigMap.BoolMapEntry\032-\n\013IntMa"
-    "pEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\003:\0028\001\0320"
-    "\n\016StringMapEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002"
-    " \001(\t:\0028\001\032/\n\rFloatMapEntry\022\013\n\003key\030\001 \001(\t\022\r"
-    "\n\005value\030\002 \001(\001:\0028\001\032.\n\014BoolMapEntry\022\013\n\003key"
-    "\030\001 \001(\t\022\r\n\005value\030\002 \001(\010:\0028\001\"\031\n\007KillArg\022\016\n\006"
-    "Reason\030\001 \001(\t\"\315\004\n\024GetConfigPolicyReply\022\r\n"
-    "\005error\030\001 \001(\t\022>\n\013bool_policy\030\002 \003(\0132).rpc."
-    "GetConfigPolicyReply.BoolPolicyEntry\022@\n\014"
-    "float_policy\030\003 \003(\0132*.rpc.GetConfigPolicy"
-    "Reply.FloatPolicyEntry\022D\n\016integer_policy"
-    "\030\004 \003(\0132,.rpc.GetConfigPolicyReply.Intege"
-    "rPolicyEntry\022B\n\rstring_policy\030\005 \003(\0132+.rp"
-    "c.GetConfigPolicyReply.StringPolicyEntry"
-    "\032B\n\017BoolPolicyEntry\022\013\n\003key\030\001 \001(\t\022\036\n\005valu"
-    "e\030\002 \001(\0132\017.rpc.BoolPolicy:\0028\001\032D\n\020FloatPol"
-    "icyEntry\022\013\n\003key\030\001 \001(\t\022\037\n\005value\030\002 \001(\0132\020.r"
-    "pc.FloatPolicy:\0028\001\032H\n\022IntegerPolicyEntry"
-    "\022\013\n\003key\030\001 \001(\t\022!\n\005value\030\002 \001(\0132\022.rpc.Integ"
-    "erPolicy:\0028\001\032F\n\021StringPolicyEntry\022\013\n\003key"
-    "\030\001 \001(\t\022 \n\005value\030\002 \001(\0132\021.rpc.StringPolicy"
-    ":\0028\001\"B\n\010BoolRule\022\020\n\010required\030\001 \001(\010\022\017\n\007de"
-    "fault\030\002 \001(\010\022\023\n\013has_default\030\003 \001(\010\"t\n\nBool"
-    "Policy\022)\n\005rules\030\001 \003(\0132\032.rpc.BoolPolicy.R"
-    "ulesEntry\032;\n\nRulesEntry\022\013\n\003key\030\001 \001(\t\022\034\n\005"
-    "value\030\002 \001(\0132\r.rpc.BoolRule:\0028\001\"\207\001\n\tFloat"
-    "Rule\022\020\n\010required\030\001 \001(\010\022\017\n\007minimum\030\002 \001(\001\022"
-    "\017\n\007maximum\030\003 \001(\001\022\017\n\007default\030\004 \001(\001\022\023\n\013has"
-    "_default\030\005 \001(\010\022\017\n\007has_min\030\006 \001(\010\022\017\n\007has_m"
-    "ax\030\007 \001(\010\"w\n\013FloatPolicy\022*\n\005rules\030\001 \003(\0132\033"
-    ".rpc.FloatPolicy.RulesEntry\032<\n\nRulesEntr"
-    "y\022\013\n\003key\030\001 \001(\t\022\035\n\005value\030\002 \001(\0132\016.rpc.Floa"
-    "tRule:\0028\001\"\211\001\n\013IntegerRule\022\020\n\010required\030\001 "
-    "\001(\010\022\017\n\007minimum\030\002 \001(\003\022\017\n\007maximum\030\003 \001(\003\022\017\n"
-    "\007default\030\004 \001(\003\022\023\n\013has_default\030\005 \001(\010\022\017\n\007h"
-    "as_min\030\006 \001(\010\022\017\n\007has_max\030\007 \001(\010\"}\n\rInteger"
-    "Policy\022,\n\005rules\030\001 \003(\0132\035.rpc.IntegerPolic"
-    "y.RulesEntry\032>\n\nRulesEntry\022\013\n\003key\030\001 \001(\t\022"
-    "\037\n\005value\030\002 \001(\0132\020.rpc.IntegerRule:\0028\001\"D\n\n"
-    "StringRule\022\020\n\010required\030\001 \001(\010\022\017\n\007default\030"
-    "\002 \001(\t\022\023\n\013has_default\030\003 \001(\010\"z\n\014StringPoli"
-    "cy\022+\n\005rules\030\001 \003(\0132\034.rpc.StringPolicy.Rul"
-    "esEntry\032=\n\nRulesEntry\022\013\n\003key\030\001 \001(\t\022\036\n\005va"
-    "lue\030\002 \001(\0132\017.rpc.StringRule:\0028\001\"*\n\nMetric"
-    "sArg\022\034\n\007metrics\030\001 \003(\0132\013.rpc.Metric\";\n\014Me"
-    "tricsReply\022\034\n\007metrics\030\001 \003(\0132\013.rpc.Metric"
-    "\022\r\n\005error\030\002 \001(\t\"3\n\021GetMetricTypesArg\022\036\n\006"
-    "config\030\001 \001(\0132\016.rpc.ConfigMap2\212\002\n\tCollect"
-    "or\0226\n\016CollectMetrics\022\017.rpc.MetricsArg\032\021."
-    "rpc.MetricsReply\"\000\022=\n\016GetMetricTypes\022\026.r"
-    "pc.GetMetricTypesArg\032\021.rpc.MetricsReply\""
-    "\000\022#\n\004Ping\022\n.rpc.Empty\032\r.rpc.ErrReply\"\000\022%"
-    "\n\004Kill\022\014.rpc.KillArg\032\r.rpc.ErrReply\"\000\022:\n"
-    "\017GetConfigPolicy\022\n.rpc.Empty\032\031.rpc.GetCo"
-    "nfigPolicyReply\"\0002\304\001\n\tProcessor\022/\n\007Proce"
-    "ss\022\017.rpc.PubProcArg\032\021.rpc.MetricsReply\"\000"
-    "\022#\n\004Ping\022\n.rpc.Empty\032\r.rpc.ErrReply\"\000\022%\n"
-    "\004Kill\022\014.rpc.KillArg\032\r.rpc.ErrReply\"\000\022:\n\017"
-    "GetConfigPolicy\022\n.rpc.Empty\032\031.rpc.GetCon"
-    "figPolicyReply\"\0002\300\001\n\tPublisher\022+\n\007Publis"
-    "h\022\017.rpc.PubProcArg\032\r.rpc.ErrReply\"\000\022#\n\004P"
-    "ing\022\n.rpc.Empty\032\r.rpc.ErrReply\"\000\022%\n\004Kill"
-    "\022\014.rpc.KillArg\032\r.rpc.ErrReply\"\000\022:\n\017GetCo"
-    "nfigPolicy\022\n.rpc.Empty\032\031.rpc.GetConfigPo"
-    "licyReply\"\000b\006proto3", 3419);
+    "\n\014plugin.proto\022\003rpc\"w\n\nCollectArg\022$\n\013Met"
+    "rics_Arg\030\001 \001(\0132\017.rpc.MetricsArg\022\032\n\022MaxCo"
+    "llectDuration\030\002 \001(\003\022\030\n\020MaxMetricsBuffer\030"
+    "\003 \001(\003\022\r\n\005Other\030\004 \001(\014\"V\n\014CollectReply\022(\n\r"
+    "Metrics_Reply\030\001 \001(\0132\021.rpc.MetricsReply\022\034"
+    "\n\005Error\030\002 \001(\0132\r.rpc.ErrReply\"\007\n\005Empty\"\031\n"
+    "\010ErrReply\022\r\n\005error\030\001 \001(\t\"!\n\004Time\022\013\n\003sec\030"
+    "\001 \001(\003\022\014\n\004nsec\030\002 \001(\003\"D\n\020NamespaceElement\022"
+    "\r\n\005Value\030\001 \001(\t\022\023\n\013Description\030\002 \001(\t\022\014\n\004N"
+    "ame\030\003 \001(\t\"J\n\nPubProcArg\022\034\n\007Metrics\030\001 \003(\013"
+    "2\013.rpc.Metric\022\036\n\006Config\030\002 \001(\0132\016.rpc.Conf"
+    "igMap\"\361\003\n\006Metric\022(\n\tNamespace\030\001 \003(\0132\025.rp"
+    "c.NamespaceElement\022\017\n\007Version\030\002 \001(\003\022\036\n\006C"
+    "onfig\030\003 \001(\0132\016.rpc.ConfigMap\022%\n\022LastAdver"
+    "tisedTime\030\004 \001(\0132\t.rpc.Time\022#\n\004Tags\030\005 \003(\013"
+    "2\025.rpc.Metric.TagsEntry\022\034\n\tTimestamp\030\006 \001"
+    "(\0132\t.rpc.Time\022\014\n\004Unit\030\007 \001(\t\022\023\n\013Descripti"
+    "on\030\010 \001(\t\022\025\n\013string_data\030\t \001(\tH\000\022\026\n\014float"
+    "32_data\030\n \001(\002H\000\022\026\n\014float64_data\030\013 \001(\001H\000\022"
+    "\024\n\nint32_data\030\014 \001(\005H\000\022\024\n\nint64_data\030\r \001("
+    "\003H\000\022\024\n\nbytes_data\030\016 \001(\014H\000\022\023\n\tbool_data\030\017"
+    " \001(\010H\000\022\025\n\013uint32_data\030\020 \001(\rH\000\022\025\n\013uint64_"
+    "data\030\021 \001(\004H\000\032+\n\tTagsEntry\022\013\n\003key\030\001 \001(\t\022\r"
+    "\n\005value\030\002 \001(\t:\0028\001B\006\n\004data\"\211\003\n\tConfigMap\022"
+    "*\n\006IntMap\030\001 \003(\0132\032.rpc.ConfigMap.IntMapEn"
+    "try\0220\n\tStringMap\030\002 \003(\0132\035.rpc.ConfigMap.S"
+    "tringMapEntry\022.\n\010FloatMap\030\003 \003(\0132\034.rpc.Co"
+    "nfigMap.FloatMapEntry\022,\n\007BoolMap\030\004 \003(\0132\033"
+    ".rpc.ConfigMap.BoolMapEntry\032-\n\013IntMapEnt"
+    "ry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\003:\0028\001\0320\n\016St"
+    "ringMapEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t"
+    ":\0028\001\032/\n\rFloatMapEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005va"
+    "lue\030\002 \001(\001:\0028\001\032.\n\014BoolMapEntry\022\013\n\003key\030\001 \001"
+    "(\t\022\r\n\005value\030\002 \001(\010:\0028\001\"\031\n\007KillArg\022\016\n\006Reas"
+    "on\030\001 \001(\t\"\315\004\n\024GetConfigPolicyReply\022\r\n\005err"
+    "or\030\001 \001(\t\022>\n\013bool_policy\030\002 \003(\0132).rpc.GetC"
+    "onfigPolicyReply.BoolPolicyEntry\022@\n\014floa"
+    "t_policy\030\003 \003(\0132*.rpc.GetConfigPolicyRepl"
+    "y.FloatPolicyEntry\022D\n\016integer_policy\030\004 \003"
+    "(\0132,.rpc.GetConfigPolicyReply.IntegerPol"
+    "icyEntry\022B\n\rstring_policy\030\005 \003(\0132+.rpc.Ge"
+    "tConfigPolicyReply.StringPolicyEntry\032B\n\017"
+    "BoolPolicyEntry\022\013\n\003key\030\001 \001(\t\022\036\n\005value\030\002 "
+    "\001(\0132\017.rpc.BoolPolicy:\0028\001\032D\n\020FloatPolicyE"
+    "ntry\022\013\n\003key\030\001 \001(\t\022\037\n\005value\030\002 \001(\0132\020.rpc.F"
+    "loatPolicy:\0028\001\032H\n\022IntegerPolicyEntry\022\013\n\003"
+    "key\030\001 \001(\t\022!\n\005value\030\002 \001(\0132\022.rpc.IntegerPo"
+    "licy:\0028\001\032F\n\021StringPolicyEntry\022\013\n\003key\030\001 \001"
+    "(\t\022 \n\005value\030\002 \001(\0132\021.rpc.StringPolicy:\0028\001"
+    "\"B\n\010BoolRule\022\020\n\010required\030\001 \001(\010\022\017\n\007defaul"
+    "t\030\002 \001(\010\022\023\n\013has_default\030\003 \001(\010\"\201\001\n\nBoolPol"
+    "icy\022)\n\005rules\030\001 \003(\0132\032.rpc.BoolPolicy.Rule"
+    "sEntry\022\013\n\003key\030\002 \003(\t\032;\n\nRulesEntry\022\013\n\003key"
+    "\030\001 \001(\t\022\034\n\005value\030\002 \001(\0132\r.rpc.BoolRule:\0028\001"
+    "\"\207\001\n\tFloatRule\022\020\n\010required\030\001 \001(\010\022\017\n\007mini"
+    "mum\030\002 \001(\001\022\017\n\007maximum\030\003 \001(\001\022\017\n\007default\030\004 "
+    "\001(\001\022\023\n\013has_default\030\005 \001(\010\022\017\n\007has_min\030\006 \001("
+    "\010\022\017\n\007has_max\030\007 \001(\010\"\204\001\n\013FloatPolicy\022*\n\005ru"
+    "les\030\001 \003(\0132\033.rpc.FloatPolicy.RulesEntry\022\013"
+    "\n\003key\030\002 \003(\t\032<\n\nRulesEntry\022\013\n\003key\030\001 \001(\t\022\035"
+    "\n\005value\030\002 \001(\0132\016.rpc.FloatRule:\0028\001\"\211\001\n\013In"
+    "tegerRule\022\020\n\010required\030\001 \001(\010\022\017\n\007minimum\030\002"
+    " \001(\003\022\017\n\007maximum\030\003 \001(\003\022\017\n\007default\030\004 \001(\003\022\023"
+    "\n\013has_default\030\005 \001(\010\022\017\n\007has_min\030\006 \001(\010\022\017\n\007"
+    "has_max\030\007 \001(\010\"\212\001\n\rIntegerPolicy\022,\n\005rules"
+    "\030\001 \003(\0132\035.rpc.IntegerPolicy.RulesEntry\022\013\n"
+    "\003key\030\002 \003(\t\032>\n\nRulesEntry\022\013\n\003key\030\001 \001(\t\022\037\n"
+    "\005value\030\002 \001(\0132\020.rpc.IntegerRule:\0028\001\"D\n\nSt"
+    "ringRule\022\020\n\010required\030\001 \001(\010\022\017\n\007default\030\002 "
+    "\001(\t\022\023\n\013has_default\030\003 \001(\010\"\207\001\n\014StringPolic"
+    "y\022+\n\005rules\030\001 \003(\0132\034.rpc.StringPolicy.Rule"
+    "sEntry\022\013\n\003key\030\002 \003(\t\032=\n\nRulesEntry\022\013\n\003key"
+    "\030\001 \001(\t\022\036\n\005value\030\002 \001(\0132\017.rpc.StringRule:\002"
+    "8\001\"*\n\nMetricsArg\022\034\n\007metrics\030\001 \003(\0132\013.rpc."
+    "Metric\";\n\014MetricsReply\022\034\n\007metrics\030\001 \003(\0132"
+    "\013.rpc.Metric\022\r\n\005error\030\002 \001(\t\"3\n\021GetMetric"
+    "TypesArg\022\036\n\006config\030\001 \001(\0132\016.rpc.ConfigMap"
+    "2\212\002\n\tCollector\0226\n\016CollectMetrics\022\017.rpc.M"
+    "etricsArg\032\021.rpc.MetricsReply\"\000\022=\n\016GetMet"
+    "ricTypes\022\026.rpc.GetMetricTypesArg\032\021.rpc.M"
+    "etricsReply\"\000\022#\n\004Ping\022\n.rpc.Empty\032\r.rpc."
+    "ErrReply\"\000\022%\n\004Kill\022\014.rpc.KillArg\032\r.rpc.E"
+    "rrReply\"\000\022:\n\017GetConfigPolicy\022\n.rpc.Empty"
+    "\032\031.rpc.GetConfigPolicyReply\"\0002\304\001\n\tProces"
+    "sor\022/\n\007Process\022\017.rpc.PubProcArg\032\021.rpc.Me"
+    "tricsReply\"\000\022#\n\004Ping\022\n.rpc.Empty\032\r.rpc.E"
+    "rrReply\"\000\022%\n\004Kill\022\014.rpc.KillArg\032\r.rpc.Er"
+    "rReply\"\000\022:\n\017GetConfigPolicy\022\n.rpc.Empty\032"
+    "\031.rpc.GetConfigPolicyReply\"\0002\300\001\n\tPublish"
+    "er\022+\n\007Publish\022\017.rpc.PubProcArg\032\r.rpc.Err"
+    "Reply\"\000\022#\n\004Ping\022\n.rpc.Empty\032\r.rpc.ErrRep"
+    "ly\"\000\022%\n\004Kill\022\014.rpc.KillArg\032\r.rpc.ErrRepl"
+    "y\"\000\022:\n\017GetConfigPolicy\022\n.rpc.Empty\032\031.rpc"
+    ".GetConfigPolicyReply\"\0002\223\002\n\017StreamCollec"
+    "tor\0229\n\rStreamMetrics\022\017.rpc.CollectArg\032\021."
+    "rpc.CollectReply\"\000(\0010\001\022=\n\016GetMetricTypes"
+    "\022\026.rpc.GetMetricTypesArg\032\021.rpc.MetricsRe"
+    "ply\"\000\022#\n\004Ping\022\n.rpc.Empty\032\r.rpc.ErrReply"
+    "\"\000\022%\n\004Kill\022\014.rpc.KillArg\032\r.rpc.ErrReply\""
+    "\000\022:\n\017GetConfigPolicy\022\n.rpc.Empty\032\031.rpc.G"
+    "etConfigPolicyReply\"\000b\006proto3", 4029);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "plugin.proto", &protobuf_RegisterTypes);
+  CollectArg::default_instance_ = new CollectArg();
+  CollectReply::default_instance_ = new CollectReply();
   Empty::default_instance_ = new Empty();
   ErrReply::default_instance_ = new ErrReply();
   Time::default_instance_ = new Time();
@@ -804,6 +879,8 @@ void protobuf_AddDesc_plugin_2eproto() {
   MetricsArg::default_instance_ = new MetricsArg();
   MetricsReply::default_instance_ = new MetricsReply();
   GetMetricTypesArg::default_instance_ = new GetMetricTypesArg();
+  CollectArg::default_instance_->InitAsDefaultInstance();
+  CollectReply::default_instance_->InitAsDefaultInstance();
   Empty::default_instance_->InitAsDefaultInstance();
   ErrReply::default_instance_->InitAsDefaultInstance();
   Time::default_instance_->InitAsDefaultInstance();
@@ -833,6 +910,831 @@ struct StaticDescriptorInitializer_plugin_2eproto {
     protobuf_AddDesc_plugin_2eproto();
   }
 } static_descriptor_initializer_plugin_2eproto_;
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int CollectArg::kMetricsArgFieldNumber;
+const int CollectArg::kMaxCollectDurationFieldNumber;
+const int CollectArg::kMaxMetricsBufferFieldNumber;
+const int CollectArg::kOtherFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+CollectArg::CollectArg()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:rpc.CollectArg)
+}
+
+void CollectArg::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+  metrics_arg_ = const_cast< ::rpc::MetricsArg*>(&::rpc::MetricsArg::default_instance());
+}
+
+CollectArg::CollectArg(const CollectArg& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:rpc.CollectArg)
+}
+
+void CollectArg::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  metrics_arg_ = NULL;
+  maxcollectduration_ = GOOGLE_LONGLONG(0);
+  maxmetricsbuffer_ = GOOGLE_LONGLONG(0);
+  other_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+CollectArg::~CollectArg() {
+  // @@protoc_insertion_point(destructor:rpc.CollectArg)
+  SharedDtor();
+}
+
+void CollectArg::SharedDtor() {
+  other_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+    delete metrics_arg_;
+  }
+}
+
+void CollectArg::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* CollectArg::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return CollectArg_descriptor_;
+}
+
+const CollectArg& CollectArg::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_plugin_2eproto();
+  return *default_instance_;
+}
+
+CollectArg* CollectArg::default_instance_ = NULL;
+
+CollectArg* CollectArg::New(::google::protobuf::Arena* arena) const {
+  CollectArg* n = new CollectArg;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void CollectArg::Clear() {
+// @@protoc_insertion_point(message_clear_start:rpc.CollectArg)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(CollectArg, f) \
+  _Pragma("clang diagnostic pop")
+#else
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<CollectArg*>(16)->f)
+#endif
+
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  ZR_(maxcollectduration_, maxmetricsbuffer_);
+  if (GetArenaNoVirtual() == NULL && metrics_arg_ != NULL) delete metrics_arg_;
+  metrics_arg_ = NULL;
+  other_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+
+#undef ZR_HELPER_
+#undef ZR_
+
+}
+
+bool CollectArg::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:rpc.CollectArg)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .rpc.MetricsArg Metrics_Arg = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_metrics_arg()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_MaxCollectDuration;
+        break;
+      }
+
+      // optional int64 MaxCollectDuration = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_MaxCollectDuration:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &maxcollectduration_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_MaxMetricsBuffer;
+        break;
+      }
+
+      // optional int64 MaxMetricsBuffer = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_MaxMetricsBuffer:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &maxmetricsbuffer_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_Other;
+        break;
+      }
+
+      // optional bytes Other = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_Other:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_other()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:rpc.CollectArg)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:rpc.CollectArg)
+  return false;
+#undef DO_
+}
+
+void CollectArg::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:rpc.CollectArg)
+  // optional .rpc.MetricsArg Metrics_Arg = 1;
+  if (this->has_metrics_arg()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, *this->metrics_arg_, output);
+  }
+
+  // optional int64 MaxCollectDuration = 2;
+  if (this->maxcollectduration() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->maxcollectduration(), output);
+  }
+
+  // optional int64 MaxMetricsBuffer = 3;
+  if (this->maxmetricsbuffer() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->maxmetricsbuffer(), output);
+  }
+
+  // optional bytes Other = 4;
+  if (this->other().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+      4, this->other(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:rpc.CollectArg)
+}
+
+::google::protobuf::uint8* CollectArg::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:rpc.CollectArg)
+  // optional .rpc.MetricsArg Metrics_Arg = 1;
+  if (this->has_metrics_arg()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        1, *this->metrics_arg_, false, target);
+  }
+
+  // optional int64 MaxCollectDuration = 2;
+  if (this->maxcollectduration() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->maxcollectduration(), target);
+  }
+
+  // optional int64 MaxMetricsBuffer = 3;
+  if (this->maxmetricsbuffer() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->maxmetricsbuffer(), target);
+  }
+
+  // optional bytes Other = 4;
+  if (this->other().size() > 0) {
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
+        4, this->other(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:rpc.CollectArg)
+  return target;
+}
+
+int CollectArg::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:rpc.CollectArg)
+  int total_size = 0;
+
+  // optional .rpc.MetricsArg Metrics_Arg = 1;
+  if (this->has_metrics_arg()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->metrics_arg_);
+  }
+
+  // optional int64 MaxCollectDuration = 2;
+  if (this->maxcollectduration() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->maxcollectduration());
+  }
+
+  // optional int64 MaxMetricsBuffer = 3;
+  if (this->maxmetricsbuffer() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->maxmetricsbuffer());
+  }
+
+  // optional bytes Other = 4;
+  if (this->other().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
+        this->other());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void CollectArg::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:rpc.CollectArg)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const CollectArg* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const CollectArg>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:rpc.CollectArg)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:rpc.CollectArg)
+    MergeFrom(*source);
+  }
+}
+
+void CollectArg::MergeFrom(const CollectArg& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:rpc.CollectArg)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  if (from.has_metrics_arg()) {
+    mutable_metrics_arg()->::rpc::MetricsArg::MergeFrom(from.metrics_arg());
+  }
+  if (from.maxcollectduration() != 0) {
+    set_maxcollectduration(from.maxcollectduration());
+  }
+  if (from.maxmetricsbuffer() != 0) {
+    set_maxmetricsbuffer(from.maxmetricsbuffer());
+  }
+  if (from.other().size() > 0) {
+
+    other_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.other_);
+  }
+}
+
+void CollectArg::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:rpc.CollectArg)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CollectArg::CopyFrom(const CollectArg& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:rpc.CollectArg)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CollectArg::IsInitialized() const {
+
+  return true;
+}
+
+void CollectArg::Swap(CollectArg* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void CollectArg::InternalSwap(CollectArg* other) {
+  std::swap(metrics_arg_, other->metrics_arg_);
+  std::swap(maxcollectduration_, other->maxcollectduration_);
+  std::swap(maxmetricsbuffer_, other->maxmetricsbuffer_);
+  other_.Swap(&other->other_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata CollectArg::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = CollectArg_descriptor_;
+  metadata.reflection = CollectArg_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// CollectArg
+
+// optional .rpc.MetricsArg Metrics_Arg = 1;
+bool CollectArg::has_metrics_arg() const {
+  return !_is_default_instance_ && metrics_arg_ != NULL;
+}
+void CollectArg::clear_metrics_arg() {
+  if (GetArenaNoVirtual() == NULL && metrics_arg_ != NULL) delete metrics_arg_;
+  metrics_arg_ = NULL;
+}
+const ::rpc::MetricsArg& CollectArg::metrics_arg() const {
+  // @@protoc_insertion_point(field_get:rpc.CollectArg.Metrics_Arg)
+  return metrics_arg_ != NULL ? *metrics_arg_ : *default_instance_->metrics_arg_;
+}
+::rpc::MetricsArg* CollectArg::mutable_metrics_arg() {
+  
+  if (metrics_arg_ == NULL) {
+    metrics_arg_ = new ::rpc::MetricsArg;
+  }
+  // @@protoc_insertion_point(field_mutable:rpc.CollectArg.Metrics_Arg)
+  return metrics_arg_;
+}
+::rpc::MetricsArg* CollectArg::release_metrics_arg() {
+  // @@protoc_insertion_point(field_release:rpc.CollectArg.Metrics_Arg)
+  
+  ::rpc::MetricsArg* temp = metrics_arg_;
+  metrics_arg_ = NULL;
+  return temp;
+}
+void CollectArg::set_allocated_metrics_arg(::rpc::MetricsArg* metrics_arg) {
+  delete metrics_arg_;
+  metrics_arg_ = metrics_arg;
+  if (metrics_arg) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:rpc.CollectArg.Metrics_Arg)
+}
+
+// optional int64 MaxCollectDuration = 2;
+void CollectArg::clear_maxcollectduration() {
+  maxcollectduration_ = GOOGLE_LONGLONG(0);
+}
+ ::google::protobuf::int64 CollectArg::maxcollectduration() const {
+  // @@protoc_insertion_point(field_get:rpc.CollectArg.MaxCollectDuration)
+  return maxcollectduration_;
+}
+ void CollectArg::set_maxcollectduration(::google::protobuf::int64 value) {
+  
+  maxcollectduration_ = value;
+  // @@protoc_insertion_point(field_set:rpc.CollectArg.MaxCollectDuration)
+}
+
+// optional int64 MaxMetricsBuffer = 3;
+void CollectArg::clear_maxmetricsbuffer() {
+  maxmetricsbuffer_ = GOOGLE_LONGLONG(0);
+}
+ ::google::protobuf::int64 CollectArg::maxmetricsbuffer() const {
+  // @@protoc_insertion_point(field_get:rpc.CollectArg.MaxMetricsBuffer)
+  return maxmetricsbuffer_;
+}
+ void CollectArg::set_maxmetricsbuffer(::google::protobuf::int64 value) {
+  
+  maxmetricsbuffer_ = value;
+  // @@protoc_insertion_point(field_set:rpc.CollectArg.MaxMetricsBuffer)
+}
+
+// optional bytes Other = 4;
+void CollectArg::clear_other() {
+  other_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& CollectArg::other() const {
+  // @@protoc_insertion_point(field_get:rpc.CollectArg.Other)
+  return other_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void CollectArg::set_other(const ::std::string& value) {
+  
+  other_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:rpc.CollectArg.Other)
+}
+ void CollectArg::set_other(const char* value) {
+  
+  other_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:rpc.CollectArg.Other)
+}
+ void CollectArg::set_other(const void* value, size_t size) {
+  
+  other_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:rpc.CollectArg.Other)
+}
+ ::std::string* CollectArg::mutable_other() {
+  
+  // @@protoc_insertion_point(field_mutable:rpc.CollectArg.Other)
+  return other_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* CollectArg::release_other() {
+  // @@protoc_insertion_point(field_release:rpc.CollectArg.Other)
+  
+  return other_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void CollectArg::set_allocated_other(::std::string* other) {
+  if (other != NULL) {
+    
+  } else {
+    
+  }
+  other_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), other);
+  // @@protoc_insertion_point(field_set_allocated:rpc.CollectArg.Other)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int CollectReply::kMetricsReplyFieldNumber;
+const int CollectReply::kErrorFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+CollectReply::CollectReply()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:rpc.CollectReply)
+}
+
+void CollectReply::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+  metrics_reply_ = const_cast< ::rpc::MetricsReply*>(&::rpc::MetricsReply::default_instance());
+  error_ = const_cast< ::rpc::ErrReply*>(&::rpc::ErrReply::default_instance());
+}
+
+CollectReply::CollectReply(const CollectReply& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:rpc.CollectReply)
+}
+
+void CollectReply::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+  metrics_reply_ = NULL;
+  error_ = NULL;
+}
+
+CollectReply::~CollectReply() {
+  // @@protoc_insertion_point(destructor:rpc.CollectReply)
+  SharedDtor();
+}
+
+void CollectReply::SharedDtor() {
+  if (this != default_instance_) {
+    delete metrics_reply_;
+    delete error_;
+  }
+}
+
+void CollectReply::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* CollectReply::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return CollectReply_descriptor_;
+}
+
+const CollectReply& CollectReply::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_plugin_2eproto();
+  return *default_instance_;
+}
+
+CollectReply* CollectReply::default_instance_ = NULL;
+
+CollectReply* CollectReply::New(::google::protobuf::Arena* arena) const {
+  CollectReply* n = new CollectReply;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void CollectReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:rpc.CollectReply)
+  if (GetArenaNoVirtual() == NULL && metrics_reply_ != NULL) delete metrics_reply_;
+  metrics_reply_ = NULL;
+  if (GetArenaNoVirtual() == NULL && error_ != NULL) delete error_;
+  error_ = NULL;
+}
+
+bool CollectReply::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:rpc.CollectReply)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .rpc.MetricsReply Metrics_Reply = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_metrics_reply()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_Error;
+        break;
+      }
+
+      // optional .rpc.ErrReply Error = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_Error:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_error()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:rpc.CollectReply)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:rpc.CollectReply)
+  return false;
+#undef DO_
+}
+
+void CollectReply::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:rpc.CollectReply)
+  // optional .rpc.MetricsReply Metrics_Reply = 1;
+  if (this->has_metrics_reply()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, *this->metrics_reply_, output);
+  }
+
+  // optional .rpc.ErrReply Error = 2;
+  if (this->has_error()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, *this->error_, output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:rpc.CollectReply)
+}
+
+::google::protobuf::uint8* CollectReply::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:rpc.CollectReply)
+  // optional .rpc.MetricsReply Metrics_Reply = 1;
+  if (this->has_metrics_reply()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        1, *this->metrics_reply_, false, target);
+  }
+
+  // optional .rpc.ErrReply Error = 2;
+  if (this->has_error()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        2, *this->error_, false, target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:rpc.CollectReply)
+  return target;
+}
+
+int CollectReply::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:rpc.CollectReply)
+  int total_size = 0;
+
+  // optional .rpc.MetricsReply Metrics_Reply = 1;
+  if (this->has_metrics_reply()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->metrics_reply_);
+  }
+
+  // optional .rpc.ErrReply Error = 2;
+  if (this->has_error()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->error_);
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void CollectReply::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:rpc.CollectReply)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const CollectReply* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const CollectReply>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:rpc.CollectReply)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:rpc.CollectReply)
+    MergeFrom(*source);
+  }
+}
+
+void CollectReply::MergeFrom(const CollectReply& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:rpc.CollectReply)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  if (from.has_metrics_reply()) {
+    mutable_metrics_reply()->::rpc::MetricsReply::MergeFrom(from.metrics_reply());
+  }
+  if (from.has_error()) {
+    mutable_error()->::rpc::ErrReply::MergeFrom(from.error());
+  }
+}
+
+void CollectReply::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:rpc.CollectReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CollectReply::CopyFrom(const CollectReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:rpc.CollectReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CollectReply::IsInitialized() const {
+
+  return true;
+}
+
+void CollectReply::Swap(CollectReply* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void CollectReply::InternalSwap(CollectReply* other) {
+  std::swap(metrics_reply_, other->metrics_reply_);
+  std::swap(error_, other->error_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata CollectReply::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = CollectReply_descriptor_;
+  metadata.reflection = CollectReply_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// CollectReply
+
+// optional .rpc.MetricsReply Metrics_Reply = 1;
+bool CollectReply::has_metrics_reply() const {
+  return !_is_default_instance_ && metrics_reply_ != NULL;
+}
+void CollectReply::clear_metrics_reply() {
+  if (GetArenaNoVirtual() == NULL && metrics_reply_ != NULL) delete metrics_reply_;
+  metrics_reply_ = NULL;
+}
+const ::rpc::MetricsReply& CollectReply::metrics_reply() const {
+  // @@protoc_insertion_point(field_get:rpc.CollectReply.Metrics_Reply)
+  return metrics_reply_ != NULL ? *metrics_reply_ : *default_instance_->metrics_reply_;
+}
+::rpc::MetricsReply* CollectReply::mutable_metrics_reply() {
+  
+  if (metrics_reply_ == NULL) {
+    metrics_reply_ = new ::rpc::MetricsReply;
+  }
+  // @@protoc_insertion_point(field_mutable:rpc.CollectReply.Metrics_Reply)
+  return metrics_reply_;
+}
+::rpc::MetricsReply* CollectReply::release_metrics_reply() {
+  // @@protoc_insertion_point(field_release:rpc.CollectReply.Metrics_Reply)
+  
+  ::rpc::MetricsReply* temp = metrics_reply_;
+  metrics_reply_ = NULL;
+  return temp;
+}
+void CollectReply::set_allocated_metrics_reply(::rpc::MetricsReply* metrics_reply) {
+  delete metrics_reply_;
+  metrics_reply_ = metrics_reply;
+  if (metrics_reply) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:rpc.CollectReply.Metrics_Reply)
+}
+
+// optional .rpc.ErrReply Error = 2;
+bool CollectReply::has_error() const {
+  return !_is_default_instance_ && error_ != NULL;
+}
+void CollectReply::clear_error() {
+  if (GetArenaNoVirtual() == NULL && error_ != NULL) delete error_;
+  error_ = NULL;
+}
+const ::rpc::ErrReply& CollectReply::error() const {
+  // @@protoc_insertion_point(field_get:rpc.CollectReply.Error)
+  return error_ != NULL ? *error_ : *default_instance_->error_;
+}
+::rpc::ErrReply* CollectReply::mutable_error() {
+  
+  if (error_ == NULL) {
+    error_ = new ::rpc::ErrReply;
+  }
+  // @@protoc_insertion_point(field_mutable:rpc.CollectReply.Error)
+  return error_;
+}
+::rpc::ErrReply* CollectReply::release_error() {
+  // @@protoc_insertion_point(field_release:rpc.CollectReply.Error)
+  
+  ::rpc::ErrReply* temp = error_;
+  error_ = NULL;
+  return temp;
+}
+void CollectReply::set_allocated_error(::rpc::ErrReply* error) {
+  delete error_;
+  error_ = error;
+  if (error) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:rpc.CollectReply.Error)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
 
@@ -2444,6 +3346,9 @@ const int Metric::kFloat64DataFieldNumber;
 const int Metric::kInt32DataFieldNumber;
 const int Metric::kInt64DataFieldNumber;
 const int Metric::kBytesDataFieldNumber;
+const int Metric::kBoolDataFieldNumber;
+const int Metric::kUint32DataFieldNumber;
+const int Metric::kUint64DataFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 Metric::Metric()
@@ -2463,6 +3368,9 @@ void Metric::InitAsDefaultInstance() {
   Metric_default_oneof_instance_->int32_data_ = 0;
   Metric_default_oneof_instance_->int64_data_ = GOOGLE_LONGLONG(0);
   Metric_default_oneof_instance_->bytes_data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  Metric_default_oneof_instance_->bool_data_ = false;
+  Metric_default_oneof_instance_->uint32_data_ = 0u;
+  Metric_default_oneof_instance_->uint64_data_ = GOOGLE_ULONGLONG(0);
 }
 
 Metric::Metric(const Metric& from)
@@ -2560,6 +3468,18 @@ void Metric::clear_data() {
       data_.bytes_data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
       break;
     }
+    case kBoolData: {
+      // No need to clear
+      break;
+    }
+    case kUint32Data: {
+      // No need to clear
+      break;
+    }
+    case kUint64Data: {
+      // No need to clear
+      break;
+    }
     case DATA_NOT_SET: {
       break;
     }
@@ -2590,7 +3510,7 @@ bool Metric::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:rpc.Metric)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(16383);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
@@ -2819,6 +3739,54 @@ bool Metric::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(120)) goto parse_bool_data;
+        break;
+      }
+
+      // optional bool bool_data = 15;
+      case 15: {
+        if (tag == 120) {
+         parse_bool_data:
+          clear_data();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &data_.bool_data_)));
+          set_has_bool_data();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(128)) goto parse_uint32_data;
+        break;
+      }
+
+      // optional uint32 uint32_data = 16;
+      case 16: {
+        if (tag == 128) {
+         parse_uint32_data:
+          clear_data();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &data_.uint32_data_)));
+          set_has_uint32_data();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(136)) goto parse_uint64_data;
+        break;
+      }
+
+      // optional uint64 uint64_data = 17;
+      case 17: {
+        if (tag == 136) {
+         parse_uint64_data:
+          clear_data();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &data_.uint64_data_)));
+          set_has_uint64_data();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -2985,6 +3953,21 @@ void Metric::SerializeWithCachedSizes(
       14, this->bytes_data(), output);
   }
 
+  // optional bool bool_data = 15;
+  if (has_bool_data()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(15, this->bool_data(), output);
+  }
+
+  // optional uint32 uint32_data = 16;
+  if (has_uint32_data()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(16, this->uint32_data(), output);
+  }
+
+  // optional uint64 uint64_data = 17;
+  if (has_uint64_data()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(17, this->uint64_data(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:rpc.Metric)
 }
 
@@ -3141,6 +4124,21 @@ void Metric::SerializeWithCachedSizes(
         14, this->bytes_data(), target);
   }
 
+  // optional bool bool_data = 15;
+  if (has_bool_data()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(15, this->bool_data(), target);
+  }
+
+  // optional uint32 uint32_data = 16;
+  if (has_uint32_data()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(16, this->uint32_data(), target);
+  }
+
+  // optional uint64 uint64_data = 17;
+  if (has_uint64_data()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(17, this->uint64_data(), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:rpc.Metric)
   return target;
 }
@@ -3251,6 +4249,25 @@ int Metric::ByteSize() const {
           this->bytes_data());
       break;
     }
+    // optional bool bool_data = 15;
+    case kBoolData: {
+      total_size += 1 + 1;
+      break;
+    }
+    // optional uint32 uint32_data = 16;
+    case kUint32Data: {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->uint32_data());
+      break;
+    }
+    // optional uint64 uint64_data = 17;
+    case kUint64Data: {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::UInt64Size(
+          this->uint64_data());
+      break;
+    }
     case DATA_NOT_SET: {
       break;
     }
@@ -3308,6 +4325,18 @@ void Metric::MergeFrom(const Metric& from) {
     }
     case kBytesData: {
       set_bytes_data(from.bytes_data());
+      break;
+    }
+    case kBoolData: {
+      set_bool_data(from.bool_data());
+      break;
+    }
+    case kUint32Data: {
+      set_uint32_data(from.uint32_data());
+      break;
+    }
+    case kUint64Data: {
+      set_uint64_data(from.uint64_data());
       break;
     }
     case DATA_NOT_SET: {
@@ -3925,6 +4954,93 @@ void Metric::clear_bytes_data() {
         bytes_data);
   }
   // @@protoc_insertion_point(field_set_allocated:rpc.Metric.bytes_data)
+}
+
+// optional bool bool_data = 15;
+bool Metric::has_bool_data() const {
+  return data_case() == kBoolData;
+}
+void Metric::set_has_bool_data() {
+  _oneof_case_[0] = kBoolData;
+}
+void Metric::clear_bool_data() {
+  if (has_bool_data()) {
+    data_.bool_data_ = false;
+    clear_has_data();
+  }
+}
+ bool Metric::bool_data() const {
+  // @@protoc_insertion_point(field_get:rpc.Metric.bool_data)
+  if (has_bool_data()) {
+    return data_.bool_data_;
+  }
+  return false;
+}
+ void Metric::set_bool_data(bool value) {
+  if (!has_bool_data()) {
+    clear_data();
+    set_has_bool_data();
+  }
+  data_.bool_data_ = value;
+  // @@protoc_insertion_point(field_set:rpc.Metric.bool_data)
+}
+
+// optional uint32 uint32_data = 16;
+bool Metric::has_uint32_data() const {
+  return data_case() == kUint32Data;
+}
+void Metric::set_has_uint32_data() {
+  _oneof_case_[0] = kUint32Data;
+}
+void Metric::clear_uint32_data() {
+  if (has_uint32_data()) {
+    data_.uint32_data_ = 0u;
+    clear_has_data();
+  }
+}
+ ::google::protobuf::uint32 Metric::uint32_data() const {
+  // @@protoc_insertion_point(field_get:rpc.Metric.uint32_data)
+  if (has_uint32_data()) {
+    return data_.uint32_data_;
+  }
+  return 0u;
+}
+ void Metric::set_uint32_data(::google::protobuf::uint32 value) {
+  if (!has_uint32_data()) {
+    clear_data();
+    set_has_uint32_data();
+  }
+  data_.uint32_data_ = value;
+  // @@protoc_insertion_point(field_set:rpc.Metric.uint32_data)
+}
+
+// optional uint64 uint64_data = 17;
+bool Metric::has_uint64_data() const {
+  return data_case() == kUint64Data;
+}
+void Metric::set_has_uint64_data() {
+  _oneof_case_[0] = kUint64Data;
+}
+void Metric::clear_uint64_data() {
+  if (has_uint64_data()) {
+    data_.uint64_data_ = GOOGLE_ULONGLONG(0);
+    clear_has_data();
+  }
+}
+ ::google::protobuf::uint64 Metric::uint64_data() const {
+  // @@protoc_insertion_point(field_get:rpc.Metric.uint64_data)
+  if (has_uint64_data()) {
+    return data_.uint64_data_;
+  }
+  return GOOGLE_ULONGLONG(0);
+}
+ void Metric::set_uint64_data(::google::protobuf::uint64 value) {
+  if (!has_uint64_data()) {
+    clear_data();
+    set_has_uint64_data();
+  }
+  data_.uint64_data_ = value;
+  // @@protoc_insertion_point(field_set:rpc.Metric.uint64_data)
 }
 
 bool Metric::has_data() const {
@@ -6402,6 +7518,7 @@ void BoolRule::clear_has_default() {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int BoolPolicy::kRulesFieldNumber;
+const int BoolPolicy::kKeyFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 BoolPolicy::BoolPolicy()
@@ -6470,6 +7587,7 @@ BoolPolicy* BoolPolicy::New(::google::protobuf::Arena* arena) const {
 void BoolPolicy::Clear() {
 // @@protoc_insertion_point(message_clear_start:rpc.BoolPolicy)
   rules_.Clear();
+  key_.Clear();
 }
 
 bool BoolPolicy::MergePartialFromCodedStream(
@@ -6504,6 +7622,25 @@ bool BoolPolicy::MergePartialFromCodedStream(
         }
         if (input->ExpectTag(10)) goto parse_loop_rules;
         input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectTag(18)) goto parse_key;
+        break;
+      }
+
+      // repeated string key = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_key:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->add_key()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->key(this->key_size() - 1).data(),
+            this->key(this->key_size() - 1).length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "rpc.BoolPolicy.key"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_key;
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -6581,6 +7718,16 @@ void BoolPolicy::SerializeWithCachedSizes(
     }
   }
 
+  // repeated string key = 2;
+  for (int i = 0; i < this->key_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->key(i).data(), this->key(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "rpc.BoolPolicy.key");
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      2, this->key(i), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:rpc.BoolPolicy)
 }
 
@@ -6640,6 +7787,16 @@ void BoolPolicy::SerializeWithCachedSizes(
     }
   }
 
+  // repeated string key = 2;
+  for (int i = 0; i < this->key_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->key(i).data(), this->key(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "rpc.BoolPolicy.key");
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteStringToArray(2, this->key(i), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:rpc.BoolPolicy)
   return target;
 }
@@ -6659,6 +7816,13 @@ int BoolPolicy::ByteSize() const {
       total_size += ::google::protobuf::internal::WireFormatLite::
           MessageSizeNoVirtual(*entry);
     }
+  }
+
+  // repeated string key = 2;
+  total_size += 1 * this->key_size();
+  for (int i = 0; i < this->key_size(); i++) {
+    total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
+      this->key(i));
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -6690,6 +7854,7 @@ void BoolPolicy::MergeFrom(const BoolPolicy& from) {
     ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
   }
   rules_.MergeFrom(from.rules_);
+  key_.MergeFrom(from.key_);
 }
 
 void BoolPolicy::CopyFrom(const ::google::protobuf::Message& from) {
@@ -6717,6 +7882,7 @@ void BoolPolicy::Swap(BoolPolicy* other) {
 }
 void BoolPolicy::InternalSwap(BoolPolicy* other) {
   rules_.Swap(&other->rules_);
+  key_.UnsafeArenaSwap(&other->key_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -6748,6 +7914,61 @@ BoolPolicy::rules() const {
 BoolPolicy::mutable_rules() {
   // @@protoc_insertion_point(field_mutable_map:rpc.BoolPolicy.rules)
   return rules_.MutableMap();
+}
+
+// repeated string key = 2;
+int BoolPolicy::key_size() const {
+  return key_.size();
+}
+void BoolPolicy::clear_key() {
+  key_.Clear();
+}
+ const ::std::string& BoolPolicy::key(int index) const {
+  // @@protoc_insertion_point(field_get:rpc.BoolPolicy.key)
+  return key_.Get(index);
+}
+ ::std::string* BoolPolicy::mutable_key(int index) {
+  // @@protoc_insertion_point(field_mutable:rpc.BoolPolicy.key)
+  return key_.Mutable(index);
+}
+ void BoolPolicy::set_key(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:rpc.BoolPolicy.key)
+  key_.Mutable(index)->assign(value);
+}
+ void BoolPolicy::set_key(int index, const char* value) {
+  key_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:rpc.BoolPolicy.key)
+}
+ void BoolPolicy::set_key(int index, const char* value, size_t size) {
+  key_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:rpc.BoolPolicy.key)
+}
+ ::std::string* BoolPolicy::add_key() {
+  // @@protoc_insertion_point(field_add_mutable:rpc.BoolPolicy.key)
+  return key_.Add();
+}
+ void BoolPolicy::add_key(const ::std::string& value) {
+  key_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:rpc.BoolPolicy.key)
+}
+ void BoolPolicy::add_key(const char* value) {
+  key_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:rpc.BoolPolicy.key)
+}
+ void BoolPolicy::add_key(const char* value, size_t size) {
+  key_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:rpc.BoolPolicy.key)
+}
+ const ::google::protobuf::RepeatedPtrField< ::std::string>&
+BoolPolicy::key() const {
+  // @@protoc_insertion_point(field_list:rpc.BoolPolicy.key)
+  return key_;
+}
+ ::google::protobuf::RepeatedPtrField< ::std::string>*
+BoolPolicy::mutable_key() {
+  // @@protoc_insertion_point(field_mutable_list:rpc.BoolPolicy.key)
+  return &key_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -7312,6 +8533,7 @@ void FloatRule::clear_has_max() {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int FloatPolicy::kRulesFieldNumber;
+const int FloatPolicy::kKeyFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 FloatPolicy::FloatPolicy()
@@ -7380,6 +8602,7 @@ FloatPolicy* FloatPolicy::New(::google::protobuf::Arena* arena) const {
 void FloatPolicy::Clear() {
 // @@protoc_insertion_point(message_clear_start:rpc.FloatPolicy)
   rules_.Clear();
+  key_.Clear();
 }
 
 bool FloatPolicy::MergePartialFromCodedStream(
@@ -7414,6 +8637,25 @@ bool FloatPolicy::MergePartialFromCodedStream(
         }
         if (input->ExpectTag(10)) goto parse_loop_rules;
         input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectTag(18)) goto parse_key;
+        break;
+      }
+
+      // repeated string key = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_key:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->add_key()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->key(this->key_size() - 1).data(),
+            this->key(this->key_size() - 1).length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "rpc.FloatPolicy.key"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_key;
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -7491,6 +8733,16 @@ void FloatPolicy::SerializeWithCachedSizes(
     }
   }
 
+  // repeated string key = 2;
+  for (int i = 0; i < this->key_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->key(i).data(), this->key(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "rpc.FloatPolicy.key");
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      2, this->key(i), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:rpc.FloatPolicy)
 }
 
@@ -7550,6 +8802,16 @@ void FloatPolicy::SerializeWithCachedSizes(
     }
   }
 
+  // repeated string key = 2;
+  for (int i = 0; i < this->key_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->key(i).data(), this->key(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "rpc.FloatPolicy.key");
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteStringToArray(2, this->key(i), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:rpc.FloatPolicy)
   return target;
 }
@@ -7569,6 +8831,13 @@ int FloatPolicy::ByteSize() const {
       total_size += ::google::protobuf::internal::WireFormatLite::
           MessageSizeNoVirtual(*entry);
     }
+  }
+
+  // repeated string key = 2;
+  total_size += 1 * this->key_size();
+  for (int i = 0; i < this->key_size(); i++) {
+    total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
+      this->key(i));
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -7600,6 +8869,7 @@ void FloatPolicy::MergeFrom(const FloatPolicy& from) {
     ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
   }
   rules_.MergeFrom(from.rules_);
+  key_.MergeFrom(from.key_);
 }
 
 void FloatPolicy::CopyFrom(const ::google::protobuf::Message& from) {
@@ -7627,6 +8897,7 @@ void FloatPolicy::Swap(FloatPolicy* other) {
 }
 void FloatPolicy::InternalSwap(FloatPolicy* other) {
   rules_.Swap(&other->rules_);
+  key_.UnsafeArenaSwap(&other->key_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -7658,6 +8929,61 @@ FloatPolicy::rules() const {
 FloatPolicy::mutable_rules() {
   // @@protoc_insertion_point(field_mutable_map:rpc.FloatPolicy.rules)
   return rules_.MutableMap();
+}
+
+// repeated string key = 2;
+int FloatPolicy::key_size() const {
+  return key_.size();
+}
+void FloatPolicy::clear_key() {
+  key_.Clear();
+}
+ const ::std::string& FloatPolicy::key(int index) const {
+  // @@protoc_insertion_point(field_get:rpc.FloatPolicy.key)
+  return key_.Get(index);
+}
+ ::std::string* FloatPolicy::mutable_key(int index) {
+  // @@protoc_insertion_point(field_mutable:rpc.FloatPolicy.key)
+  return key_.Mutable(index);
+}
+ void FloatPolicy::set_key(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:rpc.FloatPolicy.key)
+  key_.Mutable(index)->assign(value);
+}
+ void FloatPolicy::set_key(int index, const char* value) {
+  key_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:rpc.FloatPolicy.key)
+}
+ void FloatPolicy::set_key(int index, const char* value, size_t size) {
+  key_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:rpc.FloatPolicy.key)
+}
+ ::std::string* FloatPolicy::add_key() {
+  // @@protoc_insertion_point(field_add_mutable:rpc.FloatPolicy.key)
+  return key_.Add();
+}
+ void FloatPolicy::add_key(const ::std::string& value) {
+  key_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:rpc.FloatPolicy.key)
+}
+ void FloatPolicy::add_key(const char* value) {
+  key_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:rpc.FloatPolicy.key)
+}
+ void FloatPolicy::add_key(const char* value, size_t size) {
+  key_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:rpc.FloatPolicy.key)
+}
+ const ::google::protobuf::RepeatedPtrField< ::std::string>&
+FloatPolicy::key() const {
+  // @@protoc_insertion_point(field_list:rpc.FloatPolicy.key)
+  return key_;
+}
+ ::google::protobuf::RepeatedPtrField< ::std::string>*
+FloatPolicy::mutable_key() {
+  // @@protoc_insertion_point(field_mutable_list:rpc.FloatPolicy.key)
+  return &key_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -8228,6 +9554,7 @@ void IntegerRule::clear_has_max() {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int IntegerPolicy::kRulesFieldNumber;
+const int IntegerPolicy::kKeyFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 IntegerPolicy::IntegerPolicy()
@@ -8296,6 +9623,7 @@ IntegerPolicy* IntegerPolicy::New(::google::protobuf::Arena* arena) const {
 void IntegerPolicy::Clear() {
 // @@protoc_insertion_point(message_clear_start:rpc.IntegerPolicy)
   rules_.Clear();
+  key_.Clear();
 }
 
 bool IntegerPolicy::MergePartialFromCodedStream(
@@ -8330,6 +9658,25 @@ bool IntegerPolicy::MergePartialFromCodedStream(
         }
         if (input->ExpectTag(10)) goto parse_loop_rules;
         input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectTag(18)) goto parse_key;
+        break;
+      }
+
+      // repeated string key = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_key:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->add_key()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->key(this->key_size() - 1).data(),
+            this->key(this->key_size() - 1).length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "rpc.IntegerPolicy.key"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_key;
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -8407,6 +9754,16 @@ void IntegerPolicy::SerializeWithCachedSizes(
     }
   }
 
+  // repeated string key = 2;
+  for (int i = 0; i < this->key_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->key(i).data(), this->key(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "rpc.IntegerPolicy.key");
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      2, this->key(i), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:rpc.IntegerPolicy)
 }
 
@@ -8466,6 +9823,16 @@ void IntegerPolicy::SerializeWithCachedSizes(
     }
   }
 
+  // repeated string key = 2;
+  for (int i = 0; i < this->key_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->key(i).data(), this->key(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "rpc.IntegerPolicy.key");
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteStringToArray(2, this->key(i), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:rpc.IntegerPolicy)
   return target;
 }
@@ -8485,6 +9852,13 @@ int IntegerPolicy::ByteSize() const {
       total_size += ::google::protobuf::internal::WireFormatLite::
           MessageSizeNoVirtual(*entry);
     }
+  }
+
+  // repeated string key = 2;
+  total_size += 1 * this->key_size();
+  for (int i = 0; i < this->key_size(); i++) {
+    total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
+      this->key(i));
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -8516,6 +9890,7 @@ void IntegerPolicy::MergeFrom(const IntegerPolicy& from) {
     ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
   }
   rules_.MergeFrom(from.rules_);
+  key_.MergeFrom(from.key_);
 }
 
 void IntegerPolicy::CopyFrom(const ::google::protobuf::Message& from) {
@@ -8543,6 +9918,7 @@ void IntegerPolicy::Swap(IntegerPolicy* other) {
 }
 void IntegerPolicy::InternalSwap(IntegerPolicy* other) {
   rules_.Swap(&other->rules_);
+  key_.UnsafeArenaSwap(&other->key_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -8574,6 +9950,61 @@ IntegerPolicy::rules() const {
 IntegerPolicy::mutable_rules() {
   // @@protoc_insertion_point(field_mutable_map:rpc.IntegerPolicy.rules)
   return rules_.MutableMap();
+}
+
+// repeated string key = 2;
+int IntegerPolicy::key_size() const {
+  return key_.size();
+}
+void IntegerPolicy::clear_key() {
+  key_.Clear();
+}
+ const ::std::string& IntegerPolicy::key(int index) const {
+  // @@protoc_insertion_point(field_get:rpc.IntegerPolicy.key)
+  return key_.Get(index);
+}
+ ::std::string* IntegerPolicy::mutable_key(int index) {
+  // @@protoc_insertion_point(field_mutable:rpc.IntegerPolicy.key)
+  return key_.Mutable(index);
+}
+ void IntegerPolicy::set_key(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:rpc.IntegerPolicy.key)
+  key_.Mutable(index)->assign(value);
+}
+ void IntegerPolicy::set_key(int index, const char* value) {
+  key_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:rpc.IntegerPolicy.key)
+}
+ void IntegerPolicy::set_key(int index, const char* value, size_t size) {
+  key_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:rpc.IntegerPolicy.key)
+}
+ ::std::string* IntegerPolicy::add_key() {
+  // @@protoc_insertion_point(field_add_mutable:rpc.IntegerPolicy.key)
+  return key_.Add();
+}
+ void IntegerPolicy::add_key(const ::std::string& value) {
+  key_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:rpc.IntegerPolicy.key)
+}
+ void IntegerPolicy::add_key(const char* value) {
+  key_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:rpc.IntegerPolicy.key)
+}
+ void IntegerPolicy::add_key(const char* value, size_t size) {
+  key_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:rpc.IntegerPolicy.key)
+}
+ const ::google::protobuf::RepeatedPtrField< ::std::string>&
+IntegerPolicy::key() const {
+  // @@protoc_insertion_point(field_list:rpc.IntegerPolicy.key)
+  return key_;
+}
+ ::google::protobuf::RepeatedPtrField< ::std::string>*
+IntegerPolicy::mutable_key() {
+  // @@protoc_insertion_point(field_mutable_list:rpc.IntegerPolicy.key)
+  return &key_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -8987,6 +10418,7 @@ void StringRule::clear_has_default() {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int StringPolicy::kRulesFieldNumber;
+const int StringPolicy::kKeyFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 StringPolicy::StringPolicy()
@@ -9055,6 +10487,7 @@ StringPolicy* StringPolicy::New(::google::protobuf::Arena* arena) const {
 void StringPolicy::Clear() {
 // @@protoc_insertion_point(message_clear_start:rpc.StringPolicy)
   rules_.Clear();
+  key_.Clear();
 }
 
 bool StringPolicy::MergePartialFromCodedStream(
@@ -9089,6 +10522,25 @@ bool StringPolicy::MergePartialFromCodedStream(
         }
         if (input->ExpectTag(10)) goto parse_loop_rules;
         input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectTag(18)) goto parse_key;
+        break;
+      }
+
+      // repeated string key = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_key:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->add_key()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->key(this->key_size() - 1).data(),
+            this->key(this->key_size() - 1).length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "rpc.StringPolicy.key"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_key;
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -9166,6 +10618,16 @@ void StringPolicy::SerializeWithCachedSizes(
     }
   }
 
+  // repeated string key = 2;
+  for (int i = 0; i < this->key_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->key(i).data(), this->key(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "rpc.StringPolicy.key");
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      2, this->key(i), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:rpc.StringPolicy)
 }
 
@@ -9225,6 +10687,16 @@ void StringPolicy::SerializeWithCachedSizes(
     }
   }
 
+  // repeated string key = 2;
+  for (int i = 0; i < this->key_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->key(i).data(), this->key(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "rpc.StringPolicy.key");
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteStringToArray(2, this->key(i), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:rpc.StringPolicy)
   return target;
 }
@@ -9244,6 +10716,13 @@ int StringPolicy::ByteSize() const {
       total_size += ::google::protobuf::internal::WireFormatLite::
           MessageSizeNoVirtual(*entry);
     }
+  }
+
+  // repeated string key = 2;
+  total_size += 1 * this->key_size();
+  for (int i = 0; i < this->key_size(); i++) {
+    total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
+      this->key(i));
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -9275,6 +10754,7 @@ void StringPolicy::MergeFrom(const StringPolicy& from) {
     ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
   }
   rules_.MergeFrom(from.rules_);
+  key_.MergeFrom(from.key_);
 }
 
 void StringPolicy::CopyFrom(const ::google::protobuf::Message& from) {
@@ -9302,6 +10782,7 @@ void StringPolicy::Swap(StringPolicy* other) {
 }
 void StringPolicy::InternalSwap(StringPolicy* other) {
   rules_.Swap(&other->rules_);
+  key_.UnsafeArenaSwap(&other->key_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -9333,6 +10814,61 @@ StringPolicy::rules() const {
 StringPolicy::mutable_rules() {
   // @@protoc_insertion_point(field_mutable_map:rpc.StringPolicy.rules)
   return rules_.MutableMap();
+}
+
+// repeated string key = 2;
+int StringPolicy::key_size() const {
+  return key_.size();
+}
+void StringPolicy::clear_key() {
+  key_.Clear();
+}
+ const ::std::string& StringPolicy::key(int index) const {
+  // @@protoc_insertion_point(field_get:rpc.StringPolicy.key)
+  return key_.Get(index);
+}
+ ::std::string* StringPolicy::mutable_key(int index) {
+  // @@protoc_insertion_point(field_mutable:rpc.StringPolicy.key)
+  return key_.Mutable(index);
+}
+ void StringPolicy::set_key(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:rpc.StringPolicy.key)
+  key_.Mutable(index)->assign(value);
+}
+ void StringPolicy::set_key(int index, const char* value) {
+  key_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:rpc.StringPolicy.key)
+}
+ void StringPolicy::set_key(int index, const char* value, size_t size) {
+  key_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:rpc.StringPolicy.key)
+}
+ ::std::string* StringPolicy::add_key() {
+  // @@protoc_insertion_point(field_add_mutable:rpc.StringPolicy.key)
+  return key_.Add();
+}
+ void StringPolicy::add_key(const ::std::string& value) {
+  key_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:rpc.StringPolicy.key)
+}
+ void StringPolicy::add_key(const char* value) {
+  key_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:rpc.StringPolicy.key)
+}
+ void StringPolicy::add_key(const char* value, size_t size) {
+  key_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:rpc.StringPolicy.key)
+}
+ const ::google::protobuf::RepeatedPtrField< ::std::string>&
+StringPolicy::key() const {
+  // @@protoc_insertion_point(field_list:rpc.StringPolicy.key)
+  return key_;
+}
+ ::google::protobuf::RepeatedPtrField< ::std::string>*
+StringPolicy::mutable_key() {
+  // @@protoc_insertion_point(field_mutable_list:rpc.StringPolicy.key)
+  return &key_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

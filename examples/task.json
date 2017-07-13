@@ -8,8 +8,7 @@
 	"workflow":{
 		"collect":{
 			"metrics":{
-				"/intel/cpp/mock/randomnumber/one":{},
-				"/intel/cpp/mock/randomnumber/two":{}
+				"/intel/cpp/mock/*":{}
 			},
 			"config":{
 				"/intel/cpp/mock/randomnumber/one":{

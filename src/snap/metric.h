@@ -14,6 +14,7 @@ limitations under the License.
 #pragma once
 
 #include <chrono>
+#include <cstdint>
 #include <map>
 #include <string>
 #include <utility>
@@ -60,10 +61,12 @@ class Metric final {
     Float32 = rpc::Metric::DataCase::kFloat32Data,
     Float64 = rpc::Metric::DataCase::kFloat64Data,
     Int32 = rpc::Metric::DataCase::kInt32Data,
-    // TODO(danielscottt)
-    // Int64 = rpc::Metric::DataCase::kInt64Data,
-    // Bytes = rpc::Metric::DataCase::kBytesData,
-    NotSet = rpc::Metric::DataCase::DATA_NOT_SET
+    Int64 = rpc::Metric::DataCase::kInt64Data,
+    Uint32 = rpc::Metric::DataCase::kUint32Data,
+    Uint64 = rpc::Metric::DataCase::kUint64Data,
+    Bool = rpc::Metric::DataCase::kBoolData,
+    NotSet = rpc::Metric::DataCase::DATA_NOT_SET,
+
   };
 
   Metric();
@@ -155,17 +158,25 @@ class Metric final {
    * set_data sets the metric instances data in the underlying rpc::Metric
    * pointer.
    */
-  void set_data(int data);
+  void set_data(int32_t data);
+  void set_data(int64_t data);
+  void set_data(uint32_t data);
+  void set_data(uint64_t data);
   void set_data(float data);
   void set_data(double data);
+  void set_data(bool data);
   void set_data(const std::string& data);
 
   /**
    * Retrieve this metric's datapoint
    */
-  int get_int_data() const;
+  int32_t get_int_data() const;
+  int64_t get_int64_data() const;
+  uint32_t get_uint32_data() const;
+  uint64_t get_uint64_data() const;
   float get_float32_data() const;
   double get_float64_data() const;
+  bool get_bool_data() const;
   const std::string& get_string_data() const;
   Config get_config() const;
   const rpc::Metric* get_rpc_metric_ptr() const;

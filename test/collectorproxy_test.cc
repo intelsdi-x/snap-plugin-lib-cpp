@@ -77,7 +77,8 @@ TEST(CollectorProxySuccessTest, CollectMetricsWorks) {
     vector<Metric> report;
     auto reporter = [&] (vector<Metric> &metrics) {
         for (int i =0; i < metrics.size(); i++) {
-            metrics.at(i).set_data("hop");
+            const string data = "hop";
+            metrics.at(i).set_data(data);
             report.emplace_back(metrics.at(i));
         }
     };
