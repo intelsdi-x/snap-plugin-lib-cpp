@@ -21,50 +21,57 @@ limitations under the License.
 #include <snap/config.h>
 #include <snap/plugin.h>
 #include <snap/metric.h>
+#include <snap/flags.h>
 
 using Plugin::Config;
 using Plugin::ConfigPolicy;
 using Plugin::Metric;
 using Plugin::Meta;
 using Plugin::Type;
+using Plugin::Flags;
 
 static inline std::vector<std::string> split_tags(std::string);
 
 const ConfigPolicy Graffiti::get_config_policy() {
-  ConfigPolicy policy(Plugin::StringRule{
-    "tags",
-    true
-  });
-  return policy;
+    ConfigPolicy policy(Plugin::StringRule{
+        "tags",
+        true
+    });
+    return policy;
 }
 
 void Graffiti::process_metrics(std::vector<Metric> &metrics,
                                const Config& config) {
-  std::vector<Metric>::iterator mets_iter;
-  std::string tags_str = config.get_string("tags");
+    std::vector<Metric>::iterator mets_iter;
+    std::string tags_str = config.get_string("tags");
 
-  std::vector<std::string> tags = split_tags(tags_str);
+    std::vector<std::string> tags = split_tags(tags_str);
 
-  for (mets_iter = metrics.begin(); mets_iter != metrics.end(); mets_iter++) {
-    for (std::string tag : tags) {
-      mets_iter->add_tag(std::pair<std::string, std::string>(tag, "present"));
+    for (mets_iter = metrics.begin(); mets_iter != metrics.end(); mets_iter++) {
+        for (std::string tag : tags) {
+        mets_iter->add_tag(std::pair<std::string, std::string>(tag, "present"));
+        }
     }
-  }
 }
 
-int main() {
-  Meta meta(Type::Processor, "graffiti", 1);
-  Graffiti plg = Graffiti();
-  start_processor(&plg, meta);
+int main(int argc, char **argv) {
+    Flags cli(argc, argv);
+    Meta meta(Type::Processor, "graffiti", 1, &cli);
+    if (cli.IsParsedFlag("version")) {
+        cout << meta.name << " version "  << meta.version << endl;
+        exit(0);
+    }
+    Graffiti plg = Graffiti();
+    start_processor(&plg, meta);
 }
 
 
 static inline std::vector<std::string> split_tags(std::string tags_str) {
-  std::stringstream tag_stream(tags_str);
-  std::string elem;
-  std::vector<std::string> tags;
-  while (getline(tag_stream, elem, ',')) {
-    if (!elem.empty()) tags.push_back(elem);
-  }
-  return tags;
+    std::stringstream tag_stream(tags_str);
+    std::string elem;
+    std::vector<std::string> tags;
+    while (getline(tag_stream, elem, ',')) {
+        if (!elem.empty()) tags.push_back(elem);
+    }
+    return tags;
 }

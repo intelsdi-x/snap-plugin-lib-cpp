@@ -21,31 +21,29 @@ limitations under the License.
 #include "snap/proxy/plugin_proxy.h"
 
 namespace Plugin {
-namespace Proxy {
+    namespace Proxy {
+        class PublisherImpl final : public rpc::Publisher::Service {
+        public:
+            explicit PublisherImpl(Plugin::PublisherInterface* plugin);
 
-class PublisherImpl final : public rpc::Publisher::Service {
- public:
-  explicit PublisherImpl(Plugin::PublisherInterface* plugin);
+            ~PublisherImpl();
 
-  ~PublisherImpl();
+            grpc::Status Publish(grpc::ServerContext* context, const rpc::PubProcArg* req,
+                                rpc::ErrReply* resp);
 
-  grpc::Status Publish(grpc::ServerContext* context, const rpc::PubProcArg* req,
-                       rpc::ErrReply* resp);
+            grpc::Status Kill(grpc::ServerContext* context, const rpc::KillArg* request,
+                                rpc::ErrReply* response);
 
-  grpc::Status Kill(grpc::ServerContext* context, const rpc::KillArg* request,
-                    rpc::ErrReply* response);
+            grpc::Status GetConfigPolicy(grpc::ServerContext* context,
+                                        const rpc::Empty* request,
+                                        rpc::GetConfigPolicyReply* resp);
 
-  grpc::Status GetConfigPolicy(grpc::ServerContext* context,
-                               const rpc::Empty* request,
-                               rpc::GetConfigPolicyReply* resp);
+            grpc::Status Ping(grpc::ServerContext* context, const rpc::Empty* request,
+                                rpc::ErrReply* resp);
 
-  grpc::Status Ping(grpc::ServerContext* context, const rpc::Empty* request,
-                    rpc::ErrReply* resp);
-
- private:
-  Plugin::PublisherInterface* publisher;
-  PluginImpl* plugin_impl_ptr;
-};
-
-}  // namespace Proxy
+        private:
+            Plugin::PublisherInterface* publisher;
+            PluginImpl* plugin_impl_ptr;
+        };
+    }  // namespace Proxy
 }  // namespace Plugin

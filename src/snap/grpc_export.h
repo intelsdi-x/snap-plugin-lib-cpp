@@ -27,24 +27,25 @@ limitations under the License.
 #define RPC_VERSION 1
 
 namespace Plugin {
-class GRPCExportImpl;
+    class GRPCExportImpl;
 
-/**
- * Implementation of PluginExporter based on GRPC.
- */
-class GRPCExporter : public PluginExporter {
-public:
-  ~GRPCExporter() = default;
+    /**
+    * Implementation of PluginExporter based on GRPC.
+    */
+    class GRPCExporter : public PluginExporter {
+    public:
+        ~GRPCExporter() = default;
 
-  GRPCExporter(const GRPCExporter&) = delete;
-  GRPCExporter& operator=(const GRPCExporter&) = delete;
+        GRPCExporter(const GRPCExporter&) = delete;
+        GRPCExporter& operator=(const GRPCExporter&) = delete;
 
-  std::future<void> ExportPlugin(std::shared_ptr<PluginInterface> plugin, const Meta* meta);
-  GRPCExporter();
-protected:
-  GRPCExportImpl* implement();
-private:
-  std::shared_ptr<GRPCExportImpl> impl;
-};
+        std::future<void> ExportPlugin(std::shared_ptr<PluginInterface> plugin, const Meta* meta);
+        GRPCExporter();
 
+    protected:
+        GRPCExportImpl* implement();
+
+    private:
+        std::shared_ptr<GRPCExportImpl> impl;
+    };
 }

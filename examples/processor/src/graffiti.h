@@ -20,8 +20,8 @@ limitations under the License.
 #include <snap/plugin.h>
 
 class Graffiti final : public Plugin::ProcessorInterface {
- public:
-  const Plugin::ConfigPolicy get_config_policy();
-  void process_metrics(std::vector<Plugin::Metric> &metrics,
-                       const Plugin::Config& config);
+public:
+    const Plugin::ConfigPolicy get_config_policy();
+    void process_metrics(std::vector<Plugin::Metric> &metrics,
+                        const Plugin::Config& config);
 };

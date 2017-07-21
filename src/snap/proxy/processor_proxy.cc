@@ -38,52 +38,52 @@ using Plugin::Proxy::ProcessorImpl;
 
 ProcessorImpl::ProcessorImpl(Plugin::ProcessorInterface* plugin) :
                              processor(plugin) {
-  plugin_impl_ptr = new PluginImpl(plugin);
+    plugin_impl_ptr = new PluginImpl(plugin);
 }
 
 ProcessorImpl::~ProcessorImpl() {
-  delete plugin_impl_ptr;
+    delete plugin_impl_ptr;
 }
 
 Status ProcessorImpl::Process(ServerContext* context, const PubProcArg* req,
                               MetricsReply* resp) {
-  std::vector<Metric> metrics;
-  RepeatedPtrField<rpc::Metric> rpc_mets = req->metrics();
+    std::vector<Metric> metrics;
+    RepeatedPtrField<rpc::Metric> rpc_mets = req->metrics();
 
-  for (int i = 0; i < rpc_mets.size(); i++) {
-    metrics.emplace_back(rpc_mets.Mutable(i));
-  }
+    for (int i = 0; i < rpc_mets.size(); i++) {
+        metrics.emplace_back(rpc_mets.Mutable(i));
+    }
 
-  Plugin::Config config(req->config());
-  try {
-   processor->process_metrics(metrics, config);
+    Plugin::Config config(req->config());
+    try {
+        processor->process_metrics(metrics, config);
 
-   for (Metric met : metrics) {
-     *resp->add_metrics() = *met.get_rpc_metric_ptr();
-   }
-   return Status::OK;
-  } catch (PluginException &e) {
-   resp->set_error(e.what());
-   return Status(StatusCode::UNKNOWN, e.what());
-  }
+        for (Metric met : metrics) {
+            *resp->add_metrics() = *met.get_rpc_metric_ptr();
+        }
+        return Status::OK;
+    } catch (PluginException &e) {
+        resp->set_error(e.what());
+        return Status(StatusCode::UNKNOWN, e.what());
+    }
 }
 
 Status ProcessorImpl::Kill(ServerContext* context, const KillArg* req,
                            ErrReply* resp) {
-  return plugin_impl_ptr->Kill(context, req, resp);
+    return plugin_impl_ptr->Kill(context, req, resp);
 }
 
 Status ProcessorImpl::GetConfigPolicy(ServerContext* context, const Empty* req,
                                       GetConfigPolicyReply* resp) {
-  try {
-   return plugin_impl_ptr->GetConfigPolicy(context, req, resp);
-  } catch (PluginException &e) {
-   resp->set_error(e.what());
-   return Status(StatusCode::UNKNOWN, e.what());
-  }
+    try {
+        return plugin_impl_ptr->GetConfigPolicy(context, req, resp);
+    } catch (PluginException &e) {
+        resp->set_error(e.what());
+        return Status(StatusCode::UNKNOWN, e.what());
+    }
 }
 
 Status ProcessorImpl::Ping(ServerContext* context, const Empty* req,
                            ErrReply* resp) {
-  return plugin_impl_ptr->Ping(context, req, resp);
+    return plugin_impl_ptr->Ping(context, req, resp);
 }

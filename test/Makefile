@@ -22,8 +22,8 @@ GTESTLIB_DIR	= $(CURDIR)/../googletest
 SNAPLIB_DIR	= $(CURDIR)/../lib
 PREFIX		= $(CURDIR)
 COV_ARGS	= -g -fprofile-arcs -ftest-coverage --coverage -fPIC -lgcov -O0
-CPPFLAGS	= --std=c++0x
-LDFLAGS		= --std=c++0x -fPIC -DPIC
+CPPFLAGS	= --std=c++1y
+LDFLAGS		= --std=c++1y -fPIC -DPIC
 SRCDIR		:= $(CURDIR)
 OBJDIR		:= $(CURDIR)
 SRC       	:= $(wildcard $(SRCDIR)/*.cc)
@@ -59,7 +59,7 @@ clean :
 init :	;
 	
 
-$(PREFIX)/$(EXE) : RUN_LDFLAGS = $(LDFLAGS) -L$(SNAPLIB_DIR)/lib -L$(GTESTLIB_DIR)/lib -pthread -lpthread -lgmock -lgtest -lsnap -lprotobuf -lgrpc++ -lgcov $(COV_ARGS)
+$(PREFIX)/$(EXE) : RUN_LDFLAGS = $(LDFLAGS) -L$(SNAPLIB_DIR)/lib -L$(GTESTLIB_DIR)/lib -pthread -lpthread -lgmock -lgtest -lsnap -lprotobuf -lgrpc++ -lgcov -lboost_program_options -lboost_system -lboost_thread -lcppnetlib-uri -lcppnetlib-client-connections -lcppnetlib-server-parsers $(COV_ARGS)
 $(PREFIX)/$(EXE) : $(OBJ)
 	$(run-ld)
 

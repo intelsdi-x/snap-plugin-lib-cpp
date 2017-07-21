@@ -24,12 +24,10 @@ limitations under the License.
 #define RPC_VERSION 1
 
 namespace Plugin {
-
-class LibSetup {
-public:
-  /* A provider of default PluginExporter - used only in static start_xxx methods.
-   * Returns independent instances per each invocation. */
-  static std::function<std::unique_ptr<Plugin::PluginExporter, std::function<void(Plugin::PluginExporter*)>>()> exporter_provider;
-};
-
+    class LibSetup {
+    public:
+    /* A provider of default PluginExporter - used only in static start_xxx methods.
+    * Returns independent instances per each invocation. */
+    static std::function<std::unique_ptr<Plugin::PluginExporter, std::function<void(Plugin::PluginExporter*)>>()> exporter_provider;
+    };
 };  // namespace Plugin

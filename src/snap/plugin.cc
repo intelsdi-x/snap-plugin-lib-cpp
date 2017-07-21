@@ -11,22 +11,22 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-#include "snap/plugin.h"
-#include "snap/grpc_export.h"
-#include "snap/lib_setup_impl.h"
-
 #include <chrono>
 #include <functional>
 #include <sstream>
 #include <string>
+#include <thread>
 
 #include <grpc++/grpc++.h>
 
+#include "snap/plugin.h"
+#include "snap/grpc_export.h"
+#include "snap/lib_setup_impl.h"
 #include "snap/rpc/plugin.pb.h"
-
 #include "snap/proxy/collector_proxy.h"
 #include "snap/proxy/processor_proxy.h"
 #include "snap/proxy/publisher_proxy.h"
+#include "snap/flags.h"
 
 using std::function;
 using std::runtime_error;
@@ -38,77 +38,112 @@ using grpc::Server;
 using grpc::ServerBuilder;
 
 static void start_plugin(Plugin::PluginInterface* plugin, const Plugin::Meta& meta);
+int start_stand_alone(Plugin::PluginInterface* plugin, const Plugin::Meta& meta);
 
 function<unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter*)>>()> Plugin::LibSetup::exporter_provider = []{ return std::unique_ptr<PluginExporter>(new GRPCExporter()); };
 
-Plugin::PluginException::PluginException(const string& message) :
-                                         runtime_error(message) {}
+Plugin::PluginException::PluginException(const std::string& message) :
+                                            runtime_error(message) {}
 
 Plugin::Meta::Meta(Type type, std::string name, int version) :
-                     type(type),
-                     name(name),
-                     version(version),
-                     rpc_type(RpcType::GRPC),
-                     concurrency_count(5),
-                     exclusive(false),
-                     cache_ttl(std::chrono::milliseconds(500)),
-                     strategy(Strategy::LRU) {}
+                    type(type),
+                    name(name),
+                    version(version),
+                    rpc_type(RpcType::GRPC),
+                    concurrency_count(5),
+                    exclusive(false),
+                    unsecure(true),
+                    cache_ttl(std::chrono::milliseconds(500)),
+                    strategy(Strategy::LRU),
+                    listen_port(""),
+                    listen_addr("127.0.0.1"),
+                    pprof_enabled(false),
+                    tls_enabled(false),
+                    cert_path(""),
+                    key_path(""),
+                    root_cert_paths("::"),
+                    stand_alone(false),
+                    stand_alone_port(stand_alone_port),
+                    max_collect_duration(std::chrono::seconds(10)),
+                    max_metrics_buffer(0) {}
+
+Plugin::Meta::Meta(Type type, std::string name, int version, Flags *flags) :
+                    type(type),
+                    name(name),
+                    version(version),
+                    rpc_type(RpcType::GRPC),
+                    concurrency_count(5),
+                    exclusive(false),
+                    unsecure(true),
+                    cache_ttl(std::chrono::milliseconds(500)),
+                    strategy(Strategy::LRU),
+                    listen_port(flags->GetFlagStrValue("port")),
+                    listen_addr(flags->GetFlagStrValue("addr")),
+                    pprof_enabled(flags->IsParsedFlag("pprof")),
+                    tls_enabled(flags->IsParsedFlag("tls")),
+                    cert_path(flags->GetFlagStrValue("cert-path")),
+                    key_path(flags->GetFlagStrValue("key-path")),
+                    root_cert_paths(flags->GetFlagStrValue("root-cert-paths")),
+                    stand_alone(flags->IsParsedFlag("stand-alone")),
+                    stand_alone_port(flags->GetFlagIntValue("stand-alone-port")),
+                    max_collect_duration(std::chrono::seconds(flags->GetFlagIntValue("max-collect-duration"))),
+                    max_metrics_buffer(flags->GetFlagInt64Value("max-metrics-buffer")) {}
 
 Plugin::CollectorInterface* Plugin::PluginInterface::IsCollector() {
-  return nullptr;
+    return nullptr;
 }
 
 Plugin::ProcessorInterface* Plugin::PluginInterface::IsProcessor() {
-  return nullptr;
+    return nullptr;
 }
 
 Plugin::PublisherInterface* Plugin::PluginInterface::IsPublisher() {
-  return nullptr;
+    return nullptr;
 }
 
 Plugin::Type Plugin::CollectorInterface::GetType() const {
-  return Collector;
+    return Collector;
 }
 
 Plugin::CollectorInterface* Plugin::CollectorInterface::IsCollector() {
-  return this;
+    return this;
 }
 
 Plugin::Type Plugin::ProcessorInterface::GetType() const {
-  return Processor;
+    return Processor;
 }
 
 Plugin::ProcessorInterface* Plugin::ProcessorInterface::IsProcessor() {
-  return this;
+    return this;
 }
 
 Plugin::Type Plugin::PublisherInterface::GetType() const {
-  return Publisher;
+    return Publisher;
 }
 
 Plugin::PublisherInterface* Plugin::PublisherInterface::IsPublisher() {
-  return this;
+    return this;
 }
 
 void Plugin::start_collector(CollectorInterface* collector,
                              const Meta& meta) {
-  start_plugin(collector, meta);
+    start_plugin(collector, meta);
 }
 
 void Plugin::start_processor(ProcessorInterface* processor,
                              const Meta& meta) {
-  start_plugin(processor, meta);
+    start_plugin(processor, meta);
 }
 
 void Plugin::start_publisher(PublisherInterface* publisher,
                              const Meta& meta) {
-  start_plugin(publisher, meta);
+    start_plugin(publisher, meta);
 }
 
 static void start_plugin(Plugin::PluginInterface* plugin, const Plugin::Meta& meta) {
-  auto exporter = Plugin::LibSetup::exporter_provider();
-  // disable deleting the plugin instance
-  auto plugin_ptr = shared_ptr<Plugin::PluginInterface>(plugin, [](void*){});
-  auto completion = exporter->ExportPlugin(plugin_ptr, &meta);
-  completion.get();
+    auto exporter = Plugin::LibSetup::exporter_provider();
+    // disable deleting the plugin instance
+    auto plugin_ptr = shared_ptr<Plugin::PluginInterface>(plugin, [](void*){});
+    auto completion = exporter->ExportPlugin(plugin_ptr, &meta);
+    completion.get();
 }

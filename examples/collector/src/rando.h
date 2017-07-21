@@ -14,14 +14,16 @@ limitations under the License.
 #pragma once
 
 #include <vector>
+#include <iostream>
 
 #include <snap/config.h>
 #include <snap/metric.h>
 #include <snap/plugin.h>
+#include <snap/flags.h>
 
-class Rando final : public Plugin::CollectorInterface {
- public:
-  const Plugin::ConfigPolicy get_config_policy();
-  std::vector<Plugin::Metric> get_metric_types(Plugin::Config cfg);
-  void collect_metrics(std::vector<Plugin::Metric> &metrics);
+class Rando final : public Plugin::CollectorInterface {   
+    public:
+    const Plugin::ConfigPolicy get_config_policy();
+    std::vector<Plugin::Metric> get_metric_types(Plugin::Config cfg);
+    void collect_metrics(std::vector<Plugin::Metric> &metrics);
 };
