@@ -7,11 +7,13 @@ env:
   global:
   - ORG_PATH=/home/travis/gopath/src/github.com/intelsdi-x
   - SNAP_PLUGIN_SOURCE=/home/travis/gopath/src/github.com/${TRAVIS_REPO_SLUG}
+  - secure: "F5TSm+Dqw4QbDM8GkfbitqL+sjKYd2ucdqlDKOlhP2LrtkC27nJQHHAjsotldiTHwokI/ncKH/2KMJsEnk/l/JyCUtKhPtZa3D5dHDoXP3b/ID47dKHpClzTRR1whWxOamqE7HrYh4i4C4b/zE0NWJ7W4BuIjECt+BjT682caDGZ12itKcPxR6u2UeTjAMQfb0l6VrE7pDKyLfSrS7GeW7wSnDH2UqTf+9Pl2Itew9ZcTJlT6GAkEysNZCrUUnebyXbyg6FLCEGPklM7Jmvse81VIwtHsnNGE4K49jUiHVwaIitMOT62XDN5pYiOaQnQntK1vLSPm+NGRoCns36iZwgxLvPLClL5NypbGx7/pQXP1juQFT9G1roeq3VDXmN6iBUwDn+8uR/0vJZcPQFWz7Owo/tKqtHbVaGAlHjuKkRzRTT4Nj9ZmjTPM6Pp9i7cfWZwzQCyHHevhRhC+YJZiHTa1eB7EpsL0gEJxfXbO98DpCQBWBUqZeC/KcsETS6HKrouKt+yyKkupRpggYLYZCIstFlaiuUnrqRzAdsaQj/qmAOD08aXBlou14b238xKiboGx8w6HGba9Bbyu1fktI09XIpiyA4zxc4MltPbPnkQKaSG0GV6JF7YfEIVI9B6EeHQQEL89spnU2a6MTj7tZslYwMyLq75Ag+x98advKg="
   matrix:
   - TEST_TYPE=small
 before_install:
   - docker pull ubuntu:yakkety
   - docker build -t for-worker-box -f scripts/Dockerfile.travis .
+  - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
 install:
   - docker run -dt --name "worker-box" -e TEST_TYPE -v ${TRAVIS_BUILD_DIR}/:/opt/${TRAVIS_REPO_SLUG}/ -v ${TRAVIS_BUILD_DIR}/scripts/:/opt/scripts/ for-worker-box bash
 script:
@@ -22,4 +24,10 @@ notifications:
   email: false
   slack:
     secure: VkbZLIc2RH8yf3PtIAxUNPdAu3rQQ7yQx0GcK124JhbEnZGaHyK615V0rbG7HcVmYKGPdB0cXqZiLBDKGqGKb2zR1NepOe1nF03jxGSpPq8jIFeEXSJGEYGL34ScDzZZGuG6qwbjFcXiW5lqn6t8igzp7v2+URYBaZo5ktCS2xY=
-
+addons:
+  coverity_scan:
+    project:
+      name: "intelsdi-x/snap-plugin-lib-cpp"
+    build_command_prepend: "./configure; make clean"
+    build_command:   "make"
+    branch_pattern: coverity_scan
