@@ -17,7 +17,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-## Snap Plugin Library for C++
+## Snap Plugin Library for C++ [![Build Status](https://travis-ci.org/intelsdi-x/snap-plugin-lib-cpp.svg?branch=master)](https://travis-ci.org/intelsdi-x/snap-plugin-lib-cpp)
 
 This is a library for writing plugins in C++ for the [Snap telemetry framework](https://github.com/intelsdi-x/snap).
 
