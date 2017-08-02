@@ -85,7 +85,7 @@ std::vector<Metric> Rando::get_metric_types(Config cfg) {
     return metrics;
 }
 
-void Rando::collect_metrics(std::vector<Metric> &metrics) {
+std::vector<Metric> Rando::collect_metrics(std::vector<Metric> &metrics) {
     std::vector<Metric>::iterator mets_iter;
     unsigned int seed = time(NULL);
     int random_value = rand_r(&seed) % 1000;
@@ -122,6 +122,8 @@ void Rando::collect_metrics(std::vector<Metric> &metrics) {
         }
         mets_iter->set_timestamp();
     }
+    std::vector<Metric> result_metrics = metrics;
+    return result_metrics;
 }
 
 int main(int argc, char **argv) {

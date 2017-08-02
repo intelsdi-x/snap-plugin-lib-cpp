@@ -213,7 +213,6 @@ namespace Plugin {
         Metric(Namespace &&ns, std::string unit,
                 std::string description);
 
-
         /**
         * This constructor is used in the plugin proxies.
         * It's used to wrap the rpc::Metric and rpc::ConfigMap types with the metric

@@ -264,7 +264,7 @@ namespace Plugin {
         * collect_metrics is given a list of metrics to collect.
         * It should collect and annotate each metric with the apropos context.
         */
-        virtual void collect_metrics(std::vector<Metric> &metrics) = 0;
+        virtual std::vector<Metric> collect_metrics(std::vector<Metric> &metrics) = 0;
     };
 
     /**
