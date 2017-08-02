@@ -40,7 +40,7 @@ export SNAPLIB_DIR="${__proj_dir}/lib"
 mkdir -p "${SNAPLIB_DIR}"
 pushd "${__proj_dir}"
 "${__proj_dir}/autogen.sh"
-"${__proj_dir}/configure" CPPFLAGS="--std=c++0x ${COV_ARGS}" LDFLAGS="${COV_ARGS}"  --prefix="${SNAPLIB_DIR}"
+"${__proj_dir}/configure" CPPFLAGS="--std=c++1y ${COV_ARGS}" LDFLAGS="${COV_ARGS}"  --prefix="${SNAPLIB_DIR}"
 make -C "${__proj_dir}"
 make -C "${__proj_dir}" install
 popd

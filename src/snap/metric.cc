@@ -28,13 +28,26 @@ using google::protobuf::Map;
 using google::protobuf::RepeatedPtrField;
 
 using Plugin::Metric;
+using Plugin::Namespace;
+using Plugin::NamespaceElement;
 
 Metric::Metric() : delete_metric_ptr(true),
                 rpc_metric_ptr(new rpc::Metric),
                 type(DataType::NotSet),
                 config(Config(rpc_metric_ptr->config())) {}
 
-Metric::Metric(std::vector<Metric::NamespaceElement> ns, std::string unit,
+Metric::Metric(Namespace &ns, std::string unit,
+            std::string description) :
+                delete_metric_ptr(true),
+                type(DataType::NotSet),
+                rpc_metric_ptr(new rpc::Metric),
+                config(Config(rpc_metric_ptr->config())) {
+    rpc_metric_ptr->set_unit(unit);
+    rpc_metric_ptr->set_description(description);
+    set_ns(ns);
+}
+
+Metric::Metric(Namespace &&ns, std::string unit,
             std::string description) :
                 delete_metric_ptr(true),
                 type(DataType::NotSet),
@@ -63,15 +76,15 @@ Metric::~Metric() {
     }
 }
 
-void Metric::set_ns(std::vector<Metric::NamespaceElement> ns) {
+void Metric::set_ns(Namespace &ns) {
     memo_ns.clear();
     rpc_metric_ptr->clear_namespace_();
 
-    for (Metric::NamespaceElement ns_elem : ns) {
+    for ( int i = 0 ; i < ns.size() ; i++) {
         rpc::NamespaceElement* rpc_elem = rpc_metric_ptr->add_namespace_();
-        rpc_elem->set_name(ns_elem.name);
-        rpc_elem->set_value(ns_elem.value);
-        rpc_elem->set_description(ns_elem.description);
+        rpc_elem->set_name(ns[i].get_name());
+        rpc_elem->set_value(ns[i].get_value());
+        rpc_elem->set_description(ns[i].get_description());
         memo_ns.push_back({
             rpc_elem->value(),
             rpc_elem->name(),
@@ -80,7 +93,7 @@ void Metric::set_ns(std::vector<Metric::NamespaceElement> ns) {
     }
 }
 
-const std::vector<Metric::NamespaceElement>& Metric::ns() const {
+const Namespace& Metric::ns() const {
     if (memo_ns.size() != 0) {
         return memo_ns;
     }
@@ -96,19 +109,6 @@ const std::vector<Metric::NamespaceElement>& Metric::ns() const {
         });
     }
     return memo_ns;
-}
-
-std::vector<int> Metric::dynamic_ns_elements() const {
-    std::vector<int> idxs;
-    const std::vector<Metric::NamespaceElement>& namesp = ns();
-    int i = 0; 
-    for (auto element : namesp) {
-        if (!element.name.empty()) {
-            idxs.push_back(i);    
-        }
-        i++;
-    }
-    return idxs;
 }
 
 void Metric::add_tag(std::pair<std::string, std::string> pair) {
@@ -262,4 +262,112 @@ void Metric::Metric::set_last_advert_tm(system_clock::time_point tp) {
                             tp.time_since_epoch()).count());
     tm->set_sec(nanos / std::nano::den);
     tm->set_nsec(nanos % std::nano::den);
+}
+
+Namespace::Namespace(std::vector<std::string> ns){
+    for (auto &string_iterator : ns){
+        this->namespace_elements.push_back(NamespaceElement(string_iterator));
+    }
+}
+
+Namespace::Namespace(){}
+
+Namespace::~Namespace(){}
+
+const NamespaceElement Namespace::operator[] (int index) const {
+    return namespace_elements[index];
+}
+
+Namespace& Namespace::add_static_element(std::string value){
+    this->namespace_elements.push_back(NamespaceElement(value));
+    return *this;
+}
+
+Namespace& Namespace::add_dynamic_element(std::string name, std::string description ){
+    this->namespace_elements.push_back(NamespaceElement("*",name,description));
+    return *this;
+}
+
+std::vector<NamespaceElement> Namespace::get_namespace_elements() const {
+    return this->namespace_elements;
+}
+
+const bool Namespace::is_dynamic() const {
+    for(int i = 0 ; i < this->namespace_elements.size() ; i++ ){
+        if(this->namespace_elements[i].is_dynamic()){
+            return true;
+        }
+    }
+    return false;
+}
+
+const std::vector<int> Namespace::get_dynamic_indexes(){
+    std::vector<int> indexes;
+
+    for(int i = 0 ; i < this->namespace_elements.size() ; i++ ){
+        if(this->namespace_elements[i].is_dynamic()){
+            indexes.push_back(i);
+        }
+    }
+    return indexes;
+}
+
+void Namespace::clear(){
+    this->namespace_elements.clear();
+}
+
+unsigned int Namespace::size() const {
+    return this->namespace_elements.size();
+}
+
+void Namespace::push_back(NamespaceElement& element){
+    this->namespace_elements.push_back(element);
+}
+
+void Namespace::push_back(NamespaceElement&& element){
+    this->namespace_elements.push_back(element);
+}
+
+void Namespace::reserve(unsigned int size){
+    this->namespace_elements.reserve(size);
+}
+
+NamespaceElement::NamespaceElement(std::string value, std::string name, std::string description) :
+                                   value(value),
+                                   name(name),
+                                   description(description){}
+
+NamespaceElement::NamespaceElement() :
+                                   value(""),
+                                   name(""),
+                                   description(""){}
+
+NamespaceElement::~NamespaceElement(){}
+
+void NamespaceElement::set_value(std::string v){
+    this->value = v;
+}
+
+void NamespaceElement::set_name(std::string n){
+    this->name = n;    
+}
+
+void NamespaceElement::set_description(std::string d){
+    this->description = d;
+}
+
+const std::string NamespaceElement::get_value() const {
+    return this->value;
+}
+
+const std::string NamespaceElement::get_name() const {
+    return this->name;
+}
+
+const std::string NamespaceElement::get_description() const {
+    return this->description;
+}
+
+const bool NamespaceElement::is_dynamic() const {
+    return (this->name != "");
 }

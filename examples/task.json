@@ -8,7 +8,11 @@
 	"workflow":{
 		"collect":{
 			"metrics":{
-				"/intel/cpp/mock/*":{}
+				"/intel/cpp/mock/rando/int32":{},
+ 				"/intel/cpp/mock/rando/string":{},
+ 				"/intel/cpp/mock/rando/int64":{},
+ 				"/intel/cpp/mock/rando/boolean":{},
+ 				"/intel/cpp/mock/dynamic/*/string":{}
 			},
 			"config":{
 				"/intel/cpp/mock/randomnumber/one":{
@@ -34,4 +38,3 @@
 		}
 	}
 }
-
