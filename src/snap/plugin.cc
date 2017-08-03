@@ -16,6 +16,10 @@ limitations under the License.
 #include <sstream>
 #include <string>
 #include <thread>
+//#include <list>
+//#include <thread>
+//#include <mutex>
+//#include <condition_variable>
 
 #include <grpc++/grpc++.h>
 
@@ -26,6 +30,7 @@ limitations under the License.
 #include "snap/proxy/collector_proxy.h"
 #include "snap/proxy/processor_proxy.h"
 #include "snap/proxy/publisher_proxy.h"
+#include "snap/proxy/stream_collector_proxy.h"
 #include "snap/flags.h"
 
 using std::function;
@@ -45,12 +50,11 @@ function<unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter
 Plugin::PluginException::PluginException(const std::string& message) :
                                             runtime_error(message) {}
 
-
-Plugin::Meta::Meta(Type type, std::string name, int version) :
+Plugin::Meta::Meta(Type type, std::string name, int version, RpcType rpc_type) :
                     type(type),
                     name(name),
                     version(version),
-                    rpc_type(RpcType::GRPC),
+                    rpc_type(rpc_type),
                     concurrency_count(5),
                     exclusive(false),
                     unsecure(true),
@@ -67,7 +71,6 @@ Plugin::Meta::Meta(Type type, std::string name, int version) :
                     stand_alone_port(stand_alone_port),
                     max_collect_duration(std::chrono::seconds(10)),
                     max_metrics_buffer(0) {}
-
 
 void Plugin::Meta::use_cli_args(Flags *flags) {
 	listen_port = flags->GetFlagStrValue("port");

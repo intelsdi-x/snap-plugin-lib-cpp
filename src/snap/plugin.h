@@ -18,6 +18,12 @@ limitations under the License.
 #include <memory>
 #include <string>
 #include <vector>
+//#include <list>
+//#include <thread>
+//#include <mutex>
+//#include <condition_variable>
+
+#include <grpc++/grpc++.h>
 
 #include "snap/config.h"
 #include "snap/metric.h"
@@ -36,7 +42,8 @@ namespace Plugin {
     enum Type {
         Collector,
         Processor,
-        Publisher
+        Publisher,
+        StreamCollector
     };
 
     /**
@@ -78,8 +85,7 @@ namespace Plugin {
     */
     class Meta final {
     public:
-        Meta(Type type, std::string name, int version);
-        Meta(Type type, std::string name, int version, Flags *flags);
+        Meta(Type type, std::string name, int version, RpcType rpc_type = GRPC);
 
         Type type;
         std::string name;
@@ -299,6 +305,66 @@ namespace Plugin {
                                     const Config& config) = 0;
     };
 
+/*
+    template<class T>
+    class StreamChannel {
+    private:
+        std::list<T> _queue;
+        std::mutex _m;
+        std::condition_variable _cv;
+        bool _closed;
+
+    public:
+        StreamChannel() : _closed(false) {}
+
+        void close();
+        bool is_closed();
+        void put(const T &in);
+        bool get(T &out, bool wait = true);
+    };*/
+
+    /**
+    * The interface for a stream collector plugin.
+    * A Stream Collector is the source.
+    * It is responsible for collecting metrics in the Snap pipeline.
+    */
+    class StreamCollectorInterface : public PluginInterface {
+    public:
+        Type GetType() const final;
+        StreamCollectorInterface* IsStreamCollector() final;
+
+        /*
+        * (inherited from PluginInterface)
+        */
+        virtual const ConfigPolicy get_config_policy() = 0;
+
+        virtual std::vector<Metric> get_metric_types(Config cfg) = 0;
+
+        /* StreamMetrics allows the plugin to send/receive metrics on a channel
+        * Arguments are (in order):
+        *
+        * A channel for metrics into the plugin from Snap -- which
+        * are the metric types snap is requesting the plugin to collect.
+        *
+        * A channel for metrics from the plugin to Snap -- the actual
+        * collected metrics from the plugin.
+        *  
+        * A channel for error strings that the library will report to snap
+        * as task errors.
+        */
+        virtual void stream_metrics(std::vector<Plugin::Metric> &metsIn,
+                                    std::vector<Plugin::Metric> &metsOut,
+                                    std::string &errMsg) = 0;
+
+        virtual std::vector<Plugin::Metric> put_metrics_out() = 0;
+        virtual std::string put_err_msg() = 0;
+        virtual void get_metrics_in(std::vector<Plugin::Metric> &metsIn) = 0;
+        virtual bool put_mets() = 0;
+        virtual bool put_err() = 0;
+        virtual void set_put_mets(bool putMets) = 0;
+        virtual void set_put_err(bool putErr) = 0;
+    };
+
     /**
     * These functions are called to start a plugin.
     * They export plugin using default PluginExporter based on GRPC:
@@ -311,4 +377,5 @@ namespace Plugin {
     void start_collector(int argc, char **argv, CollectorInterface* plg, Meta& meta);
     void start_processor(int argc, char **argv, ProcessorInterface* plg, Meta& meta);
     void start_publisher(int argc, char **argv, PublisherInterface* plg, Meta& meta);
+    void start_stream_collector(int argc, char **argv, PublisherInterface* plg, Meta& meta);
 };  // namespace Plugin

@@ -35,6 +35,8 @@ limitations under the License.
 #include "snap/proxy/collector_proxy.h"
 #include "snap/proxy/processor_proxy.h"
 #include "snap/proxy/publisher_proxy.h"
+#include "snap/proxy/stream_collector_proxy.h"
+
 
 using std::cout;
 using std::endl;
@@ -228,6 +230,13 @@ void Plugin::GRPCExportImpl::doConfigure() {
         case Plugin::Publisher:
             this->service.reset(new Proxy::PublisherImpl(plugin->IsPublisher()));
             break;
+        case Plugin::StreamCollector:
+            //std::cout << "Debug: max-collect-duration: " <<  this->meta->max_collect_duration.count() << std::endl;
+            this->service.reset(new Proxy::StreamCollectorImpl(plugin->IsStreamCollector()));
+            break;
+        default:
+        // _plogger->Fatal("unknown plugin type");
+        std::cout << "Fatal: unknown plugin type" << std::endl;
     }
     
     builder.reset(new grpc::ServerBuilder());

@@ -11,14 +11,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-#include "snap/proxy/collector_proxy.h"
-
 #include <grpc++/grpc++.h>
-
-#include<vector>
+#include <vector>
 
 #include "snap/rpc/plugin.pb.h"
-
+#include "snap/proxy/collector_proxy.h"
 #include "snap/metric.h"
 
 using google::protobuf::RepeatedPtrField;

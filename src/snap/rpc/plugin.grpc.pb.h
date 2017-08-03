@@ -752,6 +752,281 @@ class Publisher GRPC_FINAL {
   };
 };
 
+class StreamCollector GRPC_FINAL {
+ public:
+  class StubInterface {
+   public:
+    virtual ~StubInterface() {}
+    std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::rpc::CollectArg, ::rpc::CollectReply>> StreamMetrics(::grpc::ClientContext* context) {
+      return std::unique_ptr< ::grpc::ClientReaderWriterInterface< ::rpc::CollectArg, ::rpc::CollectReply>>(StreamMetricsRaw(context));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::rpc::CollectArg, ::rpc::CollectReply>> AsyncStreamMetrics(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriterInterface< ::rpc::CollectArg, ::rpc::CollectReply>>(AsyncStreamMetricsRaw(context, cq, tag));
+    }
+    virtual ::grpc::Status GetMetricTypes(::grpc::ClientContext* context, const ::rpc::GetMetricTypesArg& request, ::rpc::MetricsReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::MetricsReply>> AsyncGetMetricTypes(::grpc::ClientContext* context, const ::rpc::GetMetricTypesArg& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::MetricsReply>>(AsyncGetMetricTypesRaw(context, request, cq));
+    }
+    virtual ::grpc::Status Ping(::grpc::ClientContext* context, const ::rpc::Empty& request, ::rpc::ErrReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::ErrReply>> AsyncPing(::grpc::ClientContext* context, const ::rpc::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::ErrReply>>(AsyncPingRaw(context, request, cq));
+    }
+    virtual ::grpc::Status Kill(::grpc::ClientContext* context, const ::rpc::KillArg& request, ::rpc::ErrReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::ErrReply>> AsyncKill(::grpc::ClientContext* context, const ::rpc::KillArg& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::ErrReply>>(AsyncKillRaw(context, request, cq));
+    }
+    virtual ::grpc::Status GetConfigPolicy(::grpc::ClientContext* context, const ::rpc::Empty& request, ::rpc::GetConfigPolicyReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::GetConfigPolicyReply>> AsyncGetConfigPolicy(::grpc::ClientContext* context, const ::rpc::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::rpc::GetConfigPolicyReply>>(AsyncGetConfigPolicyRaw(context, request, cq));
+    }
+  private:
+    virtual ::grpc::ClientReaderWriterInterface< ::rpc::CollectArg, ::rpc::CollectReply>* StreamMetricsRaw(::grpc::ClientContext* context) = 0;
+    virtual ::grpc::ClientAsyncReaderWriterInterface< ::rpc::CollectArg, ::rpc::CollectReply>* AsyncStreamMetricsRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::MetricsReply>* AsyncGetMetricTypesRaw(::grpc::ClientContext* context, const ::rpc::GetMetricTypesArg& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::ErrReply>* AsyncPingRaw(::grpc::ClientContext* context, const ::rpc::Empty& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::ErrReply>* AsyncKillRaw(::grpc::ClientContext* context, const ::rpc::KillArg& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::rpc::GetConfigPolicyReply>* AsyncGetConfigPolicyRaw(::grpc::ClientContext* context, const ::rpc::Empty& request, ::grpc::CompletionQueue* cq) = 0;
+  };
+  class Stub GRPC_FINAL : public StubInterface {
+   public:
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    std::unique_ptr< ::grpc::ClientReaderWriter< ::rpc::CollectArg, ::rpc::CollectReply>> StreamMetrics(::grpc::ClientContext* context) {
+      return std::unique_ptr< ::grpc::ClientReaderWriter< ::rpc::CollectArg, ::rpc::CollectReply>>(StreamMetricsRaw(context));
+    }
+    std::unique_ptr<  ::grpc::ClientAsyncReaderWriter< ::rpc::CollectArg, ::rpc::CollectReply>> AsyncStreamMetrics(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderWriter< ::rpc::CollectArg, ::rpc::CollectReply>>(AsyncStreamMetricsRaw(context, cq, tag));
+    }
+    ::grpc::Status GetMetricTypes(::grpc::ClientContext* context, const ::rpc::GetMetricTypesArg& request, ::rpc::MetricsReply* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::MetricsReply>> AsyncGetMetricTypes(::grpc::ClientContext* context, const ::rpc::GetMetricTypesArg& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::MetricsReply>>(AsyncGetMetricTypesRaw(context, request, cq));
+    }
+    ::grpc::Status Ping(::grpc::ClientContext* context, const ::rpc::Empty& request, ::rpc::ErrReply* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>> AsyncPing(::grpc::ClientContext* context, const ::rpc::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>>(AsyncPingRaw(context, request, cq));
+    }
+    ::grpc::Status Kill(::grpc::ClientContext* context, const ::rpc::KillArg& request, ::rpc::ErrReply* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>> AsyncKill(::grpc::ClientContext* context, const ::rpc::KillArg& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>>(AsyncKillRaw(context, request, cq));
+    }
+    ::grpc::Status GetConfigPolicy(::grpc::ClientContext* context, const ::rpc::Empty& request, ::rpc::GetConfigPolicyReply* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::GetConfigPolicyReply>> AsyncGetConfigPolicy(::grpc::ClientContext* context, const ::rpc::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::rpc::GetConfigPolicyReply>>(AsyncGetConfigPolicyRaw(context, request, cq));
+    }
+
+   private:
+    std::shared_ptr< ::grpc::ChannelInterface> channel_;
+    ::grpc::ClientReaderWriter< ::rpc::CollectArg, ::rpc::CollectReply>* StreamMetricsRaw(::grpc::ClientContext* context) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncReaderWriter< ::rpc::CollectArg, ::rpc::CollectReply>* AsyncStreamMetricsRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::rpc::MetricsReply>* AsyncGetMetricTypesRaw(::grpc::ClientContext* context, const ::rpc::GetMetricTypesArg& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>* AsyncPingRaw(::grpc::ClientContext* context, const ::rpc::Empty& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>* AsyncKillRaw(::grpc::ClientContext* context, const ::rpc::KillArg& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::rpc::GetConfigPolicyReply>* AsyncGetConfigPolicyRaw(::grpc::ClientContext* context, const ::rpc::Empty& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    const ::grpc::RpcMethod rpcmethod_StreamMetrics_;
+    const ::grpc::RpcMethod rpcmethod_GetMetricTypes_;
+    const ::grpc::RpcMethod rpcmethod_Ping_;
+    const ::grpc::RpcMethod rpcmethod_Kill_;
+    const ::grpc::RpcMethod rpcmethod_GetConfigPolicy_;
+  };
+  static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
+
+  class Service : public ::grpc::Service {
+   public:
+    Service();
+    virtual ~Service();
+    virtual ::grpc::Status StreamMetrics(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::rpc::CollectReply, ::rpc::CollectArg>* stream);
+    virtual ::grpc::Status GetMetricTypes(::grpc::ServerContext* context, const ::rpc::GetMetricTypesArg* request, ::rpc::MetricsReply* response);
+    virtual ::grpc::Status Ping(::grpc::ServerContext* context, const ::rpc::Empty* request, ::rpc::ErrReply* response);
+    virtual ::grpc::Status Kill(::grpc::ServerContext* context, const ::rpc::KillArg* request, ::rpc::ErrReply* response);
+    virtual ::grpc::Status GetConfigPolicy(::grpc::ServerContext* context, const ::rpc::Empty* request, ::rpc::GetConfigPolicyReply* response);
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_StreamMetrics : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_StreamMetrics() {
+      ::grpc::Service::MarkMethodAsync(0);
+    }
+    ~WithAsyncMethod_StreamMetrics() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StreamMetrics(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::rpc::CollectReply, ::rpc::CollectArg>* stream) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestStreamMetrics(::grpc::ServerContext* context, ::grpc::ServerAsyncReaderWriter< ::rpc::CollectReply, ::rpc::CollectArg>* stream, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncBidiStreaming(0, context, stream, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_GetMetricTypes : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_GetMetricTypes() {
+      ::grpc::Service::MarkMethodAsync(1);
+    }
+    ~WithAsyncMethod_GetMetricTypes() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetMetricTypes(::grpc::ServerContext* context, const ::rpc::GetMetricTypesArg* request, ::rpc::MetricsReply* response) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetMetricTypes(::grpc::ServerContext* context, ::rpc::GetMetricTypesArg* request, ::grpc::ServerAsyncResponseWriter< ::rpc::MetricsReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_Ping : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_Ping() {
+      ::grpc::Service::MarkMethodAsync(2);
+    }
+    ~WithAsyncMethod_Ping() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Ping(::grpc::ServerContext* context, const ::rpc::Empty* request, ::rpc::ErrReply* response) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestPing(::grpc::ServerContext* context, ::rpc::Empty* request, ::grpc::ServerAsyncResponseWriter< ::rpc::ErrReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_Kill : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_Kill() {
+      ::grpc::Service::MarkMethodAsync(3);
+    }
+    ~WithAsyncMethod_Kill() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Kill(::grpc::ServerContext* context, const ::rpc::KillArg* request, ::rpc::ErrReply* response) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestKill(::grpc::ServerContext* context, ::rpc::KillArg* request, ::grpc::ServerAsyncResponseWriter< ::rpc::ErrReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_GetConfigPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_GetConfigPolicy() {
+      ::grpc::Service::MarkMethodAsync(4);
+    }
+    ~WithAsyncMethod_GetConfigPolicy() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetConfigPolicy(::grpc::ServerContext* context, const ::rpc::Empty* request, ::rpc::GetConfigPolicyReply* response) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetConfigPolicy(::grpc::ServerContext* context, ::rpc::Empty* request, ::grpc::ServerAsyncResponseWriter< ::rpc::GetConfigPolicyReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_StreamMetrics<WithAsyncMethod_GetMetricTypes<WithAsyncMethod_Ping<WithAsyncMethod_Kill<WithAsyncMethod_GetConfigPolicy<Service > > > > > AsyncService;
+  template <class BaseClass>
+  class WithGenericMethod_StreamMetrics : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_StreamMetrics() {
+      ::grpc::Service::MarkMethodGeneric(0);
+    }
+    ~WithGenericMethod_StreamMetrics() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StreamMetrics(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::rpc::CollectReply, ::rpc::CollectArg>* stream) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetMetricTypes : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_GetMetricTypes() {
+      ::grpc::Service::MarkMethodGeneric(1);
+    }
+    ~WithGenericMethod_GetMetricTypes() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetMetricTypes(::grpc::ServerContext* context, const ::rpc::GetMetricTypesArg* request, ::rpc::MetricsReply* response) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_Ping : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_Ping() {
+      ::grpc::Service::MarkMethodGeneric(2);
+    }
+    ~WithGenericMethod_Ping() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Ping(::grpc::ServerContext* context, const ::rpc::Empty* request, ::rpc::ErrReply* response) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_Kill : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_Kill() {
+      ::grpc::Service::MarkMethodGeneric(3);
+    }
+    ~WithGenericMethod_Kill() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Kill(::grpc::ServerContext* context, const ::rpc::KillArg* request, ::rpc::ErrReply* response) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetConfigPolicy : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_GetConfigPolicy() {
+      ::grpc::Service::MarkMethodGeneric(4);
+    }
+    ~WithGenericMethod_GetConfigPolicy() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetConfigPolicy(::grpc::ServerContext* context, const ::rpc::Empty* request, ::rpc::GetConfigPolicyReply* response) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+};
+
 }  // namespace rpc
 
 
