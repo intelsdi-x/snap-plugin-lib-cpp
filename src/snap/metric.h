@@ -25,35 +25,165 @@ limitations under the License.
 #include "snap/config.h"
 
 namespace Plugin {
+
+    class NamespaceElement{
+        public:
+
+        /**
+        * Constructor which makes "NamespaceElement" from three strings:
+        * value,
+        * name (optional- default parameter is empty),
+        * description (optional- default parameter is empty).
+        */
+        NamespaceElement(std::string val, std::string nam ="", std::string desc="");
+
+        /**
+        * Default empty constructor.
+        */
+        NamespaceElement();
+
+        /**
+        * Default empty destructor.
+        */
+        ~NamespaceElement();
+
+        /**
+        * Setters for value, name and description
+        */
+        void set_value(std::string v);
+        void set_name(std::string n);
+        void set_description(std::string d);
+
+        /**
+        * Getters for value, name and description
+        */
+        const std::string get_value() const;
+        const std::string get_name() const;
+        const std::string get_description() const;
+
+        /**
+        * is_dynamic returns true if the namespace element contains data.  A namespace
+          element that has a nonempty Name field is considered dynamic.
+        */
+        const bool is_dynamic() const;
+
+        private:
+        /**
+        * value is the static value of this node in a namespace.
+        * When a namespace element is _not_ dynamic, value is used. During
+        * metric collection, value should contain the static name for this metric.
+        */
+        std::string value;
+        /**
+        * name is used to describe what this dynamic element is querying against.
+        * E.g. in the namespace `/intel/kvm/[vm_id]/cpu_wait` the element at index
+        * 2 has the name "vm_id".
+        * @see value
+        */
+        std::string name;
+        /**
+        * description is the description of this namespace element.
+        */
+        std::string description;
+
+    };
+
+   class Namespace {
+        public:
+
+        /**
+        * Constructor which makes namespace elements from vector of strings.
+        */
+        Namespace(std::vector<std::string> ns);
+
+        /**
+        * Default empty constructor.
+        */
+        Namespace();
+
+        /**
+        * Default empty destructor.
+        */
+        ~Namespace();
+
+        /**
+        * Overloaded range operator. It returns "NamespaceElement" object
+        * from given index.
+        */
+        const NamespaceElement operator[] (int index) const;
+
+        /**
+        *  add_static_element adds a static element to the Namespace.  A static
+        *  namespaceElement is defined by having an empty Name field.
+        */
+        Namespace& add_static_element(std::string value);
+
+        /**
+        * add_dynamic_element adds a dynamic element to the given Namespace.  A dynamic
+        * namespaceElement is defined by having a nonempty Name field.
+        */
+        Namespace& add_dynamic_element(std::string name ,std::string description ="");
+
+        /**
+        * Getter for vector of "NamespaceElements"
+        */
+        std::vector<NamespaceElement> get_namespace_elements() const;
+
+        /**
+        * is_dynamic returns bool (true when this namespace is dynamic)
+        * and vector of indexes which elements are dynamic inside this "Namespace".
+        * A dynamic component of the namespace are those elements that
+        * contain variable data.
+        */
+        const bool is_dynamic() const;
+
+        /**
+        * get_dynamic_indexes returns vector of indexes which elements are dynamic
+        * inside this "Namespace". A dynamic component of the namespace are those
+        * elements that
+        * A dynamic component of the namespace are those elements that contain variable data.
+        */
+        const std::vector<int> get_dynamic_indexes();
+        
+        /**
+        * Clears vector of NamespaceElements.
+        */
+        void clear();
+
+        /**
+        * Returns size of vector of NamespaceElements.
+        */
+        unsigned int size() const;
+
+        /**
+        * Adds NamespaceElement to the end of exesting vector.
+        */
+        void push_back(NamespaceElement& element);
+
+        /**
+        * Same as above but this method takes rvalue of NamespaceElement.
+        */
+        void push_back(NamespaceElement&& element);
+
+        /**
+        * Reserves some size to the existing vector.
+        */
+        void reserve(unsigned int size);
+
+        private:
+        /**
+        * This field holds all object's "namespace_elements" inside std::vector.
+        */
+        std::vector<NamespaceElement> namespace_elements;
+
+    };
+
+
     /**
     * Metric is the representation of a Metric inside Snap.
     */
     class Metric final {
     public:
-    /**
-    * A PODS describing an element in a metric namespace.
-    */
-        struct NamespaceElement {
-            /**
-            * value is the static value of this node in a namespace.
-            * When a namespace element is _not_ dynamic, value is used. During
-            * metric collection, value should contain the static name for this metric.
-            */
-            std::string value;
-
-            /**
-            * name is used to describe what this dynamic element is querying against.
-            * E.g. in the namespace `/intel/kvm/[vm_id]/cpu_wait` the element at index
-            * 2 has the name "vm_id".
-            * @see value
-            */
-            std::string name;
-
-            /**
-            * description is the description of this namespace element.
-            */
-            std::string description;
-        };
 
         enum DataType {
             String = rpc::Metric::DataCase::kStringData,
@@ -74,8 +204,15 @@ namespace Plugin {
         * @param unit The metric's unit.
         * @param description The metric's description.
         */
-        Metric(std::vector<NamespaceElement> ns, std::string unit,
+        Metric(Namespace &ns, std::string unit,
                 std::string description);
+
+        /**
+        * Constructor same as above but takes lvalue of "Namespace"
+        */
+        Metric(Namespace &&ns, std::string unit,
+                std::string description);
+
 
         /**
         * This constructor is used in the plugin proxies.
@@ -93,13 +230,7 @@ namespace Plugin {
         * If there is a memoized copy, that is returned. Else the namespace is
         * copied into the cache then returned.
         */
-        const std::vector<NamespaceElement>& ns() const;
-
-        /**
-        * dynamic_ns_elements returns the indices in the metric's namespace which
-        * are dynamic.
-        */
-        std::vector<int> dynamic_ns_elements() const;
+        const Namespace& ns() const;
 
         /**
         * set_ns sets the namespace of the metric in its `rpc::Metric` ptr.
@@ -107,7 +238,7 @@ namespace Plugin {
         * present.
         * @see memo_ns
         */
-        void set_ns(std::vector<NamespaceElement>);
+        void set_ns(Namespace &ns);
 
         /**
         * tags returns the metric's tags.
@@ -187,7 +318,7 @@ namespace Plugin {
         void inline set_last_advert_tm(std::chrono::system_clock::time_point tp);
 
         // memoized members
-        mutable std::vector<NamespaceElement> memo_ns;
+        mutable Namespace memo_ns;
         mutable std::map<std::string, std::string> memo_tags;
 
         bool delete_metric_ptr;

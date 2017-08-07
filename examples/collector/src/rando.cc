@@ -30,6 +30,8 @@ using Plugin::Metric;
 using Plugin::Meta;
 using Plugin::Type;
 using Plugin::Flags;
+using Plugin::Namespace;
+using Plugin::NamespaceElement;
 
 using std::cout;
 using std::endl;
@@ -73,96 +75,13 @@ const ConfigPolicy Rando::get_config_policy() {
 }
 
 std::vector<Metric> Rando::get_metric_types(Config cfg) {
-    std::vector<Metric> metrics = {
-        {
-            {
-                {"intel", "", ""},
-                {"cpp", "", ""},
-                {"mock", "", ""},
-                {"randomnumber", "", ""},
-                {"float32", "", ""},
-            },
-            "",
-            "float32 random number"
-        },
-        {
-            {
-                {"intel", "", ""},
-                {"cpp", "", ""},
-                {"mock", "", ""},
-                {"randomnumber", "", ""},
-                {"float64", "", ""},
-            },
-            "",
-            "float64 random number"
-        },
-        {
-            {
-                {"intel", "", ""},
-                {"cpp", "", ""},
-                {"mock", "", ""},
-                {"randomnumber", "", ""},
-                {"int32", "", ""},
-            },
-            "",
-            "int32 random number"
-            },
-        {
-            {
-                {"intel", "", ""},
-                {"cpp", "", ""},
-                {"mock", "", ""},
-                {"randomnumber", "", ""},
-                {"int64", "", ""},
-            },
-            "",
-            "int64 random number"
-        },
-        {
-            {
-                {"intel", "", ""},
-                {"cpp", "", ""},
-                {"mock", "", ""},
-                {"randomnumber", "", ""},
-                {"uint32", "", ""},
-            },
-            "",
-            "uint32 random number"
-        },
-        {
-            {
-                {"intel", "", ""},
-                {"cpp", "", ""},
-                {"mock", "", ""},
-                {"randomnumber", "", ""},
-                {"uint64", "", ""},
-            },
-            "",
-            "uint64 random number"
-        },
-        {
-            {
-                {"intel", "", ""},
-                {"cpp", "", ""},
-                {"mock", "", ""},
-                {"randomboolean", "", ""},
-                {"boolean", "", ""},
-            },
-            "",
-            "random boolean"
-        },
-        {
-            {
-                {"intel", "", ""},
-                {"cpp", "", ""},
-                {"mock", "", ""},
-                {"randomstring", "", ""},
-                {"string", "", ""},
-            },
-            "",
-            "random string"
-        }
-    };
+
+    std::vector<Metric> metrics = { Metric(Namespace({"intel","cpp","mock","rando"}).add_static_element("int32"), "example_unit","example_description" ),
+                                    Metric(Namespace({"intel","cpp","mock","rando"}).add_static_element("int64"),"",""),
+                                    Metric(Namespace({"intel","cpp","mock","rando"}).add_static_element("string"),"",""),
+                                    Metric(Namespace({"intel","cpp","mock","rando"}).add_static_element("boolean"),"",""),
+                                    Metric(Namespace({"intel","cpp","mock","dynamic"}).add_dynamic_element("dynamo").add_static_element("string"),"",""),
+                                    };
     return metrics;
 }
 
@@ -171,8 +90,8 @@ void Rando::collect_metrics(std::vector<Metric> &metrics) {
     unsigned int seed = time(NULL);
     int random_value = rand_r(&seed) % 1000;
 
-    for (mets_iter = metrics.begin(); mets_iter != metrics.end(); mets_iter++) {
-        std::string ns_mts_type = mets_iter->ns()[4].value;
+    for (mets_iter = metrics.begin(); mets_iter != metrics.end(); ++mets_iter) {
+        std::string ns_mts_type = mets_iter->ns()[4].get_value();
         int mts_type = metric_types[ns_mts_type];
 
         switch(mts_type) {

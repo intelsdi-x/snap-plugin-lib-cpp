@@ -30,12 +30,13 @@ using std::string;
 using Plugin::Metric;
 using Plugin::ConfigPolicy;
 using Plugin::StringRule;
+using Plugin::Namespace;
 
 
 string extract_ns(const Metric& metric) {
     string ns_str;
-    for (auto const& elem : metric.ns()) {
-        ns_str += "/" + elem.value;
+    for (auto const& elem : metric.ns().get_namespace_elements()) {
+        ns_str += "/" + elem.get_value();
     }
     return ns_str;
 }
@@ -48,15 +49,32 @@ string extract_ns(const rpc::Metric& metric) {
     return ns_str;
 }
 
+TEST(MetricTest, GetDynamicIndexesWorks){
+    Namespace fake_static_namespace({"foo","bar"});
+    Namespace fake_dynamic_namespace({"foo"});
+    
+    fake_dynamic_namespace.add_dynamic_element("dynamo1").add_static_element("bar").add_dynamic_element("dynamo2");
+
+    std::vector<int> expected_dynamic = {1,3};
+    std::vector<int> expected_static;
+
+    EXPECT_EQ(expected_static, fake_static_namespace.get_dynamic_indexes());
+    EXPECT_EQ(expected_dynamic, fake_dynamic_namespace.get_dynamic_indexes());
+}
+
+TEST(MetricTest, IsDynamicWorks){
+    Namespace fake_static_namespace({"foo","bar"});
+    Namespace fake_dynamic_namespace({"foo"});
+    
+    fake_dynamic_namespace.add_dynamic_element("dynamo1").add_static_element("bar").add_dynamic_element("dynamo2");
+
+    EXPECT_EQ(true, fake_dynamic_namespace.is_dynamic());
+    EXPECT_EQ(false, fake_static_namespace.is_dynamic());
+}
+
 TEST(MetricTest, SetNsUnitDescriptionWorks) {
-    Metric fake_metric{
-            {
-                    {"foo", "", ""},
-                    {"bar", "", ""},
-            },
-            "atoms",
-            "critical metric"
-    };
+    Metric fake_metric(Namespace({"foo","bar"}),"atoms","critical metric");
+
     fake_metric.add_tag(make_pair("host", "baz"));
     fake_metric.add_tag(make_pair("node", "bonk"));
 
@@ -69,23 +87,15 @@ TEST(MetricTest, SetNsUnitDescriptionWorks) {
 
 TEST(MetricTest, SetNsWorks) {
     Metric fake_metric;
-    fake_metric.set_ns({
-                               {"foo", "", ""},
-                               {"cluster", "", ""},
-                               {"node_count", "", ""}
-                       });
+    Namespace fake_namespace({"foo","cluster","node_count"});
+    
+    fake_metric.set_ns(fake_namespace);
+
     EXPECT_EQ("/foo/cluster/node_count", extract_ns(fake_metric));
 }
 
 TEST(MetricTest, SetFromRpcMetricWorks) {
-    Metric base_metric{
-            {
-                    {"foo", "", ""},
-                    {"bar", "", ""},
-            },
-            "atoms",
-            "critical metric"
-    };
+    Metric base_metric(Namespace({"foo","bar"}),"atoms","critical metric");
     base_metric.add_tag(make_pair("host", "baz"));
     base_metric.add_tag(make_pair("node", "bonk"));
 

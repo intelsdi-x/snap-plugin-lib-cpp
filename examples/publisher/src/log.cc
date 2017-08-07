@@ -35,6 +35,8 @@ using Plugin::Metric;
 using Plugin::Meta;
 using Plugin::Type;
 using Plugin::Flags;
+using Plugin::Namespace;
+using Plugin::NamespaceElement;
 
 const ConfigPolicy Log::get_config_policy() {
     ConfigPolicy policy(Plugin::StringRule{
@@ -66,8 +68,8 @@ void Log::publish_metrics(std::vector<Metric> &metrics,
         }
 
         // namespace
-        for (Metric::NamespaceElement nse : mets_iter->ns()) {
-            outfile << "/" << nse.value;
+        for ( NamespaceElement nse : mets_iter->ns().get_namespace_elements()) {
+            outfile << "/" << nse.get_value();
         }
 
         // tags

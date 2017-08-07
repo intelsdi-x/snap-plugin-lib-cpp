@@ -28,6 +28,8 @@ using Plugin::Config;
 using Plugin::Metric;
 using Plugin::ConfigPolicy;
 using Plugin::StringRule;
+using Plugin::Namespace;
+using Plugin::NamespaceElement;
 
 class MockCollector : public Plugin::CollectorInterface {
 public:
@@ -38,14 +40,7 @@ public:
       }
   }};
 
-  Metric fake_metric{
-      {
-          {"foo", "", ""},
-          {"bar", "", ""},
-      },
-      "",
-      "critical metric"
-  };
+  Metric fake_metric{ Namespace { {"foo","bar"}}, "" , ""};
 
   MOCK_METHOD0(get_config_policy, const ConfigPolicy());
   MOCK_METHOD1(get_metric_types, std::vector<Metric>(Config cfg));
@@ -61,14 +56,7 @@ public:
       }
   }};
 
-  Metric fake_metric{
-      {
-          {"foo", "", ""},
-          {"bar", "", ""},
-      },
-      "",
-      "critical metric"
-  };
+  Metric fake_metric{ Namespace { {"foo","bar"}}, "" , ""};
 
   MOCK_METHOD0(get_config_policy, const ConfigPolicy());
   MOCK_METHOD2(process_metrics, void(std::vector<Plugin::Metric> &metrics, const Plugin::Config& config));
@@ -83,14 +71,8 @@ public:
       }
   }};
 
-  Metric fake_metric{
-      {
-          {"foo", "", ""},
-          {"bar", "", ""},
-      },
-      "",
-      "critical metric"
-  };
+  Metric fake_metric{ Namespace { {"foo","bar"}}, "" , ""};
+
 
   MOCK_METHOD0(get_config_policy, const ConfigPolicy());
   MOCK_METHOD2(publish_metrics, void(std::vector<Plugin::Metric> &metrics, const Plugin::Config& config));
