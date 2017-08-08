@@ -71,6 +71,11 @@ const ConfigPolicy Rando::get_config_policy() {
         "password",
         {"h4ck3r", true}
     });
+    policy.add_rule({"intel", "cpp", "mock", "dynamic", "dynamo","int64"},
+    Plugin::IntRule{
+        "dynamic_count",
+        2
+    });
     return policy;
 }
 
@@ -80,49 +85,61 @@ std::vector<Metric> Rando::get_metric_types(Config cfg) {
                                     Metric(Namespace({"intel","cpp","mock","rando"}).add_static_element("int64"),"",""),
                                     Metric(Namespace({"intel","cpp","mock","rando"}).add_static_element("string"),"",""),
                                     Metric(Namespace({"intel","cpp","mock","rando"}).add_static_element("boolean"),"",""),
-                                    Metric(Namespace({"intel","cpp","mock","dynamic"}).add_dynamic_element("dynamo").add_static_element("string"),"",""),
+                                    Metric(Namespace({"intel","cpp","mock","dynamic"}).add_dynamic_element("dynamo").add_static_element("int64"),"",""),
                                     };
     return metrics;
 }
 
 std::vector<Metric> Rando::collect_metrics(std::vector<Metric> &metrics) {
-    std::vector<Metric>::iterator mets_iter;
+    std::vector<Metric> result_metrics;
     unsigned int seed = time(NULL);
     int random_value = rand_r(&seed) % 1000;
 
-    for (mets_iter = metrics.begin(); mets_iter != metrics.end(); ++mets_iter) {
-        std::string ns_mts_type = mets_iter->ns()[4].get_value();
+    for (auto & mets_iter : metrics) {
+        std::string ns_mts_type = mets_iter.ns()[4].get_value();
         int mts_type = metric_types[ns_mts_type];
 
-        switch(mts_type) {
-        case supported_types::float32:
-            mets_iter->set_data((float)random_value);
-            break;
-        case supported_types::float64:
-            mets_iter->set_data((double)random_value);
-            break;
-        case supported_types::int32:
-            mets_iter->set_data((int32_t)random_value);
-            break;
-        case supported_types::int64:
-            mets_iter->set_data((int64_t)random_value);
-            break;
-        case supported_types::uint32:
-            mets_iter->set_data((uint32_t)random_value);
-            break;
-        case supported_types::uint64:
-            mets_iter->set_data((uint64_t)random_value);
-            break;
-        case supported_types::boolean:
-            mets_iter->set_data(random_value%2 ? true : false);
-            break;
-        case supported_types::string:
-            mets_iter->set_data(std::to_string(random_value));
-            break;
+        if (! mets_iter.ns().is_dynamic()){
+            switch(mts_type) {
+            case supported_types::float32:
+                mets_iter.set_data((float)random_value);
+                break;
+            case supported_types::float64:
+                mets_iter.set_data((double)random_value);
+                break;
+            case supported_types::int32:
+                mets_iter.set_data((int32_t)random_value);
+                break;
+            case supported_types::int64:
+                mets_iter.set_data((int64_t)random_value);
+                break;
+            case supported_types::uint32:
+                mets_iter.set_data((uint32_t)random_value);
+                break;
+            case supported_types::uint64:
+                mets_iter.set_data((uint64_t)random_value);
+                break;
+            case supported_types::boolean:
+                mets_iter.set_data(random_value%2 ? true : false);
+                break;
+            case supported_types::string:
+                mets_iter.set_data(std::to_string(random_value));
+                break;
+            }
+            mets_iter.set_timestamp();
+            result_metrics.push_back(mets_iter);
+        } else {
+            for (int i = 0 ; i < mets_iter.get_config().get_int("dynamic_count") ; i++){
+                Metric dynamic_metric;
+                Namespace dynamic_namespace(mets_iter.ns());
+                dynamic_namespace[4].set_value(std::to_string(i));
+                dynamic_metric.set_ns(dynamic_namespace);
+                dynamic_metric.set_data((uint64_t)random_value);
+                dynamic_metric.set_timestamp();
+                result_metrics.push_back(dynamic_metric);
+            }
         }
-        mets_iter->set_timestamp();
     }
-    std::vector<Metric> result_metrics = metrics;
     return result_metrics;
 }
 

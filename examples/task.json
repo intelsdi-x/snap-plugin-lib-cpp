@@ -12,11 +12,14 @@
  				"/intel/cpp/mock/rando/string":{},
  				"/intel/cpp/mock/rando/int64":{},
  				"/intel/cpp/mock/rando/boolean":{},
- 				"/intel/cpp/mock/dynamic/*/string":{}
+ 				"/intel/cpp/mock/dynamic/*/int64":{}
 			},
 			"config":{
 				"/intel/cpp/mock/randomnumber/one":{
 					"password":"silly goose"
+				},
+				"/intel/cpp/mock/dynamic/*/int64":{
+					"dynamic_count":10
 				}
 			},
 			"process":[

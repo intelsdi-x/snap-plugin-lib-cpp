@@ -107,10 +107,12 @@ namespace Plugin {
         ~Namespace();
 
         /**
-        * Overloaded range operator. It returns "NamespaceElement" object
+        * Overloaded range operators. They return "NamespaceElement" object
         * from given index.
         */
         const NamespaceElement operator[] (int index) const;
+
+        NamespaceElement& operator[] (int index);
 
         /**
         *  add_static_element adds a static element to the Namespace.  A static
