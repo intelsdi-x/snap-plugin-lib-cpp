@@ -59,9 +59,9 @@ Status CollectorImpl::CollectMetrics(ServerContext* context,
     }
 
     try {
-        collector->collect_metrics(metrics);
+        std::vector<Metric> result_metrics = collector->collect_metrics(metrics);
 
-        for (Metric met : metrics) {
+        for (Metric met : result_metrics) {
             *resp->add_metrics() = *met.get_rpc_metric_ptr();
         }
         return Status::OK;

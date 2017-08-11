@@ -81,6 +81,8 @@ TEST(CollectorProxySuccessTest, CollectMetricsWorks) {
             metrics.at(i).set_data(data);
             report.emplace_back(metrics.at(i));
         }
+        vector<Metric> result = metrics;
+        return result;
     };
 
     ON_CALL(mockee, collect_metrics(_))

@@ -278,6 +278,10 @@ const NamespaceElement Namespace::operator[] (int index) const {
     return namespace_elements[index];
 }
 
+NamespaceElement& Namespace::operator[] (int index) {
+    return namespace_elements[index];
+}
+
 Namespace& Namespace::add_static_element(std::string value){
     this->namespace_elements.push_back(NamespaceElement(value));
     return *this;

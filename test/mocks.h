@@ -44,7 +44,7 @@ public:
 
   MOCK_METHOD0(get_config_policy, const ConfigPolicy());
   MOCK_METHOD1(get_metric_types, std::vector<Metric>(Config cfg));
-  MOCK_METHOD1(collect_metrics, void(std::vector<Metric> &metrics));
+  MOCK_METHOD1(collect_metrics, std::vector<Metric>(std::vector<Metric> &metrics));
 };
 
 class MockProcessor : public Plugin::ProcessorInterface {
