@@ -306,6 +306,7 @@ int Plugin::Flags::SetCombinedFlags() {
 int Plugin::Flags::parseCommandLineFlags(const int &argc, char **argv) {
     try {
       if (parsejsonFlags(argc, argv) == 0) {
+        _framework_json_parsed = true;
         return 0;
       }
     }
@@ -566,4 +567,24 @@ void Plugin::Flags::SetFlagsLogLevel(const int &logLevel /*=2*/) {
     catch (std::exception &e) {
         _logger->error(e.what());
     }
+}
+
+const rpc::ConfigMap Plugin::Flags::GenerateConfigMapFromCommandJson() {
+   rpc::ConfigMap result_map;
+   const char * conf = "config";
+   if (_flags.count(conf)) {
+       json j = json::parse(boost::any_cast<std::string>(_flags["config"].value()));
+       
+       for (json::iterator element = j.begin(); element != j.end(); ++element) {
+           std::string json_key = element.key();
+           auto& json_value = element.value();
+           if(json_value.is_boolean())
+               (*result_map.mutable_boolmap())[json_key] = json_value;
+           else if (json_value.is_number())
+               (*result_map.mutable_intmap())[json_key] = json_value;
+           else if (json_value.is_string())
+               (*result_map.mutable_stringmap())[json_key] = json_value;
+       }
+   }
+   return result_map;
 }

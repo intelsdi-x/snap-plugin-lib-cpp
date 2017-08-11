@@ -74,7 +74,7 @@ const ConfigPolicy Rando::get_config_policy() {
     policy.add_rule({"intel", "cpp", "mock", "dynamic", "dynamo","int64"},
     Plugin::IntRule{
         "dynamic_count",
-        2
+        {2,false}
     });
     return policy;
 }
@@ -153,5 +153,5 @@ int main(int argc, char **argv) {
     }
 
     Rando plg;
-    start_collector(&plg, meta);
+    start_collector(&plg, meta, cli);
 }

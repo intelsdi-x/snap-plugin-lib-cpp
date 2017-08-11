@@ -19,6 +19,7 @@ limitations under the License.
 #include <iterator>
 #include <map>
 #include <spdlog/spdlog.h>
+#include <snap/rpc/plugin.pb.h>
 
 
 #define COMMAND_DESC "COMMANDS"
@@ -57,6 +58,7 @@ namespace Plugin {
         std::string _options_file, _listen_port, _listen_addr, _cert_path, _key_path, _root_cert_paths;
         int64_t _max_metrics_buffer;
 
+        bool _framework_json_parsed;
 
     public:
         enum FlagType {
@@ -73,11 +75,12 @@ namespace Plugin {
         };
 
         Flags() {
-            _logger = spdlog::stderr_logger_mt("flags");
+            _logger = spdlog::stderr_logger_mt("flags_stderr");
         }
 
-        Flags(const int &argc, char **argv) {
-            _logger = spdlog::stderr_logger_mt("flags");
+        Flags(const int &argc, char **argv) :
+                                            _framework_json_parsed(false) {
+            _logger = spdlog::stdout_logger_mt("flags");
             this->SetFlags();
             this->ParseFlags(argc, argv);
         }
@@ -116,6 +119,7 @@ namespace Plugin {
         void ShowVariablesMap();
         bool IsParsedFlag(const char *flagKey) { return _flags.count(flagKey); }
         po::variables_map GetFlagsVM() { return _flags; }
+        const bool IsConfigFromFramework() const {return _framework_json_parsed; }
 
         bool GetFlagBoolValue(const char *flagKey);
         int GetFlagIntValue(const char *flagKey);
@@ -149,5 +153,7 @@ namespace Plugin {
 
         po::options_description GetConfigFileOptions() { return _config_file; }
         void PrintConfigFileOptions() { std::cout << _config_file << std::endl; }
+
+        const rpc::ConfigMap GenerateConfigMapFromCommandJson();
     };
 } // namespace Plugin

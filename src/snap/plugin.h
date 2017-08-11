@@ -84,13 +84,14 @@ namespace Plugin {
         Type type;
         std::string name;
         int version;
+        int rpc_version;
 
         /**
         * The RpcType in use, defaults to RpcType::GRPC. There should be no need to change
         * it.
         */
         RpcType rpc_type;
-
+    
         /**
         * concurrency_count is the max number of concurrent calls the plugin
         * should take.  For example:
@@ -166,6 +167,7 @@ namespace Plugin {
         */
         bool stand_alone;
 
+        bool diagnostic_enabled;
         /**
         * Specify http port when stand-alone plugin is enabled
         */
@@ -294,6 +296,66 @@ namespace Plugin {
                                     const Config& config) = 0;
     };
 
+
+    class DiagnosticPrinter {
+    private:
+        /**
+        * Small Stopwatch class to simplify measuring time when printing diagnostics.
+        */
+        class Stopwatch {
+        public:
+            Stopwatch(std::ostream& os = std::cout);
+            ~Stopwatch();
+            void start();
+            void stop();
+            void print_elapsed(std::string message_before = "", std::string message_after = "");
+
+        private:
+            bool started;
+            bool stopped;
+            std::string unit;
+            std::chrono::high_resolution_clock::time_point begin;
+            std::chrono::high_resolution_clock::time_point end;
+            std::ostream& os;
+        }; // End of private stopwatch class.
+
+    public:
+        DiagnosticPrinter(CollectorInterface* collector, const Meta& meta, Flags& cli, std::ostream& os = std::cout);
+        ~DiagnosticPrinter();
+        /**
+        * Show method prints all diagnostics for collector plugin.
+        */
+        void show();
+
+    private:
+        /**
+        * These methods print specific diagnostics for collector plugin and 
+        * other information such as "contact us" and "runetime details"
+        */
+        void print_contact_us();
+        void print_runtime_details();
+        void print_config_policy();
+        std::vector<Metric> print_metric_types();
+        void print_collect_metrics(std::vector<Metric> mts);
+        void print_string_policy(ConfigPolicy& cpolicy);
+        void print_integer_policy(ConfigPolicy& cpolicy);
+        void print_bool_policy(ConfigPolicy& cpolicy);
+
+        std::string get_os_name();
+        std::string get_architecture_name();
+
+        /**
+        * Private fields of DiagnosticPrinter class.
+        */
+        std::ostream& os;
+        CollectorInterface* collector;
+        const Meta& meta;
+        rpc::ConfigMap cfgmap;
+        Config config;
+    };
+
+
+
     /**
     * These functions are called to start a plugin.
     * They export plugin using default PluginExporter based on GRPC:
@@ -303,7 +365,9 @@ namespace Plugin {
     * These functions do not manage the plugin instance passed as parameter -
     * caller's responsible for releasing the resources.
     */
-    void start_collector(CollectorInterface* plg, const Meta& meta);
+    void start_collector(CollectorInterface* plg, const Meta& meta, Flags& cli);
     void start_processor(ProcessorInterface* plg, const Meta& meta);
     void start_publisher(PublisherInterface* plg, const Meta& meta);
+
+    
 };  // namespace Plugin

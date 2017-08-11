@@ -53,7 +53,7 @@ Status PublisherImpl::Publish(ServerContext* context, const PubProcArg* req,
         metrics.emplace_back(rpc_mets.Mutable(i));
     }
 
-    Plugin::Config config(req->config());
+    Plugin::Config config(const_cast<rpc::ConfigMap&>(req->config()));
     try {
         publisher->publish_metrics(metrics, config);
         return Status::OK;

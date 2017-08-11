@@ -97,6 +97,7 @@ TEST_F(PluginTest, DefaultPluginExporterIsAvailable) {
 TEST_F(PluginTest, StartCollectorInvokesExporterAndWaits) {
   MockExporter exporter;
   MockCollector collector;
+  Plugin::Flags cli;
   Plugin::Meta meta(Plugin::Processor, "average", 123);
   Plugin::PluginInterface* actPlugin;
   const Plugin::Meta* actMeta;
@@ -110,7 +111,7 @@ TEST_F(PluginTest, StartCollectorInvokesExporterAndWaits) {
     .WillByDefault(Invoke(reporter));
   Plugin::LibSetup::exporter_provider = [&]{
     return unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter*)>>(&exporter, [](Plugin::PluginExporter*){}); };
-  Plugin::start_collector(&collector, meta);
+  Plugin::start_collector(&collector, meta,cli);
 
   EXPECT_EQ("average", actMeta->name);
   EXPECT_EQ(actPlugin, &collector);

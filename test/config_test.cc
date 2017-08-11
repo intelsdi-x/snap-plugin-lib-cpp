@@ -98,3 +98,68 @@ TEST(PluginConfigTest, GetIntValueWorks) {
 
     EXPECT_EQ(0xface, config.get_int("its"));
 }
+
+TEST(PluginConfigTest, SetIntValueWorks) {
+    rpc::ConfigMap baseMap;
+    Plugin::Config config(baseMap);
+    int setter = 10;
+    config.set_int("some_key",setter);
+
+    EXPECT_EQ(setter, config.get_int("some_key"));
+}
+
+TEST(PluginConfigTest, SetBoolValueWorks) {
+    rpc::ConfigMap baseMap;
+    Plugin::Config config(baseMap);
+    bool setter = true;
+    config.set_bool("some_key",setter);
+
+    EXPECT_EQ(setter, config.get_bool("some_key"));
+}
+
+TEST(PluginConfigTest, SetStringValueWorks) {
+    rpc::ConfigMap baseMap;
+    Plugin::Config config(baseMap);
+    std::string setter = "value";
+    config.set_string("some_key",setter);
+
+    EXPECT_EQ(setter ,config.get_string("some_key"));
+}
+
+TEST(PluginConfigTest, AssignmentOperatorWorks) {
+    rpc::ConfigMap baseMap;
+    Plugin::Config config1(baseMap);
+    Plugin::Config config2(baseMap);
+    config1.set_string("some_key", "value");
+    config2 = config1;
+
+    EXPECT_EQ(config1.get_string("some_key"), config2.get_string("some_key"));
+}
+
+TEST(PluginConfigTest, ApplyDefaultsWorks) {
+    rpc::ConfigMap baseMap;
+    Plugin::Config config(baseMap);
+    Plugin::ConfigPolicy cpolicy;
+
+    cpolicy.add_rule({"intel"},
+    Plugin::StringRule{
+        "login",
+        {"admin", true}
+    });
+    cpolicy.add_rule({"intel"},
+    Plugin::IntRule{
+        "number",
+        {10, true}
+    });
+    cpolicy.add_rule({"intel"},
+    Plugin::BoolRule{
+        "question",
+        {true, true}
+    });
+
+    config.apply_defaults(cpolicy);
+
+    EXPECT_EQ(config.get_string("login"), "admin");
+    EXPECT_EQ(config.get_int("number"), 10);
+    EXPECT_EQ(config.get_bool("question"), true);
+}

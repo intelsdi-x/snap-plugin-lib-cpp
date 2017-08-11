@@ -112,6 +112,8 @@ namespace Plugin {
         */
         const NamespaceElement operator[] (int index) const;
 
+        const std::string get_string() const;
+
         NamespaceElement& operator[] (int index);
 
         /**
@@ -199,6 +201,21 @@ namespace Plugin {
             NotSet = rpc::Metric::DataCase::DATA_NOT_SET,
         };
 
+        friend std::ostream& operator<<(std::ostream& lhs, DataType e) {
+            switch(e) {
+                case String : lhs << "String"; break;
+                case Float32 : lhs << "Float32"; break;
+                case Float64 : lhs << "Float64"; break;
+                case Int32 : lhs << "Int32"; break;
+                case Int64 : lhs << "Int64"; break;
+                case Uint32 : lhs << "Uint32"; break;
+                case Uint64 : lhs << "Uint64"; break;
+                case Bool : lhs << "Bool"; break;
+                default : lhs << "Notset"; break;
+            }
+            return lhs;
+        }
+
         Metric();
         /**
         * The typical metric constructor.
@@ -282,7 +299,12 @@ namespace Plugin {
         */
         void set_last_advertised_time(std::chrono::system_clock::time_point tp);
 
-        DataType data_type();
+        /**
+        * set_diagnostic_config is used to apply generated config to specific metric.
+        */
+        void set_diagnostic_config(const Config& cfg);
+
+        DataType data_type() const;
 
         /**
         * set_data sets the metric instances data in the underlying rpc::Metric
@@ -325,4 +347,5 @@ namespace Plugin {
         bool delete_metric_ptr;
         DataType type;
     };
+
 }   // namespace Plugin
