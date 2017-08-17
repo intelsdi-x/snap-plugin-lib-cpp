@@ -16,10 +16,6 @@ limitations under the License.
 #include <sstream>
 #include <string>
 #include <thread>
-//#include <list>
-//#include <thread>
-//#include <mutex>
-//#include <condition_variable>
 
 #include <grpc++/grpc++.h>
 
@@ -98,6 +94,10 @@ Plugin::PublisherInterface* Plugin::PluginInterface::IsPublisher() {
     return nullptr;
 }
 
+Plugin::StreamCollectorInterface* Plugin::PluginInterface::IsStreamCollector() {
+    return nullptr;
+}
+
 Plugin::Type Plugin::CollectorInterface::GetType() const {
     return Collector;
 }
@@ -122,6 +122,14 @@ Plugin::PublisherInterface* Plugin::PublisherInterface::IsPublisher() {
     return this;
 }
 
+Plugin::Type Plugin::StreamCollectorInterface::GetType() const {
+    return StreamCollector;
+}
+
+Plugin::StreamCollectorInterface* Plugin::StreamCollectorInterface::IsStreamCollector() {
+    return this;
+}
+
 void Plugin::start_collector(int argc, char **argv, CollectorInterface* collector,
                              Meta& meta) {
     Flags cli(argc, argv);
@@ -131,7 +139,6 @@ void Plugin::start_collector(int argc, char **argv, CollectorInterface* collecto
         cout << meta.name << " version "  << meta.version << endl;
         exit(0);
     }
-
     start_plugin(collector, meta);
 }
 
@@ -159,6 +166,11 @@ void Plugin::start_publisher(int argc, char **argv, PublisherInterface* publishe
     }
 
     start_plugin(publisher, meta);
+}
+
+void Plugin::start_stream_collector(int argc, char **argv, StreamCollectorInterface* stream_collector,
+                             Meta& meta) {
+    start_plugin(stream_collector, meta);
 }
 
 static void start_plugin(Plugin::PluginInterface* plugin, const Plugin::Meta& meta) {

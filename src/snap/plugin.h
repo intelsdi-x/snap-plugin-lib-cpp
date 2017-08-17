@@ -18,10 +18,6 @@ limitations under the License.
 #include <memory>
 #include <string>
 #include <vector>
-//#include <list>
-//#include <thread>
-//#include <mutex>
-//#include <condition_variable>
 
 #include <grpc++/grpc++.h>
 
@@ -35,7 +31,7 @@ namespace Plugin {
     class CollectorInterface;
     class ProcessorInterface;
     class PublisherInterface;
-
+    class StreamCollectorInterface;
     /**
     * Type is the plugin type
     */
@@ -219,7 +215,7 @@ namespace Plugin {
         virtual CollectorInterface* IsCollector();
         virtual ProcessorInterface* IsProcessor();
         virtual PublisherInterface* IsPublisher();
-
+        virtual StreamCollectorInterface* IsStreamCollector();
         virtual const ConfigPolicy get_config_policy() = 0;
     protected:
         PluginInterface() = default;
@@ -304,24 +300,6 @@ namespace Plugin {
         virtual void publish_metrics(std::vector<Metric> &metrics,
                                     const Config& config) = 0;
     };
-
-/*
-    template<class T>
-    class StreamChannel {
-    private:
-        std::list<T> _queue;
-        std::mutex _m;
-        std::condition_variable _cv;
-        bool _closed;
-
-    public:
-        StreamChannel() : _closed(false) {}
-
-        void close();
-        bool is_closed();
-        void put(const T &in);
-        bool get(T &out, bool wait = true);
-    };*/
 
     /**
     * The interface for a stream collector plugin.

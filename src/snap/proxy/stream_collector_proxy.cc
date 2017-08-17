@@ -47,10 +47,6 @@ using Plugin::Metric;
 using Plugin::PluginException;
 using Plugin::Proxy::StreamCollectorImpl;
 
-// Force instantiation of supported template types
-//template class StreamCollectorImpl::StreamChannel<std::string>;
-//template class StreamCollectorImpl::StreamChannel<std::vector<Metric>>;
-
 #define DEFAULT_MAX_COLLECT_DURATION 10
 #define DEFAULT_MAX_METRICS_BUFFER 0
 
