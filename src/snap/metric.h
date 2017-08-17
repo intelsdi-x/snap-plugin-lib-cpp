@@ -139,17 +139,6 @@ namespace Plugin {
         */
         void set_timestamp(std::chrono::system_clock::time_point tp);
 
-        /**
-        * set_last_advertised_time sets last_advertised_time as now.
-        */
-        void set_last_advertised_time();
-
-        /**
-        * set_last_advertised_time sets last_advertised_time as tp.
-        * @param tp The timestamp to use.
-        */
-        void set_last_advertised_time(std::chrono::system_clock::time_point tp);
-
         DataType data_type();
 
         /**
@@ -182,6 +171,17 @@ namespace Plugin {
         private:
         rpc::Metric* rpc_metric_ptr;
         Config config;
+
+        /**
+        * set_last_advertised_time sets last_advertised_time as now.
+        */
+        void set_last_advertised_time();
+
+        /**
+        * set_last_advertised_time sets last_advertised_time as tp.
+        * @param tp The timestamp to use.
+        */
+        void set_last_advertised_time(std::chrono::system_clock::time_point tp);
 
         void inline set_ts(std::chrono::system_clock::time_point tp);
         void inline set_last_advert_tm(std::chrono::system_clock::time_point tp);
