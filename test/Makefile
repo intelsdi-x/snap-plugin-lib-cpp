@@ -59,7 +59,7 @@ clean :
 init :	;
 	
 
-$(PREFIX)/$(EXE) : RUN_LDFLAGS = $(LDFLAGS) -L$(SNAPLIB_DIR)/lib -L$(GTESTLIB_DIR)/lib -pthread -lpthread -lgmock -lgtest -lsnap -lprotobuf -lgrpc++ -lgcov -lboost_program_options -lboost_system -lboost_thread -lcppnetlib-uri -lcppnetlib-client-connections -lcppnetlib-server-parsers $(COV_ARGS)
+$(PREFIX)/$(EXE) : RUN_LDFLAGS = $(LDFLAGS) -L$(SNAPLIB_DIR)/lib -L$(GTESTLIB_DIR)/lib -pthread -lpthread -lgmock -lgtest -lsnap -lprotobuf -lgrpc++ -lgcov -lboost_program_options -lboost_system -lboost_thread -lboost_filesystem -lcppnetlib-uri -lcppnetlib-client-connections -lcppnetlib-server-parsers $(COV_ARGS) 
 $(PREFIX)/$(EXE) : $(OBJ)
 	$(run-ld)
 

@@ -16,6 +16,7 @@ limitations under the License.
 #include "snap/metric.h"
 #include "../src/snap/lib_setup_impl.h"
 #include "gmock/gmock.h"
+#include "snap/flags.h"
 
 #include <functional>
 #include <memory>
@@ -159,4 +160,18 @@ TEST_F(PluginTest, StartPublisherInvokesExporterAndWaits) {
   EXPECT_EQ("average", actMeta->name);
   EXPECT_EQ(actPlugin, &publisher);
   EXPECT_EQ(true, completionCalled);
+}
+
+TEST_F(PluginTest, TestTLSVariables) {
+  int argc = 8;
+  char* argv[]{(char*)"this", (char*)"--tls", (char*)"--cert-path", (char*)"fake_path", (char*)"--key-path", (char*)"fake_path", (char*)"--root-cert-path", (char*)"fake_path"};
+  Plugin::Flags cli(argc, argv);
+
+  Plugin::Meta meta(Plugin::Collector, "average", 123, &cli);
+
+  EXPECT_EQ(meta.tls_enabled, true);
+
+  EXPECT_EQ(meta.tls_certificate_key_path, "fake_path");
+  EXPECT_EQ(meta.tls_certificate_crt_path, "fake_path");
+  EXPECT_EQ(meta.tls_certificate_authority_paths, "fake_path");
 }
