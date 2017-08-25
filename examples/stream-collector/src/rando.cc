@@ -18,9 +18,6 @@ limitations under the License.
 #include <time.h>
 #include <vector>
 #include <iostream>
-#include <future>
-#include <thread>
-#include <chrono>
 
 #include <snap/config.h>
 #include <snap/plugin.h>
@@ -35,7 +32,8 @@ using Plugin::Meta;
 using Plugin::Type;
 using Plugin::Flags;
 using Plugin::RpcType;
-//using Plugin::StreamChannel;
+using Plugin::Namespace;
+using Plugin::NamespaceElement;
 
 using std::cout;
 using std::endl;
@@ -79,115 +77,28 @@ const ConfigPolicy Rando::get_config_policy() {
 }
 
 std::vector<Metric> Rando::get_metric_types(Config cfg) {
-    std::vector<Metric> metrics = {
-        {
-            {
-                {"intel", "", ""},
-                {"cpp", "", ""},
-                {"mock", "", ""},
-                {"randomnumber", "", ""},
-                {"float32", "", ""},
-            },
-            "",
-            "float32 random number"
-        },
-        {
-            {
-                {"intel", "", ""},
-                {"cpp", "", ""},
-                {"mock", "", ""},
-                {"randomnumber", "", ""},
-                {"float64", "", ""},
-            },
-            "",
-            "float64 random number"
-        },
-        {
-            {
-                {"intel", "", ""},
-                {"cpp", "", ""},
-                {"mock", "", ""},
-                {"randomnumber", "", ""},
-                {"int32", "", ""},
-            },
-            "",
-            "int32 random number"
-            },
-        {
-            {
-                {"intel", "", ""},
-                {"cpp", "", ""},
-                {"mock", "", ""},
-                {"randomnumber", "", ""},
-                {"int64", "", ""},
-            },
-            "",
-            "int64 random number"
-        },
-        {
-            {
-                {"intel", "", ""},
-                {"cpp", "", ""},
-                {"mock", "", ""},
-                {"randomnumber", "", ""},
-                {"uint32", "", ""},
-            },
-            "",
-            "uint32 random number"
-        },
-        {
-            {
-                {"intel", "", ""},
-                {"cpp", "", ""},
-                {"mock", "", ""},
-                {"randomnumber", "", ""},
-                {"uint64", "", ""},
-            },
-            "",
-            "uint64 random number"
-        },
-        {
-            {
-                {"intel", "", ""},
-                {"cpp", "", ""},
-                {"mock", "", ""},
-                {"randomboolean", "", ""},
-                {"boolean", "", ""},
-            },
-            "",
-            "random boolean"
-        },
-        {
-            {
-                {"intel", "", ""},
-                {"cpp", "", ""},
-                {"mock", "", ""},
-                {"randomstring", "", ""},
-                {"string", "", ""},
-            },
-            "",
-            "random string"
-        }
-    };
+    std::vector<Metric> metrics = { Metric(Namespace({"intel","cpp","mock","rando"}).add_static_element("int32"), "example_unit","example_description" ),
+                                    Metric(Namespace({"intel","cpp","mock","rando"}).add_static_element("int64"),"",""),
+                                    Metric(Namespace({"intel","cpp","mock","rando"}).add_static_element("string"),"",""),
+                                    Metric(Namespace({"intel","cpp","mock","rando"}).add_static_element("boolean"),"",""),
+                                    };
     return metrics;
 }
 
-void Rando::stream_metrics(std::vector<Plugin::Metric> &metsIn,
-                            std::vector<Plugin::Metric> &metsOut,
-                            std::string &errMsg) {
-    auto stream = std::async(std::launch::async, &Rando::stream_it,
-                            this, std::ref(metsOut), std::ref(errMsg));
+void Rando::stream_metrics() {
+    auto stream = std::async(std::launch::async, &Rando::stream_it, this);
+    drain_metrics();
 }
 
-void Rando::stream_it(std::vector<Plugin::Metric> &metsOut, std::string &errMsg) {
+void Rando::stream_it() {
     while (1) {
-        if (!metsOut.empty()) {
+        if (!_metrics_out.empty() && !_put_mets && !_put_err && !_get_mets) {
             std::vector<Metric>::iterator mets_iter;
             unsigned int seed = time(NULL);
             int random_value = rand_r(&seed) % 1000;
 
-            for (mets_iter = metsOut.begin(); mets_iter != metsOut.end(); mets_iter++) {
-                std::string ns_mts_type = mets_iter->ns()[4].value;
+            for (mets_iter = _metrics_out.begin(); mets_iter != _metrics_out.end(); mets_iter++) {
+                std::string ns_mts_type = mets_iter->ns()[4].get_value();
                 int mts_type = metric_types[ns_mts_type];
 
                 switch(mts_type) {
@@ -216,13 +127,13 @@ void Rando::stream_it(std::vector<Plugin::Metric> &metsOut, std::string &errMsg)
                     mets_iter->set_data(std::to_string(random_value));
                     break;
                 default:
-                    errMsg.assign("Invalid type");
+                    _err_msg.assign("Invalid type");
+                    _put_err = true;
                 }
-                    
                 mets_iter->set_timestamp();
             }
-            metsOut.clear();
-            std::this_thread::sleep_for(std::chrono::milliseconds(500));
+            _put_mets = true;
+            std::this_thread::sleep_for(std::chrono::milliseconds(200));
         }
         else {
             std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -230,10 +141,15 @@ void Rando::stream_it(std::vector<Plugin::Metric> &metsOut, std::string &errMsg)
     }
 }
 
-void Rando::drain_metrics(std::vector<Plugin::Metric> &sendMets,
-                        std::vector<Plugin::Metric> &recvMets,
-                        bool &metsReady) {
-
+void Rando::drain_metrics() {
+    while(1) {
+        if (_get_mets && (!_put_mets || !_put_err)) {
+            _err_msg.clear();
+            _metrics_out.clear();
+            std::copy(_metrics_in.begin(), _metrics_in.end(), std::back_inserter(_metrics_out));
+            _get_mets = false;            
+        }
+    }
 }
 
 int main(int argc, char **argv) {

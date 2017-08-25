@@ -330,17 +330,15 @@ namespace Plugin {
         * A channel for error strings that the library will report to snap
         * as task errors.
         */
-        virtual void stream_metrics(std::vector<Plugin::Metric> &metsIn,
-                                    std::vector<Plugin::Metric> &metsOut,
-                                    std::string &errMsg) = 0;
+        virtual void stream_metrics() = 0;
 
         virtual std::vector<Plugin::Metric> put_metrics_out() = 0;
         virtual std::string put_err_msg() = 0;
         virtual void get_metrics_in(std::vector<Plugin::Metric> &metsIn) = 0;
         virtual bool put_mets() = 0;
         virtual bool put_err() = 0;
-        virtual void set_put_mets(bool putMets) = 0;
-        virtual void set_put_err(bool putErr) = 0;
+        virtual void set_put_mets(const bool &putMets) = 0;
+        virtual void set_put_err(const bool &putErr) = 0;
     };
 
     /**

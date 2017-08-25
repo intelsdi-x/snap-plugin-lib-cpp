@@ -65,7 +65,6 @@ Status StreamCollectorImpl::GetMetricTypes(ServerContext* context,
                                     const GetMetricTypesArg* req,
                                     MetricsReply* resp) {
     Plugin::Config cfg(req->config());
-
     try {
         std::vector<Metric> metrics = _stream_collector->get_metric_types(cfg);
 
@@ -107,12 +106,9 @@ Status StreamCollectorImpl::Ping(ServerContext* context, const Empty* req,
 
 Status StreamCollectorImpl::StreamMetrics(ServerContext* context,
                 ServerReaderWriter<CollectReply, CollectArg>* stream) {
-    //std::cout << "debug: streaming started" << std::endl;
     try {
         std::string task_id = "not-set";
-
-        std::vector<Metric> send_mets, recv_mets;
-        std::string err_msg;
+        // ...TODO
 
         auto sendch = std::async(std::launch::async, &StreamCollectorImpl::metricSend,
                                 this, task_id, context, stream);
@@ -124,7 +120,7 @@ Status StreamCollectorImpl::StreamMetrics(ServerContext* context,
         auto do_puts = std::async(std::launch::async, &StreamCollectorImpl::PutSendMetsAndErrMsg,
                                 this, context);
 
-        _stream_collector->stream_metrics(send_mets, recv_mets, err_msg);
+        _stream_collector->stream_metrics();
 
         return Status::OK;
     } catch(PluginException &e) {
@@ -133,6 +129,7 @@ Status StreamCollectorImpl::StreamMetrics(ServerContext* context,
 }
 
 bool StreamCollectorImpl::PutSendMetsAndErrMsg(ServerContext* context) {
+    std::vector<Metric> recv_mets, send_mets;
     while(!context->IsCancelled()) {
         if (_stream_collector->put_mets()) {
             _sendChan.put(_stream_collector->put_metrics_out());
@@ -142,18 +139,20 @@ bool StreamCollectorImpl::PutSendMetsAndErrMsg(ServerContext* context) {
             _errChan.put(_stream_collector->put_err_msg());
             _stream_collector->set_put_err(false);
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        if (_recvChan.get(recv_mets, false)) {
+            _stream_collector->get_metrics_in(recv_mets);
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }
 }
 
 bool StreamCollectorImpl::errorSend(ServerContext* context,
                                     ServerReaderWriter<CollectReply, CollectArg>* stream) {
-    //std::cout << "Starting routine for sending errors" << std::endl;      
     try {
         CollectReply errReply;
         ErrReply er;
         std::string err;
-        while (context->IsCancelled()) {
+        while (!context->IsCancelled()) {
             if (_errChan.get(err)) {
                 er.set_error(err);
                 errReply.set_allocated_error(&er);
@@ -171,34 +170,36 @@ bool StreamCollectorImpl::errorSend(ServerContext* context,
 bool StreamCollectorImpl::metricSend(const std::string &taskID,
                                     ServerContext* context,
                                     ServerReaderWriter<CollectReply, CollectArg>* stream) {
-    MetricsReply* resp;
-    std::vector<Metric> send_mets;
-    //std::cout << "Starting routine for sending metrics" << std::endl;    
+    MetricsReply metr;
     try {
         std::chrono::system_clock::time_point start = std::chrono::system_clock::now();
         while (!context->IsCancelled()) {
+            std::vector<Metric> send_mets;
             if (_sendChan.get(send_mets)) {
                 if (!send_mets.empty()) {
                     for (Metric met : send_mets) {
-                        *resp->add_metrics() = *met.get_rpc_metric_ptr();
-
-                        if (resp->metrics_size() == _max_metrics_buffer) {
-                            sendReply(taskID, resp, stream);
-                            resp->Clear();
+                        *metr.add_metrics() = *met.get_rpc_metric_ptr();
+                        if (metr.metrics_size() >= _max_metrics_buffer) {
+                            sendReply(taskID, metr, stream);
+                            metr.clear_metrics();
                         }
                     }
-
                     if (_max_metrics_buffer == 0) {
-                        sendReply(taskID, resp, stream);
-                        resp->Clear();
+                        sendReply(taskID, metr, stream);
+                        metr.clear_metrics();
                         start = std::chrono::system_clock::now();
                     }
                 }
             }
 
             if ((std::chrono::system_clock::now() - start) >= _max_collect_duration) {
-                sendReply(taskID, resp, stream);
-                resp->Clear();
+                if (!send_mets.empty()) { 
+                    sendReply(taskID, metr, stream);
+                    metr.clear_metrics();
+                }
+                else {
+                    std::cout << "No metrics to send" << std::endl;
+                }
                 start = std::chrono::system_clock::now();
             }
         }
@@ -212,7 +213,6 @@ bool StreamCollectorImpl::metricSend(const std::string &taskID,
 bool StreamCollectorImpl::streamRecv(const std::string &taskID,
                                     ServerContext* context,
                                     ServerReaderWriter<CollectReply, CollectArg>* stream) {
-    //std::cout << "Starting routine for receiving metrics" << std::endl; 
     try {
         std::vector<Metric> recv_mets;
         CollectArg collectMets;
@@ -220,11 +220,9 @@ bool StreamCollectorImpl::streamRecv(const std::string &taskID,
             stream->Read(&collectMets);
 
             if (collectMets.maxcollectduration() > 0) {
-                //std::cout << "Setting max-collect-duration" << std::endl;
                 _max_collect_duration = std::chrono::seconds(collectMets.maxcollectduration());
             }
             if (collectMets.maxmetricsbuffer() > 0) {
-                //std::cout << "Setting max-metrics-buffer" << std::endl;
                 _max_metrics_buffer = collectMets.maxmetricsbuffer();
             }
             if (collectMets.has_metrics_arg()) {
@@ -235,31 +233,35 @@ bool StreamCollectorImpl::streamRecv(const std::string &taskID,
                 }
 
                 _recvChan.put(recv_mets);
+                recv_mets.clear();
             }
         }
         _recvChan.close();
         return true;
     } catch (PluginException &e) {
-        //std::cout << "Error" << std::endl;
+        std::cout << "Error" << std::endl;
         return false;
     }
 }
 
 bool StreamCollectorImpl::sendReply(const std::string &taskID,
-                                    MetricsReply* resp,
+                                    MetricsReply &metr,
                                     ServerReaderWriter<CollectReply, CollectArg>* stream) {
-    //std::cout << "sendReply" << std::endl;
+    CollectReply reply;
+
     try {
-        if (resp->metrics_size() == 0) {
-            //std::cout << "No metrics to send" << std::endl;
+        if (metr.metrics_size() == 0) {
+            std::cout << "No metrics to send" << std::endl;
             return true;
         }
-        CollectReply reply;
-        reply.set_allocated_metrics_reply(resp);
-        stream->Write(reply);
+        
+        std::cout << "Writing stream reply" << std::endl;
+        //reply.set_allocated_metrics_reply(&metr);        
+        //stream->Write(reply);
+        
         return true;
     } catch (PluginException &e) {
-        //std::cout << "Error" << std::endl;
+        std::cout << "Error" << std::endl;
         return false;
     }
 }

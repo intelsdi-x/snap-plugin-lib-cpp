@@ -26,15 +26,11 @@ public:
     const Plugin::ConfigPolicy get_config_policy();
     std::vector<Plugin::Metric> get_metric_types(Plugin::Config cfg);
 
-    void stream_metrics(std::vector<Plugin::Metric> *metsIn,
-                        std::vector<Plugin::Metric> *metsOut,
-                        std::string *errMsg);
+    void stream_metrics();
 
-    void stream_it(std::vector<Plugin::Metric> &metsOut, std::string &errMsg);
+    void stream_it();
 
-    void drain_metrics(std::vector<Plugin::Metric> &metsIn,
-                        std::vector<Plugin::Metric> &recvMets,
-                        bool &metsReady);
+    void drain_metrics();
     
     std::vector<Plugin::Metric> put_metrics_out() { return _metrics_out; }
     std::string put_err_msg() { return _err_msg; }
@@ -42,17 +38,18 @@ public:
     void get_metrics_in(std::vector<Plugin::Metric> &metsIn) {
         _metrics_in.clear();
         std::copy(metsIn.begin(), metsIn.end(), std::back_inserter(_metrics_in));
+        _get_mets = true;
     }
 
     bool put_mets() { return _put_mets; }
-    void set_put_mets(bool putMets) { _put_mets = putMets; }
+    void set_put_mets(const bool &putMets) { _put_mets = putMets; }
     bool put_err() { return _put_err; }
-    void set_put_err(bool putErr) { _put_err = putErr; }
+    void set_put_err(const bool &putErr) { _put_err = putErr; }
 
 private:
     std::vector<Plugin::Metric> _metrics_out;
     std::vector<Plugin::Metric> _metrics_in;
     std::string _err_msg;
 
-    bool _put_mets = false, _put_err = false; 
+    bool _put_mets = false, _put_err = false, _get_mets = false; 
 };

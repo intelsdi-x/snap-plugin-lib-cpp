@@ -76,7 +76,8 @@ namespace Plugin {
                             grpc::ServerReaderWriter<rpc::CollectReply, rpc::CollectArg>* stream);
 
             bool sendReply(const std::string &taskID,
-                            rpc::MetricsReply *resp,
+                            //const std::vector<Plugin::Metric> &metrics,
+                            rpc::MetricsReply &metr,
                             grpc::ServerReaderWriter<rpc::CollectReply, rpc::CollectArg>* stream);
 
             bool PutSendMetsAndErrMsg(grpc::ServerContext* context);
@@ -134,7 +135,7 @@ namespace Plugin {
                 void close();
                 bool is_closed();
                 void put(const T &in);
-                bool get(T &out, bool wait = false);
+                bool get(T &out, bool wait = true);
             };
 
         private:
@@ -143,7 +144,7 @@ namespace Plugin {
             grpc::ServerContext* _ctx;
             int64_t _max_metrics_buffer;
             std::chrono::seconds _max_collect_duration;
-            
+
             StreamChannel<std::vector<Plugin::Metric>> _sendChan;
             StreamChannel<std::vector<Plugin::Metric>> _recvChan;
             StreamChannel<std::string> _errChan;          
