@@ -140,6 +140,7 @@ namespace Plugin {
             grpc::ServerContext* _ctx;
             int64_t _max_metrics_buffer;
             std::chrono::seconds _max_collect_duration;
+            std::chrono::seconds _max_collect_duration2;
             rpc::CollectReply _collect_reply;
             rpc::MetricsReply _metrics_reply;
             rpc::ErrReply _err_reply;

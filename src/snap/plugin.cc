@@ -170,6 +170,17 @@ void Plugin::start_publisher(int argc, char **argv, PublisherInterface* publishe
 
 void Plugin::start_stream_collector(int argc, char **argv, StreamCollectorInterface* stream_collector,
                              Meta& meta) {
+    Flags cli(argc, argv);
+    meta.use_cli_args(&cli);
+
+    if (cli.IsParsedFlag("version")) {
+        cout << meta.name << " version "  << meta.version << endl;
+        exit(0);
+    }
+
+    stream_collector->SetMaxCollectDuration(meta.max_collect_duration);
+    stream_collector->SetMaxMetricsBuffer(meta.max_metrics_buffer);
+
     start_plugin(stream_collector, meta);
 }
 

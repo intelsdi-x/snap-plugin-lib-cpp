@@ -308,8 +308,25 @@ namespace Plugin {
     */
     class StreamCollectorInterface : public PluginInterface {
     public:
+
         Type GetType() const final;
         StreamCollectorInterface* IsStreamCollector() final;
+
+        void SetMaxCollectDuration(std::chrono::seconds maxCollectDuration) {
+            _max_collect_duration = maxCollectDuration;
+        }
+        void SetMaxCollectDuration(int64_t maxCollectDuration) {
+            _max_collect_duration = std::chrono::seconds(maxCollectDuration);
+        }
+        std::chrono::seconds GetMaxCollectDuration() {
+            return _max_collect_duration;
+        }
+        void SetMaxMetricsBuffer(int64_t maxMetricsBuffer) {
+            _max_metrics_buffer = maxMetricsBuffer;
+        }
+        int64_t GetMaxMetricsBuffer() {
+            return _max_metrics_buffer;
+        }
 
         /*
         * (inherited from PluginInterface)
@@ -341,6 +358,21 @@ namespace Plugin {
         virtual void set_put_err(const bool &putErr) = 0;
         virtual void set_context_cancelled(const bool &contextCancelled) = 0;
         virtual bool context_cancelled() = 0;
+
+    private:
+        /**
+        * sets the maximum duration (always greater than 0s) between collections
+        * before metrics are sent. Defaults to 10s what means that after 10 seconds 
+        * no new metrics are received, the plugin should send whatever data it has
+        * in the buffer instead of waiting longer. (e.g. 5s)
+        */
+        std::chrono::seconds _max_collect_duration;
+        
+        /**
+        * maximum number of metrics the plugin is buffering before sending metrics.
+        * Defaults to zero what means send metrics immediately
+        */
+        int64_t _max_metrics_buffer;
     };
 
     /**

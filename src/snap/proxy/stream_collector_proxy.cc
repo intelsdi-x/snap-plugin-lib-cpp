@@ -47,16 +47,13 @@ using Plugin::Metric;
 using Plugin::PluginException;
 using Plugin::Proxy::StreamCollectorImpl;
 
-#define DEFAULT_MAX_COLLECT_DURATION 10
-#define DEFAULT_MAX_METRICS_BUFFER 0
-
 StreamCollectorImpl::StreamCollectorImpl(Plugin::StreamCollectorInterface* plugin) :
-                                        _stream_collector(plugin), 
-                                        _max_collect_duration(DEFAULT_MAX_COLLECT_DURATION),
-                                        _max_metrics_buffer(DEFAULT_MAX_METRICS_BUFFER) {
+                                        _stream_collector(plugin) {
     _plugin_impl_ptr = new PluginImpl(plugin);
     _collect_reply.set_allocated_metrics_reply(&_metrics_reply);
     _collect_reply.set_allocated_error(&_err_reply);
+    _max_collect_duration = plugin->GetMaxCollectDuration();
+    _max_metrics_buffer = plugin->GetMaxMetricsBuffer();
 }
 
 StreamCollectorImpl::~StreamCollectorImpl() {
@@ -110,7 +107,7 @@ Status StreamCollectorImpl::StreamMetrics(ServerContext* context,
                 ServerReaderWriter<CollectReply, CollectArg>* stream) {
     try {
         std::string task_id = "not-set";
-        // ...TODO
+        // ...TODO 
 
         auto sendch = std::async(std::launch::async, &StreamCollectorImpl::metricSend,
                                 this, task_id, context, stream);
@@ -183,14 +180,14 @@ bool StreamCollectorImpl::metricSend(const std::string &taskID,
                         *_metrics_reply.add_metrics() = *met.get_rpc_metric_ptr();
                         if ((_metrics_reply.metrics_size() >= _max_metrics_buffer) && 
                             _max_metrics_buffer != 0)  {
-                            std::cout << "Max metrics buffer reached, sending metrics" << std::endl;
+                            //std::cout << "Max metrics buffer reached, sending metrics" << std::endl;
                             sendReply(taskID, stream);
                             _metrics_reply.clear_metrics();
                             start = std::chrono::system_clock::now();                            
                         }
                     }
                     if (_max_metrics_buffer == 0) {
-                        std::cout << "Max metrics buffer set to 0, sending metrics" << std::endl;
+                        //std::cout << "Max metrics buffer set to 0, sending metrics" << std::endl;
                         sendReply(taskID, stream);
                         _metrics_reply.clear_metrics();
                         start = std::chrono::system_clock::now();
@@ -199,7 +196,7 @@ bool StreamCollectorImpl::metricSend(const std::string &taskID,
             }
 
             if ((std::chrono::system_clock::now() - start) >= _max_collect_duration) {
-                std::cout << "Max collect duration reached, sending metrics" << std::endl;
+                //std::cout << "Max collect duration reached, sending metrics" << std::endl;
                 sendReply(taskID, stream);
                 _metrics_reply.clear_metrics();
                start = std::chrono::system_clock::now();
