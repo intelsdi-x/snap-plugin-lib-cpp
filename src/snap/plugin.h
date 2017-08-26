@@ -339,6 +339,8 @@ namespace Plugin {
         virtual bool put_err() = 0;
         virtual void set_put_mets(const bool &putMets) = 0;
         virtual void set_put_err(const bool &putErr) = 0;
+        virtual void set_context_cancelled(const bool &contextCancelled) = 0;
+        virtual bool context_cancelled() = 0;
     };
 
     /**

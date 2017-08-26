@@ -61,6 +61,11 @@ std::map<std::string, int> metric_types{
     {"string", supported_types::string}
 };
 
+Rando::Rando() : _put_mets(false),
+                 _put_err(false),
+                 _get_mets(false),
+                 _context_cancelled(false) {}
+
 const ConfigPolicy Rando::get_config_policy() {
     ConfigPolicy policy;
     policy.add_rule({"intel", "cpp"},
@@ -91,7 +96,7 @@ void Rando::stream_metrics() {
 }
 
 void Rando::stream_it() {
-    while (1) {
+    while (!_context_cancelled) {
         if (!_metrics_out.empty() && !_put_mets && !_put_err && !_get_mets) {
             std::vector<Metric>::iterator mets_iter;
             unsigned int seed = time(NULL);
@@ -142,7 +147,7 @@ void Rando::stream_it() {
 }
 
 void Rando::drain_metrics() {
-    while(1) {
+    while(!_context_cancelled) {
         if (_get_mets && (!_put_mets || !_put_err)) {
             _err_msg.clear();
             _metrics_out.clear();

@@ -55,6 +55,8 @@ StreamCollectorImpl::StreamCollectorImpl(Plugin::StreamCollectorInterface* plugi
                                         _max_collect_duration(DEFAULT_MAX_COLLECT_DURATION),
                                         _max_metrics_buffer(DEFAULT_MAX_METRICS_BUFFER) {
     _plugin_impl_ptr = new PluginImpl(plugin);
+    _collect_reply.set_allocated_metrics_reply(&_metrics_reply);
+    _collect_reply.set_allocated_error(&_err_reply);
 }
 
 StreamCollectorImpl::~StreamCollectorImpl() {
@@ -144,22 +146,23 @@ bool StreamCollectorImpl::PutSendMetsAndErrMsg(ServerContext* context) {
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }
+    _stream_collector->set_context_cancelled(true);
 }
 
 bool StreamCollectorImpl::errorSend(ServerContext* context,
-                                    ServerReaderWriter<CollectReply, CollectArg>* stream) {
+                                    ServerReaderWriter<CollectReply, CollectArg>* stream) {                            
     try {
-        CollectReply errReply;
-        ErrReply er;
-        std::string err;
         while (!context->IsCancelled()) {
+            std::string err;
             if (_errChan.get(err)) {
-                er.set_error(err);
-                errReply.set_allocated_error(&er);
-                stream->Write(errReply);
+                _err_reply.set_error(err);
+                stream->Write(_collect_reply);
                 err.clear();
             }
+            std::this_thread::sleep_for(std::chrono::milliseconds(200));
         }
+        _errChan.close();
+        _stream_collector->set_context_cancelled(true);
         return true;
     } catch (PluginException &e) {
         std::cout << "Error" << std::endl;
@@ -170,7 +173,6 @@ bool StreamCollectorImpl::errorSend(ServerContext* context,
 bool StreamCollectorImpl::metricSend(const std::string &taskID,
                                     ServerContext* context,
                                     ServerReaderWriter<CollectReply, CollectArg>* stream) {
-    MetricsReply metr;
     try {
         std::chrono::system_clock::time_point start = std::chrono::system_clock::now();
         while (!context->IsCancelled()) {
@@ -178,31 +180,33 @@ bool StreamCollectorImpl::metricSend(const std::string &taskID,
             if (_sendChan.get(send_mets)) {
                 if (!send_mets.empty()) {
                     for (Metric met : send_mets) {
-                        *metr.add_metrics() = *met.get_rpc_metric_ptr();
-                        if (metr.metrics_size() >= _max_metrics_buffer) {
-                            sendReply(taskID, metr, stream);
-                            metr.clear_metrics();
+                        *_metrics_reply.add_metrics() = *met.get_rpc_metric_ptr();
+                        if ((_metrics_reply.metrics_size() >= _max_metrics_buffer) && 
+                            _max_metrics_buffer != 0)  {
+                            std::cout << "Max metrics buffer reached, sending metrics" << std::endl;
+                            sendReply(taskID, stream);
+                            _metrics_reply.clear_metrics();
+                            start = std::chrono::system_clock::now();                            
                         }
                     }
                     if (_max_metrics_buffer == 0) {
-                        sendReply(taskID, metr, stream);
-                        metr.clear_metrics();
+                        std::cout << "Max metrics buffer set to 0, sending metrics" << std::endl;
+                        sendReply(taskID, stream);
+                        _metrics_reply.clear_metrics();
                         start = std::chrono::system_clock::now();
                     }
                 }
             }
 
             if ((std::chrono::system_clock::now() - start) >= _max_collect_duration) {
-                if (!send_mets.empty()) { 
-                    sendReply(taskID, metr, stream);
-                    metr.clear_metrics();
-                }
-                else {
-                    std::cout << "No metrics to send" << std::endl;
-                }
-                start = std::chrono::system_clock::now();
+                std::cout << "Max collect duration reached, sending metrics" << std::endl;
+                sendReply(taskID, stream);
+                _metrics_reply.clear_metrics();
+               start = std::chrono::system_clock::now();
             }
         }
+        _sendChan.close();
+        _stream_collector->set_context_cancelled(true);
         return true;
     } catch (PluginException &e) {
         std::cout << "Error" << std::endl;
@@ -237,6 +241,7 @@ bool StreamCollectorImpl::streamRecv(const std::string &taskID,
             }
         }
         _recvChan.close();
+        _stream_collector->set_context_cancelled(true);
         return true;
     } catch (PluginException &e) {
         std::cout << "Error" << std::endl;
@@ -245,20 +250,13 @@ bool StreamCollectorImpl::streamRecv(const std::string &taskID,
 }
 
 bool StreamCollectorImpl::sendReply(const std::string &taskID,
-                                    MetricsReply &metr,
                                     ServerReaderWriter<CollectReply, CollectArg>* stream) {
-    CollectReply reply;
-
     try {
-        if (metr.metrics_size() == 0) {
-            std::cout << "No metrics to send" << std::endl;
+        if (_collect_reply.metrics_reply().metrics_size() == 0) {
+            //std::cout << "No metrics to send" << std::endl;
             return true;
         }
-        
-        std::cout << "Writing stream reply" << std::endl;
-        //reply.set_allocated_metrics_reply(&metr);        
-        //stream->Write(reply);
-        
+        stream->Write(_collect_reply);
         return true;
     } catch (PluginException &e) {
         std::cout << "Error" << std::endl;

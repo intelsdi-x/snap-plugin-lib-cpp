@@ -23,6 +23,8 @@ limitations under the License.
 
 class Rando final : public Plugin::StreamCollectorInterface {   
 public:
+    Rando();
+
     const Plugin::ConfigPolicy get_config_policy();
     std::vector<Plugin::Metric> get_metric_types(Plugin::Config cfg);
 
@@ -45,11 +47,15 @@ public:
     void set_put_mets(const bool &putMets) { _put_mets = putMets; }
     bool put_err() { return _put_err; }
     void set_put_err(const bool &putErr) { _put_err = putErr; }
-
+    void set_context_cancelled(const bool &contextCancelled) { 
+        _context_cancelled = contextCancelled; 
+    }
+    bool context_cancelled() { return _context_cancelled; }
+    
 private:
     std::vector<Plugin::Metric> _metrics_out;
     std::vector<Plugin::Metric> _metrics_in;
     std::string _err_msg;
 
-    bool _put_mets = false, _put_err = false, _get_mets = false; 
+    bool _put_mets, _put_err, _get_mets, _context_cancelled; 
 };
