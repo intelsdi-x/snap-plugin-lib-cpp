@@ -6,6 +6,7 @@
     collect:
       metrics:
         /intel/cpp/mock/rando/int64: {}
+        /intel/cpp/mock/rando/int32: {}
       config:
         /intel/cpp/mock/rando:
           MaxCollectDuration: 5
