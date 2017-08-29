@@ -384,6 +384,8 @@ json Plugin::JsonHelpers::removeUnusedFlags(json j) {
       error << "Key provided but not supported: " << it.key() << std::endl;
       _logger->error(error.str());
       notFlag.push_back(it.key());
+    } else if (it.value().is_boolean() && !it.value()) {
+      notFlag.push_back(it.key());
     }
   }
 
