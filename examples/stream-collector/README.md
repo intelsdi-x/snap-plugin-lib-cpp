@@ -120,7 +120,7 @@ all that is left to do is to call the appropriate plugin.start_xxx() with your p
 For example with minimum meta data specified:
 
 ```cpp
-    Plugin::start_stream_collector(&plg, Meta{Type::StreamCollector, "rando", 1});
+    Plugin::start_stream_collector(&plg, Meta{Type::StreamCollector, "rando", 1, &cli, RpcType::GRPCStream});
 ```
 
 ### Meta options

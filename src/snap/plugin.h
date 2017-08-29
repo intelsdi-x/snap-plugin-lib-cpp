@@ -304,7 +304,7 @@ namespace Plugin {
     /**
     * The interface for a stream collector plugin.
     * A Stream Collector is the source.
-    * It is responsible for collecting metrics in the Snap pipeline.
+    * It is responsible for streaming metrics in the Snap pipeline.
     */
     class StreamCollectorInterface : public PluginInterface {
     public:
