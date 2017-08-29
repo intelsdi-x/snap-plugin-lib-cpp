@@ -1,6 +1,6 @@
 /*
 http://www.apache.org/licenses/LICENSE-2.0.txt
-Copyright 2016 Intel Corporation
+Copyright 2017 Intel Corporation
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -34,8 +34,12 @@ public:
 
     void drain_metrics();
     
-    std::vector<Plugin::Metric> put_metrics_out() { return _metrics_out; }
-    std::string put_err_msg() { return _err_msg; }
+    std::vector<Plugin::Metric> put_metrics_out() {
+        return _metrics_out;
+     }
+    std::string put_err_msg() {
+        return _err_msg; 
+    }
     
     void get_metrics_in(std::vector<Plugin::Metric> &metsIn) {
         _metrics_in.clear();

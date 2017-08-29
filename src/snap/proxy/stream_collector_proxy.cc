@@ -1,6 +1,6 @@
 /*
 http://www.apache.org/licenses/LICENSE-2.0.txt
-Copyright 2016 Intel Corporation
+Copyright 2017 Intel Corporation
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -141,7 +141,6 @@ bool StreamCollectorImpl::PutSendMetsAndErrMsg(ServerContext* context) {
         if (_recvChan.get(recv_mets, false)) {
             _stream_collector->get_metrics_in(recv_mets);
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }
     _stream_collector->set_context_cancelled(true);
 }
@@ -156,7 +155,6 @@ bool StreamCollectorImpl::errorSend(ServerContext* context,
                 stream->Write(_collect_reply);
                 err.clear();
             }
-            std::this_thread::sleep_for(std::chrono::milliseconds(200));
         }
         _errChan.close();
         _stream_collector->set_context_cancelled(true);
@@ -178,16 +176,14 @@ bool StreamCollectorImpl::metricSend(const std::string &taskID,
                 if (!send_mets.empty()) {
                     for (Metric met : send_mets) {
                         *_metrics_reply.add_metrics() = *met.get_rpc_metric_ptr();
-                        if ((_metrics_reply.metrics_size() >= _max_metrics_buffer) && 
+                        if ((_metrics_reply.metrics_size() == _max_metrics_buffer) && 
                             _max_metrics_buffer != 0)  {
-                            //std::cout << "Max metrics buffer reached, sending metrics" << std::endl;
                             sendReply(taskID, stream);
                             _metrics_reply.clear_metrics();
                             start = std::chrono::system_clock::now();                            
                         }
                     }
                     if (_max_metrics_buffer == 0) {
-                        //std::cout << "Max metrics buffer set to 0, sending metrics" << std::endl;
                         sendReply(taskID, stream);
                         _metrics_reply.clear_metrics();
                         start = std::chrono::system_clock::now();
@@ -196,7 +192,6 @@ bool StreamCollectorImpl::metricSend(const std::string &taskID,
             }
 
             if ((std::chrono::system_clock::now() - start) >= _max_collect_duration) {
-                //std::cout << "Max collect duration reached, sending metrics" << std::endl;
                 sendReply(taskID, stream);
                 _metrics_reply.clear_metrics();
                start = std::chrono::system_clock::now();
@@ -215,26 +210,30 @@ bool StreamCollectorImpl::streamRecv(const std::string &taskID,
                                     ServerContext* context,
                                     ServerReaderWriter<CollectReply, CollectArg>* stream) {
     try {
-        std::vector<Metric> recv_mets;
-        CollectArg collectMets;
         while (!context->IsCancelled()) {
+            std::vector<Metric> recv_mets;
+            CollectArg collectMets;
             stream->Read(&collectMets);
-
+            
             if (collectMets.maxcollectduration() > 0) {
                 _max_collect_duration = std::chrono::seconds(collectMets.maxcollectduration());
             }
-            if (collectMets.maxmetricsbuffer() > 0) {
-                _max_metrics_buffer = collectMets.maxmetricsbuffer();
+            else {
+                collectMets.set_maxcollectduration(_max_collect_duration.count());
             }
+            if (collectMets.maxmetricsbuffer() > 0) {
+                _max_metrics_buffer = collectMets.maxmetricsbuffer();            }
+            else {
+                collectMets.set_maxmetricsbuffer(_max_metrics_buffer);            
+            }            
+
             if (collectMets.has_metrics_arg()) {
                 RepeatedPtrField<rpc::Metric> rpc_mets = collectMets.metrics_arg().metrics();
 
                 for (int i = 0; i < rpc_mets.size(); i++) {
                     recv_mets.emplace_back(rpc_mets.Mutable(i));
                 }
-
                 _recvChan.put(recv_mets);
-                recv_mets.clear();
             }
         }
         _recvChan.close();
@@ -250,7 +249,7 @@ bool StreamCollectorImpl::sendReply(const std::string &taskID,
                                     ServerReaderWriter<CollectReply, CollectArg>* stream) {
     try {
         if (_collect_reply.metrics_reply().metrics_size() == 0) {
-            //std::cout << "No metrics to send" << std::endl;
+            std::cout << "No metrics to send" << std::endl;
             return true;
         }
         stream->Write(_collect_reply);

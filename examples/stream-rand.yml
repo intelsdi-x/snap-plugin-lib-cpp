@@ -1,0 +1,12 @@
+---
+  version: 1
+  schedule:
+    type: "streaming"
+  workflow:
+    collect:
+      metrics:
+        /intel/cpp/mock/rando/int64: {}
+      config:
+        /intel/cpp/mock/rando:
+          MaxCollectDuration: 5
+          MaxMetricsBuffer: 15

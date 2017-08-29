@@ -17,16 +17,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-## Snap Plugin Library for C++: Collector Plugin Example
-Here you will find an example plugin that covers the basics for writing a collector plugin.
+## Snap Plugin Library for C++: Stream Collector Plugin Example
+Here you will find an example plugin that covers the basics for writing a streaming collector plugin.
 
 ## Plugin Naming, Files, and Directory
-For your collector plugin, create a new repository and name your plugin project using the following format:
+For your streaming collector plugin, create a new repository and name your plugin project using the following format:
 
 >snap-plugin-[plugin-type]-[plugin-name]
 
 For example:
->snap-plugin-collector-rando
+>snap-plugin-stream-collector-rando
 
 Proposed files and directory structure:  
 ```
@@ -38,7 +38,7 @@ snap-plugin-[plugin-type]-[plugin-name]
 
 For example:
 ```
-snap-plugin-collector-rando
+snap-plugin-streaming-collector-rando
  |--src
   |--rando.cc  
   |--rando_test.cc  
@@ -46,7 +46,7 @@ snap-plugin-collector-rando
 
 ## Interface methods
 
-In order to write a plugin for Snap, it is necessary to define a few methods to satisfy the appropriate interfaces. These interfaces must be defined for a collector plugin:
+In order to write a plugin for Snap, it is necessary to define a few methods to satisfy the appropriate interfaces. These interfaces must be defined for a stream-collector plugin:
 
 ```cpp
 /**
@@ -54,38 +54,69 @@ In order to write a plugin for Snap, it is necessary to define a few methods to 
  * A Collector is the source.
  * It is responsible for collecting metrics in the Snap pipeline.
  */
-class CollectorInterface : public PluginInterface {
+class StreamCollectorInterface : public PluginInterface {
 public:
-  Type GetType() const final;
-  CollectorInterface* IsCollector() final;
-  
-  /*
-   * (inherited from PluginInterface)
-   */
-  virtual const ConfigPolicy get_config_policy() = 0;
+    Type GetType() const final;
+    StreamCollectorInterface* IsStreamCollector() final;
 
-  /*
-   * get_metric_types should report all the metrics this plugin can collect.
-   */
-  virtual std::vector<Metric> get_metric_types(Config cfg) = 0;
+    void SetMaxCollectDuration(std::chrono::seconds maxCollectDuration) {
+        _max_collect_duration = maxCollectDuration;
+    }
+    void SetMaxCollectDuration(int64_t maxCollectDuration) {
+        _max_collect_duration = std::chrono::seconds(maxCollectDuration);
+    }
+    std::chrono::seconds GetMaxCollectDuration() {
+        return _max_collect_duration;
+    }
 
-  /*
-   * collect_metrics is given a list of metrics to collect.
-   * It should collect and annotate each metric with the apropos context.
-   */
-  virtual void collect_metrics(std::vector<Metric> &metrics) = 0;
+    void SetMaxMetricsBuffer(int64_t maxMetricsBuffer) {
+        _max_metrics_buffer = maxMetricsBuffer;
+    }
+    int64_t GetMaxMetricsBuffer() {
+        return _max_metrics_buffer;
+    }
 
+    /*
+    * (inherited from PluginInterface)
+    */
+    virtual const ConfigPolicy get_config_policy() = 0;
+
+    virtual std::vector<Metric> get_metric_types(Config cfg) = 0;
+
+    /* StreamMetrics allows the plugin to send/receive metrics on a channel
+    * Arguments are (in order):
+    *
+    * A channel for metrics into the plugin from Snap -- which
+    * are the metric types snap is requesting the plugin to collect.
+    *
+    * A channel for metrics from the plugin to Snap -- the actual
+    * collected metrics from the plugin.
+    *  
+    * A channel for error strings that the library will report to snap
+    * as task errors.
+    */
+    virtual void stream_metrics() = 0;
+
+    virtual std::vector<Plugin::Metric> put_metrics_out() = 0;
+    virtual std::string put_err_msg() = 0;
+    virtual void get_metrics_in(std::vector<Plugin::Metric> &metsIn) = 0;
+    virtual bool put_mets() = 0;
+    virtual bool put_err() = 0;
+    virtual void set_put_mets(const bool &putMets) = 0;
+    virtual void set_put_err(const bool &putErr) = 0;
+    virtual void set_context_cancelled(const bool &contextCancelled) = 0;
+    virtual bool context_cancelled() = 0;
 };
 ```
 
-The interface is slightly different depending on what type (collector, processor, or publisher) of plugin is being written. Please see other plugin types for more details.
+The interface is slightly different depending on what type (collector, processor, publisher, or stream-collector) of plugin is being written. Please see other plugin types for more details.
 
 ## Starting a plugin
 
-After implementing a type that satisfies one of {collector, processor, publisher} interfaces, all that is left to do is to call the appropriate plugin.start_xxx() with your plugin specific meta options. For example with minimum meta data specified:
+After implementing a type that satisfies one of {collector, processor, publisher, stream-collector} interfaces, all that is left to do is to call the appropriate plugin.start_xxx() with your plugin specific meta options. For example with minimum meta data specified:
 
 ```cpp
-    Plugin::start_collector(&plg, Meta{Type::Collector, "rando", 1});
+    Plugin::start_stream_collector(&plg, Meta{Type::StreamCollector, "rando", 1});
 ```
 
 ### Meta options

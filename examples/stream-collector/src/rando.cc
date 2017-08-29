@@ -1,6 +1,6 @@
 /*
 http://www.apache.org/licenses/LICENSE-2.0.txt
-Copyright 2016 Intel Corporation
+Copyright 2017 Intel Corporation
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -73,11 +73,22 @@ const ConfigPolicy Rando::get_config_policy() {
         "username",
         {"root", false}
     });
-    policy.add_rule({"intel", "cpp", "mock", "randomnumber", "float32"},
+    policy.add_rule({"intel", "cpp", "mock", "rando"},
     Plugin::StringRule{
         "password",
         {"h4ck3r", true}
     });
+    policy.add_rule({"intel", "cpp", "mock", "rando"},
+    Plugin::IntRule{
+        "MaxCollectDuration",
+        {10, true}
+    });
+    policy.add_rule({"intel", "cpp", "mock", "rando"},
+    Plugin::IntRule{
+        "MaxMetricsBuffer",
+        {0, true}
+    });
+    
     return policy;
 }
 
@@ -97,7 +108,7 @@ void Rando::stream_metrics() {
 
 void Rando::stream_it() {
     while (!_context_cancelled) {
-        if (!_metrics_out.empty() && !_put_mets && !_put_err && !_get_mets) {
+        if (!_metrics_out.empty() && !_get_mets && !_put_mets && !_put_err) {
             std::vector<Metric>::iterator mets_iter;
             unsigned int seed = time(NULL);
             int random_value = rand_r(&seed) % 1000;
@@ -138,17 +149,17 @@ void Rando::stream_it() {
                 mets_iter->set_timestamp();
             }
             _put_mets = true;
-            std::this_thread::sleep_for(std::chrono::milliseconds(200));
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         }
         else {
-            std::this_thread::sleep_for(std::chrono::seconds(1));
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));            
         }
     }
 }
 
 void Rando::drain_metrics() {
     while(!_context_cancelled) {
-        if (_get_mets && (!_put_mets || !_put_err)) {
+        if (_get_mets && !_put_mets && !_put_err) {
             _err_msg.clear();
             _metrics_out.clear();
             std::copy(_metrics_in.begin(), _metrics_in.end(), std::back_inserter(_metrics_out));
