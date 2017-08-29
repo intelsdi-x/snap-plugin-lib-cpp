@@ -129,7 +129,7 @@ The available options are defined in [src/snap/plugin.h](https://github.com/inte
 This structure defines default values.
  
 ```cpp
-/**
+  /**
     * Meta is the metadata about the plugin.
     */
     struct Meta final {
@@ -226,36 +226,18 @@ This structure defines default values.
         * Specify http port when stand-alone plugin is enabled
         */
         int stand_alone_port;
-
-        /**
-        * sets the maximum duration (always greater than 0s) between collections
-        * before metrics are sent. Defaults to 10s what means that after 10 seconds
-        * no new metrics are received, the plugin should send whatever data it has
-        * in the buffer instead of waiting longer. (e.g. 5s)
-        */
-        std::chrono::seconds max_collect_duration;
-
-        /**
-        * maximum number of metrics the plugin is buffering before sending metrics.
-        * Defaults to zero what means send metrics immediately
-        */
-        int64_t max_metrics_buffer;
     };
 ```
 
 An example using some arbitrary values:
 
 ```cpp
+    Rando plg;
     Flags cli(argc, argv);
     Meta meta(Type::StreamCollector, "rando", 1, &cli, RpcType::GRPCStream);
+    meta.concurrency_count = 1;
 
-    if (cli.IsParsedFlag("version")) {
-        cout << meta.name << " version "  << meta.version << endl;
-        exit(0);
-    }
-    
-    Rando plg;
-    start_stream_collector(&plg, meta);
+    start_stream_collector(&cli, &plg, meta);
 ```
 
 ## Testing

@@ -152,7 +152,7 @@ void Rando::stream_it() {
             std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         }
         else {
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));            
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         }
     }
 }
@@ -169,7 +169,9 @@ void Rando::drain_metrics() {
 }
 
 int main(int argc, char **argv) {
+
     Meta meta(Type::StreamCollector, "rando", 1, RpcType::GRPCStream);
     Rando plg;
     start_stream_collector(argc, argv, &plg, meta);
+
 }

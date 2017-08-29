@@ -64,9 +64,7 @@ Plugin::Meta::Meta(Type type, std::string name, int version, RpcType rpc_type) :
                     tls_certificate_crt_path(""),
                     tls_certificate_authority_paths(""),
                     stand_alone(false),
-                    stand_alone_port(stand_alone_port),
-                    max_collect_duration(std::chrono::seconds(10)),
-                    max_metrics_buffer(0) {}
+                    stand_alone_port(stand_alone_port) {}
 
 void Plugin::Meta::use_cli_args(Flags *flags) {
 	listen_port = flags->GetFlagStrValue("port");
@@ -178,8 +176,8 @@ void Plugin::start_stream_collector(int argc, char **argv, StreamCollectorInterf
         exit(0);
     }
 
-    stream_collector->SetMaxCollectDuration(meta.max_collect_duration);
-    stream_collector->SetMaxMetricsBuffer(meta.max_metrics_buffer);
+    stream_collector->SetMaxCollectDuration(flags->GetFlagInt64Value("max-collect-duration"));
+    stream_collector->SetMaxMetricsBuffer(flags->GetFlagInt64Value("max-metrics-buffer"));
 
     start_plugin(stream_collector, meta);
 }

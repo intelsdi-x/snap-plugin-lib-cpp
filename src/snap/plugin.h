@@ -174,20 +174,6 @@ namespace Plugin {
         int stand_alone_port;
 
         /**
-        * sets the maximum duration (always greater than 0s) between collections
-        * before metrics are sent. Defaults to 10s what means that after 10 seconds 
-        * no new metrics are received, the plugin should send whatever data it has
-        * in the buffer instead of waiting longer. (e.g. 5s)
-        */
-        std::chrono::seconds max_collect_duration;
-
-        /**
-        * maximum number of metrics the plugin is buffering before sending metrics.
-        * Defaults to zero what means send metrics immediately
-        */
-        int64_t max_metrics_buffer;
-
-        /**
         * use_cli_args updates plugin meta using arguments from cli
         */
         void use_cli_args(Flags *flags);
@@ -384,6 +370,7 @@ namespace Plugin {
     * These functions do not manage the plugin instance passed as parameter -
     * caller's responsible for releasing the resources.
     */
+
     void start_collector(int argc, char **argv, CollectorInterface* plg, Meta& meta);
     void start_processor(int argc, char **argv, ProcessorInterface* plg, Meta& meta);
     void start_publisher(int argc, char **argv, PublisherInterface* plg, Meta& meta);

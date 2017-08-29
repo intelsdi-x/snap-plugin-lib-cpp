@@ -273,8 +273,6 @@ json Plugin::GRPCExportImpl::printPreamble() {
                 {"RootCertPaths", meta->tls_certificate_authority_paths},
                 {"StandAloneEnabled", meta->stand_alone},
                 {"StandAlonePort", meta->stand_alone_port},
-                {"MaxCollectDuration", meta->max_collect_duration.count()},
-                {"MaxMetricsBuffer", meta->max_metrics_buffer},
             }
         },
         {"ListenAddress", ss.str()},
