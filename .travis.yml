@@ -17,7 +17,8 @@ before_install:
 install:
   - docker run -dt --name "worker-box" -e TEST_TYPE -v ${TRAVIS_BUILD_DIR}/:/opt/${TRAVIS_REPO_SLUG}/ -v ${TRAVIS_BUILD_DIR}/scripts/:/opt/scripts/ for-worker-box bash
 script:
-  - docker exec -ti worker-box bash -c "cd /opt/${TRAVIS_REPO_SLUG} && ./autogen.sh && ./configure && make test"
+  - docker exec -ti worker-box bash -c "cd /opt/${TRAVIS_REPO_SLUG} && ./autogen.sh && ./configure && make && make test && make install"
+  - docker exec -ti worker-box bash -c "cd /opt/${TRAVIS_REPO_SLUG}/examples && make"
 after_script:
   - docker rm -fv worker-box
 notifications:
