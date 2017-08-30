@@ -110,7 +110,10 @@ TEST_F(PluginTest, StartCollectorInvokesExporterAndWaits) {
     .WillByDefault(Invoke(reporter));
   Plugin::LibSetup::exporter_provider = [&]{
     return unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter*)>>(&exporter, [](Plugin::PluginExporter*){}); };
-  Plugin::start_collector(&collector, meta);
+
+  int argc = 1;
+  char* argv[]{(char*)"this"};
+  Plugin::start_collector(argc, argv, &collector, meta);
 
   EXPECT_EQ("average", actMeta->name);
   EXPECT_EQ(actPlugin, &collector);
@@ -133,7 +136,10 @@ TEST_F(PluginTest, StartProcessorInvokesExporterAndWaits) {
     .WillByDefault(Invoke(reporter));
   Plugin::LibSetup::exporter_provider = [&]{
     return unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter*)>>(&exporter, [](Plugin::PluginExporter*){}); };
-  Plugin::start_processor(&processor, meta);
+
+  int argc = 1;
+  char* argv[]{(char*)"this"};
+  Plugin::start_processor(argc, argv, &processor, meta);
 
   EXPECT_EQ("average", actMeta->name);
   EXPECT_EQ(actPlugin, &processor);
@@ -155,7 +161,10 @@ TEST_F(PluginTest, StartPublisherInvokesExporterAndWaits) {
     .WillByDefault(Invoke(reporter));
   Plugin::LibSetup::exporter_provider = [&]{
     return unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter*)>>(&exporter, [](Plugin::PluginExporter*){}); };
-  Plugin::start_publisher(&publisher, meta);
+
+  int argc = 1;
+  char* argv[]{(char*)"this"};
+  Plugin::start_publisher(argc, argv, &publisher, meta);
 
   EXPECT_EQ("average", actMeta->name);
   EXPECT_EQ(actPlugin, &publisher);
@@ -167,7 +176,8 @@ TEST_F(PluginTest, TestTLSVariables) {
   char* argv[]{(char*)"this", (char*)"--tls", (char*)"--cert-path", (char*)"fake_path", (char*)"--key-path", (char*)"fake_path", (char*)"--root-cert-path", (char*)"fake_path"};
   Plugin::Flags cli(argc, argv);
 
-  Plugin::Meta meta(Plugin::Collector, "average", 123, &cli);
+  Plugin::Meta meta(Plugin::Collector, "average", 123);
+  meta.use_cli_args(&cli);
 
   EXPECT_EQ(meta.tls_enabled, true);
 

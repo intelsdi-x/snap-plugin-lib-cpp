@@ -77,7 +77,7 @@ The interface is slightly different depending on what type (collector, processor
 After implementing a type that satisfies one of {collector, processor, publisher} interfaces, all that is left to do is to call the appropriate plugin.start_xxx() with your plugin specific meta options. For example with minimum meta data specified:
 
 ```cpp
-    Plugin::start_processor(&plg, Meta{Type::Processor, "graffiti", 1});
+    Plugin::start_processor(argc, argv, &plg, Meta{Type::Processor, "graffiti", 1});
 ```
 
 ### Meta options
@@ -136,10 +136,9 @@ struct Meta final {
 An example using some arbitrary values:
 
 ```cpp
+    Meta meta(Type::Processor, "graffiti", 1);
     Graffiti plg = Graffiti();
-    Meta meta = Meta{Type::Collector, "graffiti", 1};
-    meta.exclusive = true;
-    Plugin::start_processor(&plg, meta);
+    start_processor(argc, argv, &plg, meta);
 ```
 
 ## Testing

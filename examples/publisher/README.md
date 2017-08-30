@@ -77,7 +77,7 @@ The interface is slightly different depending on what type (collector, processor
 After implementing a type that satisfies one of {collector, processor, publisher} interfaces, all that is left to do is to call the appropriate plugin.start_xxx() with your plugin specific meta options. For example with minimum meta data specified:
 
 ```cpp
-    Plugin::start_publisher(&plg, Meta{Type::Publisher, "log", 1});
+    Plugin::start_publisher(argc, argv, &plg, Meta{Type::Publisher, "log", 1});
 ```
 
 ### Meta options
@@ -136,10 +136,9 @@ struct Meta final {
 An example using some arbitrary values:
 
 ```cpp
+    Meta meta(Type::Publisher, "log", 1);
     Log plg = Log();
-    Meta meta = Meta{Type::Publisher, "log", 1};
-    meta.exclusive = true;
-    Plugin::start_publisher(&plg, meta);
+    start_publisher(argc, argv, &plg, meta);
 ```
 
 ## Testing

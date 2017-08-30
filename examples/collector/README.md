@@ -85,7 +85,7 @@ The interface is slightly different depending on what type (collector, processor
 After implementing a type that satisfies one of {collector, processor, publisher} interfaces, all that is left to do is to call the appropriate plugin.start_xxx() with your plugin specific meta options. For example with minimum meta data specified:
 
 ```cpp
-    Plugin::start_collector(&plg, Meta{Type::Collector, "rando", 1});
+    Plugin::start_collector(argc, argv, &plg, Meta{Type::Collector, "rando", 1});
 ```
 
 ### Meta options
@@ -144,10 +144,9 @@ struct Meta final {
 An example using some arbitrary values:
 
 ```cpp
-    Rando plg = Rando();
-    Meta meta = Meta{Type::Collector, "rando", 1};
-    meta.exclusive = true;
-    Plugin::start_collector(&plg, meta);
+    Meta meta(Type::Collector, "rando", 1);
+    Rando plg;
+    start_collector(argc, argv, &plg, meta);
 ```
 
 ## Testing
