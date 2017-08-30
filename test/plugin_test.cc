@@ -112,7 +112,7 @@ TEST_F(PluginTest, StartCollectorInvokesExporterAndWaits) {
     return unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter*)>>(&exporter, [](Plugin::PluginExporter*){}); };
 
   int argc = 1;
-  char* argv[]{(char*)"this"};
+  char* argv[]{(char*)"collector-plugin"};
   Plugin::start_collector(argc, argv, &collector, meta);
 
   EXPECT_EQ("average", actMeta->name);
@@ -138,7 +138,7 @@ TEST_F(PluginTest, StartProcessorInvokesExporterAndWaits) {
     return unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter*)>>(&exporter, [](Plugin::PluginExporter*){}); };
 
   int argc = 1;
-  char* argv[]{(char*)"this"};
+  char* argv[]{(char*)"processor-plugin"};
   Plugin::start_processor(argc, argv, &processor, meta);
 
   EXPECT_EQ("average", actMeta->name);
@@ -163,7 +163,7 @@ TEST_F(PluginTest, StartPublisherInvokesExporterAndWaits) {
     return unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter*)>>(&exporter, [](Plugin::PluginExporter*){}); };
 
   int argc = 1;
-  char* argv[]{(char*)"this"};
+  char* argv[]{(char*)"publisher-plugin"};
   Plugin::start_publisher(argc, argv, &publisher, meta);
 
   EXPECT_EQ("average", actMeta->name);

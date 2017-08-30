@@ -77,7 +77,8 @@ namespace Plugin {
         }
 
         Flags(const int &argc, char **argv) {
-            _logger = spdlog::stderr_logger_mt("flags");
+            std::string logger_name = argc > 0 ? "flags_" + std::string(argv[0]) : "flags";
+            _logger = spdlog::stderr_logger_mt(logger_name);
             this->SetFlags();
             this->ParseFlags(argc, argv);
         }
