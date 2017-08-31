@@ -76,7 +76,7 @@ namespace Plugin {
     /**
     * Meta is the metadata about the plugin.
     */
-    struct Meta final {
+    class Meta final {
     public:
         Meta(Type type, std::string name, int version);
         Meta(Type type, std::string name, int version, Flags *flags);
@@ -167,6 +167,9 @@ namespace Plugin {
         */
         bool stand_alone;
 
+        /**
+        * Enable diagnostic mode 
+        */
         bool diagnostic_enabled;
         /**
         * Specify http port when stand-alone plugin is enabled
@@ -186,6 +189,11 @@ namespace Plugin {
         * Defaults to zero what means send metrics immediately
         */
         int64_t max_metrics_buffer;
+
+        /**
+        * use_cli_args updates plugin meta using arguments from cli
+        */
+        void use_cli_args(Flags *flags);
     };
 
     /**
@@ -365,9 +373,7 @@ namespace Plugin {
     * These functions do not manage the plugin instance passed as parameter -
     * caller's responsible for releasing the resources.
     */
-    void start_collector(CollectorInterface* plg, const Meta& meta, Flags& cli);
-    void start_processor(ProcessorInterface* plg, const Meta& meta);
-    void start_publisher(PublisherInterface* plg, const Meta& meta);
-
-    
+    void start_collector(int argc, char **argv, CollectorInterface* plg, Meta& meta);
+    void start_processor(int argc, char **argv, ProcessorInterface* plg, Meta& meta);
+    void start_publisher(int argc, char **argv, PublisherInterface* plg, Meta& meta);
 };  // namespace Plugin

@@ -120,12 +120,8 @@ void Log::publish_metrics(std::vector<Metric> &metrics,
 }
 
 int main(int argc, char **argv) {
-    Flags cli(argc, argv);
-    Meta meta(Type::Publisher, "log", 1, &cli);
-    if (cli.IsParsedFlag("version")) {
-        cout << meta.name << " version "  << meta.version << endl;
-        exit(0);
-    }
+
+    Meta meta(Type::Publisher, "log", 1);
     Log plg = Log();
-    start_publisher(&plg, meta);
+    start_publisher(argc, argv, &plg, meta);
 }
