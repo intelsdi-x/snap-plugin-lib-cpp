@@ -9,5 +9,5 @@
         /intel/cpp/mock/rando/int32: {}
       config:
         /intel/cpp/mock/rando:
-          MaxCollectDuration: 5
-          MaxMetricsBuffer: 15
+          MaxCollectDuration: 10
+          MaxMetricsBuffer: 4

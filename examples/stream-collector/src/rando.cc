@@ -171,6 +171,7 @@ void Rando::drain_metrics() {
 int main(int argc, char **argv) {
 
     Meta meta(Type::StreamCollector, "rando", 1, RpcType::GRPCStream);
+    meta.concurrency_count = 1;
     Rando plg;
     start_stream_collector(argc, argv, &plg, meta);
 

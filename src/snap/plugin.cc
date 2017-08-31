@@ -76,8 +76,6 @@ void Plugin::Meta::use_cli_args(Flags *flags) {
 	tls_certificate_authority_paths = flags->GetFlagStrValue("root-cert-paths");
 	stand_alone = flags->IsParsedFlag("stand-alone");
 	stand_alone_port = flags->GetFlagIntValue("stand-alone-port");
-	max_collect_duration = std::chrono::seconds(flags->GetFlagIntValue("max-collect-duration"));
-	max_metrics_buffer = flags->GetFlagInt64Value("max-metrics-buffer");
 }
 
 Plugin::CollectorInterface* Plugin::PluginInterface::IsCollector() {
@@ -176,8 +174,8 @@ void Plugin::start_stream_collector(int argc, char **argv, StreamCollectorInterf
         exit(0);
     }
 
-    stream_collector->SetMaxCollectDuration(flags->GetFlagInt64Value("max-collect-duration"));
-    stream_collector->SetMaxMetricsBuffer(flags->GetFlagInt64Value("max-metrics-buffer"));
+    stream_collector->SetMaxCollectDuration(cli.GetFlagInt64Value("max-collect-duration"));
+    stream_collector->SetMaxMetricsBuffer(cli.GetFlagInt64Value("max-metrics-buffer"));
 
     start_plugin(stream_collector, meta);
 }

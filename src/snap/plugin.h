@@ -370,9 +370,8 @@ namespace Plugin {
     * These functions do not manage the plugin instance passed as parameter -
     * caller's responsible for releasing the resources.
     */
-
     void start_collector(int argc, char **argv, CollectorInterface* plg, Meta& meta);
     void start_processor(int argc, char **argv, ProcessorInterface* plg, Meta& meta);
     void start_publisher(int argc, char **argv, PublisherInterface* plg, Meta& meta);
-    void start_stream_collector(int argc, char **argv, PublisherInterface* plg, Meta& meta);
+    void start_stream_collector(int argc, char **argv, StreamCollectorInterface* plg, Meta& meta);
 };  // namespace Plugin
