@@ -110,7 +110,7 @@ These interfaces must be defined for a streaming collector plugin:
 };
 ```
 
-The interface is slightly different depending on what type (collector, processor, publisher, or streamin-collector) of plugin is being written.
+The interface is slightly different depending on what type (collector, processor, publisher, or streaming-collector) of plugin is being written.
 Please see other plugin types for more details.
 
 ## Starting a plugin
@@ -120,7 +120,7 @@ all that is left to do is to call the appropriate plugin.start_xxx() with your p
 For example with minimum meta data specified:
 
 ```cpp
-    Plugin::start_stream_collector(&plg, Meta{Type::StreamCollector, "rando", 1, &cli, RpcType::GRPCStream});
+    Plugin::start_stream_collector(argc, argv, &plg, Meta{Type::StreamCollector, "rando", 1, &cli, RpcType::GRPCStream});
 ```
 
 ### Meta options
@@ -232,12 +232,10 @@ This structure defines default values.
 An example using some arbitrary values:
 
 ```cpp
-    Rando plg;
-    Flags cli(argc, argv);
-    Meta meta(Type::StreamCollector, "rando", 1, &cli, RpcType::GRPCStream);
+    Meta meta(Type::StreamCollector, "rando", 1, RpcType::GRPCStream);
     meta.concurrency_count = 1;
-
-    start_stream_collector(&cli, &plg, meta);
+    Rando plg;
+    start_stream_collector(argc, argv, &plg, meta);
 ```
 
 ## Testing
