@@ -107,7 +107,8 @@ Status StreamCollectorImpl::StreamMetrics(ServerContext* context,
                 ServerReaderWriter<CollectReply, CollectArg>* stream) {
     try {
         std::string task_id = "not-set";
-        // ...TODO 
+        //TODO: Receive communicated TaskID to correlate snap events to the plugin events
+        //      see PR#90 in snap-plugin-lib-go
 
         auto sendch = std::async(std::launch::async, &StreamCollectorImpl::metricSend,
                                 this, task_id, context, stream);
