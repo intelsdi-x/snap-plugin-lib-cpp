@@ -28,25 +28,25 @@ For your streaming collector plugin, create a new repository and name your plugi
 For example:
 >snap-plugin-streaming-collector-rando
 
-Proposed files and directory structure:  
+Proposed files and directory structure:
 ```
 snap-plugin-[plugin-type]-[plugin-name]
  |--src
-  |--[plugin-name].cc  
-  |--[plugin-name]_test.cc  
+  |--[plugin-name].cc
+  |--[plugin-name]_test.cc
 ```
 
 For example:
 ```
 snap-plugin-streaming-collector-rando
  |--src
-  |--rando.cc  
-  |--rando_test.cc  
+  |--rando.cc
+  |--rando_test.cc
 ```
 
 ## Interface methods
 
-In order to write a plugin for Snap, it is necessary to define a few methods to satisfy the appropriate interfaces. 
+In order to write a plugin for Snap, it is necessary to define a few methods to satisfy the appropriate interfaces.
 These interfaces must be defined for a streaming collector plugin:
 
 ```cpp
@@ -92,7 +92,7 @@ These interfaces must be defined for a streaming collector plugin:
         *
         * A channel for metrics from the plugin to Snap -- the actual
         * collected metrics from the plugin.
-        *  
+        *
         * A channel for error strings that the library will report to snap
         * as task errors.
         */
@@ -127,15 +127,14 @@ For example with minimum meta data specified:
 
 The available options are defined in [src/snap/plugin.h](https://github.com/intelsdi-x/snap-plugin-lib-cpp/tree/master/src/snap/plugin.h).
 This structure defines default values.
- 
+
 ```cpp
   /**
     * Meta is the metadata about the plugin.
     */
-    struct Meta final {
+    class Meta final {
     public:
         Meta(Type type, std::string name, int version, RpcType rpc_type = GRPC);
-        Meta(Type type, std::string name, int version, Flags *flags, RpcType rpc_type = GRPC);
 
         Type type;
         std::string name;

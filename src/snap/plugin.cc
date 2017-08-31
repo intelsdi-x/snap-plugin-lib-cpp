@@ -135,6 +135,7 @@ void Plugin::start_collector(int argc, char **argv, CollectorInterface* collecto
         cout << meta.name << " version "  << meta.version << endl;
         exit(0);
     }
+
     start_plugin(collector, meta);
 }
 

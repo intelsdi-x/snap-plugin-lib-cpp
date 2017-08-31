@@ -202,6 +202,7 @@ namespace Plugin {
         virtual ProcessorInterface* IsProcessor();
         virtual PublisherInterface* IsPublisher();
         virtual StreamCollectorInterface* IsStreamCollector();
+
         virtual const ConfigPolicy get_config_policy() = 0;
     protected:
         PluginInterface() = default;

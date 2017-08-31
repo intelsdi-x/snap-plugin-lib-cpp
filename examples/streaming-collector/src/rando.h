@@ -21,7 +21,7 @@ limitations under the License.
 #include <snap/flags.h>
 
 
-class Rando final : public Plugin::StreamCollectorInterface {   
+class Rando final : public Plugin::StreamCollectorInterface {
 public:
     Rando();
 
@@ -38,9 +38,9 @@ public:
         return _metrics_out;
      }
     std::string put_err_msg() {
-        return _err_msg; 
+        return _err_msg;
     }
-    
+
     void get_metrics_in(std::vector<Plugin::Metric> &metsIn) {
         _metrics_in.clear();
         std::copy(metsIn.begin(), metsIn.end(), std::back_inserter(_metrics_in));
@@ -55,11 +55,11 @@ public:
         _context_cancelled = contextCancelled; 
     }
     bool context_cancelled() { return _context_cancelled; }
-    
+
 private:
     std::vector<Plugin::Metric> _metrics_out;
     std::vector<Plugin::Metric> _metrics_in;
     std::string _err_msg;
 
-    bool _put_mets, _put_err, _get_mets, _context_cancelled; 
+    bool _put_mets, _put_err, _get_mets, _context_cancelled;
 };

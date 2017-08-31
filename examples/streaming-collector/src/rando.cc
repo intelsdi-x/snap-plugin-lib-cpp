@@ -88,7 +88,6 @@ const ConfigPolicy Rando::get_config_policy() {
         "MaxMetricsBuffer",
         {0, true}
     });
-    
     return policy;
 }
 
@@ -163,7 +162,7 @@ void Rando::drain_metrics() {
             _err_msg.clear();
             _metrics_out.clear();
             std::copy(_metrics_in.begin(), _metrics_in.end(), std::back_inserter(_metrics_out));
-            _get_mets = false;            
+            _get_mets = false;
         }
     }
 }
