@@ -175,7 +175,7 @@ void Plugin::start_stream_collector(int argc, char **argv, StreamCollectorInterf
         exit(0);
     }
 
-    stream_collector->SetMaxCollectDuration(cli.GetFlagInt64Value("max-collect-duration"));
+    stream_collector->SetMaxCollectDuration(cli.GetFlagIntValue("max-collect-duration"));
     stream_collector->SetMaxMetricsBuffer(cli.GetFlagInt64Value("max-metrics-buffer"));
 
     start_plugin(stream_collector, meta);
