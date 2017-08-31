@@ -55,14 +55,10 @@ void Graffiti::process_metrics(std::vector<Metric> &metrics,
 }
 
 int main(int argc, char **argv) {
-    Flags cli(argc, argv);
-    Meta meta(Type::Processor, "graffiti", 1, &cli);
-    if (cli.IsParsedFlag("version")) {
-        cout << meta.name << " version "  << meta.version << endl;
-        exit(0);
-    }
+
+    Meta meta(Type::Processor, "graffiti", 1);
     Graffiti plg = Graffiti();
-    start_processor(&plg, meta);
+    start_processor(argc, argv, &plg, meta);
 }
 
 

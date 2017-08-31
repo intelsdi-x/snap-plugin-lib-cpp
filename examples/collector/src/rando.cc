@@ -144,14 +144,8 @@ std::vector<Metric> Rando::collect_metrics(std::vector<Metric> &metrics) {
 }
 
 int main(int argc, char **argv) {
-    Flags cli(argc, argv);
-    Meta meta(Type::Collector, "rando", 1, &cli);
 
-    if (cli.IsParsedFlag("version")) {
-        cout << meta.name << " version "  << meta.version << endl;
-        exit(0);
-    }
-
+    Meta meta(Type::Collector, "rando", 1);
     Rando plg;
-    start_collector(&plg, meta);
+    start_collector(argc, argv, &plg, meta);
 }

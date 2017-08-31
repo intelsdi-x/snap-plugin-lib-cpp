@@ -68,27 +68,20 @@ Plugin::Meta::Meta(Type type, std::string name, int version) :
                     max_collect_duration(std::chrono::seconds(10)),
                     max_metrics_buffer(0) {}
 
-Plugin::Meta::Meta(Type type, std::string name, int version, Flags *flags) :
-                    type(type),
-                    name(name),
-                    version(version),
-                    rpc_type(RpcType::GRPC),
-                    concurrency_count(5),
-                    exclusive(false),
-                    unsecure(true),
-                    cache_ttl(std::chrono::milliseconds(500)),
-                    strategy(Strategy::LRU),
-                    listen_port(flags->GetFlagStrValue("port")),
-                    listen_addr(flags->GetFlagStrValue("addr")),
-                    pprof_enabled(flags->IsParsedFlag("pprof")),
-                    tls_enabled(flags->IsParsedFlag("tls")),
-                    tls_certificate_crt_path(flags->GetFlagStrValue("cert-path")),
-                    tls_certificate_key_path(flags->GetFlagStrValue("key-path")),
-                    tls_certificate_authority_paths(flags->GetFlagStrValue("root-cert-paths")),
-                    stand_alone(flags->IsParsedFlag("stand-alone")),
-                    stand_alone_port(flags->GetFlagIntValue("stand-alone-port")),
-                    max_collect_duration(std::chrono::seconds(flags->GetFlagIntValue("max-collect-duration"))),
-                    max_metrics_buffer(flags->GetFlagInt64Value("max-metrics-buffer")) {}
+
+void Plugin::Meta::use_cli_args(Flags *flags) {
+	listen_port = flags->GetFlagStrValue("port");
+	listen_addr = flags->GetFlagStrValue("addr");
+	pprof_enabled = flags->IsParsedFlag("pprof");
+	tls_enabled = flags->IsParsedFlag("tls");
+	tls_certificate_crt_path = flags->GetFlagStrValue("cert-path");
+	tls_certificate_key_path = flags->GetFlagStrValue("key-path");
+	tls_certificate_authority_paths = flags->GetFlagStrValue("root-cert-paths");
+	stand_alone = flags->IsParsedFlag("stand-alone");
+	stand_alone_port = flags->GetFlagIntValue("stand-alone-port");
+	max_collect_duration = std::chrono::seconds(flags->GetFlagIntValue("max-collect-duration"));
+	max_metrics_buffer = flags->GetFlagInt64Value("max-metrics-buffer");
+}
 
 Plugin::CollectorInterface* Plugin::PluginInterface::IsCollector() {
     return nullptr;
@@ -126,18 +119,42 @@ Plugin::PublisherInterface* Plugin::PublisherInterface::IsPublisher() {
     return this;
 }
 
-void Plugin::start_collector(CollectorInterface* collector,
-                             const Meta& meta) {
+void Plugin::start_collector(int argc, char **argv, CollectorInterface* collector,
+                             Meta& meta) {
+    Flags cli(argc, argv);
+    meta.use_cli_args(&cli);
+
+    if (cli.IsParsedFlag("version")) {
+        cout << meta.name << " version "  << meta.version << endl;
+        exit(0);
+    }
+
     start_plugin(collector, meta);
 }
 
-void Plugin::start_processor(ProcessorInterface* processor,
-                             const Meta& meta) {
+void Plugin::start_processor(int argc, char **argv, ProcessorInterface* processor,
+                             Meta& meta) {
+    Flags cli(argc, argv);
+    meta.use_cli_args(&cli);
+
+    if (cli.IsParsedFlag("version")) {
+        cout << meta.name << " version "  << meta.version << endl;
+        exit(0);
+    }
+
     start_plugin(processor, meta);
 }
 
-void Plugin::start_publisher(PublisherInterface* publisher,
-                             const Meta& meta) {
+void Plugin::start_publisher(int argc, char **argv, PublisherInterface* publisher,
+                             Meta& meta) {
+    Flags cli(argc, argv);
+    meta.use_cli_args(&cli);
+
+    if (cli.IsParsedFlag("version")) {
+        cout << meta.name << " version "  << meta.version << endl;
+        exit(0);
+    }
+
     start_plugin(publisher, meta);
 }
 
