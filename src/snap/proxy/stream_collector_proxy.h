@@ -141,8 +141,8 @@ namespace Plugin {
             int64_t _max_metrics_buffer;
             std::chrono::seconds _max_collect_duration;
             rpc::CollectReply _collect_reply;
-            rpc::MetricsReply _metrics_reply;
-            rpc::ErrReply _err_reply;
+            rpc::MetricsReply *_metrics_reply;
+            rpc::ErrReply *_err_reply;
 
             StreamChannel<std::vector<Plugin::Metric>> _sendChan;
             StreamChannel<std::vector<Plugin::Metric>> _recvChan;

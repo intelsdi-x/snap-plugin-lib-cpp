@@ -50,8 +50,10 @@ using Plugin::Proxy::StreamCollectorImpl;
 StreamCollectorImpl::StreamCollectorImpl(Plugin::StreamCollectorInterface* plugin) :
                                         _stream_collector(plugin) {
     _plugin_impl_ptr = new PluginImpl(plugin);
-    _collect_reply.set_allocated_metrics_reply(&_metrics_reply);
-    _collect_reply.set_allocated_error(&_err_reply);
+    _metrics_reply = new rpc::MetricsReply();
+    _err_reply = new rpc::ErrReply();
+    _collect_reply.set_allocated_metrics_reply(_metrics_reply);
+    _collect_reply.set_allocated_error(_err_reply);
     _max_collect_duration = plugin->GetMaxCollectDuration();
     _max_metrics_buffer = plugin->GetMaxMetricsBuffer();
 }
@@ -152,7 +154,7 @@ bool StreamCollectorImpl::errorSend(ServerContext* context,
         while (!context->IsCancelled()) {
             std::string err;
             if (_errChan.get(err)) {
-                _err_reply.set_error(err);
+                _err_reply->set_error(err);
                 stream->Write(_collect_reply);
                 err.clear();
             }
@@ -176,17 +178,17 @@ bool StreamCollectorImpl::metricSend(const std::string &taskID,
             if (_sendChan.get(send_mets)) {
                 if (!send_mets.empty()) {
                     for (Metric met : send_mets) {
-                        *_metrics_reply.add_metrics() = *met.get_rpc_metric_ptr();
-                        if ((_metrics_reply.metrics_size() == _max_metrics_buffer) && 
+                        *_metrics_reply->add_metrics() = *met.get_rpc_metric_ptr();
+                        if ((_metrics_reply->metrics_size() == _max_metrics_buffer) && 
                             _max_metrics_buffer != 0)  {
                             sendReply(taskID, stream);
-                            _metrics_reply.clear_metrics();
+                            _metrics_reply->clear_metrics();
                             start = std::chrono::system_clock::now();                            
                         }
                     }
                     if (_max_metrics_buffer == 0) {
                         sendReply(taskID, stream);
-                        _metrics_reply.clear_metrics();
+                        _metrics_reply->clear_metrics();
                         start = std::chrono::system_clock::now();
                     }
                 }
@@ -194,7 +196,7 @@ bool StreamCollectorImpl::metricSend(const std::string &taskID,
 
             if ((std::chrono::system_clock::now() - start) >= _max_collect_duration) {
                 sendReply(taskID, stream);
-                _metrics_reply.clear_metrics();
+                _metrics_reply->clear_metrics();
                start = std::chrono::system_clock::now();
             }
         }
