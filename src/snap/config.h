@@ -66,14 +66,18 @@ namespace Plugin {
             }
             rule(const T& def, bool req, T min, T max) {
                 this->set_minimum(min);
+                this->set_has_min(true);
                 this->set_maximum(max);
+                this->set_has_max(true);
                 this->set_has_default(true);
                 this->set_default_(def);
                 this->set_required(req);
             }
             rule(bool req, T min, T max) {
                 this->set_minimum(min);
+                this->set_has_min(true);
                 this->set_maximum(max);
+                this->set_has_max(true);
                 this->set_required(req);
             }
 
@@ -128,13 +132,14 @@ namespace Plugin {
 
     /**
     * Config is the incoming configuration data which has been vetted by snapteld
-    * according to the plugin's ConfigPolicy.
+    * according to the plugin's ConfigPolicy or generated for the needs of diagnostics
+    * mode.
     *
     */
     class Config {
     public:
         /**
-        * A config is immutable, and is always passed _to_ a Plugin Author's plugin,
+        * A config is passed _to_ a Plugin Author's plugin,
         * If one is constructed manually, any reads will be attempt to do `gets`
         * against an unallocated pointer.  Deleting this constructor will block, at
         * compile time, the ability to construct and use an incomplete config.
@@ -147,15 +152,26 @@ namespace Plugin {
         * the contained rpc::ConfigMap without using smart pointers or explicitly
         * managing memory.
         */
-        explicit Config(const rpc::ConfigMap&);
+        explicit Config(rpc::ConfigMap&);
 
         ~Config();
+
+        Config& operator=(const Config& that);
 
         bool get_bool(const std::string& key) const;
         int get_int(const std::string& key) const;
         std::string get_string(const std::string& key) const;
+        
+        void set_int(const std::string& key, int value) ;
+        void set_string(const std::string& key, std::string value);
+        void set_bool(const std::string& key, bool value);
+
+        /**
+        * Apply defaults method is used only in diagnostics mode.
+        */
+        void apply_defaults(const ConfigPolicy& from);
 
         private:
-        const rpc::ConfigMap& rpc_map;
+        rpc::ConfigMap& rpc_map;
     };
 };  // namespace Plugin

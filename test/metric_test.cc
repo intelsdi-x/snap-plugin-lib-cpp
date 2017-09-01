@@ -180,3 +180,20 @@ TEST(MetricTest, SetDataWorks) {
     fake_metric.set_data(uint64_var);
     EXPECT_EQ(uint64_var, fake_metric.get_uint64_data());
 }
+
+TEST(MetricTest, GetStringWorks) {
+    Plugin::Namespace mynamespace({"intel","sdi","check","it"});
+
+    EXPECT_EQ(mynamespace.get_string(), "intel/sdi/check/it");
+}
+
+TEST(MetricTest, SetDiagnosticConfigWorks) {
+    rpc::ConfigMap cfgmap;
+    Plugin::Config config(cfgmap);
+    Plugin::Metric metric;
+    config.set_string("key","value");
+
+    metric.set_diagnostic_config(config);
+
+    EXPECT_EQ(metric.get_config().get_string("key"), config.get_string("key"));
+}

@@ -54,7 +54,7 @@ Status ProcessorImpl::Process(ServerContext* context, const PubProcArg* req,
         metrics.emplace_back(rpc_mets.Mutable(i));
     }
 
-    Plugin::Config config(req->config());
+    Plugin::Config config(const_cast<rpc::ConfigMap&>(req->config()));
     try {
         processor->process_metrics(metrics, config);
 

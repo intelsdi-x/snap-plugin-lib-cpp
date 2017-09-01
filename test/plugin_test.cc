@@ -97,6 +97,7 @@ TEST_F(PluginTest, DefaultPluginExporterIsAvailable) {
 TEST_F(PluginTest, StartCollectorInvokesExporterAndWaits) {
   MockExporter exporter;
   MockCollector collector;
+  
   Plugin::Meta meta(Plugin::Processor, "average", 123);
   Plugin::PluginInterface* actPlugin;
   const Plugin::Meta* actMeta;
@@ -111,8 +112,8 @@ TEST_F(PluginTest, StartCollectorInvokesExporterAndWaits) {
   Plugin::LibSetup::exporter_provider = [&]{
     return unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter*)>>(&exporter, [](Plugin::PluginExporter*){}); };
 
-  int argc = 1;
-  char* argv[]{(char*)"collector-plugin"};
+  int argc = 2;
+  char* argv[]{(char*)"collector-plugin",(char*)"{}"};
   Plugin::start_collector(argc, argv, &collector, meta);
 
   EXPECT_EQ("average", actMeta->name);
