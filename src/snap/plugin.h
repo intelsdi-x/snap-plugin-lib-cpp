@@ -348,6 +348,7 @@ namespace Plugin {
         void print_string_policy(ConfigPolicy& cpolicy);
         void print_integer_policy(ConfigPolicy& cpolicy);
         void print_bool_policy(ConfigPolicy& cpolicy);
+        void check_for_missing_requirements(const std::string& key, bool hasdefault);
 
         std::string get_os_name();
         std::string get_architecture_name();
@@ -355,6 +356,7 @@ namespace Plugin {
         /**
         * Private fields of DiagnosticPrinter class.
         */
+        std::string missing_config_requirements;
         std::ostream& os;
         CollectorInterface* collector;
         const Meta& meta;

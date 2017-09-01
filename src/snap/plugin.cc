@@ -235,6 +235,11 @@ void Plugin::DiagnosticPrinter::print_config_policy() {
     print_integer_policy(cpolicy);
     print_bool_policy(cpolicy);
 
+    if (!missing_config_requirements.empty()) {
+        std::cerr << missing_config_requirements;
+        exit(0);
+    }
+
     timer.print_elapsed("printConfigPolicy took ","\n");
 }
 
@@ -323,8 +328,7 @@ void Plugin::DiagnosticPrinter::Stopwatch::print_elapsed(std::string message_bef
     os << message_before << result << unit << message_after;
 }
 
-std::string Plugin::DiagnosticPrinter::get_os_name()
-{
+std::string Plugin::DiagnosticPrinter::get_os_name() {
     #ifdef __linux__
     return "linux";
     #elif _WIN32
@@ -338,7 +342,7 @@ std::string Plugin::DiagnosticPrinter::get_os_name()
     #endif
 }
 
-std::string Plugin::DiagnosticPrinter::get_architecture_name(){
+std::string Plugin::DiagnosticPrinter::get_architecture_name() {
     #ifdef __i386
     return "Intel x86";
     #elif __amd64__
@@ -350,22 +354,32 @@ std::string Plugin::DiagnosticPrinter::get_architecture_name(){
     #endif
 }
 
-void Plugin::DiagnosticPrinter::print_string_policy(ConfigPolicy& cpolicy){
+void Plugin::DiagnosticPrinter::check_for_missing_requirements(const std::string& key, bool hasdefault) {
+    if (hasdefault) {
+        if (! (cfgmap.stringmap().count(key) && cfgmap.stringmap().count(key) && cfgmap.stringmap().count(key))) {
+            missing_config_requirements += "! Warning: \"" + key + "\" required by plugin and not provided in config \n";
+        }
+    }
+}
+
+void Plugin::DiagnosticPrinter::print_string_policy(ConfigPolicy& cpolicy) {
+    std::string required_configs;
     for(auto& str_policy : cpolicy.string_policy()) {
         for (auto& rule : str_policy.second.rules()) {
             std::string default_ = (rule.second.has_default()) ? rule.second.default_() : "";
             os << setw(40) << str_policy.first
                << setw(25) << rule.first 
-               << setw(20) << "string" 
+               << setw(20) << "string"
                << setw(20) << std::boolalpha << rule.second.required()
                << setw(20) << default_
-               << setw(20) << "" 
+               << setw(20) << ""
                << setw(20) << "" <<"\n";
+            check_for_missing_requirements(rule.first, rule.second.required());
         }
     }
 }
 
-void Plugin::DiagnosticPrinter::print_integer_policy(ConfigPolicy& cpolicy){
+void Plugin::DiagnosticPrinter::print_integer_policy(ConfigPolicy& cpolicy) {
     for(auto& int_policy : cpolicy.integer_policy()) {
         for (auto& rule : int_policy.second.rules()) {
             std::string default_ = (rule.second.has_default()) ? std::to_string(rule.second.default_()) : "";
@@ -378,22 +392,24 @@ void Plugin::DiagnosticPrinter::print_integer_policy(ConfigPolicy& cpolicy){
                << setw(20) << default_
                << setw(20) << minimum_
                << setw(20) << maximum_ <<"\n";
+            check_for_missing_requirements(rule.first, rule.second.required());
         }
     }
 }
 
-void Plugin::DiagnosticPrinter::print_bool_policy(ConfigPolicy& cpolicy){
+void Plugin::DiagnosticPrinter::print_bool_policy(ConfigPolicy& cpolicy) {
     for(auto& bool_policy : cpolicy.bool_policy()) {
         for (auto& rule : bool_policy.second.rules()) {
             std::string default_ = (rule.second.has_default()) ? std::to_string(rule.second.default_()) : "";
             default_ = (default_ != "" && default_ == "1") ? "true" : "false";
             os << setw(40) << bool_policy.first
-               << setw(25) << rule.first 
-               << setw(20) << "bool" 
+               << setw(25) << rule.first
+               << setw(20) << "bool"
                << setw(20) << std::boolalpha << rule.second.required()
                << setw(20) << std::boolalpha << default_
-               << setw(20) << "" 
+               << setw(20) << ""
                << setw(20) << "" <<"\n";
+            check_for_missing_requirements(rule.first, rule.second.required());
         }
     }
 }
