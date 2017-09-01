@@ -57,7 +57,8 @@ void ConfigPolicy::add_rule(const std::vector<std::string>& ns,
     (*policy_ptr)[key] = rule;
 }
 
-Config::Config(rpc::ConfigMap& config) : rpc_map(config) {}
+Config::Config(rpc::ConfigMap& config) :
+                rpc_map(config) {}
 
 Config::~Config() {}
 

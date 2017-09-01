@@ -73,18 +73,18 @@ Plugin::Meta::Meta(Type type, std::string name, int version) :
 
 
 void Plugin::Meta::use_cli_args(Flags *flags) {
-	listen_port = flags->GetFlagStrValue("port");
-	listen_addr = flags->GetFlagStrValue("addr");
-	pprof_enabled = flags->IsParsedFlag("pprof");
-	tls_enabled = flags->IsParsedFlag("tls");
-	tls_certificate_crt_path = flags->GetFlagStrValue("cert-path");
-	tls_certificate_key_path = flags->GetFlagStrValue("key-path");
-	tls_certificate_authority_paths = flags->GetFlagStrValue("root-cert-paths");
-	stand_alone = flags->IsParsedFlag("stand-alone");
-	stand_alone_port = flags->GetFlagIntValue("stand-alone-port");
+    listen_port = flags->GetFlagStrValue("port");
+    listen_addr = flags->GetFlagStrValue("addr");
+    pprof_enabled = flags->IsParsedFlag("pprof");
+    tls_enabled = flags->IsParsedFlag("tls");
+    tls_certificate_crt_path = flags->GetFlagStrValue("cert-path");
+    tls_certificate_key_path = flags->GetFlagStrValue("key-path");
+    tls_certificate_authority_paths = flags->GetFlagStrValue("root-cert-paths");
+    stand_alone = flags->IsParsedFlag("stand-alone");
+    stand_alone_port = flags->GetFlagIntValue("stand-alone-port");
     diagnostic_enabled = !stand_alone && !flags->IsConfigFromFramework();
-	max_collect_duration = std::chrono::seconds(flags->GetFlagIntValue("max-collect-duration"));
-	max_metrics_buffer = flags->GetFlagInt64Value("max-metrics-buffer");
+    max_collect_duration = std::chrono::seconds(flags->GetFlagIntValue("max-collect-duration"));
+    max_metrics_buffer = flags->GetFlagInt64Value("max-metrics-buffer");
 }
 
 Plugin::CollectorInterface* Plugin::PluginInterface::IsCollector() {
@@ -123,7 +123,8 @@ Plugin::PublisherInterface* Plugin::PublisherInterface::IsPublisher() {
     return this;
 }
 
-void Plugin::start_collector(int argc, char **argv, CollectorInterface* collector,
+void Plugin::start_collector(int argc, char **argv,
+                             CollectorInterface* collector,
                              Meta& meta) {
     Flags cli(argc, argv);
     meta.use_cli_args(&cli);
@@ -175,11 +176,11 @@ static void start_plugin(Plugin::PluginInterface* plugin, const Plugin::Meta& me
 }
 
 Plugin::DiagnosticPrinter::DiagnosticPrinter(CollectorInterface* collector, const Meta& meta, Flags& cli, std::ostream& os) :
-                                                                                                   os(os),
-                                                                                                   collector(collector),
-                                                                                                   meta(meta),
-                                                                                                   cfgmap(cli.GenerateConfigMapFromCommandJson()),
-                                                                                                   config(cfgmap) {}
+                                             os(os),
+                                             collector(collector),
+                                             meta(meta),
+                                             cfgmap(cli.GenerateConfigMapFromCommandJson()),
+                                             config(cfgmap) {}
 
 Plugin::DiagnosticPrinter::~DiagnosticPrinter() {}
 
@@ -236,7 +237,7 @@ void Plugin::DiagnosticPrinter::print_config_policy() {
     print_bool_policy(cpolicy);
 
     if (!missing_config_requirements.empty()) {
-        std::cerr << missing_config_requirements;
+        std::cerr << missing_config_requirements << "\n";
         exit(0);
     }
 
@@ -290,10 +291,10 @@ void Plugin::DiagnosticPrinter::print_collect_metrics(std::vector<Metric> metric
 }
 
 Plugin::DiagnosticPrinter::Stopwatch::Stopwatch(std::ostream& os ) :
-                        os(os),
-                        started(false),
-                        stopped(false),
-                        unit("µs") {}
+                                                os(os),
+                                                started(false),
+                                                stopped(false),
+                                                unit("µs") {}
 
 Plugin::DiagnosticPrinter::Stopwatch::~Stopwatch() {}
 
@@ -308,7 +309,7 @@ void Plugin::DiagnosticPrinter::Stopwatch::stop() {
 }
 
 void Plugin::DiagnosticPrinter::Stopwatch::print_elapsed(std::string message_before,
-                                      std::string message_after) {
+                                                         std::string message_after) {
     if (!started) {
         std::cerr<<"Stopwatch must be started first!\n";
         this->start();
@@ -354,7 +355,8 @@ std::string Plugin::DiagnosticPrinter::get_architecture_name() {
     #endif
 }
 
-void Plugin::DiagnosticPrinter::check_for_missing_requirements(const std::string& key, bool hasdefault) {
+void Plugin::DiagnosticPrinter::check_for_missing_requirements(const std::string& key,
+                                                               bool hasdefault) {
     if (hasdefault) {
         if (! (cfgmap.stringmap().count(key) && cfgmap.stringmap().count(key) && cfgmap.stringmap().count(key))) {
             missing_config_requirements += "! Warning: \"" + key + "\" required by plugin and not provided in config \n";
