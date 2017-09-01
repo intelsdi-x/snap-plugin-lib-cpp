@@ -203,15 +203,15 @@ namespace Plugin {
 
         friend std::ostream& operator<<(std::ostream& lhs, DataType e) {
             switch(e) {
-                case String : lhs << "String"; break;
-                case Float32 : lhs << "Float32"; break;
-                case Float64 : lhs << "Float64"; break;
-                case Int32 : lhs << "Int32"; break;
-                case Int64 : lhs << "Int64"; break;
-                case Uint32 : lhs << "Uint32"; break;
-                case Uint64 : lhs << "Uint64"; break;
-                case Bool : lhs << "Bool"; break;
-                default : lhs << "Notset"; break;
+                case String : lhs << "string"; break;
+                case Float32 : lhs << "float32"; break;
+                case Float64 : lhs << "float64"; break;
+                case Int32 : lhs << "int32"; break;
+                case Int64 : lhs << "int64"; break;
+                case Uint32 : lhs << "uint32"; break;
+                case Uint64 : lhs << "uint64"; break;
+                case Bool : lhs << "bool"; break;
+                default : lhs << "notset"; break;
             }
             return lhs;
         }

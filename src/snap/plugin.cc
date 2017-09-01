@@ -193,7 +193,7 @@ void Plugin::DiagnosticPrinter::show() {
     print_collect_metrics(mts);
     print_contact_us();
 
-    diagnostic_watch.print_elapsed("show_diagnostics took ","\n\n");
+    diagnostic_watch.print_elapsed("showDiagnostics took ","\n\n");
 }
 
 void Plugin::DiagnosticPrinter::print_contact_us() {
@@ -217,7 +217,7 @@ void Plugin::DiagnosticPrinter::print_runtime_details() {
             "    Operating system: " << get_os_name() << "\n"
             "    Architecture: " << get_architecture_name() << "\n"
             "    gcc version: " << __GNUC__ << "." << __GNUC_MINOR__ << "." << __GNUC_PATCHLEVEL__ << "\n";
-    timer.print_elapsed("print_runtime_details took ","\n");
+    timer.print_elapsed("printRuntimeDetails took ","\n");
 }
 
 void Plugin::DiagnosticPrinter::print_config_policy() {
@@ -235,7 +235,7 @@ void Plugin::DiagnosticPrinter::print_config_policy() {
     print_integer_policy(cpolicy);
     print_bool_policy(cpolicy);
 
-    timer.print_elapsed("print_config_policy took ","\n");
+    timer.print_elapsed("printConfigPolicy took ","\n");
 }
 
 std::vector<Plugin::Metric> Plugin::DiagnosticPrinter::print_metric_types() {
@@ -247,7 +247,7 @@ std::vector<Plugin::Metric> Plugin::DiagnosticPrinter::print_metric_types() {
     for (auto& metric : metrics) {
         os << "    Namespace: " << metric.ns().get_string() << "\n";
     }
-    timer.print_elapsed("print_metric_types took ","\n");
+    timer.print_elapsed("printMetricTypes took ","\n");
     return metrics;
 }
 
@@ -281,7 +281,7 @@ void Plugin::DiagnosticPrinter::print_collect_metrics(std::vector<Metric> metric
                 break;
         }
     }
-    timer.print_elapsed("print_collect_metrics took ","\n");
+    timer.print_elapsed("printCollectMetrics took ","\n");
 }
 
 Plugin::DiagnosticPrinter::Stopwatch::Stopwatch(std::ostream& os ) :
