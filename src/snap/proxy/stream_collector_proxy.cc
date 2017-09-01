@@ -179,13 +179,13 @@ bool StreamCollectorImpl::metricSend(const std::string &taskID,
                 if (!send_mets.empty()) {
                     for (Metric met : send_mets) {
                         *_metrics_reply->add_metrics() = *met.get_rpc_metric_ptr();
-                        if ((_metrics_reply->metrics_size() == _max_metrics_buffer) && 
-                            _max_metrics_buffer != 0)  {
+                        if (_metrics_reply->metrics_size() == _max_metrics_buffer) {
                             sendReply(taskID, stream);
                             _metrics_reply->clear_metrics();
-                            start = std::chrono::system_clock::now();                            
+                            start = std::chrono::system_clock::now();
                         }
                     }
+                    //_max_metrics_buffer == 0, send all available metrics
                     if (_max_metrics_buffer == 0) {
                         sendReply(taskID, stream);
                         _metrics_reply->clear_metrics();
