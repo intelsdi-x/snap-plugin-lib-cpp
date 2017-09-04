@@ -358,5 +358,133 @@ Publisher::Service::~Service() {
 }
 
 
+static const char* StreamCollector_method_names[] = {
+  "/rpc.StreamCollector/StreamMetrics",
+  "/rpc.StreamCollector/GetMetricTypes",
+  "/rpc.StreamCollector/Ping",
+  "/rpc.StreamCollector/Kill",
+  "/rpc.StreamCollector/GetConfigPolicy",
+};
+
+std::unique_ptr< StreamCollector::Stub> StreamCollector::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
+  std::unique_ptr< StreamCollector::Stub> stub(new StreamCollector::Stub(channel));
+  return stub;
+}
+
+StreamCollector::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
+  : channel_(channel), rpcmethod_StreamMetrics_(StreamCollector_method_names[0], ::grpc::RpcMethod::BIDI_STREAMING, channel)
+  , rpcmethod_GetMetricTypes_(StreamCollector_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_Ping_(StreamCollector_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_Kill_(StreamCollector_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetConfigPolicy_(StreamCollector_method_names[4], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  {}
+
+::grpc::ClientReaderWriter< ::rpc::CollectArg, ::rpc::CollectReply>* StreamCollector::Stub::StreamMetricsRaw(::grpc::ClientContext* context) {
+  return new ::grpc::ClientReaderWriter< ::rpc::CollectArg, ::rpc::CollectReply>(channel_.get(), rpcmethod_StreamMetrics_, context);
+}
+
+::grpc::ClientAsyncReaderWriter< ::rpc::CollectArg, ::rpc::CollectReply>* StreamCollector::Stub::AsyncStreamMetricsRaw(::grpc::ClientContext* context, ::grpc::CompletionQueue* cq, void* tag) {
+  return new ::grpc::ClientAsyncReaderWriter< ::rpc::CollectArg, ::rpc::CollectReply>(channel_.get(), cq, rpcmethod_StreamMetrics_, context, tag);
+}
+
+::grpc::Status StreamCollector::Stub::GetMetricTypes(::grpc::ClientContext* context, const ::rpc::GetMetricTypesArg& request, ::rpc::MetricsReply* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_GetMetricTypes_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::rpc::MetricsReply>* StreamCollector::Stub::AsyncGetMetricTypesRaw(::grpc::ClientContext* context, const ::rpc::GetMetricTypesArg& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::rpc::MetricsReply>(channel_.get(), cq, rpcmethod_GetMetricTypes_, context, request);
+}
+
+::grpc::Status StreamCollector::Stub::Ping(::grpc::ClientContext* context, const ::rpc::Empty& request, ::rpc::ErrReply* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Ping_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>* StreamCollector::Stub::AsyncPingRaw(::grpc::ClientContext* context, const ::rpc::Empty& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>(channel_.get(), cq, rpcmethod_Ping_, context, request);
+}
+
+::grpc::Status StreamCollector::Stub::Kill(::grpc::ClientContext* context, const ::rpc::KillArg& request, ::rpc::ErrReply* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Kill_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>* StreamCollector::Stub::AsyncKillRaw(::grpc::ClientContext* context, const ::rpc::KillArg& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::rpc::ErrReply>(channel_.get(), cq, rpcmethod_Kill_, context, request);
+}
+
+::grpc::Status StreamCollector::Stub::GetConfigPolicy(::grpc::ClientContext* context, const ::rpc::Empty& request, ::rpc::GetConfigPolicyReply* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_GetConfigPolicy_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::rpc::GetConfigPolicyReply>* StreamCollector::Stub::AsyncGetConfigPolicyRaw(::grpc::ClientContext* context, const ::rpc::Empty& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::rpc::GetConfigPolicyReply>(channel_.get(), cq, rpcmethod_GetConfigPolicy_, context, request);
+}
+
+StreamCollector::Service::Service() {
+  (void)StreamCollector_method_names;
+  AddMethod(new ::grpc::RpcServiceMethod(
+      StreamCollector_method_names[0],
+      ::grpc::RpcMethod::BIDI_STREAMING,
+      new ::grpc::BidiStreamingHandler< StreamCollector::Service, ::rpc::CollectArg, ::rpc::CollectReply>(
+          std::mem_fn(&StreamCollector::Service::StreamMetrics), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      StreamCollector_method_names[1],
+      ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< StreamCollector::Service, ::rpc::GetMetricTypesArg, ::rpc::MetricsReply>(
+          std::mem_fn(&StreamCollector::Service::GetMetricTypes), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      StreamCollector_method_names[2],
+      ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< StreamCollector::Service, ::rpc::Empty, ::rpc::ErrReply>(
+          std::mem_fn(&StreamCollector::Service::Ping), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      StreamCollector_method_names[3],
+      ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< StreamCollector::Service, ::rpc::KillArg, ::rpc::ErrReply>(
+          std::mem_fn(&StreamCollector::Service::Kill), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      StreamCollector_method_names[4],
+      ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< StreamCollector::Service, ::rpc::Empty, ::rpc::GetConfigPolicyReply>(
+          std::mem_fn(&StreamCollector::Service::GetConfigPolicy), this)));
+}
+
+StreamCollector::Service::~Service() {
+}
+
+::grpc::Status StreamCollector::Service::StreamMetrics(::grpc::ServerContext* context, ::grpc::ServerReaderWriter< ::rpc::CollectReply, ::rpc::CollectArg>* stream) {
+  (void) context;
+  (void) stream;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status StreamCollector::Service::GetMetricTypes(::grpc::ServerContext* context, const ::rpc::GetMetricTypesArg* request, ::rpc::MetricsReply* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status StreamCollector::Service::Ping(::grpc::ServerContext* context, const ::rpc::Empty* request, ::rpc::ErrReply* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status StreamCollector::Service::Kill(::grpc::ServerContext* context, const ::rpc::KillArg* request, ::rpc::ErrReply* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status StreamCollector::Service::GetConfigPolicy(::grpc::ServerContext* context, const ::rpc::Empty* request, ::rpc::GetConfigPolicyReply* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+
 }  // namespace rpc
 

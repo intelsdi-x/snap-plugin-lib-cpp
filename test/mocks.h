@@ -73,8 +73,34 @@ public:
 
   Metric fake_metric{ Namespace { {"foo","bar"}}, "" , ""};
 
-
   MOCK_METHOD0(get_config_policy, const ConfigPolicy());
   MOCK_METHOD2(publish_metrics, void(std::vector<Plugin::Metric> &metrics, const Plugin::Config& config));
 };
 
+class MockStreamCollector : public Plugin::StreamCollectorInterface
+{
+  public:
+    ConfigPolicy fake_policy{Plugin::StringRule{
+        "foo", {
+            "bar",
+            false
+        }
+    }};
+
+    Metric fake_metric{Namespace{{"foo", "bar"}}, "", ""};
+
+    MOCK_METHOD0(get_config_policy, const ConfigPolicy());
+    MOCK_METHOD1(get_metric_types, std::vector<Metric>(Config cfg));
+
+    MOCK_METHOD0(stream_metrics, void());
+
+    MOCK_METHOD0(put_metrics_out, std::vector<Plugin::Metric>());
+    MOCK_METHOD0(put_err_msg, std::string());
+    MOCK_METHOD1(get_metrics_in, void(std::vector<Plugin::Metric> &metsIn));
+    MOCK_METHOD0(put_mets, bool());
+    MOCK_METHOD0(put_err, bool());
+    MOCK_METHOD1(set_put_mets, void(const bool &putMets));
+    MOCK_METHOD1(set_put_err, void(const bool &putErr));
+    MOCK_METHOD1(set_context_cancelled, void(const bool &contextCancelled));
+    MOCK_METHOD0(context_cancelled, bool());
+};

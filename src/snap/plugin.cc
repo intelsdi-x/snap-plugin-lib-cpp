@@ -26,6 +26,7 @@ limitations under the License.
 #include "snap/proxy/collector_proxy.h"
 #include "snap/proxy/processor_proxy.h"
 #include "snap/proxy/publisher_proxy.h"
+#include "snap/proxy/stream_collector_proxy.h"
 #include "snap/flags.h"
 
 using std::function;
@@ -46,12 +47,11 @@ function<unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter
 Plugin::PluginException::PluginException(const std::string& message) :
                                             runtime_error(message) {}
 
-
-Plugin::Meta::Meta(Type type, std::string name, int version) :
+Plugin::Meta::Meta(Type type, std::string name, int version, RpcType rpc_type) :
                     type(type),
                     name(name),
                     version(version),
-                    rpc_type(RpcType::GRPC),
+                    rpc_type(rpc_type),
                     rpc_version(1),
                     concurrency_count(5),
                     exclusive(false),
@@ -67,10 +67,7 @@ Plugin::Meta::Meta(Type type, std::string name, int version) :
                     tls_certificate_authority_paths(""),
                     stand_alone(false),
                     diagnostic_enabled(false),
-                    stand_alone_port(stand_alone_port),
-                    max_collect_duration(std::chrono::seconds(10)),
-                    max_metrics_buffer(0) {}
-
+                    stand_alone_port(stand_alone_port) {}
 
 void Plugin::Meta::use_cli_args(Flags *flags) {
     listen_port = flags->GetFlagStrValue("port");
@@ -83,8 +80,6 @@ void Plugin::Meta::use_cli_args(Flags *flags) {
     stand_alone = flags->IsParsedFlag("stand-alone");
     stand_alone_port = flags->GetFlagIntValue("stand-alone-port");
     diagnostic_enabled = !stand_alone && !flags->IsConfigFromFramework();
-    max_collect_duration = std::chrono::seconds(flags->GetFlagIntValue("max-collect-duration"));
-    max_metrics_buffer = flags->GetFlagInt64Value("max-metrics-buffer");
 }
 
 Plugin::CollectorInterface* Plugin::PluginInterface::IsCollector() {
@@ -96,6 +91,10 @@ Plugin::ProcessorInterface* Plugin::PluginInterface::IsProcessor() {
 }
 
 Plugin::PublisherInterface* Plugin::PluginInterface::IsPublisher() {
+    return nullptr;
+}
+
+Plugin::StreamCollectorInterface* Plugin::PluginInterface::IsStreamCollector() {
     return nullptr;
 }
 
@@ -123,8 +122,15 @@ Plugin::PublisherInterface* Plugin::PublisherInterface::IsPublisher() {
     return this;
 }
 
-void Plugin::start_collector(int argc, char **argv,
-                             CollectorInterface* collector,
+Plugin::Type Plugin::StreamCollectorInterface::GetType() const {
+    return StreamCollector;
+}
+
+Plugin::StreamCollectorInterface* Plugin::StreamCollectorInterface::IsStreamCollector() {
+    return this;
+}
+
+void Plugin::start_collector(int argc, char **argv, CollectorInterface* collector,
                              Meta& meta) {
     Flags cli(argc, argv);
     meta.use_cli_args(&cli);
@@ -165,6 +171,22 @@ void Plugin::start_publisher(int argc, char **argv, PublisherInterface* publishe
     }
 
     start_plugin(publisher, meta);
+}
+
+void Plugin::start_stream_collector(int argc, char **argv, StreamCollectorInterface* stream_collector,
+                             Meta& meta) {
+    Flags cli(argc, argv);
+    meta.use_cli_args(&cli);
+
+    if (cli.IsParsedFlag("version")) {
+        cout << meta.name << " version "  << meta.version << endl;
+        exit(0);
+    }
+
+    stream_collector->SetMaxCollectDuration(cli.GetFlagIntValue("max-collect-duration"));
+    stream_collector->SetMaxMetricsBuffer(cli.GetFlagInt64Value("max-metrics-buffer"));
+
+    start_plugin(stream_collector, meta);
 }
 
 static void start_plugin(Plugin::PluginInterface* plugin, const Plugin::Meta& meta) {

@@ -35,6 +35,8 @@ limitations under the License.
 #include "snap/proxy/collector_proxy.h"
 #include "snap/proxy/processor_proxy.h"
 #include "snap/proxy/publisher_proxy.h"
+#include "snap/proxy/stream_collector_proxy.h"
+
 
 using std::cout;
 using std::endl;
@@ -179,7 +181,6 @@ future<void> Plugin::GRPCExportImpl::DoExport(shared_ptr<PluginInterface> plugin
     this->credentials = configureCredentials();
     doConfigure();
     doRegister();
-    //_preamble = printPreamble();
 
     if (this->meta->stand_alone) {
         auto start_sa = std::async(std::launch::deferred, &Plugin::GRPCExportImpl::start_stand_alone, this,
@@ -228,8 +229,12 @@ void Plugin::GRPCExportImpl::doConfigure() {
         case Plugin::Publisher:
             this->service.reset(new Proxy::PublisherImpl(plugin->IsPublisher()));
             break;
+        case Plugin::StreamCollector:
+            this->service.reset(new Proxy::StreamCollectorImpl(plugin->IsStreamCollector()));
+            break;
+        default:
+        std::cout << "Fatal: unknown plugin type" << std::endl;
     }
-    
     builder.reset(new grpc::ServerBuilder());
     builder->AddListeningPort(ss.str(), this->credentials,
                             &this->port);
@@ -268,8 +273,6 @@ json Plugin::GRPCExportImpl::printPreamble() {
                 {"RootCertPaths", meta->tls_certificate_authority_paths},
                 {"StandAloneEnabled", meta->stand_alone},
                 {"StandAlonePort", meta->stand_alone_port},
-                {"MaxCollectDuration", meta->max_collect_duration.count()},
-                {"MaxMetricsBuffer", meta->max_metrics_buffer},
             }
         },
         {"ListenAddress", ss.str()},

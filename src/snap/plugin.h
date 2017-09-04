@@ -19,6 +19,8 @@ limitations under the License.
 #include <string>
 #include <vector>
 
+#include <grpc++/grpc++.h>
+
 #include "snap/config.h"
 #include "snap/metric.h"
 #include "snap/flags.h"
@@ -29,14 +31,15 @@ namespace Plugin {
     class CollectorInterface;
     class ProcessorInterface;
     class PublisherInterface;
-
+    class StreamCollectorInterface;
     /**
     * Type is the plugin type
     */
     enum Type {
         Collector,
         Processor,
-        Publisher
+        Publisher,
+        StreamCollector
     };
 
     /**
@@ -78,8 +81,7 @@ namespace Plugin {
     */
     class Meta final {
     public:
-        Meta(Type type, std::string name, int version);
-        Meta(Type type, std::string name, int version, Flags *flags);
+        Meta(Type type, std::string name, int version, RpcType rpc_type = GRPC);
 
         Type type;
         std::string name;
@@ -177,20 +179,6 @@ namespace Plugin {
         int stand_alone_port;
 
         /**
-        * sets the maximum duration (always greater than 0s) between collections
-        * before metrics are sent. Defaults to 10s what means that after 10 seconds 
-        * no new metrics are received, the plugin should send whatever data it has
-        * in the buffer instead of waiting longer. (e.g. 5s)
-        */
-        std::chrono::seconds max_collect_duration;
-
-        /**
-        * maximum number of metrics the plugin is buffering before sending metrics.
-        * Defaults to zero what means send metrics immediately
-        */
-        int64_t max_metrics_buffer;
-
-        /**
         * use_cli_args updates plugin meta using arguments from cli
         */
         void use_cli_args(Flags *flags);
@@ -218,6 +206,7 @@ namespace Plugin {
         virtual CollectorInterface* IsCollector();
         virtual ProcessorInterface* IsProcessor();
         virtual PublisherInterface* IsPublisher();
+        virtual StreamCollectorInterface* IsStreamCollector();
 
         virtual const ConfigPolicy get_config_policy() = 0;
     protected:
@@ -367,6 +356,80 @@ namespace Plugin {
 
 
     /**
+    * The interface for a stream collector plugin.
+    * A Stream Collector is the source.
+    * It is responsible for streaming metrics in the Snap pipeline.
+    */
+    class StreamCollectorInterface : public PluginInterface {
+    public:
+        Type GetType() const final;
+        StreamCollectorInterface* IsStreamCollector() final;
+
+        void SetMaxCollectDuration(std::chrono::seconds maxCollectDuration) {
+            _max_collect_duration = maxCollectDuration;
+        }
+        void SetMaxCollectDuration(int64_t maxCollectDuration) {
+            _max_collect_duration = std::chrono::seconds(maxCollectDuration);
+        }
+        std::chrono::seconds GetMaxCollectDuration() {
+            return _max_collect_duration;
+        }
+
+        void SetMaxMetricsBuffer(int64_t maxMetricsBuffer) {
+            _max_metrics_buffer = maxMetricsBuffer;
+        }
+        int64_t GetMaxMetricsBuffer() {
+            return _max_metrics_buffer;
+        }
+
+        /*
+        * (inherited from PluginInterface)
+        */
+        virtual const ConfigPolicy get_config_policy() = 0;
+
+        virtual std::vector<Metric> get_metric_types(Config cfg) = 0;
+
+        /* StreamMetrics allows the plugin to send/receive metrics on a channel
+        * Arguments are (in order):
+        *
+        * A channel for metrics into the plugin from Snap -- which
+        * are the metric types snap is requesting the plugin to collect.
+        *
+        * A channel for metrics from the plugin to Snap -- the actual
+        * collected metrics from the plugin.
+        *  
+        * A channel for error strings that the library will report to snap
+        * as task errors.
+        */
+        virtual void stream_metrics() = 0;
+
+        virtual std::vector<Plugin::Metric> put_metrics_out() = 0;
+        virtual std::string put_err_msg() = 0;
+        virtual void get_metrics_in(std::vector<Plugin::Metric> &metsIn) = 0;
+        virtual bool put_mets() = 0;
+        virtual bool put_err() = 0;
+        virtual void set_put_mets(const bool &putMets) = 0;
+        virtual void set_put_err(const bool &putErr) = 0;
+        virtual void set_context_cancelled(const bool &contextCancelled) = 0;
+        virtual bool context_cancelled() = 0;
+
+    private:
+        /**
+        * sets the maximum duration (always greater than 0s) between collections
+        * before metrics are sent. Defaults to 10s what means that after 10 seconds 
+        * no new metrics are received, the plugin should send whatever data it has
+        * in the buffer instead of waiting longer. (e.g. 5s)
+        */
+        std::chrono::seconds _max_collect_duration;
+        
+        /**
+        * maximum number of metrics the plugin is buffering before sending metrics.
+        * Defaults to zero what means send metrics immediately
+        */
+        int64_t _max_metrics_buffer;
+    };
+
+    /**
     * These functions are called to start a plugin.
     * They export plugin using default PluginExporter based on GRPC:
     * construct the gRPC service and server, start them, and then
@@ -378,4 +441,5 @@ namespace Plugin {
     void start_collector(int argc, char **argv, CollectorInterface* plg, Meta& meta);
     void start_processor(int argc, char **argv, ProcessorInterface* plg, Meta& meta);
     void start_publisher(int argc, char **argv, PublisherInterface* plg, Meta& meta);
+    void start_stream_collector(int argc, char **argv, StreamCollectorInterface* plg, Meta& meta);
 };  // namespace Plugin

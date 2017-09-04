@@ -36,22 +36,29 @@ C_NAME=log
 C_TARGET=$(C_PREFIX)-$(C_TYPE)-$(C_NAME)
 C_DIR=$(C_TYPE)/src
 
+# Streaming collector build
+D_PREFIX=test
+D_TYPE=streaming-collector
+D_NAME=rando
+D_TARGET=$(D_PREFIX)-$(D_TYPE)-$(D_NAME)
+D_DIR=$(D_TYPE)/src
+
 A_PATH=$(PWD)
 
-all: $(A_TARGET) $(B_TARGET) $(C_TARGET)   # Build all targets
+all: $(A_TARGET) $(B_TARGET) $(C_TARGET) $(D_TARGET)  # Build all targets
 
-.PHONY: all help clean rebuild install uninstall $(A_TARGET) $(A_TARGET)-clean $(A_TARGET)-install $(A_TARGET)-uninstall $(B_TARGET) $(B_TARGET)-clean $(B_TARGET)-install $(B_TARGET)-uninstall $(C_TARGET) $(C_TARGET)-clean $(C_TARGET)-install $(C_TARGET)-uninstall
+.PHONY: all help clean rebuild install uninstall $(A_TARGET) $(A_TARGET)-clean $(A_TARGET)-install $(A_TARGET)-uninstall $(B_TARGET) $(B_TARGET)-clean $(B_TARGET)-install $(B_TARGET)-uninstall $(C_TARGET) $(C_TARGET)-clean $(C_TARGET)-install $(C_TARGET)-uninstall $(D_TARGET) $(D_TARGET)-clean $(D_TARGET)-install $(D_TARGET)-uninstall
 
 help:                                      # Show Makefile targets
         @egrep "[a-z]\w+:" Makefile | sort
 
-clean: $(A_TARGET)-clean $(B_TARGET)-clean $(C_TARGET)-clean
+clean: $(A_TARGET)-clean $(B_TARGET)-clean $(C_TARGET)-clean $(D_TARGET)-clean
 
 rebuild: clean all                      # Clean and build targets
 
-install: $(A_TARGET)-install $(B_TARGET)-install $(C_TARGET)-install
+install: $(A_TARGET)-install $(B_TARGET)-install $(C_TARGET)-install $(D_TARGET)-install
 
-uninstall: $(A_TARGET)-uninstall $(B_TARGET)-uninstall $(C_TARGET)-uninstall
+uninstall: $(A_TARGET)-uninstall $(B_TARGET)-uninstall $(C_TARGET)-uninstall $(D_TARGET)-uninstall
 
 
 $(A_TARGET):
@@ -91,3 +98,17 @@ $(C_TARGET)-install:
 
 $(C_TARGET)-uninstall:
 	@(cd $(C_DIR); make uninstall; echo " ")
+
+
+$(D_TARGET):
+	@(cd $(D_DIR); make; echo " ") 
+
+$(D_TARGET)-clean:
+	@(cd $(D_DIR); make clean; echo " ")
+
+$(D_TARGET)-install:
+	@(cd $(D_DIR); make install; echo " ")
+
+$(D_TARGET)-uninstall:
+	@(cd $(D_DIR); make uninstall; echo " ")
+

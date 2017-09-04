@@ -35,32 +35,38 @@ using ::testing::Return;
 using ::testing::Invoke;
 using ::testing::_;
 
-class MockExporter : public Plugin::PluginExporter {
+class MockExporter : public Plugin::PluginExporter
+{
 public:
-  MOCK_METHOD2(ExportPlugin, std::future<void>(std::shared_ptr<Plugin::PluginInterface> plugin, const Plugin::Meta* meta));
+  MOCK_METHOD2(ExportPlugin, std::future<void>(std::shared_ptr<Plugin::PluginInterface> plugin, const Plugin::Meta *meta));
 };
 
-class PluginTest : public ::testing::Test {
+class PluginTest : public ::testing::Test
+{
 protected:
-  function<unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter*)>>()> default_exporter_provider;
+  function<unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter *)>>()> default_exporter_provider;
 
-  virtual void SetUp() {
+  virtual void SetUp()
+  {
     default_exporter_provider = Plugin::LibSetup::exporter_provider;
   }
 
-  virtual void TearDown() {
+  virtual void TearDown()
+  {
     Plugin::LibSetup::exporter_provider = default_exporter_provider;
   }
 };
 
-TEST_F(PluginTest, MetaCtorWorks) {
+TEST_F(PluginTest, MetaCtorWorks)
+{
   Plugin::Meta meta(Plugin::Processor, "average", 123);
   EXPECT_EQ(123, meta.version);
   EXPECT_EQ("average", meta.name);
   EXPECT_EQ(Plugin::Processor, meta.type);
 }
 
-TEST_F(PluginTest, CollectorInterfaceWorks) {
+TEST_F(PluginTest, CollectorInterfaceWorks)
+{
   MockCollector mock;
   EXPECT_EQ(Plugin::Collector, mock.GetType());
   EXPECT_TRUE(mock.IsCollector() != nullptr);
@@ -68,7 +74,8 @@ TEST_F(PluginTest, CollectorInterfaceWorks) {
   EXPECT_EQ(nullptr, mock.IsPublisher());
 }
 
-TEST_F(PluginTest, ProcessorInterfaceWorks) {
+TEST_F(PluginTest, ProcessorInterfaceWorks)
+{
   MockProcessor mock;
   EXPECT_EQ(Plugin::Processor, mock.GetType());
   EXPECT_TRUE(mock.IsProcessor() != nullptr);
@@ -76,7 +83,8 @@ TEST_F(PluginTest, ProcessorInterfaceWorks) {
   EXPECT_EQ(nullptr, mock.IsPublisher());
 }
 
-TEST_F(PluginTest, PublisherInterfaceWorks) {
+TEST_F(PluginTest, PublisherInterfaceWorks)
+{
   MockPublisher mock;
   EXPECT_EQ(Plugin::Publisher, mock.GetType());
   EXPECT_TRUE(mock.IsPublisher() != nullptr);
@@ -84,36 +92,49 @@ TEST_F(PluginTest, PublisherInterfaceWorks) {
   EXPECT_EQ(nullptr, mock.IsProcessor());
 }
 
-TEST_F(PluginTest, PluginExceptionCtorWorks) {
+TEST_F(PluginTest, StreamCollectorInterfaceWorks)
+{
+  MockStreamCollector mock;
+  EXPECT_EQ(Plugin::StreamCollector, mock.GetType());
+  EXPECT_TRUE(mock.IsStreamCollector() != nullptr);
+  EXPECT_EQ(nullptr, mock.IsCollector());
+  EXPECT_EQ(nullptr, mock.IsProcessor());
+  EXPECT_EQ(nullptr, mock.IsPublisher());
+}
+
+TEST_F(PluginTest, PluginExceptionCtorWorks)
+{
   auto exception = Plugin::PluginException("nothing serious really");
   EXPECT_EQ(std::string("nothing serious really"), exception.what());
 }
 
-TEST_F(PluginTest, DefaultPluginExporterIsAvailable) {
-  Plugin::PluginExporter* exporter = Plugin::LibSetup::exporter_provider().get();
+TEST_F(PluginTest, DefaultPluginExporterIsAvailable)
+{
+  Plugin::PluginExporter *exporter = Plugin::LibSetup::exporter_provider().get();
   EXPECT_TRUE(exporter != nullptr);
 }
 
-TEST_F(PluginTest, StartCollectorInvokesExporterAndWaits) {
+TEST_F(PluginTest, StartCollectorInvokesExporterAndWaits)
+{
   MockExporter exporter;
   MockCollector collector;
   
   Plugin::Meta meta(Plugin::Processor, "average", 123);
-  Plugin::PluginInterface* actPlugin;
-  const Plugin::Meta* actMeta;
+  Plugin::PluginInterface *actPlugin;
+  const Plugin::Meta *actMeta;
   bool completionCalled = false;
-  auto reporter = [&] (std::shared_ptr<Plugin::PluginInterface> plugin, const Plugin::Meta* meta) {
+  auto reporter = [&](std::shared_ptr<Plugin::PluginInterface> plugin, const Plugin::Meta *meta) {
     actPlugin = plugin.get();
     actMeta = meta;
-    return std::async(std::launch::deferred, [&](){ completionCalled |= true; });
+    return std::async(std::launch::deferred, [&]() { completionCalled |= true; });
   };
   ON_CALL(exporter, ExportPlugin(_, _))
-    .WillByDefault(Invoke(reporter));
-  Plugin::LibSetup::exporter_provider = [&]{
-    return unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter*)>>(&exporter, [](Plugin::PluginExporter*){}); };
+      .WillByDefault(Invoke(reporter));
+  Plugin::LibSetup::exporter_provider = [&] { return unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter *)>>(&exporter, [](Plugin::PluginExporter *) {}); };
 
   int argc = 2;
   char* argv[]{(char*)"collector-plugin",(char*)"{}"};
+
   Plugin::start_collector(argc, argv, &collector, meta);
 
   EXPECT_EQ("average", actMeta->name);
@@ -121,50 +142,50 @@ TEST_F(PluginTest, StartCollectorInvokesExporterAndWaits) {
   EXPECT_EQ(true, completionCalled);
 }
 
-TEST_F(PluginTest, StartProcessorInvokesExporterAndWaits) {
+TEST_F(PluginTest, StartProcessorInvokesExporterAndWaits)
+{
   MockExporter exporter;
   MockProcessor processor;
   Plugin::Meta meta(Plugin::Processor, "average", 123);
-  Plugin::PluginInterface* actPlugin;
-  const Plugin::Meta* actMeta;
+  Plugin::PluginInterface *actPlugin;
+  const Plugin::Meta *actMeta;
   bool completionCalled = false;
-  auto reporter = [&] (std::shared_ptr<Plugin::PluginInterface> plugin, const Plugin::Meta* meta) {
+  auto reporter = [&](std::shared_ptr<Plugin::PluginInterface> plugin, const Plugin::Meta *meta) {
     actPlugin = plugin.get();
     actMeta = meta;
-    return std::async(std::launch::deferred, [&](){ completionCalled |= true; });
+    return std::async(std::launch::deferred, [&]() { completionCalled |= true; });
   };
   ON_CALL(exporter, ExportPlugin(_, _))
-    .WillByDefault(Invoke(reporter));
-  Plugin::LibSetup::exporter_provider = [&]{
-    return unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter*)>>(&exporter, [](Plugin::PluginExporter*){}); };
+      .WillByDefault(Invoke(reporter));
+  Plugin::LibSetup::exporter_provider = [&] { return unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter *)>>(&exporter, [](Plugin::PluginExporter *) {}); };
 
   int argc = 1;
-  char* argv[]{(char*)"processor-plugin"};
+  char *argv[]{(char *)"processor-plugin"};
   Plugin::start_processor(argc, argv, &processor, meta);
 
   EXPECT_EQ("average", actMeta->name);
   EXPECT_EQ(actPlugin, &processor);
   EXPECT_EQ(true, completionCalled);
 }
-TEST_F(PluginTest, StartPublisherInvokesExporterAndWaits) {
+TEST_F(PluginTest, StartPublisherInvokesExporterAndWaits)
+{
   MockExporter exporter;
   MockPublisher publisher;
   Plugin::Meta meta(Plugin::Processor, "average", 123);
-  Plugin::PluginInterface* actPlugin;
-  const Plugin::Meta* actMeta;
+  Plugin::PluginInterface *actPlugin;
+  const Plugin::Meta *actMeta;
   bool completionCalled = false;
-  auto reporter = [&] (std::shared_ptr<Plugin::PluginInterface> plugin, const Plugin::Meta* meta) {
+  auto reporter = [&](std::shared_ptr<Plugin::PluginInterface> plugin, const Plugin::Meta *meta) {
     actPlugin = plugin.get();
     actMeta = meta;
-    return std::async(std::launch::deferred, [&](){ completionCalled |= true; });
+    return std::async(std::launch::deferred, [&]() { completionCalled |= true; });
   };
   ON_CALL(exporter, ExportPlugin(_, _))
-    .WillByDefault(Invoke(reporter));
-  Plugin::LibSetup::exporter_provider = [&]{
-    return unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter*)>>(&exporter, [](Plugin::PluginExporter*){}); };
+      .WillByDefault(Invoke(reporter));
+  Plugin::LibSetup::exporter_provider = [&] { return unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter *)>>(&exporter, [](Plugin::PluginExporter *) {}); };
 
   int argc = 1;
-  char* argv[]{(char*)"publisher-plugin"};
+  char *argv[]{(char *)"publisher-plugin"};
   Plugin::start_publisher(argc, argv, &publisher, meta);
 
   EXPECT_EQ("average", actMeta->name);
@@ -172,9 +193,36 @@ TEST_F(PluginTest, StartPublisherInvokesExporterAndWaits) {
   EXPECT_EQ(true, completionCalled);
 }
 
-TEST_F(PluginTest, TestTLSVariables) {
+TEST_F(PluginTest, StartStreamCollectorInvokesExporterAndWaits)
+{
+  MockExporter exporter;
+  MockStreamCollector streamCollector;
+  Plugin::Meta meta(Plugin::Processor, "average", 123);
+  Plugin::PluginInterface *actPlugin;
+  const Plugin::Meta *actMeta;
+  bool completionCalled = false;
+  auto reporter = [&](std::shared_ptr<Plugin::PluginInterface> plugin, const Plugin::Meta *meta) {
+    actPlugin = plugin.get();
+    actMeta = meta;
+    return std::async(std::launch::deferred, [&]() { completionCalled |= true; });
+  };
+  ON_CALL(exporter, ExportPlugin(_, _))
+      .WillByDefault(Invoke(reporter));
+  Plugin::LibSetup::exporter_provider = [&] { return unique_ptr<Plugin::PluginExporter, function<void(Plugin::PluginExporter *)>>(&exporter, [](Plugin::PluginExporter *) {}); };
+  
+  int argc = 1;
+  char *argv[]{(char *)"stream-collector-plugin"};
+  Plugin::start_stream_collector(argc, argv, &streamCollector, meta);
+
+  EXPECT_EQ("average", actMeta->name);
+  EXPECT_EQ(actPlugin, &streamCollector);
+  EXPECT_EQ(true, completionCalled);
+}
+
+TEST_F(PluginTest, TestTLSVariables)
+{
   int argc = 8;
-  char* argv[]{(char*)"this", (char*)"--tls", (char*)"--cert-path", (char*)"fake_path", (char*)"--key-path", (char*)"fake_path", (char*)"--root-cert-path", (char*)"fake_path"};
+  char *argv[]{(char *)"this", (char *)"--tls", (char *)"--cert-path", (char *)"fake_path", (char *)"--key-path", (char *)"fake_path", (char *)"--root-cert-path", (char *)"fake_path"};
   Plugin::Flags cli(argc, argv);
 
   Plugin::Meta meta(Plugin::Collector, "average", 123);
