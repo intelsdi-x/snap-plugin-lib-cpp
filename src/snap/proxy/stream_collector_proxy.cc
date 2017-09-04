@@ -65,7 +65,7 @@ StreamCollectorImpl::~StreamCollectorImpl() {
 Status StreamCollectorImpl::GetMetricTypes(ServerContext* context,
                                     const GetMetricTypesArg* req,
                                     MetricsReply* resp) {
-    Plugin::Config cfg(req->config());
+    Plugin::Config cfg(const_cast<rpc::ConfigMap&>(req->config()));
     try {
         std::vector<Metric> metrics = _stream_collector->get_metric_types(cfg);
 
