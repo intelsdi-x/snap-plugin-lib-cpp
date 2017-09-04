@@ -69,12 +69,12 @@ const ConfigPolicy Rando::get_config_policy() {
     policy.add_rule({"intel", "cpp", "mock", "randomnumber", "float32"},
     Plugin::StringRule{
         "password",
-        {"h4ck3r", true}
+        {true}
     });
     policy.add_rule({"intel", "cpp", "mock", "dynamic", "dynamo","int64"},
     Plugin::IntRule{
         "dynamic_count",
-        2
+        {2,false,0,10}
     });
     return policy;
 }

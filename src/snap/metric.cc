@@ -14,9 +14,9 @@ limitations under the License.
 #include "snap/metric.h"
 
 #include <ratio>
+#include <sstream>
 
 #include <google/protobuf/repeated_field.h>
-
 
 
 using std::chrono::system_clock;
@@ -34,14 +34,14 @@ using Plugin::NamespaceElement;
 Metric::Metric() : delete_metric_ptr(true),
                 rpc_metric_ptr(new rpc::Metric),
                 type(DataType::NotSet),
-                config(Config(rpc_metric_ptr->config())) {}
+                config(Config(const_cast<rpc::ConfigMap&>(rpc_metric_ptr->config()))) {}
 
 Metric::Metric(Namespace &ns, std::string unit,
             std::string description) :
                 delete_metric_ptr(true),
                 type(DataType::NotSet),
                 rpc_metric_ptr(new rpc::Metric),
-                config(Config(rpc_metric_ptr->config())) {
+                config(Config(const_cast<rpc::ConfigMap&>(rpc_metric_ptr->config()))) {
     rpc_metric_ptr->set_unit(unit);
     rpc_metric_ptr->set_description(description);
     set_ns(ns);
@@ -52,7 +52,7 @@ Metric::Metric(Namespace &&ns, std::string unit,
                 delete_metric_ptr(true),
                 type(DataType::NotSet),
                 rpc_metric_ptr(new rpc::Metric),
-                config(Config(rpc_metric_ptr->config())) {
+                config(Config(const_cast<rpc::ConfigMap&>(rpc_metric_ptr->config()))) {
     rpc_metric_ptr->set_unit(unit);
     rpc_metric_ptr->set_description(description);
     set_ns(ns);
@@ -62,7 +62,7 @@ Metric::Metric(rpc::Metric* metric) :
                 rpc_metric_ptr(metric),
                 type(DataType::NotSet),
                 delete_metric_ptr(false),
-                config(Config(rpc_metric_ptr->config())) {}
+                config(Config(const_cast<rpc::ConfigMap&>(rpc_metric_ptr->config()))) {}
 
 Metric::Metric(const Metric& from) : delete_metric_ptr(true),
                                     config(from.config) {
@@ -91,6 +91,10 @@ void Metric::set_ns(Namespace &ns) {
             rpc_elem->description()
         });
     }
+}
+
+void Metric::set_diagnostic_config(const Config& cfg) {
+    this->config = cfg;
 }
 
 const Namespace& Metric::ns() const {
@@ -164,7 +168,7 @@ void Metric::set_last_advertised_time(system_clock::time_point tp) {
     set_last_advert_tm(tp);
 }
 
-Metric::DataType Metric::data_type() {
+Metric::DataType Metric::data_type() const {
     return (Metric::DataType)rpc_metric_ptr->data_case();
 }
 
@@ -264,7 +268,7 @@ void Metric::Metric::set_last_advert_tm(system_clock::time_point tp) {
     tm->set_nsec(nanos % std::nano::den);
 }
 
-Namespace::Namespace(std::vector<std::string> ns){
+Namespace::Namespace(std::vector<std::string> ns) {
     for (auto &string_iterator : ns){
         this->namespace_elements.push_back(NamespaceElement(string_iterator));
     }
@@ -282,12 +286,23 @@ NamespaceElement& Namespace::operator[] (int index) {
     return namespace_elements[index];
 }
 
-Namespace& Namespace::add_static_element(std::string value){
+const std::string Namespace::get_string() const {
+    std::stringstream ss;
+    int i = 1;
+    for (const auto& node : namespace_elements) {
+        if (i < namespace_elements.size()) ss << node.get_value() << "/";
+        if (i == namespace_elements.size()) ss << node.get_value();
+        i++;
+    }
+    return ss.str();
+}
+
+Namespace& Namespace::add_static_element(std::string value) {
     this->namespace_elements.push_back(NamespaceElement(value));
     return *this;
 }
 
-Namespace& Namespace::add_dynamic_element(std::string name, std::string description ){
+Namespace& Namespace::add_dynamic_element(std::string name, std::string description) {
     this->namespace_elements.push_back(NamespaceElement("*",name,description));
     return *this;
 }
@@ -297,7 +312,7 @@ std::vector<NamespaceElement> Namespace::get_namespace_elements() const {
 }
 
 const bool Namespace::is_dynamic() const {
-    for(int i = 0 ; i < this->namespace_elements.size() ; i++ ){
+    for(int i = 0 ; i < this->namespace_elements.size() ; i++ ) {
         if(this->namespace_elements[i].is_dynamic()){
             return true;
         }
@@ -305,18 +320,18 @@ const bool Namespace::is_dynamic() const {
     return false;
 }
 
-const std::vector<int> Namespace::get_dynamic_indexes(){
+const std::vector<int> Namespace::get_dynamic_indexes() {
     std::vector<int> indexes;
 
-    for(int i = 0 ; i < this->namespace_elements.size() ; i++ ){
-        if(this->namespace_elements[i].is_dynamic()){
+    for(int i = 0 ; i < this->namespace_elements.size() ; i++ ) {
+        if(this->namespace_elements[i].is_dynamic()) {
             indexes.push_back(i);
         }
     }
     return indexes;
 }
 
-void Namespace::clear(){
+void Namespace::clear() {
     this->namespace_elements.clear();
 }
 
@@ -324,39 +339,39 @@ unsigned int Namespace::size() const {
     return this->namespace_elements.size();
 }
 
-void Namespace::push_back(NamespaceElement& element){
+void Namespace::push_back(NamespaceElement& element) {
     this->namespace_elements.push_back(element);
 }
 
-void Namespace::push_back(NamespaceElement&& element){
+void Namespace::push_back(NamespaceElement&& element) {
     this->namespace_elements.push_back(element);
 }
 
-void Namespace::reserve(unsigned int size){
+void Namespace::reserve(unsigned int size) {
     this->namespace_elements.reserve(size);
 }
 
 NamespaceElement::NamespaceElement(std::string value, std::string name, std::string description) :
                                    value(value),
                                    name(name),
-                                   description(description){}
+                                   description(description) {}
 
 NamespaceElement::NamespaceElement() :
                                    value(""),
                                    name(""),
-                                   description(""){}
+                                   description("") {}
 
-NamespaceElement::~NamespaceElement(){}
+NamespaceElement::~NamespaceElement() {}
 
-void NamespaceElement::set_value(std::string v){
+void NamespaceElement::set_value(std::string v) {
     this->value = v;
 }
 
-void NamespaceElement::set_name(std::string n){
+void NamespaceElement::set_name(std::string n) {
     this->name = n;    
 }
 
-void NamespaceElement::set_description(std::string d){
+void NamespaceElement::set_description(std::string d) {
     this->description = d;
 }
 

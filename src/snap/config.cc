@@ -57,7 +57,8 @@ void ConfigPolicy::add_rule(const std::vector<std::string>& ns,
     (*policy_ptr)[key] = rule;
 }
 
-Config::Config(const rpc::ConfigMap& config) : rpc_map(config) {}
+Config::Config(rpc::ConfigMap& config) :
+                rpc_map(config) {}
 
 Config::~Config() {}
 
@@ -74,6 +75,55 @@ int Config::get_int(const std::string& key) const {
 std::string Config::get_string(const std::string& key) const {
     auto str_map = rpc_map.stringmap();
     return str_map.at(key);
+}
+
+void Config::set_int(const std::string& key, int value) {
+    (*rpc_map.mutable_intmap())[key] = value;
+}
+
+void Config::set_string(const std::string& key, std::string value) {
+    (*rpc_map.mutable_stringmap())[key] = value;
+}
+
+void Config::set_bool(const std::string& key, bool value) {
+    (*rpc_map.mutable_boolmap())[key] = value;
+}
+
+Config& Config::operator=(const Config& that) {
+    if (this != &that) {        
+        this->rpc_map = that.rpc_map;
+    }
+    return *this;
+}
+
+void Config::apply_defaults(const ConfigPolicy& from) {
+    for(const auto string_policy : from.string_policy()) {
+        for (const auto rule : string_policy.second.rules()) {
+            if (rule.second.has_default()) {
+                if(!rpc_map.stringmap().count(rule.first)) {
+                    set_string(rule.first,rule.second.default_());
+                }
+            }
+        }
+    }
+    for(const auto int_policy : from.integer_policy()) {
+        for (const auto rule : int_policy.second.rules()) {
+            if (rule.second.has_default()) {
+                if(! rpc_map.intmap().count(rule.first)) {
+                    set_int(rule.first,rule.second.default_());
+                }
+            }
+        }
+    }
+    for(const auto bool_policy : from.bool_policy()) {
+        for (const auto rule : bool_policy.second.rules()) {
+            if (rule.second.has_default()) {
+                if(!rpc_map.boolmap().count(rule.first)) {
+                    set_bool(rule.first,rule.second.default_());
+                }
+            }
+        }
+    }
 }
 
 static const std::string build_key(const std::vector<std::string>& ns) {

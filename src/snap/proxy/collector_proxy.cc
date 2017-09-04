@@ -71,7 +71,7 @@ Status CollectorImpl::CollectMetrics(ServerContext* context,
 Status CollectorImpl::GetMetricTypes(ServerContext* context,
                                     const GetMetricTypesArg* req,
                                     MetricsReply* resp) {
-    Plugin::Config cfg(req->config());
+    Plugin::Config cfg(const_cast<rpc::ConfigMap&>(req->config()));
 
     try {
         std::vector<Metric> metrics = collector->get_metric_types(cfg);
